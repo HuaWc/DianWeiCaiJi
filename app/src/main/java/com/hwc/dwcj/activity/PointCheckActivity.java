@@ -218,7 +218,7 @@ public class PointCheckActivity extends BaseActivity {
                     ivTabMain.setImageResource(R.mipmap.dts);
                     ivTabMain2.setImageResource(R.mipmap.da);
                     ivTabMain3.setImageResource(R.mipmap.sp);
-                    ivTabMine.setImageResource(R.mipmap.sz);
+                    ivTabMine.setImageResource(R.mipmap.dwcj);
 
                     tvTabMain.setTextColor(getResources().getColor(R.color.homeblue));
                     tvTabMain2.setTextColor(getResources().getColor(R.color.homegray));
@@ -229,7 +229,7 @@ public class PointCheckActivity extends BaseActivity {
                     ivTabMain.setImageResource(R.mipmap.dt);
                     ivTabMain2.setImageResource(R.mipmap.das);
                     ivTabMain3.setImageResource(R.mipmap.sp);
-                    ivTabMine.setImageResource(R.mipmap.sz);
+                    ivTabMine.setImageResource(R.mipmap.dwcj);
 
                     tvTabMain.setTextColor(getResources().getColor(R.color.homegray));
                     tvTabMain2.setTextColor(getResources().getColor(R.color.homeblue));
@@ -240,7 +240,7 @@ public class PointCheckActivity extends BaseActivity {
                     ivTabMain.setImageResource(R.mipmap.dt);
                     ivTabMain2.setImageResource(R.mipmap.da);
                     ivTabMain3.setImageResource(R.mipmap.sps);
-                    ivTabMine.setImageResource(R.mipmap.sz);
+                    ivTabMine.setImageResource(R.mipmap.dwcj);
 
                     tvTabMain.setTextColor(getResources().getColor(R.color.homegray));
                     tvTabMain2.setTextColor(getResources().getColor(R.color.homegray));
@@ -251,7 +251,7 @@ public class PointCheckActivity extends BaseActivity {
                     ivTabMain.setImageResource(R.mipmap.dt);
                     ivTabMain2.setImageResource(R.mipmap.da);
                     ivTabMain3.setImageResource(R.mipmap.sp);
-                    ivTabMine.setImageResource(R.mipmap.szs);
+                    ivTabMine.setImageResource(R.mipmap.dwcjs);
 
                     tvTabMain.setTextColor(getResources().getColor(R.color.homegray));
                     tvTabMine.setTextColor(getResources().getColor(R.color.homeblue));

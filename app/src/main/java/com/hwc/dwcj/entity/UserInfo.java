@@ -17,6 +17,15 @@ public class UserInfo implements Serializable {
     private String token;
     private long loginTime;
     private long expireTime;
+    private boolean isRemember;
+
+    public boolean isRemember() {
+        return isRemember;
+    }
+
+    public void setRemember(boolean remember) {
+        isRemember = remember;
+    }
 
     public String getId() {
         return id;

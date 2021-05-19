@@ -120,10 +120,9 @@ public class LoginActivity extends BaseActivity {
                 hideSoftKeyboard();
                 if (userInfo != null) {
                     //储存用户信息
-                    if (isRemember){
-                        MyApplication.getInstance().cleanUserInfo();
-                        MyApplication.getInstance().saveUserInfo(userInfo);
-                    }
+                    userInfo.setRemember(isRemember);
+                    MyApplication.getInstance().cleanUserInfo();
+                    MyApplication.getInstance().saveUserInfo(userInfo);
                     toTheActivity(MainActivity.class);
                     finish();
                 } else {

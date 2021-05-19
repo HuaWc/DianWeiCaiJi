@@ -73,6 +73,8 @@ public class AuditDetailUserActivity extends BaseActivity {
     TextView tvCb;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.bar)
+    View bar;
 
 
     private String uuid;
@@ -88,6 +90,8 @@ public class AuditDetailUserActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }
@@ -175,8 +179,12 @@ public class AuditDetailUserActivity extends BaseActivity {
         tvCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (StringUtil.isEmpty(auditUserEntity.getCamera().getPositionCode())) {
+                    Toast.makeText(AuditDetailUserActivity.this, "生成失败，杆件编码为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(AuditDetailUserActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
-                Bitmap bitmap = EncodingHandler.createQRCode(uuid, 143, 143, null);
+                Bitmap bitmap = EncodingHandler.createQRCode(auditUserEntity.getCamera().getPositionCode(), 143, 143, null);
                 if (bitmap != null) {
                     AuditDetailUserActivity.this.runOnUiThread(new Runnable() {
                         @Override

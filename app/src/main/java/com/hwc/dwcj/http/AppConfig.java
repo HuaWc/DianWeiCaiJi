@@ -159,9 +159,20 @@ public class AppConfig {
      */
     public static final String getCamera = mainUrl + "v1/operation/getCamera";
 
+    /**
+     * 单图上传ftp .返回ftp中存储路径
+     */
+    public static final String upload = mainUrl + "v1/operation/upload";
 
+    /**
+     * 单图删除ftp .参数:图片存储的路径,返回boolean值
+     */
+    public static final String deleteFile = mainUrl + "v1/operation/deleteFile";
 
-
+    /**
+     * 根据相机Id修改相机信息 CURRENT_STATUS属性 =1
+     */
+    public static final String updateCamera = mainUrl + "v1/operation/updateCamera";
 
 
 

@@ -134,6 +134,8 @@ public class AuditDetailAdminActivity extends BaseActivity {
     LinearLayout llBtn;
     @BindView(R.id.tv_spbh)
     TextView tvSpbh;
+    @BindView(R.id.bar)
+    View bar;
 
     private String cameraId;
     private PtCameraInfo entity;
@@ -160,6 +162,8 @@ public class AuditDetailAdminActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }

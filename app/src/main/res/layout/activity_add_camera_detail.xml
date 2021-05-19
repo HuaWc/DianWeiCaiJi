@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_bar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,8 +14,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -1908,8 +1909,8 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="end"
                                 android:layout_marginTop="10dp"
-                                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
                                 android:background="@drawable/app_edit"
+                                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
                                 android:gravity="center_vertical"
                                 android:singleLine="true"
                                 android:text=""
@@ -2004,8 +2005,8 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="end"
                                 android:layout_marginTop="10dp"
-                                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
                                 android:background="@drawable/app_edit"
+                                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
                                 android:gravity="center_vertical"
                                 android:singleLine="true"
                                 android:text=""
@@ -2476,11 +2477,11 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -2571,11 +2572,11 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="0dp"

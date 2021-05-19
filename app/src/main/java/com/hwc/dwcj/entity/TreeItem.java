@@ -3,18 +3,10 @@ package com.hwc.dwcj.entity;
 import java.util.List;
 
 public class TreeItem {
+
     private String titleName;
     private String titleNumber;
     private List<OrgUtils> orgUtils;
-    private boolean isSelected;
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
 
     public String getTitleName() {
         return titleName;
@@ -41,19 +33,10 @@ public class TreeItem {
     }
 
     public static class OrgUtils {
-        private boolean isSelected;
         private String orgName;
         private String orgNumber;
         private String orgCode;
-        private List<CameraInfosList> cameraInfosList;
-
-        public boolean isSelected() {
-            return isSelected;
-        }
-
-        public void setSelected(boolean selected) {
-            isSelected = selected;
-        }
+        private Object cameraInfosList;
 
         public String getOrgName() {
             return orgName;
@@ -79,69 +62,12 @@ public class TreeItem {
             this.orgCode = orgCode;
         }
 
-        public List<CameraInfosList> getCameraInfosList() {
+        public Object getCameraInfosList() {
             return cameraInfosList;
         }
 
-        public void setCameraInfosList(List<CameraInfosList> cameraInfosList) {
+        public void setCameraInfosList(Object cameraInfosList) {
             this.cameraInfosList = cameraInfosList;
-        }
-
-        public static class CameraInfosList {
-            private String id;
-            private String positionCode;
-            private String cameraCode;
-            private String cameraName;
-            private String longitude;
-            private String latitude;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getPositionCode() {
-                return positionCode;
-            }
-
-            public void setPositionCode(String positionCode) {
-                this.positionCode = positionCode;
-            }
-
-            public String getCameraCode() {
-                return cameraCode;
-            }
-
-            public void setCameraCode(String cameraCode) {
-                this.cameraCode = cameraCode;
-            }
-
-            public String getCameraName() {
-                return cameraName;
-            }
-
-            public void setCameraName(String cameraName) {
-                this.cameraName = cameraName;
-            }
-
-            public String getLongitude() {
-                return longitude;
-            }
-
-            public void setLongitude(String longitude) {
-                this.longitude = longitude;
-            }
-
-            public String getLatitude() {
-                return latitude;
-            }
-
-            public void setLatitude(String latitude) {
-                this.latitude = latitude;
-            }
         }
     }
 }

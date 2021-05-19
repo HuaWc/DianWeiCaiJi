@@ -27,8 +27,6 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +54,8 @@ public class DossierNextFragment extends BaseFragment {
 
     List<DAChildItem> mList;
     DAChildItemAdapter mAdapter;
+    @BindView(R.id.bar)
+    View bar;
     private String positionName;
     private String orgName;
     private String describe;
@@ -70,6 +70,8 @@ public class DossierNextFragment extends BaseFragment {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }

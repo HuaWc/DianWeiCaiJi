@@ -19,16 +19,12 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.AuditDetailAdminActivity;
-import com.hwc.dwcj.activity.AuditDetailUserActivity;
 import com.hwc.dwcj.adapter.SPItemAdapter;
 import com.hwc.dwcj.base.BaseFragment;
-import com.hwc.dwcj.entity.DWItem;
 import com.hwc.dwcj.entity.SPItem;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
-import com.hwc.dwcj.interfaces.PickerViewSelectTimeResult;
-import com.hwc.dwcj.util.PickerViewUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -90,6 +86,8 @@ public class AuditFragment extends BaseFragment {
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.bar)
+    View bar;
 
 
     private List<SPItem> mList;
@@ -115,6 +113,8 @@ public class AuditFragment extends BaseFragment {
      */
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
         //getRole();
@@ -169,7 +169,7 @@ public class AuditFragment extends BaseFragment {
         mList = new ArrayList<>();
         spItemAdapter = new SPItemAdapter(mList, new SPItemAdapter.SPChildClickListener() {
             @Override
-            public void look(String positionName,SPItem.CameraInfoList c) {
+            public void look(String positionName, SPItem.CameraInfoList c) {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", c.getId());
                 bundle.putString("positionName", positionName);

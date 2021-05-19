@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,9 +50,11 @@ import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterMapSearchItem;
-import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.adapter.NewTreeAdapter;
 import com.hwc.dwcj.base.BaseFragment;
 import com.hwc.dwcj.entity.MapSearchItem;
+import com.hwc.dwcj.entity.NewTreeItem;
+import com.hwc.dwcj.entity.TreeCamera;
 import com.hwc.dwcj.entity.TreeItem;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -63,9 +64,6 @@ import com.hwc.dwcj.map.ClusterItem;
 import com.hwc.dwcj.map.ClusterOverlay;
 import com.hwc.dwcj.map.ClusterRender;
 import com.hwc.dwcj.map.RegionItem;
-import com.hwc.dwcj.tree.TreeAdapter;
-import com.hwc.dwcj.tree.TreePoint;
-import com.hwc.dwcj.tree.TreeUtils;
 import com.hwc.dwcj.util.GDLocationUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
@@ -75,7 +73,6 @@ import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,8 +129,6 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     CardView cvSearchRelative;
     @BindView(R.id.ll_3)
     LinearLayout ll3;
-    @BindView(R.id.lv_jg)
-    ListView lvJg;
 
 
     private AMap mAMap;
@@ -150,14 +145,12 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     private BitmapDescriptor ICON_YELLOW = BitmapDescriptorFactory
             .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
 
-    private List<TreeItem> items;
-    private List<TreePoint> pointList;
-    private HashMap<String, TreePoint> pointMap;
-    private TreeAdapter adapter;
-
 
     private List<MapSearchItem> searchItems;
     private AdapterMapSearchItem adapterMapSearchItem;
+
+    private List<NewTreeItem> treeItems;
+    private NewTreeAdapter treeAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -200,128 +193,123 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
             }
         });
 
-        items = new ArrayList<>();
-        pointList = new ArrayList<>();
-        pointMap = new HashMap<>();
-        adapter = new TreeAdapter(mContext, pointList, pointMap);
-        lvJg.setAdapter(adapter);
-        lvJg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        treeItems = new ArrayList<>();
+        treeAdapter = new NewTreeAdapter(treeItems);
+        rvJg.setLayoutManager(new LinearLayoutManager(mContext));
+        rvJg.setAdapter(treeAdapter);
+        treeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                adapter.onItemClick(position);
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (treeItems.get(position).getLevel()) {
+                    case 1:
+                        treeItems.get(position).setExpand(!treeItems.get(position).isExpand());
+                        if (treeItems.get(position).isExpand()) {
+                            //收缩到打开
+                            for (NewTreeItem item : treeItems) {
+                                if (item.getParentId() == treeItems.get(position).getId()) {
+                                    item.setVisible(true);
+                                }
+                            }
+                        } else {
+                            //打开到收缩
+                            for (NewTreeItem item : treeItems) {
+                                if (item.getParentId() == treeItems.get(position).getId()) {
+                                    item.setVisible(false);
+                                }
+                            }
+                        }
+                        treeAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        //先判断那没拿数据
+                        if (treeItems.get(position).isHaveGet()) {
+                            treeItems.get(position).setExpand(!treeItems.get(position).isExpand());
+                            treeAdapter.notifyItemChanged(position);
+                        } else {
+                            getThirdTreeData(position);
+                        }
+                        break;
+                }
             }
         });
-        //getTreeData();
+        getTreeData();
     }
 
     private void getTreeData() {
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("selectAll", true);
+        // hashMap.put("selectAll", false);
         ApiClient.requestNetPost(getContext(), AppConfig.tree, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<TreeItem> list = FastJsonUtil.getList(json, TreeItem.class);
                 if (list != null) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            pointList.clear();
-                            int id = 1000;
-                            int parentId = 0;
-                            int parentId2 = 0;
-                            int parentId3 = 0;
-                            for (int i = 0; i < list.size(); i++) {
-                                id++;
-                                pointList.add(new TreePoint("" + id, list.get(i).getTitleName() + "(" + list.get(i).getTitleNumber() + ")", "" + parentId, "0", i + 1));
-                                if (list.get(i).getOrgUtils() != null) {
-                                    for (int i1 = 0; i1 < list.get(i).getOrgUtils().size(); i1++) {
-
-                                        if (i1 == 0) {
-                                            parentId2 = id;
-                                        }
-                                        id++;
-                                        pointList.add(new TreePoint("" + id, list.get(i).getOrgUtils().get(i1).getOrgName() + "(" + list.get(i).getOrgUtils().get(i1).getOrgNumber() + ")", "" + parentId2, "0", i1 + 1));
-                                        if (list.get(i).getOrgUtils().get(i1).getCameraInfosList() != null) {
-                                            for (int k = 0; k < list.get(i).getOrgUtils().get(i1).getCameraInfosList().size(); k++) {
-                                                if (k == 0) {
-                                                    parentId3 = id;
-                                                }
-                                                id++;
-                                                TreePoint treePoint = new TreePoint("" + id, list.get(i).getOrgUtils().get(i1).getCameraInfosList().get(k).getCameraName(), "" + parentId3, "1", k + 1);
-                                                treePoint.setCameraid(list.get(i).getOrgUtils().get(i1).getCameraInfosList().get(k).getId());
-                                                treePoint.setLatitude(Double.parseDouble(list.get(i).getOrgUtils().get(i1).getCameraInfosList().get(k).getLatitude()));
-                                                treePoint.setLongitude(Double.parseDouble(list.get(i).getOrgUtils().get(i1).getCameraInfosList().get(k).getLongitude()));
-                                                pointList.add(treePoint);
-                                                /*for (int aa = 0; aa < 10000; aa++) {
-                                                    pointList.add(treePoint);
-                                                }*/
-                                            }
-                                        }
-                                    }
-                                }
-                                //打乱集合中的数据
-                                Collections.shuffle(pointList);
-                                //对集合中的数据重新排序
-                                updateData();
-                            }
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
+                    //加工数据
+                    handleData(list);
                 }
             }
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
             }
         });
     }
 
-    //对数据排序 深度优先
-    private void updateData() {
-        for (TreePoint treePoint : pointList) {
-            pointMap.put(treePoint.getID(), treePoint);
-        }
-        Collections.sort(pointList, new Comparator<TreePoint>() {
-            @Override
-            public int compare(TreePoint lhs, TreePoint rhs) {
-                int llevel = TreeUtils.getLevel(lhs, pointMap);
-                int rlevel = TreeUtils.getLevel(rhs, pointMap);
-
-                if (lhs == rhs) {
-                    return 0;
-                } else {
-                    if (llevel == rlevel) {
-                        if (lhs.getPARENTID().equals(rhs.getPARENTID())) {  //左边小
-                            return lhs.getDISPLAY_ORDER() > rhs.getDISPLAY_ORDER() ? 1 : -1;
-                        } else {  //如果父辈id不相等
-                            //同一级别，不同父辈
-                            TreePoint ltreePoint = TreeUtils.getTreePoint(lhs.getPARENTID(), pointMap);
-                            TreePoint rtreePoint = TreeUtils.getTreePoint(rhs.getPARENTID(), pointMap);
-                            return compare(ltreePoint, rtreePoint);  //父辈
-                        }
-                    } else {  //不同级别
-                        if (llevel > rlevel) {   //左边级别大       左边小
-                            if (lhs.getPARENTID().equals(rhs.getID())) {
-                                return 1;
-                            } else {
-                                TreePoint lreasonTreePoint = TreeUtils.getTreePoint(lhs.getPARENTID(), pointMap);
-                                return compare(lreasonTreePoint, rhs);
-                            }
-                        } else {   //右边级别大   右边小
-                            if (rhs.getPARENTID().equals(lhs.getID())) {
-                                return -1;
-                            }
-                            TreePoint rreasonTreePoint = TreeUtils.getTreePoint(rhs.getPARENTID(), pointMap);
-                            return compare(lhs, rreasonTreePoint);
-                        }
-                    }
+    private void handleData(List<TreeItem> list) {
+        int id = 1;
+        for (int i = 0; i < list.size(); i++) {
+            NewTreeItem newTreeItem = new NewTreeItem();
+            newTreeItem.setId(id);
+            newTreeItem.setLevel(1);
+            newTreeItem.setVisible(true);
+            newTreeItem.setName(list.get(i).getTitleName() + "(" + list.get(i).getTitleNumber() + ")");
+            treeItems.add(newTreeItem);
+            if (list.get(i).getOrgUtils() != null && list.get(i).getOrgUtils().size() != 0) {
+                for (int j = 0; j < list.get(i).getOrgUtils().size(); j++) {
+                    NewTreeItem newTreeItem2 = new NewTreeItem();
+                    newTreeItem2.setParentId(id);
+                    newTreeItem2.setLevel(2);
+                    newTreeItem2.setName(list.get(i).getOrgUtils().get(j).getOrgName() + "(" + list.get(i).getOrgUtils().get(j).getOrgNumber() + ")");
+                    newTreeItem2.setOrgCode(list.get(i).getOrgUtils().get(j).getOrgCode());
+                    treeItems.add(newTreeItem2);
                 }
+            }
+            id++;
+        }
+        treeAdapter.notifyDataSetChanged();
 
+    }
+
+    private void getThirdTreeData(int position) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("orgCode", treeItems.get(position).getOrgCode());
+        ApiClient.requestNetPost(getContext(), AppConfig.treeThree, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                treeItems.get(position).setExpand(true);
+                treeItems.get(position).setHaveGet(true);
+                List<TreeCamera> list = FastJsonUtil.getList(json, TreeCamera.class);
+                if (list != null && list.size() != 0) {
+                    //装配第三级数据
+                    if (treeItems.get(position).getCameraList() == null) {
+                        treeItems.get(position).setCameraList(new ArrayList<>());
+                        treeItems.get(position).getCameraList().addAll(list);
+                    } else {
+                        treeItems.get(position).getCameraList().addAll(list);
+                    }
+                    treeAdapter.notifyItemChanged(position);
+                }
+            }
+
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
 
             }
         });
-        adapter.notifyDataSetChanged();
     }
+
 
     private void initClick() {
         if (bar != null) {
@@ -533,6 +521,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
      */
     @Override
     protected void onEventComing(EventCenter center) {
+
     }
 
     /**
@@ -567,7 +556,6 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         mAMap = null;
         unbinder.unbind();
     }
-
 
 
     public void locateTo(double lat, double lon) {

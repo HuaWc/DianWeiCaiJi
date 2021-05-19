@@ -30,4 +30,6 @@
     <color name="sp_status_red">#F28585</color>
     <color name="sp_status_green">#4BC470</color>
     <color name="sp_status_gray">#9F9F9F</color>
+
+    <color name="main_bar_color">#4F77E1</color>
 </resources>

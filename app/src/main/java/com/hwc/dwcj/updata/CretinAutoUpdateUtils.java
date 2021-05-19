@@ -646,7 +646,7 @@ public class CretinAutoUpdateUtils {
                     if (iconRes != 0) {
                         progressDialog.setIcon(iconRes);
                     } else {
-                        progressDialog.setIcon(R.mipmap.ic_launcher1);
+                        progressDialog.setIcon(R.mipmap.app_logo);
                     }
                     progressDialog.setTitle("正在更新...");
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);//设置进度条对话框//样式（水平，旋转）

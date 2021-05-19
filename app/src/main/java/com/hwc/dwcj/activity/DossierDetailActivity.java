@@ -23,7 +23,6 @@ import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -116,6 +115,8 @@ public class DossierDetailActivity extends BaseActivity {
     RecyclerView rvTzzp;
     @BindView(R.id.rv_qjzp)
     RecyclerView rvQjzp;
+    @BindView(R.id.bar)
+    View bar;
 
     private PtCameraInfo entityInfo;
     private String cameraId;
@@ -140,6 +141,8 @@ public class DossierDetailActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }
@@ -154,8 +157,12 @@ public class DossierDetailActivity extends BaseActivity {
         tvCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (StringUtil.isEmpty(entityInfo.getPositionCode())) {
+                    Toast.makeText(DossierDetailActivity.this, "生成失败，杆件编码为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(DossierDetailActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
-                Bitmap bitmap = EncodingHandler.createQRCode(cameraId, 143, 143, null);
+                Bitmap bitmap = EncodingHandler.createQRCode(entityInfo.getPositionCode(), 143, 143, null);
                 if (bitmap != null) {
                     DossierDetailActivity.this.runOnUiThread(new Runnable() {
                         @Override
@@ -214,7 +221,7 @@ public class DossierDetailActivity extends BaseActivity {
         ApiClient.requestNetPost(this, AppConfig.selectCamera, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ptCameraInfo"), PtCameraInfo.class);
+                entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "ptCameraInfo"), PtCameraInfo.class);
                 networkProperties = FastJsonUtil.getString(json, "networkProperties");
                 powerTakeType = FastJsonUtil.getString(json, "powerTakeType");
 //                applicantTel = FastJsonUtil.getString(json, "applicantTel");

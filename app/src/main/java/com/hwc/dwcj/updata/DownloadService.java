@@ -60,7 +60,7 @@ public class DownloadService extends Service {
                     if (intent.getIntExtra("icRes", 0) != 0) {
                         builder.setSmallIcon(intent.getIntExtra("icRes", 0));
                     } else {
-                        builder.setSmallIcon(R.mipmap.ic_launcher1); //设置图标
+                        builder.setSmallIcon(R.mipmap.app_logo); //设置图标
                     }
                     RemoteViews contentView = new RemoteViews(mContext.getPackageName(), R.layout.layout_notification);
                     if (TextUtils.isEmpty(appName))

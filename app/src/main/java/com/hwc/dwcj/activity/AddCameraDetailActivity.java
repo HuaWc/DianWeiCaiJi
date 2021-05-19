@@ -40,6 +40,8 @@ import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -187,17 +189,20 @@ public class AddCameraDetailActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.bar)
+    View bar;
     private CommonImageAdapter adapter1;
     private CommonImageAdapter adapter2;
     private CommonImageAdapter adapter3;
 
-    private List<String> img1;
-    private List<String> img2;
-    private List<String> img3;
+    private List<String> img1;//用于展示
+    private List<String> img2;//用于展示
+    private List<String> img3;//用于展示
 
-    private List<File> images1;
-    private List<File> images2;
-    private List<File> images3;
+    private List<String> images1;//用于接口
+    private List<String> images2;//用于接口
+    private List<String> images3;//用于接口
+
     private List<LocalMedia> images;
 
 
@@ -279,6 +284,8 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
         if (!isEdit) {
@@ -290,6 +297,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             }
             getDictData();
         } else {
+            tvTitle.setText("修  改");
             etDwmc.setText(positionName);
             getData();
         }
@@ -453,7 +461,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjbmgs = new ArrayList<>();
         for (CameraDictData.PTCAMERAENCODETYPE item : dictData.getPT_CAMERA_ENCODE_TYPE()) {
             sxjbmgs.add(item.getDataName());
-            if(!StringUtil.isEmpty(sxjbmgsStr) && sxjbmgsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sxjbmgsStr) && sxjbmgsStr.equals(item.getDataValue())) {
                 tvSelectSxjbmgs.setText(item.getDataValue());
             }
         }
@@ -461,7 +469,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjfbl = new ArrayList<>();
         for (CameraDictData.PTRESOLUTION item : dictData.getPT_RESOLUTION()) {
             sxjfbl.add(item.getDataName());
-            if(!StringUtil.isEmpty(sxjfblStr) && sxjfblStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sxjfblStr) && sxjfblStr.equals(item.getDataValue())) {
                 tvSelectSxjfbl.setText(item.getDataValue());
             }
         }
@@ -469,7 +477,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         psfx = new ArrayList<>();
         for (CameraDictData.PTCAMERADIRECTION item : dictData.getPT_CAMERA_DIRECTION()) {
             psfx.add(item.getDataName());
-            if(!StringUtil.isEmpty(psfxStr) && psfxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(psfxStr) && psfxStr.equals(item.getDataValue())) {
                 tvSelectPsfx.setText(item.getDataValue());
             }
         }
@@ -478,7 +486,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         ssfj = new ArrayList<>();
         for (CameraDictData.PTFENJU item : dictData.getPT_FEN_JU()) {
             ssfj.add(item.getDataName());
-            if(!StringUtil.isEmpty(ssfjStr) && ssfjStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(ssfjStr) && ssfjStr.equals(item.getDataValue())) {
                 tvSelectSsfj.setText(item.getDataValue());
             }
         }
@@ -486,7 +494,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         lwfs = new ArrayList<>();
         for (CameraDictData.PTNETWORKPROPERTIES item : dictData.getPT_NETWORK_PROPERTIES()) {
             lwfs.add(item.getDataName());
-            if(!StringUtil.isEmpty(lwfsStr) && lwfsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(lwfsStr) && lwfsStr.equals(item.getDataValue())) {
                 tvSelectLwfs.setText(item.getDataValue());
             }
         }
@@ -494,7 +502,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         qdfs = new ArrayList<>();
         for (CameraDictData.PTPOWERTAKETYPE item : dictData.getPT_POWER_TAKE_TYPE()) {
             qdfs.add(item.getDataName());
-            if(!StringUtil.isEmpty(qdfsStr) && qdfsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(qdfsStr) && qdfsStr.equals(item.getDataValue())) {
                 tvSelectQdfs.setText(item.getDataValue());
             }
         }
@@ -502,7 +510,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sbzt = new ArrayList<>();
         for (CameraDictData.PTDEVICESTATE item : dictData.getPT_DEVICE_STATE()) {
             sbzt.add(item.getDataName());
-            if(!StringUtil.isEmpty(sbztStr) && sbztStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sbztStr) && sbztStr.equals(item.getDataValue())) {
                 tvSelectSbzt.setText(item.getDataValue());
             }
         }
@@ -510,7 +518,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sbcs = new ArrayList<>();
         for (CameraDictData.PTMANUFACTURER item : dictData.getPT_MANUFACTURER()) {
             sbcs.add(item.getDataName());
-            if(!StringUtil.isEmpty(sbcsStr) && sbcsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sbcsStr) && sbcsStr.equals(item.getDataValue())) {
                 tvSelectSbcs.setText(item.getDataValue());
             }
         }
@@ -518,7 +526,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjlx = new ArrayList<>();
         for (CameraDictData.PTCAMERATYPE item : dictData.getPT_CAMERA_TYPE()) {
             sxjlx.add(item.getDataName());
-            if(!StringUtil.isEmpty(sxjlxStr) && sxjlxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sxjlxStr) && sxjlxStr.equals(item.getDataValue())) {
                 tvSelectSxjlx.setText(item.getDataValue());
             }
         }
@@ -526,7 +534,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjgnlx = new ArrayList<>();
         for (CameraDictData.PTCAMERAFUNTYPE item : dictData.getPT_CAMERA_FUN_TYPE()) {
             sxjgnlx.add(item.getDataName());
-            if(!StringUtil.isEmpty(sxjgnlxStr) && sxjgnlxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sxjgnlxStr) && sxjgnlxStr.equals(item.getDataValue())) {
                 tvSelectSxjgnlx.setText(item.getDataValue());
             }
         }
@@ -534,7 +542,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjwzlx = new ArrayList<>();
         for (CameraDictData.PTCAMERAPOSITIONTYPE item : dictData.getPT_CAMERA_POSITION_TYPE()) {
             sxjwzlx.add(item.getDataName());
-            if(!StringUtil.isEmpty(sxjwzlxStr) && sxjwzlxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sxjwzlxStr) && sxjwzlxStr.equals(item.getDataValue())) {
                 tvSelectSxjwzlx.setText(item.getDataValue());
             }
         }
@@ -542,7 +550,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         azwz = new ArrayList<>();
         for (CameraDictData.PTINDOORORNOT item : dictData.getPT_INDOOR_OR_NOT()) {
             azwz.add(item.getDataName());
-            if(!StringUtil.isEmpty(azwzStr) && azwzStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(azwzStr) && azwzStr.equals(item.getDataValue())) {
                 tvSelectAzwz.setText(item.getDataValue());
             }
         }
@@ -550,7 +558,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         ssbmhy = new ArrayList<>();
         for (CameraDictData.PTDEPARTMENT item : dictData.getPT_DEPARTMENT()) {
             ssbmhy.add(item.getDataName());
-            if(!StringUtil.isEmpty(ssbmhyStr) && ssbmhyStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(ssbmhyStr) && ssbmhyStr.equals(item.getDataValue())) {
                 tvSelectSsbmhy.setText(item.getDataValue());
             }
         }
@@ -558,7 +566,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         xzqy = new ArrayList<>();
         for (CameraDictData.PTADMINISTRATIVEEREA item : dictData.getPT_ADMINISTRATIVE_EREA()) {
             xzqy.add(item.getDataName());
-            if(!StringUtil.isEmpty(xzqyStr) && xzqyStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(xzqyStr) && xzqyStr.equals(item.getDataValue())) {
                 tvSelectXzqy.setText(item.getDataValue());
             }
         }
@@ -566,7 +574,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         hb = new ArrayList<>();
         for (CameraDictData.PTCROSSARM1 item : dictData.getPT_CROSS_ARM1()) {
             hb.add(item.getDataName());
-            if(!StringUtil.isEmpty(hbStr) && hbStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(hbStr) && hbStr.equals(item.getDataValue())) {
                 tvSelectHb.setText(item.getDataValue());
             }
         }
@@ -574,7 +582,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         dwjklx = new ArrayList<>();
         for (CameraDictData.PTMONITORTYPE item : dictData.getPT_MONITOR_TYPE()) {
             dwjklx.add(item.getDataName());
-            if(!StringUtil.isEmpty(dwjklxStr) && dwjklxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(dwjklxStr) && dwjklxStr.equals(item.getDataValue())) {
                 tvSelectDwjklx.setText(item.getDataValue());
             }
         }
@@ -582,7 +590,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         bgsx = new ArrayList<>();
         for (CameraDictData.PTFILLLIGTHATTR item : dictData.getPT_FILL_LIGTH_ATTR()) {
             bgsx.add(item.getDataName());
-            if(!StringUtil.isEmpty(bgsxStr) && bgsxStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(bgsxStr) && bgsxStr.equals(item.getDataValue())) {
                 tvSelectBgsx.setText(item.getDataValue());
             }
         }
@@ -590,7 +598,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         sfysyq = new ArrayList<>();
         for (CameraDictData.PTSOUNDALARM item : dictData.getPT_SOUND_ALARM()) {
             sfysyq.add(item.getDataName());
-            if(!StringUtil.isEmpty(sfysyqStr) && sfysyqStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(sfysyqStr) && sfysyqStr.equals(item.getDataValue())) {
                 tvSelectSfysyq.setText(item.getDataValue());
             }
         }
@@ -598,7 +606,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         lxbcts = new ArrayList<>();
         for (CameraDictData.PTRECODESAVETYPE item : dictData.getPT_RECODE_SAVE_TYPE()) {
             lxbcts.add(item.getDataName());
-            if(!StringUtil.isEmpty(lxbctsStr) && lxbctsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(lxbctsStr) && lxbctsStr.equals(item.getDataValue())) {
                 tvSelectLxbcts.setText(item.getDataValue());
             }
         }
@@ -606,7 +614,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         jsqs = new ArrayList<>();
         for (CameraDictData.PTBUILDPERIOD item : dictData.getPT_BUILD_PERIOD()) {
             jsqs.add(item.getDataName());
-            if(!StringUtil.isEmpty(jsqsStr) && jsqsStr.equals(item.getDataValue())){
+            if (!StringUtil.isEmpty(jsqsStr) && jsqsStr.equals(item.getDataValue())) {
                 tvSelectJsqs.setText(item.getDataValue());
             }
         }
@@ -719,7 +727,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_select_sxjbmgs,R.id.tv_select_sxjfbl,R.id.tv_select_psfx, R.id.tv_select_ssfj, R.id.tv_select_sspcs, R.id.tv_select_lwfs, R.id.tv_select_qdfs, R.id.tv_select_sbzt, R.id.tv_select_sbcs, R.id.tv_select_sxjlx, R.id.tv_select_sxjgnlx, R.id.tv_select_sxjwzlx, R.id.tv_select_azwz, R.id.tv_select_sfzddw, R.id.tv_select_ssbmhy, R.id.tv_select_xzqy, R.id.tv_select_hb, R.id.tv_select_dwjklx, R.id.tv_select_bgsx, R.id.tv_select_sfysyq, R.id.tv_select_azsj, R.id.tv_select_lxbcts, R.id.tv_select_jsqs})
+    @OnClick({R.id.tv_select_sxjbmgs, R.id.tv_select_sxjfbl, R.id.tv_select_psfx, R.id.tv_select_ssfj, R.id.tv_select_sspcs, R.id.tv_select_lwfs, R.id.tv_select_qdfs, R.id.tv_select_sbzt, R.id.tv_select_sbcs, R.id.tv_select_sxjlx, R.id.tv_select_sxjgnlx, R.id.tv_select_sxjwzlx, R.id.tv_select_azwz, R.id.tv_select_sfzddw, R.id.tv_select_ssbmhy, R.id.tv_select_xzqy, R.id.tv_select_hb, R.id.tv_select_dwjklx, R.id.tv_select_bgsx, R.id.tv_select_sfysyq, R.id.tv_select_azsj, R.id.tv_select_lxbcts, R.id.tv_select_jsqs})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select_sxjbmgs:
@@ -1001,7 +1009,22 @@ public class AddCameraDetailActivity extends BaseActivity {
         ApiClient.requestNetPost(this, AppConfig.getCamera, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ptCameraInfo"), PtCameraInfo.class);
+                entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "ptCameraInfo"), PtCameraInfo.class);
+                String s1 = FastJsonUtil.getString(json, "imgPath");
+                String s2 = FastJsonUtil.getString(json, "locationPhotoPath");
+                String s3 = FastJsonUtil.getString(json, "specialPhotoPath");
+                if (!StringUtil.isEmpty(s1)) {
+                    img1.addAll(Arrays.asList(s1.split(",")));
+                    adapter1.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s2)) {
+                    img1.addAll(Arrays.asList(s1.split(",")));
+                    adapter2.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s3)) {
+                    img1.addAll(Arrays.asList(s1.split(",")));
+                    adapter3.notifyDataSetChanged();
+                }
                 initData();
             }
 
@@ -1075,21 +1098,15 @@ public class AddCameraDetailActivity extends BaseActivity {
         etSpr.setText(StringUtil.isEmpty(entityInfo.getApprovalId()) ? "" : entityInfo.getApprovalId());
         etSprlxfs.setText(StringUtil.isEmpty(entityInfo.getApprovalTel()) ? "" : entityInfo.getApprovalTel());*/
 
-/*        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
-            List<String> photo1 = new ArrayList<>();
-            photo1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split(",")));
-            for()
+        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
+            images1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split(",")));
         }
         if (!StringUtil.isEmpty(entityInfo.getLocationPhotoPath())) {
-            photo2.addAll(Arrays.asList(entityInfo.getLocationPhotoPath().split(",")));
+            images2.addAll(Arrays.asList(entityInfo.getLocationPhotoPath().split(",")));
         }
         if (!StringUtil.isEmpty(entityInfo.getImgPath())) {
-            photo3.addAll(Arrays.asList(entityInfo.getImgPath().split(",")));
+            images3.addAll(Arrays.asList(entityInfo.getImgPath().split(",")));
         }
-        adapter1.notifyDataSetChanged();
-        adapter2.notifyDataSetChanged();
-        adapter3.notifyDataSetChanged();*/
-
         getDictData2();
 
     }
@@ -1167,12 +1184,17 @@ public class AddCameraDetailActivity extends BaseActivity {
         ptCameraInfo.setAddTel(etSbrlxfs.getText().toString());//上报人联系方式
         ptCameraInfo.setApprovalId(etSpr.getText().toString());//审批人
         ptCameraInfo.setApprovalTel(etSprlxfs.getText().toString());//审批人联系方式*/
-
-
+        String url;
+        if (isEdit) {
+            ptCameraInfo.setId(cameraId);
+            url = AppConfig.updateCamera;
+        } else {
+            url = AppConfig.addCamera;
+        }
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("imgFiles", images1);
-        hashMap.put("locationFiles", images2);
-        hashMap.put("specialFiles", images3);
+        hashMap.put("imgFiles", takeImgPathString(images1));
+        hashMap.put("locationFiles", takeImgPathString(images2));
+        hashMap.put("specialFiles", takeImgPathString(images3));
         hashMap.put("handleConnent", "新增摄像机");
         hashMap.put("handleIp", RegularCheckUtil.getIPAddress(this));
         hashMap.put("entity", FastJsonUtil.toJSONString(ptCameraInfo));
@@ -1180,10 +1202,12 @@ public class AddCameraDetailActivity extends BaseActivity {
         hashMap.put("notifyUserId", notifyUserId);
         hashMap.put("currentStatus", currentStatus);
 
-        ApiClient.requestNetPostFile(this, AppConfig.addCamera, "提交中", hashMap, new ResultListener() {
+        ApiClient.requestNetPostFile(this, url, "提交中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
+                EventBus.getDefault().post(new EventCenter(EventUtil.FLUSH_LIST_DW));
+                finish();
             }
 
             @Override
@@ -1192,6 +1216,17 @@ public class AddCameraDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private String takeImgPathString(List<String> list) {
+        StringBuilder img = new StringBuilder();
+        if (list.size() != 0) {
+            for (String s : list) {
+                img.append(s).append(",");
+            }
+            img.deleteCharAt(img.length() - 1);
+        }
+        return img.toString();
     }
 
 
@@ -1324,28 +1359,44 @@ public class AddCameraDetailActivity extends BaseActivity {
                         dialog.dismiss();
                         switch (type) {
                             case 0:
-                                img1.remove(position);
-                                images1.remove(position);
-                                if (img1.size() < num && !img1.contains("")) {
-                                    img1.add("");
-                                }
-                                adapter1.notifyDataSetChanged();
+                                deleteFile(images1.get(position), new DeleteResult() {
+                                    @Override
+                                    public void onSuccess() {
+                                        img1.remove(position);
+                                        images1.remove(position);
+                                        if (img1.size() < num && !img1.contains("")) {
+                                            img1.add("");
+                                        }
+                                        adapter1.notifyDataSetChanged();
+                                    }
+                                });
                                 break;
                             case 1:
-                                img2.remove(position);
-                                images2.remove(position);
-                                if (img2.size() < num && !img2.contains("")) {
-                                    img2.add("");
-                                }
-                                adapter2.notifyDataSetChanged();
+                                deleteFile(images2.get(position), new DeleteResult() {
+                                    @Override
+                                    public void onSuccess() {
+                                        img2.remove(position);
+                                        images2.remove(position);
+                                        if (img2.size() < num && !img2.contains("")) {
+                                            img2.add("");
+                                        }
+                                        adapter2.notifyDataSetChanged();
+                                    }
+                                });
+
                                 break;
                             case 2:
-                                img3.remove(position);
-                                images.remove(position);
-                                if (img3.size() < num && !img3.contains("")) {
-                                    img3.add("");
-                                }
-                                adapter3.notifyDataSetChanged();
+                                deleteFile(images2.get(position), new DeleteResult() {
+                                    @Override
+                                    public void onSuccess() {
+                                        img3.remove(position);
+                                        images3.remove(position);
+                                        if (img3.size() < num && !img3.contains("")) {
+                                            img3.add("");
+                                        }
+                                        adapter3.notifyDataSetChanged();
+                                    }
+                                });
                                 break;
                         }
 
@@ -1353,6 +1404,29 @@ public class AddCameraDetailActivity extends BaseActivity {
                     }
                 })
                 .show();
+    }
+
+    private void deleteFile(String fileName, DeleteResult deleteResult) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("fileName", fileName);
+        ApiClient.requestNetPost(this, AppConfig.deleteFile, "删除中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+                deleteResult.onSuccess();
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+
+    }
+
+    private interface DeleteResult {
+        void onSuccess();
     }
 
     private void showSelectPhotoDialog() {
@@ -1411,15 +1485,15 @@ public class AddCameraDetailActivity extends BaseActivity {
                     switch (type) {
                         case 0:
                             img1.remove("");
-                            showPic(0);
+                            uploadImg(0);
                             break;
                         case 1:
                             img2.remove("");
-                            showPic(0);
+                            uploadImg(0);
                             break;
                         case 2:
                             img3.remove("");
-                            showPic(0);
+                            uploadImg(0);
                             break;
                     }
 
@@ -1433,7 +1507,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     /**
      * 装载图片
      */
-    private void showPic(int i) {
+    private void uploadImg(int i) {
         int in = i + 1;
         if (i == images.size()) {
             //后面没了
@@ -1462,24 +1536,75 @@ public class AddCameraDetailActivity extends BaseActivity {
         }
         switch (type) {
             case 0:
-                images1.add(new File(images.get(i).getPath()));
-                img1.add(images.get(i).getPath());
-                showPic(in);
+                upload(1, new File(images.get(i).getPath()), new UploadResult() {
+                    @Override
+                    public void onSuccess(String imgPath) {
+                        img1.add(images.get(i).getPath());
+                        images1.add(imgPath);
+                        uploadImg(in);
+                    }
+                });
                 break;
             case 1:
-                images2.add(new File(images.get(i).getPath()));
-                img2.add(images.get(i).getPath());
-                showPic(in);
+                upload(2, new File(images.get(i).getPath()), new UploadResult() {
+                    @Override
+                    public void onSuccess(String imgPath) {
+                        img2.add(images.get(i).getPath());
+                        images2.add(imgPath);
+                        uploadImg(in);
+                    }
+                });
                 break;
             case 2:
-                images3.add(new File(images.get(i).getPath()));
-                img3.add(images.get(i).getPath());
-                showPic(in);
+                upload(3, new File(images.get(i).getPath()), new UploadResult() {
+                    @Override
+                    public void onSuccess(String imgPath) {
+                        img3.add(images.get(i).getPath());
+                        images3.add(imgPath);
+                        uploadImg(in);
+                    }
+                });
                 break;
         }
 
-
     }
 
+    private static final String IMG_PATH1 = "IMG_PATH";
+    private static final String IMG_PATH2 = "LOCATION_PHOTO_PATH";
+    private static final String IMG_PATH3 = "SPECIAL_PHOTO_PATH";
+
+    private void upload(int type, File file, UploadResult uploadResult) {
+        Map<String, Object> hashMap = new HashMap<>();
+        switch (type) {
+            case 1:
+                hashMap.put("imgType", IMG_PATH1);
+                break;
+            case 2:
+                hashMap.put("imgType", IMG_PATH2);
+                break;
+            case 3:
+                hashMap.put("imgType", IMG_PATH3);
+                break;
+        }
+        hashMap.put("img", file);
+        ApiClient.requestNetPostFile(this, AppConfig.upload, "上传中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+                if (!StringUtil.isEmpty(json)) {
+                    uploadResult.onSuccess(json);
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+    }
+
+    private interface UploadResult {
+        void onSuccess(String imgPath);
+    }
 
 }

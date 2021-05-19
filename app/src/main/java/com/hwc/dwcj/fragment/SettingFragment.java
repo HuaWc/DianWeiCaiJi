@@ -99,6 +99,8 @@ public class SettingFragment extends BaseFragment {
     LinearLayout all;
     @BindView(R.id.iv_plus)
     ImageView ivPlus;
+    @BindView(R.id.bar)
+    View bar;
 
 
     private List<DWItem> mList;
@@ -123,6 +125,8 @@ public class SettingFragment extends BaseFragment {
      */
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
 

@@ -205,15 +205,8 @@
                             android:id="@+id/rv_jg"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:overScrollMode="never"
-                            android:visibility="gone" />
-
-                        <ListView
-                            android:id="@+id/lv_jg"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:divider="@null"
                             android:overScrollMode="never" />
+
                     </RelativeLayout>
                 </LinearLayout>
 

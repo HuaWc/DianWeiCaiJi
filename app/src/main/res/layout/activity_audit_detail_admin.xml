@@ -5,6 +5,8 @@
     android:background="#f7f7f7"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_bar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,8 +15,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,10 +49,10 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:paddingHorizontal="9dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="9dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -125,10 +126,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:paddingHorizontal="9dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="9dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:text="*"
                             android:textColor="#FF4949"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1335,7 +1336,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="IVP6地址"
+                                android:text="IPV6地址"
                                 android:textColor="#B1B1B1"
                                 android:textSize="15sp" />
 
@@ -2331,9 +2332,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="*"
-                                android:visibility="gone"
                                 android:textColor="#FF4949"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -2382,9 +2383,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="*"
-                                android:visibility="gone"
                                 android:textColor="#FF4949"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -2433,9 +2434,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="*"
-                                android:visibility="gone"
                                 android:textColor="#FF4949"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"

@@ -10,21 +10,18 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterAddCameraChild;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.AddCameraChild;
-import com.hwc.dwcj.entity.DAChildItem;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
-import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +46,8 @@ public class AddCameraActivity extends BaseActivity {
     TextView tvAdd;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.bar)
+    View bar;
 
     private AdapterAddCameraChild adapterAddCameraChild;
     private List<AddCameraChild> addCameraChildList;
@@ -64,6 +63,8 @@ public class AddCameraActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }
@@ -74,6 +75,14 @@ public class AddCameraActivity extends BaseActivity {
         rv.setAdapter(adapterAddCameraChild);
         rv.setLayoutManager(new LinearLayoutManager(this));
         RecyclerViewHelper.recyclerviewAndScrollView(rv);
+        adapterAddCameraChild.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("cameraId", addCameraChildList.get(position).getId());
+                bundle.putString("positionName", positionName);
+            }
+        });
         getData();
     }
 

@@ -361,7 +361,7 @@ public class ApiClient {
             HttpParams params = new HttpParams();
             Map<String, Object> map = new HashMap<>();
             boolean mult = false;
-            /*if (null != mapP && mapP.size() > 0) {
+            if (null != mapP && mapP.size() > 0) {
                 for (String key : mapP.keySet()) {
                     if (mapP.get(key) instanceof File) {
                         List<HttpParams.FileWrapper> list = new ArrayList<>();
@@ -372,8 +372,8 @@ public class ApiClient {
                         map.put(key, mapP.get(key));
                     }
                 }
-            }*/
-            if (null != mapP && mapP.size() > 0) {
+            }
+/*            if (null != mapP && mapP.size() > 0) {
                 for (String key : mapP.keySet()) {
                     if (mapP.get(key) instanceof List<?>) {
                         List<HttpParams.FileWrapper> list = new ArrayList<>();
@@ -385,7 +385,7 @@ public class ApiClient {
                         map.put(key, mapP.get(key));
                     }
                 }
-            }
+            }*/
             OkGo.<String>post(url)
                     .tag(context)
                     .headers("token", MyApplication.getInstance().getToken())

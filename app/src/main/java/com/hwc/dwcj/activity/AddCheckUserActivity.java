@@ -51,6 +51,8 @@ public class AddCheckUserActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.bar)
+    View bar;
 
     private String positionName;
     private String cameraName;
@@ -69,6 +71,8 @@ public class AddCheckUserActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         tvPointName.setText(positionName);
         tvCameraName.setText(cameraName);
         initClick();

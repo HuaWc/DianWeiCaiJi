@@ -54,6 +54,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.base.SelfAppContext;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
@@ -294,6 +295,7 @@ public class MyApplication extends SelfAppContext {
     }
 
     public void toLogin(Context context) {
+        ToastUtil.toast("登录已失效，请您重新登陆~");
         ActivityStackManager.getInstance().killAllActivity();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -341,7 +343,7 @@ public class MyApplication extends SelfAppContext {
                 //设置下载显示形式 对话框或者通知栏显示 二选一
                 .setShowType(CretinAutoUpdateUtils.Builder.TYPE_DIALOG_WITH_PROGRESS)
                 //设置下载时展示的图标
-                .setIconRes(R.mipmap.ic_launcher)
+                .setIconRes(R.mipmap.app_logo)
                 //设置是否打印log日志
                 .showLog(true)
                 //设置请求方式

@@ -51,9 +51,12 @@ public class WelcomeActivity extends BaseActivity {
             public void run() {
                 //do something
                 if (MyApplication.getInstance().checkUser()) {
-                    toTheActivity(MainActivity.class);
-/*                    MyApplication.getInstance().cleanUserInfo();
-                    toTheActivity(LoginActivity.class);*/
+                    if (MyApplication.getInstance().getUserInfo().isRemember()) {
+                        toTheActivity(MainActivity.class);
+                    } else {
+                        MyApplication.getInstance().cleanUserInfo();
+                        toTheActivity(LoginActivity.class);
+                    }
                 } else {
                     MyApplication.getInstance().cleanUserInfo();
                     toTheActivity(LoginActivity.class);

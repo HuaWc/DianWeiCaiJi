@@ -1,7 +1,6 @@
 package com.hwc.dwcj.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +68,8 @@ public class DossierFragment extends BaseFragment {
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.bar)
+    View bar;
 
     private List<DAItem> mList;
     private DAItemAdapter daItemAdapter;
@@ -93,6 +94,8 @@ public class DossierFragment extends BaseFragment {
      */
     @Override
     protected void initLogic() {
+        initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
     }

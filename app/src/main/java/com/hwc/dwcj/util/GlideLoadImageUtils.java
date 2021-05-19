@@ -26,7 +26,7 @@ public class GlideLoadImageUtils {
      */
     public static void GlideLoadImageUtils(Context context, String url, View view) {
         Glide.with(context)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.mipmap.ic_launcher))
+                .setDefaultRequestOptions(new RequestOptions().placeholder(R.mipmap.app_logo))
                 .load(TextUtils.isEmpty(url) ? R.drawable.ic_check : url)
                 .into((ImageView) view);
     }
@@ -58,8 +58,8 @@ public class GlideLoadImageUtils {
      */
     public static void GlideLoadCircleImageUtils(Context context, String url, View view) {
         Glide.with(context)
-                .setDefaultRequestOptions(RequestOptions.circleCropTransform().placeholder(R.mipmap.ic_launcher))
-                .load(TextUtils.isEmpty(url) ? R.mipmap.ic_launcher : url)
+                .setDefaultRequestOptions(RequestOptions.circleCropTransform().placeholder(R.mipmap.app_logo))
+                .load(TextUtils.isEmpty(url) ? R.mipmap.app_logo : url)
                 .into((ImageView) view);
     }
 
