@@ -42,6 +42,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
@@ -139,8 +140,8 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
     private ClusterOverlay mClusterOverlay;
     private Marker centerMarker;
-    private MarkerOptions markerOption = null;
-    private LatLng centerLatLng = null;
+    private MarkerOptions markerOption;
+    private LatLng centerLatLng;
     private List<Marker> markerList = new ArrayList<Marker>();
     private BitmapDescriptor ICON_YELLOW = BitmapDescriptorFactory
             .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
@@ -151,6 +152,8 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
     private List<NewTreeItem> treeItems;
     private NewTreeAdapter treeAdapter;
+
+    private List<Marker> markers = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -166,16 +169,16 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
      */
     @Override
     protected void initLogic() {
-        init();
-        markerOption = new MarkerOptions().draggable(true);
-        mMapView.getViewTreeObserver().addOnGlobalLayoutListener(
+        initNowPosition();
+        /* markerOption = new MarkerOptions().draggable(false);*/
+/*        mMapView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
                         ((ViewGroup) mMapView.getChildAt(0)).getChildAt(1).setVisibility(View.GONE);
                         mMapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
-                });
+                });*/
         initClick();
         initAdapter();
     }
@@ -225,6 +228,13 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                         if (treeItems.get(position).isHaveGet()) {
                             treeItems.get(position).setExpand(!treeItems.get(position).isExpand());
                             treeAdapter.notifyItemChanged(position);
+                            if (treeItems.get(position).isExpand()) {
+                                if (treeItems.get(position).getCameraList() == null || treeItems.get(position).getCameraList().size() == 0) {
+                                    ToastUtil.toast("机构下暂无点位数据！");
+                                } else {
+                                    addCameraPointToMap(position);
+                                }
+                            }
                         } else {
                             getThirdTreeData(position);
                         }
@@ -293,11 +303,12 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     //装配第三级数据
                     if (treeItems.get(position).getCameraList() == null) {
                         treeItems.get(position).setCameraList(new ArrayList<>());
-                        treeItems.get(position).getCameraList().addAll(list);
-                    } else {
-                        treeItems.get(position).getCameraList().addAll(list);
                     }
+                    treeItems.get(position).getCameraList().addAll(list);
                     treeAdapter.notifyItemChanged(position);
+                    addCameraPointToMap(position);
+                } else {
+                    ToastUtil.toast("机构下暂无点位数据！");
                 }
             }
 
@@ -308,6 +319,37 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
             }
         });
+    }
+
+    private void addCameraPointToMap(int position) {
+        if (markers.size() > 0) {
+            for (Marker marker : markers) {
+                marker.destroy();
+            }
+        }
+        if (treeItems.get(position).getCameraList() != null && treeItems.get(position).getCameraList().size() > 0) {
+            boolean haveMove = false;
+            for (TreeCamera t : treeItems.get(position).getCameraList()) {
+                if(StringUtil.isEmpty(t.getLatitude()) || StringUtil.isEmpty(t.getLongitude())){
+                    continue;
+                }
+                if(!haveMove){
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude())),15, 0, 0));
+                    mAMap.moveCamera(cameraUpdate);//地图移向指定区域
+                    haveMove = true;
+                }
+                markerOption = new MarkerOptions();
+                LatLng l = new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude()));
+                markerOption.position(l);
+                markerOption.title("名称：").snippet(t.getCameraName());
+                markerOption.draggable(false);
+                markerOption.setFlat(true);//设置marker平贴地图效果
+                Marker marker= mAMap.addMarker(markerOption);
+                marker.showInfoWindow();
+                markers.add(marker);
+            }
+
+        }
     }
 
 
@@ -445,11 +487,13 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     }
 
 
-    private void init() {
+    private void initNowPosition() {
         if (mAMap == null) {
             // 初始化地图
             mAMap = mMapView.getMap();
-            mAMap.setOnMapLoadedListener(this);
+            UiSettings uiSettings = mAMap.getUiSettings();
+            uiSettings.setZoomControlsEnabled(false);
+            //mAMap.setOnMapLoadedListener(this);
 //            mAMap.setMyLocationEnabled(true);
             PermissionsUtil.requestPermission(getContext(), new PermissionListener() {
                 @Override
@@ -457,10 +501,22 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
                         @Override
                         public void result(AMapLocation location) {
-                            CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 30);
+
+                            //显示定位蓝点
+                            MyLocationStyle myLocationStyle;
+                            myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+                            myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，并且蓝点会跟随设备移动。
+                            myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+                            myLocationStyle.showMyLocation(true);
+                            myLocationStyle.strokeColor(getResources().getColor(R.color.transparent));
+                            myLocationStyle.radiusFillColor(getResources().getColor(R.color.transparent));
+                            myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.dw));
+                            mAMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+                            mAMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+                            //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
+                            CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 0);
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                             mAMap.moveCamera(cameraUpdate);
-                            drawMarkers();
                         }
                     });
                 }
@@ -470,36 +526,19 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     ToastUtil.toast("未开启定位权限");
                 }
             }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
-//            CameraPosition cameraPosition = new CameraPosition(new LatLng(31.830596, 117.254799), 15, 0, 30);
-//            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-//            mAMap.moveCamera(cameraUpdate);
-//            drawMarkers();
-            //点击可以动态添加点
-            mAMap.setOnMapClickListener(new AMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng latLng) {
-                    markerOption.icon(ICON_YELLOW);
-                    centerLatLng = latLng;
 
-                }
-            });
-            UiSettings uiSettings = mAMap.getUiSettings();
-            uiSettings.setZoomControlsEnabled(false);
+
         }
     }
 
     public void locate() {
-        /*
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(31.870596, 117.264799), 15, 0, 30);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        mAMap.moveCamera(cameraUpdate);*/
         PermissionsUtil.requestPermission(getContext(), new PermissionListener() {
             @Override
             public void permissionGranted(@NonNull String[] permission) {
                 GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
                     @Override
                     public void result(AMapLocation location) {
-                        CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 30);
+                        CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 0);
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                         mAMap.moveCamera(cameraUpdate);
                     }
@@ -551,7 +590,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mClusterOverlay.onDestroy();
+        //mClusterOverlay.onDestroy();
         mMapView.onDestroy();
         mAMap = null;
         unbinder.unbind();
@@ -559,18 +598,16 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
 
     public void locateTo(double lat, double lon) {
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(lat, lon), 15, 0, 30);
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(lat, lon), 15, 0, 0);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mAMap.moveCamera(cameraUpdate);
     }
 
-    public void drawMarkers() {
-
-
+    public void drawMarkers(LatLng latLng) {
         MarkerOptions markerOptions = new MarkerOptions()
-                .position(new LatLng(31.870596, 117.264799))
+                .position(latLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_mark))
-                .draggable(true);
+                .draggable(false);
         Marker marker = mAMap.addMarker(markerOptions);
         marker.showInfoWindow();
     }
@@ -588,7 +625,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
     @Override
     public void onMapLoaded() {
-        //添加测试数据
+/*        //添加测试数据
         new Thread() {
             public void run() {
 
@@ -613,7 +650,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
 
             }
 
-        }.start();
+        }.start();*/
 
 
     }

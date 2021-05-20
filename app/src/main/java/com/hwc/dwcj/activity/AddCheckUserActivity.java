@@ -102,7 +102,7 @@ public class AddCheckUserActivity extends BaseActivity {
 
     private void handleTheResultString() {
         StringBuilder check = new StringBuilder();
-        if (selectedUsers1.size() != 0) {
+        if (selectedUsers1.size() > 1) {
             for (CheckUser u : selectedUsers1) {
                 if (!StringUtil.isEmpty(u.getId())) {
                     check.append(u.getId()).append(",");
@@ -111,7 +111,7 @@ public class AddCheckUserActivity extends BaseActivity {
             check.deleteCharAt(check.length() - 1);
         }
         StringBuilder send = new StringBuilder();
-        if (selectedUsers2.size() != 0) {
+        if (selectedUsers2.size() > 1) {
             for (CheckUser u : selectedUsers2) {
                 if (!StringUtil.isEmpty(u.getId())) {
                     send.append(u.getId()).append(",");

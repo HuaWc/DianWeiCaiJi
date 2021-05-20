@@ -117,7 +117,6 @@ public class AuditFragment extends BaseFragment {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
-        //getRole();
     }
 
 
@@ -145,24 +144,6 @@ public class AuditFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    /**
-     * 获得当前角色状态码
-     */
-    private void getRole() {
-        Map<String, Object> hashMap = new HashMap<>();
-        ApiClient.requestNetGet(getContext(), AppConfig.getUserRole, "加载中", hashMap, new ResultListener() {
-            @Override
-            public void onSuccess(String json, String msg) {
-                roleId = FastJsonUtil.getInt(json, "roleId");
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-        });
     }
 
     private void initAdapter() {

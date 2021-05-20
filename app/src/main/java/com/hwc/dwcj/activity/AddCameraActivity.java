@@ -19,6 +19,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.RecyclerViewHelper;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
@@ -86,15 +87,36 @@ public class AddCameraActivity extends BaseActivity {
         getData();
     }
 
+    private void getRole() {
+        Map<String, Object> hashMap = new HashMap<>();
+        ApiClient.requestNetGet(this, AppConfig.getUserRole, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                boolean a = FastJsonUtil.getObject(json, boolean.class);
+                if(a){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("positionCode", positionCode);
+                    bundle.putString("positionName", positionName);
+                    bundle.putInt("from", 1);
+                    toTheActivity(AddCameraDetailActivity.class, bundle);
+                } else {
+                    ToastUtil.toast("您还不是采集员，权限不足，无法新增！");
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast("获取您的采集员权限失败，请稍后重试！");
+
+            }
+        });
+    }
+
     private void initClick() {
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("positionCode", positionCode);
-                bundle.putString("positionName", positionName);
-                bundle.putInt("from", 1);
-                toTheActivity(AddCameraDetailActivity.class, bundle);
+                getRole();
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {

@@ -32,7 +32,6 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:paddingVertical="4dp"
-                android:singleLine="true"
                 android:text="123"
                 android:textColor="#FF6F6F6F"
                 android:textSize="14sp" />

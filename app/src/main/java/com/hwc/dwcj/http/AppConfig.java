@@ -174,6 +174,10 @@ public class AppConfig {
      */
     public static final String updateCamera = mainUrl + "v1/operation/updateCamera";
 
+    /**
+     * 查詢相機的ipv4地址是否重复
+     */
+    public static final String whetherToRepeat = mainUrl + "v1/operation/whetherToRepeat";
 
 
 

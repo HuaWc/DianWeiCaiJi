@@ -58,7 +58,7 @@ public final class RegexConstants {
     /**
      * 正则：IP地址
      */
-    public static final String REGEX_IP            = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+    public static final String REGEX_IP            = "^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$";
 
     ///////////////////////////////////////////////////////////////////////////
     // 以下摘自http://tool.oschina.net/regex

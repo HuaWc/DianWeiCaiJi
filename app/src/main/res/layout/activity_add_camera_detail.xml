@@ -232,6 +232,42 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF4949"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IPV4地址"
+                        android:textColor="#B1B1B1"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_ipv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/app_edit"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="#FF333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -778,99 +814,48 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="*"
-                                    android:textColor="#FF4949"
-                                    android:textSize="15sp"
-                                    android:visibility="gone" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="IPV4地址"
-                                    android:textColor="#B1B1B1"
-                                    android:textSize="15sp" />
-                            </LinearLayout>
-
-                            <EditText
-                                android:id="@+id/et_ipv4"
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/app_edit"
-                                android:gravity="center_vertical"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#FF333333"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="*"
-                                    android:textColor="#FF4949"
-                                    android:textSize="15sp"
-                                    android:visibility="gone" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="设备状态"
-                                    android:textColor="#B1B1B1"
-                                    android:textSize="15sp" />
-                            </LinearLayout>
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_select_sbzt"
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/app_edit"
-                                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                                android:gravity="center_vertical"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#FF333333"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="#FF4949"
                                 android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="设备状态"
+                                android:textColor="#B1B1B1"
+                                android:textSize="15sp" />
                         </LinearLayout>
 
-
+                        <TextView
+                            android:id="@+id/tv_select_sbzt"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/app_edit"
+                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textColor="#FF333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 

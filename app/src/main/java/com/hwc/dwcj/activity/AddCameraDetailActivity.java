@@ -731,7 +731,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select_sxjbmgs:
-                showSelectDialog(ssfj, "摄像机编码格式", tvSelectPsfx, new AddSelectResult() {
+                showSelectDialog(sxjbmgs, "摄像机编码格式", tvSelectPsfx, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         sxjbmgsStr = dictData.getPT_CAMERA_ENCODE_TYPE().get(options1).getDataValue();
@@ -740,7 +740,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_select_sxjfbl:
-                showSelectDialog(ssfj, "摄像机分辨率", tvSelectPsfx, new AddSelectResult() {
+                showSelectDialog(sxjfbl, "摄像机分辨率", tvSelectPsfx, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         sxjfblStr = dictData.getPT_RESOLUTION().get(options1).getDataValue();
@@ -749,7 +749,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_select_psfx:
-                showSelectDialog(ssfj, "拍摄方向", tvSelectPsfx, new AddSelectResult() {
+                showSelectDialog(psfx, "拍摄方向", tvSelectPsfx, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         psfxStr = dictData.getPT_CAMERA_DIRECTION().get(options1).getDataValue();
@@ -943,6 +943,10 @@ public class AddCameraDetailActivity extends BaseActivity {
             ToastUtil.toast("请填写设备编码");
             return;
         }
+        if (StringUtil.isEmpty(etIpv4.getText().toString().trim())) {
+            ToastUtil.toast("请填写IPV4地址");
+            return;
+        }
         if (StringUtil.isEmpty(tvSelectSsfj.getText().toString().trim())) {
             ToastUtil.toast("请填写所属分局");
             return;
@@ -992,7 +996,36 @@ public class AddCameraDetailActivity extends BaseActivity {
             return;
         }
         this.currentStatus = currentStatus;
-        toSelectCheckUser();
+        if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+            toSelectCheckUser();
+        } else {
+            checkIpv4Address();
+        }
+    }
+
+    private void checkIpv4Address() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("cameraIp", etIpv4.getText().toString().trim());
+        ApiClient.requestNetPost(this, AppConfig.whetherToRepeat, "校验中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                boolean a = FastJsonUtil.getObject(json, boolean.class);
+                if (a) {
+                    ToastUtil.toast("当前填写IPV4地址可用！");
+                    toSelectCheckUser();
+                } else {
+                    ToastUtil.toast("当前填写IPV4地址已重复，请重填！");
+                    etIpv4.requestFocus();
+                    etIpv4.setText("");
+
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast("IPV4地址校验失败：" + msg);
+            }
+        });
     }
 
     private void toSelectCheckUser() {
@@ -1117,7 +1150,7 @@ public class AddCameraDetailActivity extends BaseActivity {
          * XLBH-FH-0197
          */
         PtCameraInfo ptCameraInfo = new PtCameraInfo();
-        ptCameraInfo.setPositionCode(positionCode);
+        ptCameraInfo.setPositionCode(etDwbm.getText().toString().trim());
         ptCameraInfo.setCameraName(etSbmc.getText().toString());
         ptCameraInfo.setCameraNo(etSbbm.getText().toString());
         ptCameraInfo.setFenJu(ssfjStr);
@@ -1129,6 +1162,9 @@ public class AddCameraDetailActivity extends BaseActivity {
         ptCameraInfo.setNetworkPropertiesTel(etLwrlxfs.getText().toString());
         ptCameraInfo.setPowerTakeType(Long.parseLong(qdfsStr));
         ptCameraInfo.setPowerTakeTypeTel(etQdrlxfs.getText().toString());
+        ptCameraInfo.setImgPath(takeImgPathString(images1));
+        ptCameraInfo.setLocationPhotoPath(takeImgPathString(images2));
+        ptCameraInfo.setSpecialPhotoPath(takeImgPathString(images3));
 
 
         //下面选填
@@ -1192,9 +1228,9 @@ public class AddCameraDetailActivity extends BaseActivity {
             url = AppConfig.addCamera;
         }
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("imgFiles", takeImgPathString(images1));
+/*        hashMap.put("imgFiles", takeImgPathString(images1));
         hashMap.put("locationFiles", takeImgPathString(images2));
-        hashMap.put("specialFiles", takeImgPathString(images3));
+        hashMap.put("specialFiles", takeImgPathString(images3));*/
         hashMap.put("handleConnent", "新增摄像机");
         hashMap.put("handleIp", RegularCheckUtil.getIPAddress(this));
         hashMap.put("entity", FastJsonUtil.toJSONString(ptCameraInfo));
@@ -1591,8 +1627,9 @@ public class AddCameraDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
-                if (!StringUtil.isEmpty(json)) {
-                    uploadResult.onSuccess(json);
+                String fileName = FastJsonUtil.getString(json,"fileName");
+                if (!StringUtil.isEmpty(fileName)) {
+                    uploadResult.onSuccess(fileName);
                 }
             }
 

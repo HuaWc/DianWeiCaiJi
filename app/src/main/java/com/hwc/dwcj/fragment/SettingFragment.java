@@ -174,19 +174,23 @@ public class SettingFragment extends BaseFragment {
     }
 
 
-    /**
-     * 获得当前角色状态码
-     */
     private void getRole() {
         Map<String, Object> hashMap = new HashMap<>();
         ApiClient.requestNetGet(getContext(), AppConfig.getUserRole, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                roleId = FastJsonUtil.getInt(json, "roleId");
+                boolean a = FastJsonUtil.getObject(json, boolean.class);
+                if(a){
+                    Bundle bundle = new Bundle();
+                    toTheActivity(AddCameraDetailActivity.class, bundle);
+                } else {
+                    ToastUtil.toast("您还不是采集员，权限不足，无法新增！");
+                }
             }
 
             @Override
             public void onFailure(String msg) {
+                ToastUtil.toast("获取您的采集员权限失败，请稍后重试！");
 
             }
         });
@@ -301,8 +305,8 @@ public class SettingFragment extends BaseFragment {
                     public void onClick(View view, Dialog dialog) {
                         //新增点位档案
                         dialog.dismiss();
-                        Bundle bundle = new Bundle();
-                        toTheActivity(AddCameraDetailActivity.class, bundle);
+                        getRole();
+
 
                     }
                 })
