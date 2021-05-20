@@ -731,7 +731,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select_sxjbmgs:
-                showSelectDialog(sxjbmgs, "摄像机编码格式", tvSelectPsfx, new AddSelectResult() {
+                showSelectDialog(sxjbmgs, "摄像机编码格式", tvSelectSxjbmgs, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         sxjbmgsStr = dictData.getPT_CAMERA_ENCODE_TYPE().get(options1).getDataValue();
@@ -740,7 +740,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_select_sxjfbl:
-                showSelectDialog(sxjfbl, "摄像机分辨率", tvSelectPsfx, new AddSelectResult() {
+                showSelectDialog(sxjfbl, "摄像机分辨率", tvSelectSxjfbl, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         sxjfblStr = dictData.getPT_RESOLUTION().get(options1).getDataValue();
