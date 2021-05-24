@@ -50,6 +50,7 @@ import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.DossierDetailActivity;
 import com.hwc.dwcj.adapter.AdapterMapSearchItem;
 import com.hwc.dwcj.adapter.NewTreeAdapter;
 import com.hwc.dwcj.base.BaseFragment;
@@ -154,6 +155,9 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     private NewTreeAdapter treeAdapter;
 
     private List<Marker> markers = new ArrayList<>();
+    private int positionNow;
+    private int positionChild;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -192,12 +196,21 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         adapterMapSearchItem.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                //搜索结果 直接进入相机详情
+                Bundle bundle = new Bundle();
+                bundle.putString("cameraId", searchItems.get(position).getId());
+                toTheActivity(DossierDetailActivity.class, bundle);
             }
         });
 
         treeItems = new ArrayList<>();
-        treeAdapter = new NewTreeAdapter(treeItems);
+        treeAdapter = new NewTreeAdapter(treeItems, new NewTreeAdapter.ClickThirdResult() {
+            @Override
+            public void onClick(int position, TreeCamera camera, int positionChild) {
+                //点击第三级的相机 直接移动视角 显示点位
+                showSingleCamera(position, camera, positionChild);
+            }
+        });
         rvJg.setLayoutManager(new LinearLayoutManager(mContext));
         rvJg.setAdapter(treeAdapter);
         treeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -243,6 +256,33 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
             }
         });
         getTreeData();
+    }
+
+    private void showSingleCamera(int position, TreeCamera camera, int positionChild) {
+        positionNow = position;
+        if (markers.size() > 0) {
+            for (Marker marker : markers) {
+                marker.destroy();
+            }
+        }
+        if (StringUtil.isEmpty(camera.getLatitude()) || StringUtil.isEmpty(camera.getLongitude())) {
+            ToastUtil.toast("该相机的坐标信息有误，无法显示！");
+            return;
+        }
+        positionChild = 1;
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(camera.getLatitude()), Double.parseDouble(camera.getLongitude())), 15, 0, 0));
+        mAMap.moveCamera(cameraUpdate);//地图移向指定区域
+        markerOption = new MarkerOptions();
+        LatLng l = new LatLng(Double.parseDouble(camera.getLatitude()), Double.parseDouble(camera.getLongitude()));
+        markerOption.position(l);
+        markerOption.title("相机名称：").snippet(camera.getCameraName());
+        markerOption.draggable(false);
+        markerOption.setFlat(true);//设置marker平贴地图效果
+        markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.camera_point_icon));
+        markerOption.period(positionChild);
+        Marker marker = mAMap.addMarker(markerOption);
+        marker.showInfoWindow();
+        markers.add(marker);
     }
 
     private void getTreeData() {
@@ -322,6 +362,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     }
 
     private void addCameraPointToMap(int position) {
+        positionNow = position;
         if (markers.size() > 0) {
             for (Marker marker : markers) {
                 marker.destroy();
@@ -329,24 +370,29 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         }
         if (treeItems.get(position).getCameraList() != null && treeItems.get(position).getCameraList().size() > 0) {
             boolean haveMove = false;
+            positionChild = 1;
             for (TreeCamera t : treeItems.get(position).getCameraList()) {
-                if(StringUtil.isEmpty(t.getLatitude()) || StringUtil.isEmpty(t.getLongitude())){
+                if (StringUtil.isEmpty(t.getLatitude()) || StringUtil.isEmpty(t.getLongitude())) {
+                    positionChild++;
                     continue;
                 }
-                if(!haveMove){
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude())),15, 0, 0));
+                if (!haveMove) {
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude())), 15, 0, 0));
                     mAMap.moveCamera(cameraUpdate);//地图移向指定区域
                     haveMove = true;
                 }
                 markerOption = new MarkerOptions();
                 LatLng l = new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude()));
                 markerOption.position(l);
-                markerOption.title("名称：").snippet(t.getCameraName());
+                markerOption.title("相机名称：").snippet(t.getCameraName());
                 markerOption.draggable(false);
                 markerOption.setFlat(true);//设置marker平贴地图效果
-                Marker marker= mAMap.addMarker(markerOption);
+                markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.camera_point_icon));
+                markerOption.period(positionChild);
+                Marker marker = mAMap.addMarker(markerOption);
                 marker.showInfoWindow();
                 markers.add(marker);
+                positionChild++;
             }
 
         }
@@ -526,7 +572,25 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     ToastUtil.toast("未开启定位权限");
                 }
             }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+            // 绑定 Marker 被点击事件
+            mAMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    //相机点击事件  进入详情
+                    //难点：取到相机id
+                    int p2 = marker.getPeriod()-1;
+                    Bundle bundle = new Bundle();
+/*                    if(markers.size() == 1){
+                        bundle.putString("cameraId", treeItems.get(positionNow).getCameraList().get(0).getId());
 
+                    } else{
+                        bundle.putString("cameraId", treeItems.get(positionNow).getCameraList().get(p2).getId());
+                    }*/
+                    bundle.putString("cameraId", treeItems.get(positionNow).getCameraList().get(p2).getId());
+                    toTheActivity(DossierDetailActivity.class, bundle);
+                    return false;
+                }
+            });
 
         }
     }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -301,4 +302,14 @@ public class PointCheckActivity extends BaseActivity {
     }
 
 
+    //重写onBackPressed()方法,继承自退出的方法
+    @Override
+    public void onBackPressed() {
+        if (dossierIsNext) {
+            dossierIsNext = false;
+            setDossierNextPage();
+        } else {
+            finish();
+        }
+    }
 }

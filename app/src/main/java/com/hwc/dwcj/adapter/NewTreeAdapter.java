@@ -10,13 +10,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.NewTreeItem;
+import com.hwc.dwcj.entity.TreeCamera;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 
 import java.util.List;
 
 public class NewTreeAdapter extends BaseQuickAdapter<NewTreeItem, BaseViewHolder> {
-    public NewTreeAdapter(@Nullable List<NewTreeItem> data) {
+    private ClickThirdResult clickThirdResult;
+
+    public NewTreeAdapter(@Nullable List<NewTreeItem> data, ClickThirdResult clickThirdResult) {
         super(R.layout.adapter_new_tree, data);
+        this.clickThirdResult = clickThirdResult;
     }
 
     @Override
@@ -29,17 +33,27 @@ public class NewTreeAdapter extends BaseQuickAdapter<NewTreeItem, BaseViewHolder
         } else {
             helper.setText(R.id.tv_add_point, "···");
         }
-        helper.setText(R.id.text,item.getName());
+        helper.setText(R.id.text, item.getName());
         ll_main.setVisibility(item.isVisible() ? View.VISIBLE : View.GONE);
-        if(item.getLevel() == 2){
+        if (item.getLevel() == 2) {
             rl_child.setVisibility(item.isExpand() ? View.VISIBLE : View.GONE);
-            if(item.getCameraList() != null && item.getCameraList().size() != 0){
+            if (item.getCameraList() != null && item.getCameraList().size() != 0) {
                 TreeCameraAdapter adapter = new TreeCameraAdapter(item.getCameraList());
+                adapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        clickThirdResult.onClick(NewTreeAdapter.this.mData.indexOf(item), item.getCameraList().get(position),position);
+                    }
+                });
                 rv_child.setLayoutManager(new LinearLayoutManager(mContext));
                 rv_child.setAdapter(adapter);
                 RecyclerViewHelper.recyclerviewAndScrollView(rv_child);
                 adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    public interface ClickThirdResult {
+        void onClick(int position, TreeCamera camera,int positionChild);
     }
 }

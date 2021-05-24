@@ -96,7 +96,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_da_shi"
                     android:gravity="center"
-
                     android:text="已通过"
                     android:textColor="@drawable/text_da_shi"
                     android:textSize="13sp" />
@@ -109,8 +108,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_da_shi"
                     android:gravity="center"
-
-                    android:text="待处理"
+                    android:text="审批中"
                     android:textColor="@drawable/text_da_shi"
                     android:textSize="13sp" />
 
@@ -122,7 +120,18 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_da_shi"
                     android:gravity="center"
+                    android:text="待处理"
+                    android:textColor="@drawable/text_da_shi"
+                    android:textSize="13sp" />
 
+                <TextView
+                    android:id="@+id/tv_select1_type5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_da_shi"
+                    android:gravity="center"
                     android:text="已驳回"
                     android:textColor="@drawable/text_da_shi"
                     android:textSize="13sp" />

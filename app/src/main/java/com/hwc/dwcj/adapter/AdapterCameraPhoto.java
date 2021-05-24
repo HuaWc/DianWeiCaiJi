@@ -1,5 +1,8 @@
 package com.hwc.dwcj.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -18,6 +21,16 @@ public class AdapterCameraPhoto extends BaseQuickAdapter<String, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        GlideLoadImageUtils.GlideLoadImageUtils(mContext, item, helper.getView(R.id.iv_photo));
+        ImageView iv_photo = helper.getView(R.id.iv_photo);
+
+        if(item.startsWith("data:image/")){
+            //将Base64编码字符串解码成Bitmap
+            byte[] decodedString = Base64.decode(item.split(",")[1], Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            //设置ImageView图片
+            iv_photo.setImageBitmap(decodedByte);
+        } else{
+            GlideLoadImageUtils.GlideLoadImageUtils(mContext, item, helper.getView(R.id.iv_photo));
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.RecyclerViewHelper;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.code.encoding.EncodingHandler;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
@@ -235,7 +236,7 @@ public class DossierDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
             }
         });
     }
@@ -244,7 +245,7 @@ public class DossierDetailActivity extends BaseActivity {
         tvLwfs.setText(StringUtil.isEmpty(networkProperties) ? "" : networkProperties);//联网方式
         tvQdfs.setText(StringUtil.isEmpty(powerTakeType) ? "" : powerTakeType);//取电方式
         tvSbr.setText(StringUtil.isEmpty(applicantName) ? "" : applicantName);//上报人
-        tvDwmc.setText(positionName);
+        tvDwmc.setText(StringUtil.isEmpty(positionName) ? "" : positionName);
         if (checkUsers != null && checkUsers.size() != 0) {
             StringBuilder builder = new StringBuilder();
             for (String s : checkUsers) {
@@ -268,6 +269,9 @@ public class DossierDetailActivity extends BaseActivity {
 
         if (entityInfo == null) {
             return;
+        }
+        if (StringUtil.isEmpty(positionName)) {
+            tvDwmc.setText(StringUtil.isEmpty(entityInfo.getPointName()) ? "" : entityInfo.getPointName());
         }
         tvSbrdh.setText(StringUtil.isEmpty(entityInfo.getAddTel()) ? "" : entityInfo.getAddTel());//上报人电话
         tvSbmc.setText(StringUtil.isEmpty(entityInfo.getCameraName()) ? "" : entityInfo.getCameraName());
@@ -310,13 +314,13 @@ public class DossierDetailActivity extends BaseActivity {
         tvDwjklx.setText(StringUtil.isEmpty(entityInfo.getMonitorType()) ? "" : entityInfo.getMonitorType());//点位监控类型
 
         if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
-            photo1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split(",")));
+            photo1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split("!")));
         }
         if (!StringUtil.isEmpty(entityInfo.getLocationPhotoPath())) {
-            photo2.addAll(Arrays.asList(entityInfo.getLocationPhotoPath().split(",")));
+            photo2.addAll(Arrays.asList(entityInfo.getLocationPhotoPath().split("!")));
         }
         if (!StringUtil.isEmpty(entityInfo.getImgPath())) {
-            photo3.addAll(Arrays.asList(entityInfo.getImgPath().split(",")));
+            photo3.addAll(Arrays.asList(entityInfo.getImgPath().split("!")));
         }
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();

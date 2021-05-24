@@ -88,11 +88,13 @@ public class AuditFragment extends BaseFragment {
     LinearLayout all;
     @BindView(R.id.bar)
     View bar;
+    @BindView(R.id.tv_select1_type5)
+    TextView tvSelect1Type5;
 
 
     private List<SPItem> mList;
     private SPItemAdapter spItemAdapter;
-    private int selectedType1 = 0;//默认全部  当前状态(1.审批中  2.已撤销  3.已驳回4.已通过 )
+    private int selectedType1 = 0;//默认全部  当前状态(1.审批中  2.已撤销  3.已驳回 4.已通过 5.待处理 )
     private int selectedType2 = 0;//默认全部  类型(1.信息采集2.草稿,3.采集信息修改)
     private String timeStrStart = "";//开始时间
     private String timeStrEnd = "";
@@ -224,7 +226,7 @@ public class AuditFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_select1_type1, R.id.tv_select1_type2, R.id.tv_select1_type3, R.id.tv_select1_type4, R.id.tv_select2_type1, R.id.tv_select2_type2, R.id.tv_select2_type3})
+    @OnClick({R.id.tv_select1_type1, R.id.tv_select1_type2, R.id.tv_select1_type3, R.id.tv_select1_type4, R.id.tv_select1_type5, R.id.tv_select2_type1, R.id.tv_select2_type2, R.id.tv_select2_type3})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select1_type1:
@@ -237,6 +239,9 @@ public class AuditFragment extends BaseFragment {
                 changeChooseType1(1);
                 break;
             case R.id.tv_select1_type4:
+                changeChooseType1(5);
+                break;
+            case R.id.tv_select1_type5:
                 changeChooseType1(3);
                 break;
             case R.id.tv_select2_type1:
@@ -264,6 +269,7 @@ public class AuditFragment extends BaseFragment {
                 tvSelect1Type2.setSelected(false);
                 tvSelect1Type3.setSelected(false);
                 tvSelect1Type4.setSelected(false);
+                tvSelect1Type5.setSelected(false);
                 switch (choose) {
                     case 0:
                         tvSelect1Type1.setSelected(true);
@@ -275,6 +281,9 @@ public class AuditFragment extends BaseFragment {
                         tvSelect1Type3.setSelected(true);
                         break;
                     case 3:
+                        tvSelect1Type5.setSelected(true);
+                        break;
+                    case 5:
                         tvSelect1Type4.setSelected(true);
                         break;
                 }

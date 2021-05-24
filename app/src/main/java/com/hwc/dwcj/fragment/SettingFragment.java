@@ -101,6 +101,8 @@ public class SettingFragment extends BaseFragment {
     ImageView ivPlus;
     @BindView(R.id.bar)
     View bar;
+    @BindView(R.id.tv_select1_type5)
+    TextView tvSelect1Type5;
 
 
     private List<DWItem> mList;
@@ -180,7 +182,7 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void onSuccess(String json, String msg) {
                 boolean a = FastJsonUtil.getObject(json, boolean.class);
-                if(a){
+                if (a) {
                     Bundle bundle = new Bundle();
                     toTheActivity(AddCameraDetailActivity.class, bundle);
                 } else {
@@ -319,7 +321,7 @@ public class SettingFragment extends BaseFragment {
                 }).bottomShow();
     }
 
-    @OnClick({R.id.tv_select1_type1, R.id.tv_select1_type2, R.id.tv_select1_type3, R.id.tv_select1_type4, R.id.tv_select2_type1, R.id.tv_select2_type2, R.id.tv_select2_type3})
+    @OnClick({R.id.tv_select1_type1, R.id.tv_select1_type2, R.id.tv_select1_type3, R.id.tv_select1_type4, R.id.tv_select1_type5, R.id.tv_select2_type1, R.id.tv_select2_type2, R.id.tv_select2_type3})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_select1_type1:
@@ -333,6 +335,9 @@ public class SettingFragment extends BaseFragment {
                 break;
             case R.id.tv_select1_type4:
                 changeChooseType1(3);
+                break;
+            case R.id.tv_select1_type5:
+                changeChooseType1(2);
                 break;
             case R.id.tv_select2_type1:
                 changeChooseType2(0);
@@ -359,6 +364,7 @@ public class SettingFragment extends BaseFragment {
                 tvSelect1Type2.setSelected(false);
                 tvSelect1Type3.setSelected(false);
                 tvSelect1Type4.setSelected(false);
+                tvSelect1Type5.setSelected(false);
                 switch (choose) {
                     case 0:
                         tvSelect1Type1.setSelected(true);
@@ -371,6 +377,9 @@ public class SettingFragment extends BaseFragment {
                         break;
                     case 3:
                         tvSelect1Type4.setSelected(true);
+                        break;
+                    case 2:
+                        tvSelect1Type5.setSelected(true);
                         break;
                 }
             }
