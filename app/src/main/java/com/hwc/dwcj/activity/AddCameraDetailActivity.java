@@ -686,6 +686,9 @@ public class AddCameraDetailActivity extends BaseActivity {
     }
 
     private void showSelectDialog(List<String> options, String title, TextView goal, AddSelectResult addSelectResult) {
+        hideSoftKeyboard();
+        hideSoftKeyboard2();
+        hideSoftKeyboard3();
         PickerViewUtils.selectOptions(this, title, options, null, null, new PickerViewSelectOptionsResult() {
             @Override
             public void getOptionsResult(int options1, int options2, int options3) {
@@ -698,10 +701,10 @@ public class AddCameraDetailActivity extends BaseActivity {
     private void showSelectTimeDialog() {
         //注：（1）年份可以随便设置 (2)月份是从0开始的（0代表1月 11月代表12月），即设置0代表起始时间从1月开始
         //(3)日期必须从1开始，因为2月没有30天，设置其他日期时，2月份会从设置日期开始显示导致出现问题
-
+        hideSoftKeyboard();
+        hideSoftKeyboard2();
+        hideSoftKeyboard3();
         Calendar nowDate = Calendar.getInstance();
-        Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.YEAR, 1);
         //时间选择器
         TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             public void onTimeSelect(final Date date, View v) {
@@ -712,7 +715,6 @@ public class AddCameraDetailActivity extends BaseActivity {
 
             }
         }).setDate(nowDate)//设置系统时间为当前时间
-                .setRangDate(null, endDate)//设置控件日期范围 也可以不设置默认1900年到2100年
                 .setType(new boolean[]{true, true, true, true, true, true})//设置年月日时分秒是否显示 true:显示 false:隐藏
                 //.setLabel("年", "月", "日", "时", "分", "秒")
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
@@ -1001,11 +1003,44 @@ public class AddCameraDetailActivity extends BaseActivity {
             return;
         }
         this.currentStatus = currentStatus;
-        if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
-            toSelectCheckUser();
+        if(isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())){
+            checkCameraNo();
         } else {
-            checkIpv4Address();
+            if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+                toSelectCheckUser();
+            } else {
+                checkIpv4Address();
+            }
         }
+    }
+
+    private void checkCameraNo() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("cameraNo", etSbbm.getText().toString().trim());
+        ApiClient.requestNetPost(this, AppConfig.toHeavyNumber, "校验中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                boolean a = FastJsonUtil.getObject(json, boolean.class);
+                if (a) {
+                    ToastUtil.toast("当前填写设备编码可用！");
+                    if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+                        toSelectCheckUser();
+                    } else {
+                        checkIpv4Address();
+                    }
+                } else {
+                    ToastUtil.toast("当前填写设备编码已重复，请重填！");
+                    etSbbm.requestFocus();
+                    etSbbm.setText("");
+
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast("IPV4地址校验失败：" + msg);
+            }
+        });
     }
 
     private void checkIpv4Address() {
@@ -1516,7 +1551,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
                                 break;
                             case 2:
-                                deleteFile(images2.get(position), new DeleteResult() {
+                                deleteFile(images3.get(position), new DeleteResult() {
                                     @Override
                                     public void onSuccess() {
                                         img3.remove(position);
@@ -1729,7 +1764,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
             }
         });
     }

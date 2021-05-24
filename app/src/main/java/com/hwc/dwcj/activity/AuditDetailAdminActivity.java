@@ -155,6 +155,8 @@ public class AuditDetailAdminActivity extends BaseActivity {
     private String powerTakeType;
     private String networkProperties;
 
+    private boolean isLook;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_audit_detail_admin);
@@ -166,6 +168,21 @@ public class AuditDetailAdminActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
+        if (isLook) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    llBtn.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    llBtn.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     private void initAdapter() {
@@ -375,6 +392,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
     protected void getBundleExtras(Bundle extras) {
         cameraId = extras.getString("cameraId");
         positionName = extras.getString("positionName");
+        isLook = extras.getBoolean("isLook");
     }
 
     @Override

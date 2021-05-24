@@ -179,7 +179,10 @@ public class AppConfig {
      */
     public static final String whetherToRepeat = mainUrl + "v1/operation/whetherToRepeat";
 
-
+    /**
+     * 验证相机设备编码是否重复
+     */
+    public static final String toHeavyNumber = mainUrl + "v1/operation/toHeavyNumber";
 
 
 

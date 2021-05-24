@@ -57,61 +57,69 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_select"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="9dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_shi"
+            <LinearLayout
+                android:id="@+id/ll_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
-        </RelativeLayout>
+                android:background="@color/white"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_select_pcs"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="9dp"
-            android:background="@drawable/bg_da_select_pcs"
-            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-            android:gravity="center_vertical"
-            android:hint="请选择派出所"
-            android:paddingHorizontal="11dp"
-            android:singleLine="true"
-            android:textColor="#333333"
-            android:textColorHint="#ffc9c9c9"
-            android:textSize="11sp"
-            android:visibility="gone" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginBottom="9dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_shi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_select_pcs"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="9dp"
+                    android:background="@drawable/bg_da_select_pcs"
+                    android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                    android:gravity="center_vertical"
+                    android:hint="请选择派出所"
+                    android:paddingHorizontal="11dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textColorHint="#ffc9c9c9"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
 
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EDF1FC">
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </RelativeLayout>
+                android:layout_height="match_parent"
+                android:background="#EDF1FC">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

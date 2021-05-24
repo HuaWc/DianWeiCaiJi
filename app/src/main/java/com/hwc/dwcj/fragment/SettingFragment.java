@@ -39,6 +39,7 @@ import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
@@ -242,7 +243,12 @@ public class SettingFragment extends BaseFragment {
     }
 
     private void initClick() {
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getData(false);
+            }
+        });
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -279,6 +285,12 @@ public class SettingFragment extends BaseFragment {
             public void onClick(View view) {
                 //弹窗
                 showDialog();
+            }
+        });
+        ivSs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData(false);
             }
         });
     }
@@ -464,6 +476,7 @@ public class SettingFragment extends BaseFragment {
                 }
                 dwItemAdapter.notifyDataSetChanged();
                 refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
             }
 
             @Override
@@ -475,6 +488,7 @@ public class SettingFragment extends BaseFragment {
                     public void run() {
                         Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
                         refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefresh();
 
                     }
                 });

@@ -38,13 +38,17 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     switch (view.getId()) {
-                        case R.id.tv_look:
-                            spChildClickListener.look(item.getPositionName(),item.getCameraInfoList().get(position));
-                            break;
-                        case R.id.tv_edit:
-                            spChildClickListener.edit(item.getCameraInfoList().get(position));
+                        case R.id.tv_check:
+                            spChildClickListener.check(item.getPositionName(),item.getCameraInfoList().get(position));
                             break;
                     }
+                }
+            });
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    spChildClickListener.look(item.getPositionName(),item.getCameraInfoList().get(position));
+
                 }
             });
         }
@@ -57,38 +61,30 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
 
         @Override
         protected void convert(BaseViewHolder helper, SPItem.CameraInfoList item) {
-            View tvLook = helper.getView(R.id.tv_look);
-            View tvEdit = helper.getView(R.id.tv_edit);
+            View tv_check = helper.getView(R.id.tv_check);
             helper.setText(R.id.tv_name, item.getCameraName());
-            helper.addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_edit);
+            helper.addOnClickListener(R.id.tv_check);
             //1.审批中  2.已撤销  3.已驳回 4.已通过
             if (item.getCurrentStatus() != null) {
-
                 if (item.getCurrentStatus() == 1) {
                     helper.setText(R.id.tv_status, "审批中");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-                    tvEdit.setVisibility(View.GONE);
                 } else if (item.getCurrentStatus() == 2) {
                     helper.setText(R.id.tv_status, "已撤销");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
-                    tvEdit.setVisibility(View.GONE);
                 } else if (item.getCurrentStatus() == 3) {
                     helper.setText(R.id.tv_status, "已驳回");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-                    tvEdit.setVisibility(View.VISIBLE);
                 } else if (item.getCurrentStatus() == 4) {
                     helper.setText(R.id.tv_status, "已通过");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-                    tvEdit.setVisibility(View.GONE);
                 } else {
                     helper.setText(R.id.tv_status, "");
                     //((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-                    tvEdit.setVisibility(View.GONE);
                 }
             } else {
                 helper.setText(R.id.tv_status, "");
                 //((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-                tvEdit.setVisibility(View.GONE);
             }
 
 /*            switch (item.getInformationType()) {
@@ -112,8 +108,7 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
     public interface SPChildClickListener {
         void look(String positionName,SPItem.CameraInfoList c);
 
-        void edit(SPItem.CameraInfoList c);
-
+        void check(String positionName,SPItem.CameraInfoList c);
     }
 
 }

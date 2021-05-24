@@ -16,8 +16,10 @@ import com.hwc.dwcj.entity.UserInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,6 +105,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void newLogin() {
+        if(StringUtil.isEmpty(etAccount.getText().toString().trim())){
+            ToastUtil.toast("请输入正确的账号和密码！");
+            return;
+        }
+        if(StringUtil.isEmpty(etPassword.getText().toString().trim())){
+            ToastUtil.toast("请输入正确的账号和密码！");
+            return;
+        }
         String account = etAccount.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         JSONObject jsonObject = new JSONObject();
@@ -128,7 +138,7 @@ public class LoginActivity extends BaseActivity {
                 } else {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(mContext, "登录失败", Toast.LENGTH_SHORT).show();
+                           ToastUtil.toast(msg);
 
                         }
                     });
@@ -139,8 +149,7 @@ public class LoginActivity extends BaseActivity {
             public void onFailure(String msg) {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(mContext, "当前登录失败:" + msg, Toast.LENGTH_SHORT).show();
-
+                        ToastUtil.toast(msg);
                     }
                 });
             }

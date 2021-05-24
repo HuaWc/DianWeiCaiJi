@@ -30,6 +30,7 @@ import com.hwc.dwcj.util.PickerViewUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
@@ -144,10 +145,19 @@ public class DossierFragment extends BaseFragment {
         daCityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //取消选中当前地区
                 if (cities.get(position).isSelected()) {
-                    cities.get(position).setSelected(false);
-                    daCityAdapter.notifyItemChanged(position);
+                    return;
+                }
+                for (DACity item : cities) {
+                    if (item.isSelected()) {
+                        item.setSelected(false);
+                        break;
+                    }
+                }
+                cities.get(position).setSelected(true);
+                daCityAdapter.notifyDataSetChanged();
+                if (cities.get(position).getDataName().equals("全部")) {
+                    //选中的全部
                     //收缩派出所选择框
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -159,34 +169,24 @@ public class DossierFragment extends BaseFragment {
                     //刷新数据
                     areaCode = "";
                     orgId = "";
-                    getData(false);
-                    return;
-                }
-                //选中新的地区
-                for (DACity item : cities) {
-                    if (item.isSelected()) {
-                        item.setSelected(false);
-                        break;
+                } else {
+                    //选中地区
+                    //显示派出所的选择框
+                    if (tvSelectPcs.getVisibility() == View.GONE) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvSelectPcs.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
+                    //拿派出所数据，刷新列表（清除派出所的id）
+                    tvSelectPcs.setText("");
+                    orgId = "";
+                    areaCode = cities.get(position).getDataValue();
+                    getPcsData(cities.get(position).getDataValue());
                 }
-                cities.get(position).setSelected(true);
-                daCityAdapter.notifyDataSetChanged();
-                //显示派出所的选择框
-                if (tvSelectPcs.getVisibility() == View.GONE) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvSelectPcs.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-                //拿派出所数据，刷新列表（清除派出所的id）
-                tvSelectPcs.setText("");
-                orgId = "";
-                areaCode = cities.get(position).getDataValue();
-                getPcsData(cities.get(position).getDataValue());
                 getData(false);
-
             }
         });
         rvShi.setAdapter(daCityAdapter);
@@ -198,7 +198,23 @@ public class DossierFragment extends BaseFragment {
     }
 
     private void initClick() {
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvSelectPcs.setVisibility(View.GONE);
+                        tvSelectPcs.setText("");
+                    }
+                });
+                //刷新数据
+                areaCode = "";
+                orgId = "";
+                getData(false);
+                getCityData();
+            }
+        });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
@@ -287,7 +303,7 @@ public class DossierFragment extends BaseFragment {
                 }*/
                 daItemAdapter.notifyDataSetChanged();
                 refreshLayout.finishLoadmore();
-
+                refreshLayout.finishRefresh();
             }
 
             @Override
@@ -296,6 +312,8 @@ public class DossierFragment extends BaseFragment {
                     public void run() {
                         Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
                         refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefresh();
+
                     }
                 });
 
@@ -305,14 +323,21 @@ public class DossierFragment extends BaseFragment {
     }
 
     private void getCityData() {
+        cities.clear();
         Map<String, Object> hashMap = new HashMap();
         ApiClient.requestNetGet(getContext(), AppConfig.selectArea, "", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<DACity> list = FastJsonUtil.getList(json, DACity.class);
                 if (list != null && list.size() != 0) {
+                    DACity d = new DACity();
+                    d.setSelected(true);
+                    d.setDataValue("");
+                    d.setDataName("全部");
+                    cities.add(d);
                     cities.addAll(list);
                     daCityAdapter.notifyDataSetChanged();
+
                 } else {
                     llSelect.setVisibility(View.GONE);
                 }

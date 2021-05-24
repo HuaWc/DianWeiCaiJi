@@ -1157,10 +1157,10 @@ public class ApiClient {
                     listener.onSuccess(FastJsonUtil.toJSONString(serverData.getData()), serverData.getMessage() == null ? "" : serverData.getMessage());
                 } else {
                     try {
-                        listener.onFailure(FastJsonUtil.getString(serverData.getData().toString(), "msg"));
+                        listener.onFailure(FastJsonUtil.getString(serverData.getMessage(), "msg"));
                     } catch (Exception e) {
                         e.getStackTrace();
-                        listener.onFailure(serverData.getData().toString());
+                        listener.onFailure(serverData.getMessage());
                     }
                 }
 

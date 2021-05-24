@@ -28,6 +28,7 @@ import com.hwc.dwcj.http.ResultListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
@@ -156,7 +157,7 @@ public class AuditFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", c.getId());
                 bundle.putString("positionName", positionName);
-
+                bundle.putBoolean("isLook", true);
 /*                switch (roleId) {
                     case 903:
                         toTheActivity(AuditDetailUserActivity.class, bundle);
@@ -180,8 +181,12 @@ public class AuditFragment extends BaseFragment {
             }
 
             @Override
-            public void edit(SPItem.CameraInfoList c) {
-
+            public void check(String positionName, SPItem.CameraInfoList c) {
+                Bundle bundle = new Bundle();
+                bundle.putString("cameraId", c.getId());
+                bundle.putString("positionName", positionName);
+                bundle.putBoolean("isLook", false);
+                toTheActivity(AuditDetailAdminActivity.class, bundle);
             }
         });
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -190,7 +195,12 @@ public class AuditFragment extends BaseFragment {
     }
 
     private void initClick() {
-        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getData(false);
+            }
+        });
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -223,6 +233,12 @@ public class AuditFragment extends BaseFragment {
             }
         });
 
+        ivSs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData(false);
+            }
+        });
     }
 
 
@@ -369,6 +385,7 @@ public class AuditFragment extends BaseFragment {
                 }
                 spItemAdapter.notifyDataSetChanged();
                 refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
             }
 
             @Override
@@ -380,6 +397,7 @@ public class AuditFragment extends BaseFragment {
                     public void run() {
                         Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
                         refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefresh();
 
                     }
                 });
