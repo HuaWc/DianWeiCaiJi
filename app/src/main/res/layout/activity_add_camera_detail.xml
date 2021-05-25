@@ -216,6 +216,12 @@
                         android:text="设备编码"
                         android:textColor="#B1B1B1"
                         android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（需唯一）"
+                        android:textColor="#FF4949"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <EditText
@@ -252,6 +258,12 @@
                         android:layout_height="wrap_content"
                         android:text="IPV4地址"
                         android:textColor="#B1B1B1"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（需唯一）"
+                        android:textColor="#FF4949"
                         android:textSize="15sp" />
                 </LinearLayout>
 

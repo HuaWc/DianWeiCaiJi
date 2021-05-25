@@ -65,24 +65,30 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
                 //1.审批中  2.已撤销  3.已驳回 4.已通过
                 if (item.getCurrentStatus() == 1) {
                     helper.setText(R.id.tv_status, "审批中");
+                    tvEdit.setVisibility(View.GONE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
                 } else if (item.getCurrentStatus() == 2) {
                     helper.setText(R.id.tv_status, "已撤销");
+                    tvEdit.setVisibility(View.GONE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
                 } else if (item.getCurrentStatus() == 3) {
                     helper.setText(R.id.tv_status, "已驳回");
+                    tvEdit.setVisibility(View.GONE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
                 } else if (item.getCurrentStatus() == 4) {
                     helper.setText(R.id.tv_status, "已通过");
+                    tvEdit.setVisibility(View.GONE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
                 }  else if (item.getCurrentStatus() == 0) {
                     helper.setText(R.id.tv_status, "草稿");
+                    tvEdit.setVisibility(View.VISIBLE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
                 }else {
                     helper.setText(R.id.tv_status, "");
                 }
             } else{
                 helper.setText(R.id.tv_status, "");
+                tvEdit.setVisibility(View.GONE);
             }
 
 /*            switch (item.getInformationType()) {

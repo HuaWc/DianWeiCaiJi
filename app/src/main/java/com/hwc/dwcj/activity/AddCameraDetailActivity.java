@@ -1004,12 +1004,17 @@ public class AddCameraDetailActivity extends BaseActivity {
         }
         this.currentStatus = currentStatus;
         if(isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())){
-            checkCameraNo();
-        } else {
+           // checkIpv4Address();
             if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
                 toSelectCheckUser();
             } else {
                 checkIpv4Address();
+            }
+        } else {
+            if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+                toSelectCheckUser();
+            } else {
+                checkCameraNo();
             }
         }
     }
@@ -1022,7 +1027,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             public void onSuccess(String json, String msg) {
                 boolean a = FastJsonUtil.getObject(json, boolean.class);
                 if (a) {
-                    ToastUtil.toast("当前填写设备编码可用！");
+                    //ToastUtil.toast("当前填写设备编码可用！");
                     if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
                         toSelectCheckUser();
                     } else {
@@ -1051,7 +1056,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             public void onSuccess(String json, String msg) {
                 boolean a = FastJsonUtil.getObject(json, boolean.class);
                 if (a) {
-                    ToastUtil.toast("当前填写IPV4地址可用！");
+                    //ToastUtil.toast("当前填写IPV4地址可用！");
                     toSelectCheckUser();
                 } else {
                     ToastUtil.toast("当前填写IPV4地址已重复，请重填！");
@@ -1184,14 +1189,14 @@ public class AddCameraDetailActivity extends BaseActivity {
         etSpr.setText(StringUtil.isEmpty(entityInfo.getApprovalId()) ? "" : entityInfo.getApprovalId());
         etSprlxfs.setText(StringUtil.isEmpty(entityInfo.getApprovalTel()) ? "" : entityInfo.getApprovalTel());*/
 
-        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
-            images1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split(",")));
+        if (!StringUtil.isEmpty(entityInfo.getImgPath())) {
+            images1.addAll(Arrays.asList(entityInfo.getImgPath().split(",")));
         }
         if (!StringUtil.isEmpty(entityInfo.getLocationPhotoPath())) {
             images2.addAll(Arrays.asList(entityInfo.getLocationPhotoPath().split(",")));
         }
-        if (!StringUtil.isEmpty(entityInfo.getImgPath())) {
-            images3.addAll(Arrays.asList(entityInfo.getImgPath().split(",")));
+        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
+            images3.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split(",")));
         }
         getDictData2();
 
