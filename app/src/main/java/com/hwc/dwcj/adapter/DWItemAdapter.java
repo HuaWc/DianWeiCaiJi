@@ -75,7 +75,10 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
                 } else if (item.getCurrentStatus() == 4) {
                     helper.setText(R.id.tv_status, "已通过");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-                } else {
+                }  else if (item.getCurrentStatus() == 0) {
+                    helper.setText(R.id.tv_status, "草稿");
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
+                }else {
                     helper.setText(R.id.tv_status, "");
                 }
             } else{
