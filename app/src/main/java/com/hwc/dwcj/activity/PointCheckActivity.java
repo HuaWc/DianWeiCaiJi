@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,8 +25,6 @@ import com.hwc.dwcj.fragment.SettingFragment;
 import com.hwc.dwcj.updata.CretinAutoUpdateUtils;
 import com.hwc.dwcj.util.EventUtil;
 import com.zds.base.entity.EventCenter;
-import com.zds.base.json.FastJsonUtil;
-import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -122,19 +119,19 @@ public class PointCheckActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.rl_tab_main:
                 index = 0;
-                setTabPosision();
+                setTabPosition();
                 break;
             case R.id.rl_tab_main2:
                 index = 1;
-                setTabPosision();
+                setTabPosition();
                 break;
             case R.id.rl_tab_main3:
                 index = 2;
-                setTabPosision();
+                setTabPosition();
                 break;
             case R.id.rl_tab_mine:
                 index = 3;
-                setTabPosision();
+                setTabPosition();
                 break;
         }
     }
@@ -197,7 +194,7 @@ public class PointCheckActivity extends BaseActivity {
 
     }
 
-    private void setTabPosision() {
+    private void setTabPosition() {
         if (currentTabIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
             if (currentTabIndex == 1 && dossierIsNext) {

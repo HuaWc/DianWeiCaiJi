@@ -12,9 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 新增告警
+ * 事件详情 审批通过后
  */
-public class AddAlertActivity extends BaseActivity {
+public class EventDetailAfterReviewActivity extends BaseActivity {
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.iv_back)
@@ -22,7 +22,7 @@ public class AddAlertActivity extends BaseActivity {
 
     @Override
     protected void initContentView(Bundle bundle) {
-        setContentView(R.layout.activity_add_alert);
+        setContentView(R.layout.activity_event_detail_after_review);
     }
 
     @Override
