@@ -6,9 +6,9 @@ import com.hwc.dwcj.base.BaseActivity;
 import com.zds.base.entity.EventCenter;
 
 /**
- * 新增知识库
+ * 告警管理页面
  */
-public class AddKnowledgeBaseActivity extends BaseActivity {
+public class AlertManagementActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle bundle) {
 

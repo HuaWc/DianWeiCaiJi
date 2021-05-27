@@ -149,12 +149,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
+                android:paddingHorizontal="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_select2_type1"
@@ -229,6 +229,14 @@
                     android:textColor="#999999"
                     android:textColorHint="#999999"
                     android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/iv_qk"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:padding="3dp"
+                    android:src="@mipmap/trash" />
             </LinearLayout>
         </LinearLayout>
 
@@ -241,7 +249,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_baseline_arrow_drop_up_24" />
+                android:src="@drawable/selector_arrow_show" />
         </RelativeLayout>
     </LinearLayout>
 

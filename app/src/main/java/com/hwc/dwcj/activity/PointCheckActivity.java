@@ -305,7 +305,7 @@ public class PointCheckActivity extends BaseActivity {
     //重写onBackPressed()方法,继承自退出的方法
     @Override
     public void onBackPressed() {
-        if (dossierIsNext) {
+        if (dossierIsNext&& currentTabIndex == 1) {
             dossierIsNext = false;
             setDossierNextPage();
         } else {

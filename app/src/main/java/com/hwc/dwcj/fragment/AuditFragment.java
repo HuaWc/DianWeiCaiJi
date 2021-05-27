@@ -91,6 +91,8 @@ public class AuditFragment extends BaseFragment {
     View bar;
     @BindView(R.id.tv_select1_type5)
     TextView tvSelect1Type5;
+    @BindView(R.id.iv_qk)
+    ImageView ivQk;
 
 
     private List<SPItem> mList;
@@ -211,7 +213,14 @@ public class AuditFragment extends BaseFragment {
         ivShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llSelect.setVisibility(llSelect.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        llSelect.setVisibility(llSelect.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                        ivShow.setSelected(llSelect.getVisibility() == View.GONE);
+                    }
+                });
+
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
@@ -237,6 +246,21 @@ public class AuditFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 getData(false);
+            }
+        });
+
+        ivQk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvSelectYear.setText("");
+                        tvSelectMonth.setText("");
+                    }
+                });
+                timeStrEnd = "";
+                timeStrStart = "";
             }
         });
     }
@@ -434,7 +458,7 @@ public class AuditFragment extends BaseFragment {
                             setTime(tvSelectYear, timeGet);
                         }
                     } else {
-                        if (!StringUtil.isEmpty(timeStrEnd)) {
+                        if (!StringUtil.isEmpty(timeStrStart)) {
                             //对比结束时间
 
                             if (formatter.parse(timeGet).getTime() < formatter.parse(timeStrStart).getTime()) {

@@ -6,9 +6,9 @@ import com.hwc.dwcj.base.BaseActivity;
 import com.zds.base.entity.EventCenter;
 
 /**
- * 新增知识库
+ * 工单处理方式
  */
-public class AddKnowledgeBaseActivity extends BaseActivity {
+public class WorkOrderHandleTypeActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle bundle) {
 
