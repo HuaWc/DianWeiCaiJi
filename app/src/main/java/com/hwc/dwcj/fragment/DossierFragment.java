@@ -269,7 +269,7 @@ public class DossierFragment extends BaseFragment {
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
             params.put("keywords", etSearch.getText().toString().trim());
         }
-        ApiClient.requestNetGet(getContext(), AppConfig.filePage, "", params, new ResultListener() {
+        ApiClient.requestNetGet(getContext(), AppConfig.filePage, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<DAItem> daItems = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), DAItem.class);

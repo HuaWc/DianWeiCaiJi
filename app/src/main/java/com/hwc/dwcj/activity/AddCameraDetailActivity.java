@@ -212,7 +212,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     private int from;// 0 新增进入  1 扫码进入
 
-    private String positionName;
+   // private String positionName;
     private String positionCode;
 
     private CameraDictData dictData;
@@ -291,16 +291,16 @@ public class AddCameraDetailActivity extends BaseActivity {
         if (!isEdit) {
             if (from == 1) {
                 etDwbm.setText(positionCode);
-                etDwmc.setText(positionName);
+                //etDwmc.setText(positionName);
                 etDwbm.setFocusable(false);
-                etDwmc.setFocusable(false);
+                //etDwmc.setFocusable(false);
             }
             getDictData();
             initAdapter();
         } else {
             initAdapter2();
             tvTitle.setText("修  改");
-            etDwmc.setText(positionName);
+            //etDwmc.setText(positionName);
         }
 
     }
@@ -623,13 +623,18 @@ public class AddCameraDetailActivity extends BaseActivity {
 
 
     private void getPcsData(String id) {
+        if(pcsDictItems == null){
+            pcsDictItems = new ArrayList<>();
+        }
+        pcsDictItems.clear();
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", id);
         ApiClient.requestNetGet(this, AppConfig.pcsListDict, "选择中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                pcsDictItems = FastJsonUtil.getList(json, PcsDictItem.class);
-                if (pcsDictItems != null && pcsDictItems.size() != 0) {
+                 List<PcsDictItem>  list = FastJsonUtil.getList(json, PcsDictItem.class);
+                if (list != null) {
+                    pcsDictItems.addAll(list);
                     initPcs();
                 }
             }
@@ -642,7 +647,10 @@ public class AddCameraDetailActivity extends BaseActivity {
     }
 
     private void initPcs() {
-        sspcs = new ArrayList<>();
+        if (sspcs == null) {
+            sspcs = new ArrayList<>();
+        }
+        sspcs.clear();
         for (PcsDictItem item : pcsDictItems) {
             sspcs.add(item.getOrgName());
         }
@@ -702,7 +710,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         //注：（1）年份可以随便设置 (2)月份是从0开始的（0代表1月 11月代表12月），即设置0代表起始时间从1月开始
         //(3)日期必须从1开始，因为2月没有30天，设置其他日期时，2月份会从设置日期开始显示导致出现问题
         hideSoftKeyboard();
-       // hideSoftKeyboard2();
+        // hideSoftKeyboard2();
         hideSoftKeyboard3();
         Calendar nowDate = Calendar.getInstance();
         //时间选择器
@@ -882,7 +890,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 showSelectDialog(dwjklx, "点位监控类型", tvSelectDwjklx, new AddSelectResult() {
                     @Override
                     public void change(int options1, int options2, int options3) {
-                        dwjklxStr = dictData.getPT_CAMERA_POSITION_TYPE().get(options1).getDataValue();
+                        dwjklxStr = dictData.getPT_MONITOR_TYPE().get(options1).getDataValue();
                     }
                 });
                 break;
@@ -1003,15 +1011,15 @@ public class AddCameraDetailActivity extends BaseActivity {
             return;
         }
         this.currentStatus = currentStatus;
-        if(isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())){
-           // checkIpv4Address();
-            if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+        if (isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())) {
+            // checkIpv4Address();
+            if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
                 toSelectCheckUser();
             } else {
                 checkIpv4Address();
             }
         } else {
-            if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+            if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
                 toSelectCheckUser();
             } else {
                 checkCameraNo();
@@ -1028,7 +1036,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 boolean a = FastJsonUtil.getObject(json, boolean.class);
                 if (a) {
                     //ToastUtil.toast("当前填写设备编码可用！");
-                    if(isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())){
+                    if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
                         toSelectCheckUser();
                     } else {
                         checkIpv4Address();
@@ -1093,21 +1101,21 @@ public class AddCameraDetailActivity extends BaseActivity {
                 String s3 = FastJsonUtil.getString(json, "specialPhotoPath");
                 if (!StringUtil.isEmpty(s1)) {
                     img1.addAll(Arrays.asList(s1.split("!")));
-                    if(img1.size()<num){
+                    if (img1.size() < num) {
                         img1.add("");
                     }
                     adapter1.notifyDataSetChanged();
                 }
                 if (!StringUtil.isEmpty(s2)) {
                     img2.addAll(Arrays.asList(s2.split("!")));
-                    if(img2.size()<num){
+                    if (img2.size() < num) {
                         img2.add("");
                     }
                     adapter2.notifyDataSetChanged();
                 }
                 if (!StringUtil.isEmpty(s3)) {
                     img3.addAll(Arrays.asList(s3.split("!")));
-                    if(img3.size()<num){
+                    if (img3.size() < num) {
                         img3.add("");
                     }
                     adapter3.notifyDataSetChanged();
@@ -1126,11 +1134,12 @@ public class AddCameraDetailActivity extends BaseActivity {
         if (entityInfo == null) {
             return;
         }
+        etDwmc.setText(StringUtil.isEmpty(entityInfo.getPointName()) ? "" : entityInfo.getPointName());
         etDwbm.setText(StringUtil.isEmpty(entityInfo.getPositionCode()) ? "" : entityInfo.getPositionCode());
         etSbmc.setText(StringUtil.isEmpty(entityInfo.getCameraName()) ? "" : entityInfo.getCameraName());
         etSbbm.setText(StringUtil.isEmpty(entityInfo.getCameraNo()) ? "" : entityInfo.getCameraNo());
         ssfjStr = StringUtil.isEmpty(entityInfo.getFenJu()) ? "" : entityInfo.getFenJu();
-        if(!StringUtil.isEmpty(ssfjStr)){
+        if (!StringUtil.isEmpty(ssfjStr)) {
             getPcsData(ssfjStr);
         }
         sspcsStr = StringUtil.isEmpty(entityInfo.getPoliceStation()) ? "" : entityInfo.getPoliceStation();
@@ -1172,8 +1181,8 @@ public class AddCameraDetailActivity extends BaseActivity {
         sxjbmgsStr = entityInfo.getCameraEncodeType() == null ? "" : String.valueOf(entityInfo.getCameraEncodeType());
         sfysyqStr = entityInfo.getSoundAlarm() == null ? "" : String.valueOf(entityInfo.getSoundAlarm());
         sxjfblStr = StringUtil.isEmpty(entityInfo.getResolution()) ? "" : entityInfo.getResolution();
-        tvSelectAzsj.setText(entityInfo.getAddTime() == null ? "" : formatter.format(entityInfo.getAddTime()));
-        azsj = entityInfo.getAddTime();
+        tvSelectAzsj.setText(entityInfo.getInstallTime() == null ? "" : formatter.format(entityInfo.getInstallTime()));
+        azsj = entityInfo.getInstallTime();
         etSsxqgajg.setText(StringUtil.isEmpty(entityInfo.getPoliceAreaCode()) ? "" : entityInfo.getPoliceAreaCode());
         lxbctsStr = entityInfo.getRecodeSaveType() == null ? "" : String.valueOf(entityInfo.getRecodeSaveType());
         etJrfs.setText(StringUtil.isEmpty(entityInfo.getAccessModel()) ? "" : entityInfo.getAccessModel());
@@ -1183,7 +1192,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         etGldw.setText(StringUtil.isEmpty(entityInfo.getManagerUnit()) ? "" : entityInfo.getManagerUnit());
         etGldwlxfs.setText(StringUtil.isEmpty(entityInfo.getManagerUnitTel()) ? "" : entityInfo.getManagerUnitTel());
         etWhdw.setText(StringUtil.isEmpty(entityInfo.getMaintainUnit()) ? "" : entityInfo.getMaintainUnit());
-        etWhdwlxfs.setText(StringUtil.isEmpty(entityInfo.getManagerUnitTel()) ? "" : entityInfo.getManagerUnitTel());
+        etWhdwlxfs.setText(StringUtil.isEmpty(entityInfo.getManagerUnitTel()) ? "" : entityInfo.getMaintainUnitTel());
 /*        etSbr.setText(StringUtil.isEmpty(entityInfo.getAddId()) ? "" : entityInfo.getAddId());
         etSbrlxfs.setText(StringUtil.isEmpty(entityInfo.getAddTel()) ? "" : entityInfo.getAddTel());
         etSpr.setText(StringUtil.isEmpty(entityInfo.getApprovalId()) ? "" : entityInfo.getApprovalId());
@@ -1209,6 +1218,7 @@ public class AddCameraDetailActivity extends BaseActivity {
          */
         PtCameraInfo ptCameraInfo = new PtCameraInfo();
         ptCameraInfo.setPositionCode(etDwbm.getText().toString().trim());
+        ptCameraInfo.setPointName(etDwmc.getText().toString().trim());
         ptCameraInfo.setCameraName(etSbmc.getText().toString());
         ptCameraInfo.setCameraNo(etSbbm.getText().toString());
         ptCameraInfo.setFenJu(ssfjStr);
@@ -1492,7 +1502,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-        positionName = extras.getString("positionName");
+        //positionName = extras.getString("positionName");
         positionCode = extras.getString("positionCode");
         from = extras.getInt("from");
         isEdit = extras.getBoolean("isEdit", false);
@@ -1761,7 +1771,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
-                String fileName = FastJsonUtil.getString(json,"fileName");
+                String fileName = FastJsonUtil.getString(json, "fileName");
                 if (!StringUtil.isEmpty(fileName)) {
                     uploadResult.onSuccess(fileName);
                 }

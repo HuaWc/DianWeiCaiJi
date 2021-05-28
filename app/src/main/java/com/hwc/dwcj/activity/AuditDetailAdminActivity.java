@@ -16,12 +16,15 @@ import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.util.RegularCheckUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,13 +238,15 @@ public class AuditDetailAdminActivity extends BaseActivity {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("uuid", cameraId);
         hashMap.put("checkType", type);
-        //hashMap.put("reason",reason);
+        hashMap.put("reason","");
         hashMap.put("handleConnent", type == 1 ? "同意" : "驳回");
         hashMap.put("handleIp", RegularCheckUtil.getIPAddress(this));
         ApiClient.requestNetGet(this, AppConfig.checkCamera, "操作中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
+                EventBus.getDefault().post(new EventCenter(EventUtil.FLUSH_LIST_SP));
+                finish();
             }
 
             @Override
@@ -263,8 +268,23 @@ public class AuditDetailAdminActivity extends BaseActivity {
                 powerTakeType = FastJsonUtil.getString(json, "powerTakeType");
                 //applicantTel = FastJsonUtil.getString(json, "applicantTel");
                 //applicantName = FastJsonUtil.getString(json, "applicantName");
-                checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUsers"), String.class);
-                checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUsersTel"), String.class);
+                checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUser"), String.class);
+                checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUserTel"), String.class);
+                String s1 = FastJsonUtil.getString(json, "imgPath");
+                String s2 = FastJsonUtil.getString(json, "locationPhotoPath");
+                String s3 = FastJsonUtil.getString(json, "specialPhotoPath");
+                if (!StringUtil.isEmpty(s1)) {
+                    photo1.addAll(Arrays.asList(s1.split("!")));
+                    adapter1.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s2)) {
+                    photo2.addAll(Arrays.asList(s2.split("!")));
+                    adapter2.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s3)) {
+                    photo3.addAll(Arrays.asList(s3.split("!")));
+                    adapter3.notifyDataSetChanged();
+                }
                 initData();
             }
 
@@ -335,7 +355,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
 
 
         tvLwrdh.setText(StringUtil.isEmpty(entity.getNetworkPropertiesTel()) ? "" : entity.getNetworkPropertiesTel());//联网人电话
-        tvQdrdh.setText(StringUtil.isEmpty(entity.getNetworkPropertiesTel()) ? "" : entity.getNetworkPropertiesTel());//取电人电话
+        tvQdrdh.setText(StringUtil.isEmpty(entity.getPowerTakeTypeTel()) ? "" : entity.getPowerTakeTypeTel());//取电人电话
 
 
         tvSbbm.setText(StringUtil.isEmpty(entity.getCameraNo()) ? "" : entity.getCameraNo());
@@ -363,10 +383,10 @@ public class AuditDetailAdminActivity extends BaseActivity {
         tvXzqy.setText(StringUtil.isEmpty(entity.getAreaCode()) ? "" : entity.getAreaCode());//行政区域
         tvJsgd.setText(StringUtil.isEmpty(entity.getInstallHeight()) ? "" : entity.getInstallHeight());
 
-        tvHb.setText(StringUtil.isEmpty(entity.getAddress()) ? "" : entity.getAddress());
+        tvHb.setText(StringUtil.isEmpty(entity.getCrossArm1()) ? "" : entity.getCrossArm1());
         tvDwjklx.setText(StringUtil.isEmpty(entity.getMonitorType()) ? "" : entity.getMonitorType());//点位监控类型
 
-        if (!StringUtil.isEmpty(entity.getSpecialPhotoPath())) {
+/*        if (!StringUtil.isEmpty(entity.getSpecialPhotoPath())) {
             photo1.addAll(Arrays.asList(entity.getSpecialPhotoPath().split(",")));
         }
         if (!StringUtil.isEmpty(entity.getLocationPhotoPath())) {
@@ -377,7 +397,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
         }
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();
-        adapter3.notifyDataSetChanged();
+        adapter3.notifyDataSetChanged();*/
 
 
     }

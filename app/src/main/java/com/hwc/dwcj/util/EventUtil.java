@@ -50,14 +50,9 @@ public class EventUtil {
     public static final int SELECT_CHECK_SEND_RESULT = 10;
 
     /**
-     * 选择结果
+     * 刷新审批列表数据
      */
-    public static final int SELECT_TREE = 11;
-
-    /**
-     * 刷新点位采集列表数据
-     */
-    public static final int FLUSH_ = 7;
+    public static final int FLUSH_LIST_SP = 11;
 
 
 

@@ -476,7 +476,7 @@ public class SettingFragment extends BaseFragment {
         if (!StringUtil.isEmpty(timeStrEnd)) {
             params.put("endDate", timeStrEnd);
         }
-        ApiClient.requestNetGet(getContext(), AppConfig.pointToOllect, "", params, new ResultListener() {
+        ApiClient.requestNetGet(getContext(), AppConfig.pointToOllect, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<DWItem> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), DWItem.class);

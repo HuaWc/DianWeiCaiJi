@@ -25,6 +25,7 @@ import com.hwc.dwcj.entity.SPItem;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -132,7 +133,11 @@ public class AuditFragment extends BaseFragment {
      */
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()) {
+            case EventUtil.FLUSH_LIST_SP:
+                getData(false);
+                break;
+        }
     }
 
     /**
@@ -388,7 +393,7 @@ public class AuditFragment extends BaseFragment {
         if (!StringUtil.isEmpty(timeStrEnd)) {
             params.put("endDate", timeStrEnd);
         }
-        ApiClient.requestNetGet(getContext(), AppConfig.collectorApproval, "", params, new ResultListener() {
+        ApiClient.requestNetGet(getContext(), AppConfig.collectorApproval, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<SPItem> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), SPItem.class);
