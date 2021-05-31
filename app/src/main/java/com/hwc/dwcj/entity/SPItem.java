@@ -1222,6 +1222,15 @@ public class SPItem {
         public static class Map {
             private String checkType;
             private String userName;
+            private String expedite;
+
+            public String getExpedite() {
+                return expedite;
+            }
+
+            public void setExpedite(String expedite) {
+                this.expedite = expedite;
+            }
 
             public String getCheckType() {
                 return checkType;

@@ -20,6 +20,7 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.CommonImageAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.CameraDictData;
+import com.hwc.dwcj.entity.CheckPositionCodeEntity;
 import com.hwc.dwcj.entity.PcsDictItem;
 import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
@@ -212,7 +213,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     private int from;// 0 新增进入  1 扫码进入
 
-   // private String positionName;
+    // private String positionName;
     private String positionCode;
 
     private CameraDictData dictData;
@@ -275,7 +276,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     private boolean isEdit;
     private String cameraId;
     private PtCameraInfo entityInfo;
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @Override
@@ -288,6 +289,8 @@ public class AddCameraDetailActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
+        etLongitude.setFocusable(false);
+        etLatitude.setFocusable(false);
         if (!isEdit) {
             if (from == 1) {
                 etDwbm.setText(positionCode);
@@ -300,6 +303,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         } else {
             initAdapter2();
             tvTitle.setText("修  改");
+            etDwbm.setFocusable(false);
             //etDwmc.setText(positionName);
         }
 
@@ -623,7 +627,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
 
     private void getPcsData(String id) {
-        if(pcsDictItems == null){
+        if (pcsDictItems == null) {
             pcsDictItems = new ArrayList<>();
         }
         pcsDictItems.clear();
@@ -632,7 +636,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         ApiClient.requestNetGet(this, AppConfig.pcsListDict, "选择中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                 List<PcsDictItem>  list = FastJsonUtil.getList(json, PcsDictItem.class);
+                List<PcsDictItem> list = FastJsonUtil.getList(json, PcsDictItem.class);
                 if (list != null) {
                     pcsDictItems.addAll(list);
                     initPcs();
@@ -690,7 +694,50 @@ public class AddCameraDetailActivity extends BaseActivity {
                 finish();
             }
         });
+        etDwbm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    //失去焦点
+                    if (!StringUtil.isEmpty(etDwbm.getText().toString().trim())) {
+                        checkPositionCode();
+                    }
+                }
+            }
+        });
 
+    }
+
+
+    private void checkPositionCode() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("positionCode", etDwbm.getText().toString().trim());
+        ApiClient.requestNetPost(this, AppConfig.getPosition, "检测中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (StringUtil.isEmpty(json)) {
+                    ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
+                    etDwbm.setText("");
+                    etDwbm.requestFocus();
+                    return;
+                }
+                CheckPositionCodeEntity checkPositionCodeEntity = FastJsonUtil.getObject(json, CheckPositionCodeEntity.class);
+                if (checkPositionCodeEntity == null) {
+                    ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
+                    etDwbm.setText("");
+                    etDwbm.requestFocus();
+                } else{
+                    ToastUtil.toast("点位编码正确，为您填入经纬度！");
+                    etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude())?"":checkPositionCodeEntity.getLongitude());
+                    etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude())?"":checkPositionCodeEntity.getLatitude());
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     private void showSelectDialog(List<String> options, String title, TextView goal, AddSelectResult addSelectResult) {

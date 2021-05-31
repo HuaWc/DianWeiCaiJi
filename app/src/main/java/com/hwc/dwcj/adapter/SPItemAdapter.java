@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.SPItem;
 import com.hwc.dwcj.util.RecyclerViewHelper;
+import com.zds.base.util.StringUtil;
 
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     switch (view.getId()) {
                         case R.id.tv_check:
-                            spChildClickListener.check(item.getPositionName(),item.getCameraInfoList().get(position));
+                            spChildClickListener.check(item.getPositionName(), item.getCameraInfoList().get(position));
                             break;
                     }
                 }
@@ -47,7 +48,7 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    spChildClickListener.look(item.getPositionName(),item.getCameraInfoList().get(position));
+                    spChildClickListener.look(item.getPositionName(), item.getCameraInfoList().get(position));
 
                 }
             });
@@ -62,6 +63,7 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
         @Override
         protected void convert(BaseViewHolder helper, SPItem.CameraInfoList item) {
             View tv_check = helper.getView(R.id.tv_check);
+            View view_circle = helper.getView(R.id.view_circle);
             helper.setText(R.id.tv_name, item.getCameraName());
             helper.addOnClickListener(R.id.tv_check);
             //1.审批中  2.已撤销  3.已驳回 4.已通过
@@ -86,6 +88,18 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                 helper.setText(R.id.tv_status, "");
                 //((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
             }
+            if (!StringUtil.isEmpty(item.getMap().getExpedite())) {
+                if ("1".equals(item.getMap().getExpedite())) {
+                    //已催办
+                    view_circle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_da_circle_red));
+                } else {
+                    //未催办
+                    view_circle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_da_circle));
+                }
+            } else {
+                view_circle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_da_circle));
+            }
+
 
 /*            switch (item.getInformationType()) {
                 //1.信息采集  2.草稿  3.采集信息修改
@@ -106,9 +120,9 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
     }
 
     public interface SPChildClickListener {
-        void look(String positionName,SPItem.CameraInfoList c);
+        void look(String positionName, SPItem.CameraInfoList c);
 
-        void check(String positionName,SPItem.CameraInfoList c);
+        void check(String positionName, SPItem.CameraInfoList c);
     }
 
 }

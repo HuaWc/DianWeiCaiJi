@@ -184,8 +184,10 @@ public class AppConfig {
      */
     public static final String toHeavyNumber = mainUrl + "v1/operation/toHeavyNumber";
 
-
-
+    /**
+     *  根据点位编码获取点位信息(用于新增操作点位数据的回显)
+     */
+    public static final String getPosition = mainUrl + "v1/operation/PtPosition/getPosition";
 
 
 

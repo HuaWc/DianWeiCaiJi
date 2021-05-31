@@ -18,6 +18,7 @@
             android:orientation="horizontal">
 
             <View
+                android:id="@+id/view_circle"
                 android:layout_width="7dp"
                 android:layout_height="7dp"
                 android:layout_gravity="center_vertical"

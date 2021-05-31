@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/all"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_bar" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_da_top"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="评价检索"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:paddingVertical="16dp"
+                    android:src="@mipmap/back"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_search"
+                android:hint="名称、关键字"
+                android:paddingHorizontal="14dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#C8C8C8"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/iv_ss"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingHorizontal="15dp"
+                android:src="@mipmap/ss2" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/tv_clr"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                android:gravity="center_vertical"
+                android:hint="处理人"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#999999"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tc_ssjg"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                android:gravity="center_vertical"
+                android:hint="所属机构"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#999999"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_fz"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                android:gravity="center_vertical"
+                android:hint="分值"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#999999"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDF1FC">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </RelativeLayout>
+
+</LinearLayout>
