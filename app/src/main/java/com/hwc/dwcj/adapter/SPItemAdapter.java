@@ -66,26 +66,36 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
             View view_circle = helper.getView(R.id.view_circle);
             helper.setText(R.id.tv_name, item.getCameraName());
             helper.addOnClickListener(R.id.tv_check);
-            //1.审批中  2.已撤销  3.已驳回 4.已通过
-            if (item.getCurrentStatus() != null) {
-                if (item.getCurrentStatus() == 1) {
-                    helper.setText(R.id.tv_status, "审批中");
-                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-                } else if (item.getCurrentStatus() == 2) {
-                    helper.setText(R.id.tv_status, "已撤销");
-                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
-                } else if (item.getCurrentStatus() == 3) {
-                    helper.setText(R.id.tv_status, "已驳回");
-                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-                } else if (item.getCurrentStatus() == 4) {
+            //1.已通过  2.已驳回  3.待审批 4.已撤回 5.审批中
+            if (item.getMap().getCheckType() != null) {
+                if (Integer.parseInt(item.getMap().getCheckType()) == 1) {
                     helper.setText(R.id.tv_status, "已通过");
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-                } else {
+                    tv_check.setVisibility(View.GONE);
+                } else if (Integer.parseInt(item.getMap().getCheckType()) == 2) {
+                    helper.setText(R.id.tv_status, "已驳回");
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+                    tv_check.setVisibility(View.GONE);
+                } else if (Integer.parseInt(item.getMap().getCheckType()) == 3) {
+                    helper.setText(R.id.tv_status, "待审批");
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
+                    tv_check.setVisibility(View.GONE);
+                } else if (Integer.parseInt(item.getMap().getCheckType()) == 4) {
+                    helper.setText(R.id.tv_status, "已撤回");
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
+                    tv_check.setVisibility(View.GONE);
+                } else if (Integer.parseInt(item.getMap().getCheckType()) == 5) {
+                    helper.setText(R.id.tv_status, "审批中");
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+                    tv_check.setVisibility(View.VISIBLE);
+                }else {
                     helper.setText(R.id.tv_status, "");
+                    tv_check.setVisibility(View.GONE);
                     //((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
                 }
             } else {
                 helper.setText(R.id.tv_status, "");
+                tv_check.setVisibility(View.GONE);
                 //((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
             }
             if (!StringUtil.isEmpty(item.getMap().getExpedite())) {
@@ -114,7 +124,11 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                     break;
             }*/
             //helper.setText(R.id.tv_g2, item.get);
-            helper.setText(R.id.tv_time, item.getAddTime().substring(0, 7));
+            if(!StringUtil.isEmpty(item.getInstallTime())){
+                helper.setText(R.id.tv_time, item.getInstallTime().toString().substring(0, 7));
+            } else{
+                helper.setText(R.id.tv_time,"");
+            }
 
         }
     }

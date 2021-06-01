@@ -1,5 +1,6 @@
 package com.hwc.dwcj.activity.second;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +10,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.dfqin.grantor.PermissionListener;
+import com.github.dfqin.grantor.PermissionsUtil;
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.adapter.second.AlertMenuAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.second.AlertMenuInfo;
 import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +63,9 @@ public class AlertManagementActivity extends BaseActivity {
     LinearLayout all;
 
 
+    private List<AlertMenuInfo> mList;
+    private AlertMenuAdapter adapter;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_alert_management);
@@ -58,6 +76,7 @@ public class AlertManagementActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
+        initAdapter();
     }
 
     private void initClick() {
@@ -73,6 +92,51 @@ public class AlertManagementActivity extends BaseActivity {
                 showDialog();
             }
         });
+    }
+
+    private void initAdapter() {
+        mList = new ArrayList<>();
+        adapter = new AlertMenuAdapter(mList);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+        getData();
+    }
+
+    private void getData() {
+        for (int i = 0; i < 10; i++) {
+            AlertMenuInfo info = new AlertMenuInfo();
+            info.setName("XX路XX路摄像机设备离线（123.12.12.1)");
+            mList.add(info);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+
+    private static final int REQUEST_CODE_SCAN = 0X01;
+
+
+    /**
+     * 扫一扫功能
+     */
+    private void scanCode() {
+        //申请相机和储存权限
+        PermissionsUtil.requestPermission(this, new PermissionListener() {
+            @Override
+            public void permissionGranted(@NonNull String[] permission) {
+                ScanUtil.startScan(AlertManagementActivity.this, REQUEST_CODE_SCAN, new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE).create());
+            }
+
+            @Override
+            public void permissionDenied(@NonNull String[] permission) {
+                ToastUtil.toast("拒绝权限将无法使用扫一扫功能");
+            }
+        }, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
     @Override

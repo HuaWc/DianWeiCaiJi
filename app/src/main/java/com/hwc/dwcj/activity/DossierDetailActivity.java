@@ -130,7 +130,7 @@ public class DossierDetailActivity extends BaseActivity {
     private AdapterCameraPhoto adapter3;
     private List<String> checkUsersTel;
     private List<String> checkUsers;
-    private String applicantName;
+    //private String applicantName;
     //private String applicantTel;
     private String powerTakeType;
     private String networkProperties;
@@ -223,12 +223,27 @@ public class DossierDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "ptCameraInfo"), PtCameraInfo.class);
-                networkProperties = FastJsonUtil.getString(json, "networkProperties");
-                powerTakeType = FastJsonUtil.getString(json, "powerTakeType");
+                networkProperties = FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "networkProperties");
+                powerTakeType = FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "powerTakeType");
 //                applicantTel = FastJsonUtil.getString(json, "applicantTel");
-                applicantName = FastJsonUtil.getString(json, "applicantName");
-                checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUsers"), String.class);
-                checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUsersTel"), String.class);
+//                applicantName = FastJsonUtil.getString(json, "applicantName");
+                checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "checkUsers"), String.class);
+                checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "checkUsersTel"), String.class);
+                String s1 = FastJsonUtil.getString(json, "specialPhotoPath");
+                String s2 = FastJsonUtil.getString(json, "imgPath");
+                String s3 = FastJsonUtil.getString(json, "locationPhotoPath");
+                if (!StringUtil.isEmpty(s1)) {
+                    photo1.addAll(Arrays.asList(s1.split("!")));
+                    adapter1.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s2)) {
+                    photo2.addAll(Arrays.asList(s2.split("!")));
+                    adapter2.notifyDataSetChanged();
+                }
+                if (!StringUtil.isEmpty(s3)) {
+                    photo3.addAll(Arrays.asList(s3.split("!")));
+                    adapter3.notifyDataSetChanged();
+                }
                 initInfo();
 
 
@@ -244,8 +259,6 @@ public class DossierDetailActivity extends BaseActivity {
     private void initInfo() {
         tvLwfs.setText(StringUtil.isEmpty(networkProperties) ? "" : networkProperties);//联网方式
         tvQdfs.setText(StringUtil.isEmpty(powerTakeType) ? "" : powerTakeType);//取电方式
-        tvSbr.setText(StringUtil.isEmpty(applicantName) ? "" : applicantName);//上报人
-        tvDwmc.setText(StringUtil.isEmpty(positionName) ? "" : positionName);
         if (checkUsers != null && checkUsers.size() != 0) {
             StringBuilder builder = new StringBuilder();
             for (String s : checkUsers) {
@@ -270,6 +283,8 @@ public class DossierDetailActivity extends BaseActivity {
         if (entityInfo == null) {
             return;
         }
+        tvSbr.setText(StringUtil.isEmpty(entityInfo.getAddId()) ? "" : entityInfo.getAddId());//上报人
+        tvDwmc.setText(StringUtil.isEmpty(entityInfo.getPointName()) ? "" : entityInfo.getPointName());
         if (StringUtil.isEmpty(positionName)) {
             tvDwmc.setText(StringUtil.isEmpty(entityInfo.getPointName()) ? "" : entityInfo.getPointName());
         }
@@ -283,7 +298,7 @@ public class DossierDetailActivity extends BaseActivity {
 
 
         tvLwrdh.setText(StringUtil.isEmpty(entityInfo.getNetworkPropertiesTel()) ? "" : entityInfo.getNetworkPropertiesTel());//联网人电话
-        tvQdrdh.setText(StringUtil.isEmpty(entityInfo.getNetworkPropertiesTel()) ? "" : entityInfo.getNetworkPropertiesTel());//取电人电话
+        tvQdrdh.setText(StringUtil.isEmpty(entityInfo.getNetworkPropertiesTel()) ? "" : entityInfo.getPowerTakeTypeTel());//取电人电话
 
 
         tvSbbm.setText(StringUtil.isEmpty(entityInfo.getCameraNo()) ? "" : entityInfo.getCameraNo());
@@ -313,7 +328,7 @@ public class DossierDetailActivity extends BaseActivity {
         tvHb.setText(StringUtil.isEmpty(entityInfo.getAddress()) ? "" : entityInfo.getAddress());
         tvDwjklx.setText(StringUtil.isEmpty(entityInfo.getMonitorType()) ? "" : entityInfo.getMonitorType());//点位监控类型
 
-        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
+/*        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {
             photo1.addAll(Arrays.asList(entityInfo.getSpecialPhotoPath().split("!")));
         }
         if (!StringUtil.isEmpty(entityInfo.getLocationPhotoPath())) {
@@ -324,7 +339,7 @@ public class DossierDetailActivity extends BaseActivity {
         }
         adapter1.notifyDataSetChanged();
         adapter2.notifyDataSetChanged();
-        adapter3.notifyDataSetChanged();
+        adapter3.notifyDataSetChanged();*/
 
     }
 

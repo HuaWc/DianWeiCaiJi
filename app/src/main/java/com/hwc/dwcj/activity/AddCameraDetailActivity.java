@@ -277,7 +277,7 @@ public class AddCameraDetailActivity extends BaseActivity {
     private String cameraId;
     private PtCameraInfo entityInfo;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+    private Long orgId;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -710,6 +710,11 @@ public class AddCameraDetailActivity extends BaseActivity {
 
 
     private void checkPositionCode() {
+        if (!StringUtil.isEmpty(positionCode)) {
+            if (positionCode.equals(etDwbm.getText().toString().trim())) {
+                return;
+            }
+        }
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("positionCode", etDwbm.getText().toString().trim());
         ApiClient.requestNetPost(this, AppConfig.getPosition, "检测中", hashMap, new ResultListener() {
@@ -726,10 +731,11 @@ public class AddCameraDetailActivity extends BaseActivity {
                     ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
                     etDwbm.setText("");
                     etDwbm.requestFocus();
-                } else{
+                } else {
                     ToastUtil.toast("点位编码正确，为您填入经纬度！");
-                    etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude())?"":checkPositionCodeEntity.getLongitude());
-                    etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude())?"":checkPositionCodeEntity.getLatitude());
+                    positionCode = etDwbm.getText().toString();
+                    etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude()) ? "" : checkPositionCodeEntity.getLongitude());
+                    etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude()) ? "" : checkPositionCodeEntity.getLatitude());
                 }
             }
 
@@ -839,6 +845,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                     @Override
                     public void change(int options1, int options2, int options3) {
                         sspcsStr = pcsDictItems.get(options1).getOrgName() + "";
+                        orgId = Long.parseLong(pcsDictItems.get(options1).getId() + "");
                     }
                 });
                 break;
@@ -1190,6 +1197,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             getPcsData(ssfjStr);
         }
         sspcsStr = StringUtil.isEmpty(entityInfo.getPoliceStation()) ? "" : entityInfo.getPoliceStation();
+        orgId = entityInfo.getOrgId();
         tvSelectSspcs.setText(StringUtil.isEmpty(entityInfo.getPoliceStation()) ? "" : entityInfo.getPoliceStation());
         etAzdz.setText(StringUtil.isEmpty(entityInfo.getAddress()) ? "" : entityInfo.getAddress());
         etLongitude.setText(StringUtil.isEmpty(entityInfo.getLongitude()) ? "" : entityInfo.getLongitude());
@@ -1270,6 +1278,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         ptCameraInfo.setCameraNo(etSbbm.getText().toString());
         ptCameraInfo.setFenJu(ssfjStr);
         ptCameraInfo.setPoliceStation(sspcsStr);
+        ptCameraInfo.setOrgId(orgId);
         ptCameraInfo.setAddress(etAzdz.getText().toString());
         ptCameraInfo.setLatitude(etLatitude.getText().toString());
         ptCameraInfo.setLongitude(etLongitude.getText().toString());

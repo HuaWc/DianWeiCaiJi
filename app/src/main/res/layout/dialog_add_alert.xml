@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_sysr"
+        android:id="@+id/tv_sys"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:background="@drawable/bg_fillet_white"

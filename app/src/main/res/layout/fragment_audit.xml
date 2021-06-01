@@ -120,7 +120,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_da_shi"
                     android:gravity="center"
-                    android:text="待处理"
+                    android:text="待审批"
                     android:textColor="@drawable/text_da_shi"
                     android:textSize="13sp" />
 

@@ -81,7 +81,7 @@ public class DossierFragment extends BaseFragment {
 
 
     String areaCode = "";
-    String orgId = "";
+    String policeStation = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -168,7 +168,7 @@ public class DossierFragment extends BaseFragment {
                     });
                     //刷新数据
                     areaCode = "";
-                    orgId = "";
+                    policeStation = "";
                 } else {
                     //选中地区
                     //显示派出所的选择框
@@ -180,9 +180,9 @@ public class DossierFragment extends BaseFragment {
                             }
                         });
                     }
-                    //拿派出所数据，刷新列表（清除派出所的id）
+                    //拿派出所数据，刷新列表（清除派出所的名称）
                     tvSelectPcs.setText("");
-                    orgId = "";
+                    policeStation = "";
                     areaCode = cities.get(position).getDataValue();
                     getPcsData(cities.get(position).getDataValue());
                 }
@@ -210,7 +210,7 @@ public class DossierFragment extends BaseFragment {
                 });
                 //刷新数据
                 areaCode = "";
-                orgId = "";
+                policeStation = "";
                 getData(false);
                 getCityData();
             }
@@ -263,8 +263,8 @@ public class DossierFragment extends BaseFragment {
         if (!StringUtil.isEmpty(areaCode)) {
             params.put("areaCode", areaCode);
         }
-        if (!StringUtil.isEmpty(orgId)) {
-            params.put("orgId", orgId);
+        if (!StringUtil.isEmpty(policeStation)) {
+            params.put("policeStation", policeStation);
         }
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
             params.put("keywords", etSearch.getText().toString().trim());
@@ -396,8 +396,10 @@ public class DossierFragment extends BaseFragment {
         PickerViewUtils.selectOptions(getContext(), "选择派出所", pcsString, null, null, new PickerViewSelectOptionsResult() {
             @Override
             public void getOptionsResult(int options1, int options2, int options3) {
-                orgId = String.valueOf(pcs.get(options1).getId());
-                tvSelectPcs.setText(pcs.get(options1).getOrgName());
+                /*orgId = String.valueOf(pcs.get(options1).getId());
+                tvSelectPcs.setText(pcs.get(options1).getOrgName());*/
+                policeStation = pcsString.get(options1);
+                tvSelectPcs.setText(pcsString.get(options1));
                 //刷新数据
                 getData(false);
             }

@@ -73,7 +73,7 @@ public class SPItem {
         private int cameraEncodeType;
         private int soundAlarm;
         private String resolution;
-        private Object installTime;
+        private String installTime;
         private Object accessModel;
         private String policeAreaCode;
         private int buildPeriod;
@@ -507,11 +507,11 @@ public class SPItem {
             this.resolution = resolution;
         }
 
-        public Object getInstallTime() {
+        public String getInstallTime() {
             return installTime;
         }
 
-        public void setInstallTime(Object installTime) {
+        public void setInstallTime(String installTime) {
             this.installTime = installTime;
         }
 
