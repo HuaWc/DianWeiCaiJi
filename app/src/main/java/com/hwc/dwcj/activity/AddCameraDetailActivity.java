@@ -278,6 +278,9 @@ public class AddCameraDetailActivity extends BaseActivity {
     private PtCameraInfo entityInfo;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Long orgId;
+    private String longitude;
+    private String latitude;
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -297,6 +300,16 @@ public class AddCameraDetailActivity extends BaseActivity {
                 //etDwmc.setText(positionName);
                 etDwbm.setFocusable(false);
                 //etDwmc.setFocusable(false);
+                if(!StringUtil.isEmpty(longitude)){
+                    etLongitude.setText(longitude);
+                } else{
+                    etLatitude.setFocusable(true);
+                }
+                if(!StringUtil.isEmpty(latitude)){
+                    etLatitude.setText(latitude);
+                } else{
+                    etLatitude.setFocusable(true);
+                }
             }
             getDictData();
             initAdapter();
@@ -1016,6 +1029,10 @@ public class AddCameraDetailActivity extends BaseActivity {
             ToastUtil.toast("请填写格式正确的IPV4地址");
             return;
         }
+        if (StringUtil.isEmpty(tvSelectXzqy.getText().toString().trim())) {
+            ToastUtil.toast("请填写行政区域");
+            return;
+        }
         if (StringUtil.isEmpty(tvSelectSsfj.getText().toString().trim())) {
             ToastUtil.toast("请填写所属分局");
             return;
@@ -1563,6 +1580,8 @@ public class AddCameraDetailActivity extends BaseActivity {
         from = extras.getInt("from");
         isEdit = extras.getBoolean("isEdit", false);
         cameraId = extras.getString("cameraId");
+        longitude = extras.getString("longitude");
+        latitude = extras.getString("latitude");
     }
 
     @Override

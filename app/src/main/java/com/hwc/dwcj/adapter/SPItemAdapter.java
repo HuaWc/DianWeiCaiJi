@@ -86,7 +86,7 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                     tv_check.setVisibility(View.GONE);
                 } else if (Integer.parseInt(item.getMap().getCheckType()) == 5) {
                     helper.setText(R.id.tv_status, "审批中");
-                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_yellow));
                     tv_check.setVisibility(View.VISIBLE);
                 }else {
                     helper.setText(R.id.tv_status, "");
@@ -124,8 +124,8 @@ public class SPItemAdapter extends BaseQuickAdapter<SPItem, BaseViewHolder> {
                     break;
             }*/
             //helper.setText(R.id.tv_g2, item.get);
-            if(!StringUtil.isEmpty(item.getInstallTime())){
-                helper.setText(R.id.tv_time, item.getInstallTime().toString().substring(0, 7));
+            if(!StringUtil.isEmpty(item.getAddTime())){
+                helper.setText(R.id.tv_time, item.getAddTime().toString().substring(0, 7));
             } else{
                 helper.setText(R.id.tv_time,"");
             }

@@ -67,7 +67,7 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
                     helper.setText(R.id.tv_status, "审批中");
                     tvEdit.setVisibility(View.GONE);
                     tvLook.setVisibility(View.VISIBLE);
-                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+                    ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_yellow));
                 } else if (item.getCurrentStatus() == 2) {
                     helper.setText(R.id.tv_status, "已撤销");
                     tvEdit.setVisibility(View.GONE);

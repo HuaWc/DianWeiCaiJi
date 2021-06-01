@@ -56,6 +56,8 @@ public class AddCameraActivity extends BaseActivity {
     private String orgName;
     private String describe;
     private String positionCode;
+    private String longitude;
+    private String latitude;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -81,7 +83,8 @@ public class AddCameraActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", addCameraChildList.get(position).getId());
-                bundle.putString("positionName", positionName);
+                //bundle.putString("positionName", positionName);
+                toTheActivity(DossierDetailActivity.class, bundle);
             }
         });
         getData();
@@ -96,7 +99,9 @@ public class AddCameraActivity extends BaseActivity {
                 if(a){
                     Bundle bundle = new Bundle();
                     bundle.putString("positionCode", positionCode);
-                    bundle.putString("positionName", positionName);
+                    bundle.putString("longitude",longitude);
+                    bundle.putString("latitude",latitude);
+                    //bundle.putString("positionName", positionName);
                     bundle.putInt("from", 1);
                     toTheActivity(AddCameraDetailActivity.class, bundle);
                 } else {
@@ -141,6 +146,8 @@ public class AddCameraActivity extends BaseActivity {
                 positionName = FastJsonUtil.getString(json, "positionName");
                 orgName = FastJsonUtil.getString(json, "orgName");
                 describe = FastJsonUtil.getString(json, "describe");
+                longitude = FastJsonUtil.getString(json,"longitude");
+                latitude = FastJsonUtil.getString(json,"latitude");
                 List<AddCameraChild> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "ptCameraInfoList"), AddCameraChild.class);
                 addCameraChildList.clear();
                 if (list != null && list.size() != 0) {

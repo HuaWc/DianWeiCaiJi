@@ -325,7 +325,7 @@ public class DossierDetailActivity extends BaseActivity {
         tvXzqy.setText(StringUtil.isEmpty(entityInfo.getAreaCode()) ? "" : entityInfo.getAreaCode());//行政区域
         tvJsgd.setText(StringUtil.isEmpty(entityInfo.getInstallHeight()) ? "" : entityInfo.getInstallHeight());
 
-        tvHb.setText(StringUtil.isEmpty(entityInfo.getAddress()) ? "" : entityInfo.getAddress());
+        tvHb.setText(StringUtil.isEmpty(entityInfo.getCrossArm1()) ? "" : entityInfo.getCrossArm1());
         tvDwjklx.setText(StringUtil.isEmpty(entityInfo.getMonitorType()) ? "" : entityInfo.getMonitorType());//点位监控类型
 
 /*        if (!StringUtil.isEmpty(entityInfo.getSpecialPhotoPath())) {

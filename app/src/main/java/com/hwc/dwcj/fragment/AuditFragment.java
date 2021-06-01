@@ -98,7 +98,7 @@ public class AuditFragment extends BaseFragment {
 
     private List<SPItem> mList;
     private SPItemAdapter spItemAdapter;
-    private int selectedType1 = 0;//默认全部  当前状态(1.审批中  2.已撤销  3.已驳回 4.已通过 5.待处理 )
+    private int selectedType1 = 0;//默认全部  当前状态(1.已同意  2.已驳回  3.待审批 4.已撤回 5.审批中 )
     private int selectedType2 = 0;//默认全部  类型(1.信息采集2.草稿,3.采集信息修改)
     private String timeStrStart = "";//开始时间
     private String timeStrEnd = "";
@@ -278,16 +278,16 @@ public class AuditFragment extends BaseFragment {
                 changeChooseType1(0);
                 break;
             case R.id.tv_select1_type2:
-                changeChooseType1(4);
-                break;
-            case R.id.tv_select1_type3:
                 changeChooseType1(1);
                 break;
-            case R.id.tv_select1_type4:
+            case R.id.tv_select1_type3:
                 changeChooseType1(5);
                 break;
-            case R.id.tv_select1_type5:
+            case R.id.tv_select1_type4:
                 changeChooseType1(3);
+                break;
+            case R.id.tv_select1_type5:
+                changeChooseType1(2);
                 break;
             case R.id.tv_select2_type1:
                 changeChooseType2(0);
@@ -319,17 +319,17 @@ public class AuditFragment extends BaseFragment {
                     case 0:
                         tvSelect1Type1.setSelected(true);
                         break;
-                    case 4:
+                    case 1:
                         tvSelect1Type2.setSelected(true);
                         break;
-                    case 1:
+                    case 5:
                         tvSelect1Type3.setSelected(true);
                         break;
                     case 3:
-                        tvSelect1Type5.setSelected(true);
-                        break;
-                    case 5:
                         tvSelect1Type4.setSelected(true);
+                        break;
+                    case 2:
+                        tvSelect1Type5.setSelected(true);
                         break;
                 }
             }

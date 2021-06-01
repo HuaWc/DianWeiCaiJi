@@ -152,7 +152,7 @@ public class DossierNextFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", mList.get(position).getId());
-                bundle.putString("positionName", positionName);
+                //bundle.putString("positionName", positionName);
                 toTheActivity(DossierDetailActivity.class, bundle);
             }
         });
