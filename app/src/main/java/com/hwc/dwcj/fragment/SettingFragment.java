@@ -232,7 +232,7 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void edit(DWItem.CameraInfoList c, String positionName) {
                 Bundle bundle = new Bundle();
-                bundle.putString("positionName", positionName);
+                //bundle.putString("positionName", positionName);
                 bundle.putString("cameraId", c.getId());
                 bundle.putBoolean("isEdit", true);
                 toTheActivity(AddCameraDetailActivity.class, bundle);

@@ -223,7 +223,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     private int from;// 0 新增进入  1 扫码进入
 
-    // private String positionName;
+    private String positionName;
     private String positionCode;
 
     private CameraDictData dictData;
@@ -304,12 +304,13 @@ public class AddCameraDetailActivity extends BaseActivity {
         initClick();
         etLongitude.setFocusable(false);
         etLatitude.setFocusable(false);
+        etDwmc.setFocusable(false);
         if (!isEdit) {
             if (from == 1) {
                 etDwbm.setText(positionCode);
-                //etDwmc.setText(positionName);
+                etDwmc.setText(positionName);
                 etDwbm.setFocusable(false);
-                //etDwmc.setFocusable(false);
+                etDwmc.setFocusable(false);
                 if (!StringUtil.isEmpty(longitude)) {
                     etLongitude.setText(longitude);
                 } else {
@@ -327,7 +328,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             initAdapter2();
             tvTitle.setText("修  改");
             etDwbm.setFocusable(false);
-            //etDwmc.setText(positionName);
+            etDwmc.setText(positionName);
         }
 
     }
@@ -759,6 +760,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                     positionCode = etDwbm.getText().toString();
                     etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude()) ? "" : checkPositionCodeEntity.getLongitude());
                     etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude()) ? "" : checkPositionCodeEntity.getLatitude());
+                    etDwmc.setText(StringUtil.isEmpty(checkPositionCodeEntity.getPositionName()) ? "" : checkPositionCodeEntity.getPositionName());
                 }
             }
 
@@ -1585,7 +1587,7 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-        //positionName = extras.getString("positionName");
+        positionName = extras.getString("positionName");
         positionCode = extras.getString("positionCode");
         from = extras.getInt("from");
         isEdit = extras.getBoolean("isEdit", false);
