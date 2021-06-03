@@ -36,6 +36,15 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 你不要失望
+ * 荡气回肠是为了
+ * 最美的平凡
+ * <p>
+ * <p>
+ * <p>
+ * Located at "安徽贝奇信息科技有限公司" on 2021.6.3
+ */
 public class AuditDetailAdminActivity extends BaseActivity {
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -238,7 +247,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("uuid", cameraId);
         hashMap.put("checkType", type);
-        hashMap.put("reason","");
+        hashMap.put("reason", "");
         hashMap.put("handleConnent", type == 1 ? "同意" : "驳回");
         hashMap.put("handleIp", RegularCheckUtil.getIPAddress(this));
         ApiClient.requestNetGet(this, AppConfig.checkCamera, "操作中", hashMap, new ResultListener() {

@@ -60,6 +60,16 @@ import butterknife.OnClick;
 
 import static com.hwc.dwcj.util.PickerViewUtils.lineSpace;
 
+/**
+ * 期望带来失望的恶性循环
+ * 短暂的总是浪漫
+ * 漫长总会不满
+ * 烧完美好青春换一个老伴
+ * <p>
+ * <p>
+ * <p>
+ * Located at "安徽贝奇信息科技有限公司" on 2021.6.3
+ */
 public class AddCameraDetailActivity extends BaseActivity {
 
 
@@ -300,14 +310,14 @@ public class AddCameraDetailActivity extends BaseActivity {
                 //etDwmc.setText(positionName);
                 etDwbm.setFocusable(false);
                 //etDwmc.setFocusable(false);
-                if(!StringUtil.isEmpty(longitude)){
+                if (!StringUtil.isEmpty(longitude)) {
                     etLongitude.setText(longitude);
-                } else{
+                } else {
                     etLatitude.setFocusable(true);
                 }
-                if(!StringUtil.isEmpty(latitude)){
+                if (!StringUtil.isEmpty(latitude)) {
                     etLatitude.setText(latitude);
-                } else{
+                } else {
                     etLatitude.setFocusable(true);
                 }
             }

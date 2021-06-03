@@ -117,7 +117,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/tc_ssjg"
+                android:id="@+id/tv_ssjg"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="12dp"

@@ -1,5 +1,6 @@
 package com.hwc.dwcj.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.LoginActivity;
 import com.hwc.dwcj.base.ActivityStackManager;
 import com.hwc.dwcj.base.BaseFragment;
 import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 
 import java.util.HashMap;
@@ -67,14 +70,21 @@ public class FirstPersonalFragment extends BaseFragment {
             @Override
             public void onSuccess(String json, String msg) {
                 MyApplication.getInstance().cleanUserInfo();
-                MyApplication.getInstance().toLogin(getContext());
+                ToastUtil.toast("退出成功！");
+                ActivityStackManager.getInstance().killAllActivity();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(String msg) {
                 MyApplication.getInstance().cleanUserInfo();
-                MyApplication.getInstance().toLogin(getContext());
-
+                ToastUtil.toast("退出成功！");
+                ActivityStackManager.getInstance().killAllActivity();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
