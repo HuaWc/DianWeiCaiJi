@@ -406,11 +406,11 @@ public class AuditFragment extends BaseFragment {
                     if (page > 1) {
                         page--;
                     }
-                    getActivity().runOnUiThread(new Runnable() {
+                    /*getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mContext, "暂无更多数据", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
                 }
                 spItemAdapter.notifyDataSetChanged();
                 refreshLayout.finishLoadmore();

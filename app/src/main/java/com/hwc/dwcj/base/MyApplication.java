@@ -295,12 +295,11 @@ public class MyApplication extends SelfAppContext {
     }
 
     public void toLogin(Context context) {
-        ToastUtil.toast("登录已失效，请您重新登陆~");
         ActivityStackManager.getInstance().killAllActivity();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
+        ToastUtil.toast("登录已失效，请您重新登陆~");
     }
 
     /**

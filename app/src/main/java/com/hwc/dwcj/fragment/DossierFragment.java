@@ -279,11 +279,11 @@ public class DossierFragment extends BaseFragment {
                     if (page > 1) {
                         page--;
                     }
-                    getActivity().runOnUiThread(new Runnable() {
+                    /*getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(mContext, "暂无更多数据", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
                 }
 /*                int total = FastJsonUtil.getInt(json, "total");
                 if (mList.size() < total) {

@@ -15,9 +15,17 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.fragment.FirstHomeFragment;
 import com.hwc.dwcj.fragment.FirstPersonalFragment;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.updata.CretinAutoUpdateUtils;
 import com.hwc.dwcj.util.EventUtil;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.json.FastJsonUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +75,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initLogic() {
         initTab();
+        getRole();
     }
 
     /**
@@ -203,4 +212,24 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+
+    /**
+     * 提前调用下
+     * 防止进入具体功能页面之后才检测到token失效，多重弹窗
+     */
+    private void getRole() {
+        Map<String, Object> hashMap = new HashMap<>();
+        ApiClient.requestNetGet(this, AppConfig.getUserRole, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+    }
+
 }
