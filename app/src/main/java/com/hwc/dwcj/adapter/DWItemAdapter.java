@@ -47,6 +47,12 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
                     }
                 }
             });
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    dwChildClickListener.detail(item.getCameraInfoList().get(position));
+                }
+            });
         }
     }
 
@@ -122,6 +128,8 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
         void look(DWItem.CameraInfoList c);
 
         void edit(DWItem.CameraInfoList c,String positionName);
+
+        void detail(DWItem.CameraInfoList c);
     }
 
 }

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
 import com.huawei.hms.hmsscankit.ScanUtil;
@@ -27,6 +28,7 @@ import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.AddCameraDetailActivity;
+import com.hwc.dwcj.activity.AuditDetailAdminActivity;
 import com.hwc.dwcj.activity.AuditDetailUserActivity;
 import com.hwc.dwcj.adapter.DWItemAdapter;
 import com.hwc.dwcj.base.BaseFragment;
@@ -236,6 +238,14 @@ public class SettingFragment extends BaseFragment {
                 bundle.putString("cameraId", c.getId());
                 bundle.putBoolean("isEdit", true);
                 toTheActivity(AddCameraDetailActivity.class, bundle);
+            }
+
+            @Override
+            public void detail(DWItem.CameraInfoList c) {
+                Bundle bundle = new Bundle();
+                bundle.putString("cameraId", c.getId());
+                bundle.putBoolean("isUser", true);
+                toTheActivity(AuditDetailAdminActivity.class, bundle);
             }
         });
         rv.setLayoutManager(new LinearLayoutManager(getContext()));

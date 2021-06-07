@@ -163,7 +163,7 @@ public class AuditFragment extends BaseFragment {
             public void look(String positionName, SPItem.CameraInfoList c) {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", c.getId());
-                bundle.putString("positionName", positionName);
+                //bundle.putString("positionName", positionName);
                 bundle.putBoolean("isLook", true);
 /*                switch (roleId) {
                     case 903:
@@ -184,14 +184,13 @@ public class AuditFragment extends BaseFragment {
                         break;
                 }*/
                 toTheActivity(AuditDetailAdminActivity.class, bundle);
-                Log.d("role:", "审批员");
             }
 
             @Override
             public void check(String positionName, SPItem.CameraInfoList c) {
                 Bundle bundle = new Bundle();
                 bundle.putString("cameraId", c.getId());
-                bundle.putString("positionName", positionName);
+                //bundle.putString("positionName", positionName);
                 bundle.putBoolean("isLook", false);
                 toTheActivity(AuditDetailAdminActivity.class, bundle);
             }

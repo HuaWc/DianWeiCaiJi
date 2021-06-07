@@ -28,9 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author Administrator
- * 日期 2018/8/8
- * 描述 登陆
+ * 听说匹诺曹总说着慌
+ * 侏儒怪拥有宝石满箱
  */
 
 public class LoginActivity extends BaseActivity {

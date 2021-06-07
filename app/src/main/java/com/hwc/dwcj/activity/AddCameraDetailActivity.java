@@ -25,6 +25,7 @@ import com.hwc.dwcj.entity.PcsDictItem;
 import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetCameraImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.EventUtil;
@@ -1179,6 +1180,20 @@ public class AddCameraDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 entityInfo = FastJsonUtil.getObject(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "ptCameraInfo"), PtCameraInfo.class);
+                initData();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    private void getImgData(){
+        GetCameraImgHttp.getImg(cameraId, this, new GetCameraImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
                 String s1 = FastJsonUtil.getString(json, "imgPath");
                 String s2 = FastJsonUtil.getString(json, "locationPhotoPath");
                 String s3 = FastJsonUtil.getString(json, "specialPhotoPath");
@@ -1203,12 +1218,6 @@ public class AddCameraDetailActivity extends BaseActivity {
                     }
                     adapter3.notifyDataSetChanged();
                 }
-                initData();
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                ToastUtil.toast(msg);
             }
         });
     }
@@ -1491,6 +1500,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         RecyclerViewHelper.recyclerviewAndScrollView(rvSxjtx);
 
         getData();
+        getImgData();
 
     }
 

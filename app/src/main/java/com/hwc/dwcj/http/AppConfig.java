@@ -189,7 +189,10 @@ public class AppConfig {
      */
     public static final String getPosition = mainUrl + "v1/operation/PtPosition/getPosition";
 
-
+    /**
+     *  获取相机图片base64编码接口
+     */
+    public static final String getCameraImg = mainUrl + "v1/operation/getCameraImg";
 
 
 

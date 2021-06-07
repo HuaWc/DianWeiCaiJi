@@ -15,6 +15,7 @@ import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetCameraImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.RecyclerViewHelper;
@@ -148,10 +149,12 @@ public class AuditDetailAdminActivity extends BaseActivity {
     TextView tvSpbh;
     @BindView(R.id.bar)
     View bar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private String cameraId;
     private PtCameraInfo entity;
-    private String positionName;
+    //private String positionName;
 
     private List<String> photo1;
     private AdapterCameraPhoto adapter1;
@@ -168,6 +171,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
     private String networkProperties;
 
     private boolean isLook;
+    private boolean isUser;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -180,21 +184,32 @@ public class AuditDetailAdminActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initAdapter();
         initClick();
-        if (isLook) {
+        if (isUser) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     llBtn.setVisibility(View.GONE);
+                    tvTitle.setText("详  情");
                 }
             });
         } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    llBtn.setVisibility(View.VISIBLE);
-                }
-            });
+            if (isLook) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        llBtn.setVisibility(View.GONE);
+                    }
+                });
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        llBtn.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         }
+
     }
 
     private void initAdapter() {
@@ -216,6 +231,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
         rvQjzp.setAdapter(adapter3);
         RecyclerViewHelper.recyclerviewAndScrollView(rvQjzp);
         getData();
+        getImgData();
     }
 
     private void initClick() {
@@ -279,6 +295,21 @@ public class AuditDetailAdminActivity extends BaseActivity {
                 //applicantName = FastJsonUtil.getString(json, "applicantName");
                 checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUser"), String.class);
                 checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(json, "checkUserTel"), String.class);
+                initData();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+
+    }
+
+    private void getImgData() {
+        GetCameraImgHttp.getImg(cameraId, this, new GetCameraImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
                 String s1 = FastJsonUtil.getString(json, "imgPath");
                 String s2 = FastJsonUtil.getString(json, "locationPhotoPath");
                 String s3 = FastJsonUtil.getString(json, "specialPhotoPath");
@@ -294,21 +325,13 @@ public class AuditDetailAdminActivity extends BaseActivity {
                     photo3.addAll(Arrays.asList(s3.split("!")));
                     adapter3.notifyDataSetChanged();
                 }
-                initData();
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                ToastUtil.toast(msg);
             }
         });
-
     }
 
     private void initData() {
         tvName.setText((StringUtil.isEmpty(userName) ? "" : userName) + "提交的审批流程");
         tvSbr.setText(StringUtil.isEmpty(userName) ? "" : userName);//上报人
-        tvDwmc.setText(StringUtil.isEmpty(positionName) ? "" : positionName);
         tvLwfs.setText(StringUtil.isEmpty(networkProperties) ? "" : networkProperties);//联网方式
         tvQdfs.setText(StringUtil.isEmpty(powerTakeType) ? "" : powerTakeType);//取电方式
         if (checkUsers != null && checkUsers.size() != 0) {
@@ -350,6 +373,7 @@ public class AuditDetailAdminActivity extends BaseActivity {
                 tvStatus.setText("已通过");
             }
         }
+        tvDwmc.setText(StringUtil.isEmpty(entity.getPointName()) ? "" : entity.getPointName());
         tvSbmc.setText(StringUtil.isEmpty(entity.getCameraName()) ? "" : entity.getCameraName());
         tvAzdz.setText(StringUtil.isEmpty(entity.getAddress()) ? "" : entity.getAddress());
 
@@ -420,8 +444,10 @@ public class AuditDetailAdminActivity extends BaseActivity {
     @Override
     protected void getBundleExtras(Bundle extras) {
         cameraId = extras.getString("cameraId");
-        positionName = extras.getString("positionName");
+        // positionName = extras.getString("positionName");
         isLook = extras.getBoolean("isLook");
+        isUser = extras.getBoolean("isUser", false);
+
     }
 
     @Override

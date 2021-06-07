@@ -16,6 +16,7 @@ import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetCameraImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.Toast.ToastUtil;
@@ -33,6 +34,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 长太息以掩涕兮
+ * 哀民生之多艰
+ * 余虽好修姱以鞿羁兮
+ * 謇朝谇而夕替
+ * 既替余以蕙纕兮又申之以揽茝
+ */
 public class DossierDetailActivity extends BaseActivity {
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -214,6 +222,7 @@ public class DossierDetailActivity extends BaseActivity {
         rvQjzp.setAdapter(adapter3);
         RecyclerViewHelper.recyclerviewAndScrollView(rvQjzp);
         getData();
+        getImgData();
     }
 
     private void getData() {
@@ -229,6 +238,23 @@ public class DossierDetailActivity extends BaseActivity {
 //                applicantName = FastJsonUtil.getString(json, "applicantName");
                 checkUsers = FastJsonUtil.getList(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "checkUsers"), String.class);
                 checkUsersTel = FastJsonUtil.getList(FastJsonUtil.getString(FastJsonUtil.getString(json, "model"), "checkUsersTel"), String.class);
+
+                initInfo();
+
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    private void getImgData(){
+        GetCameraImgHttp.getImg(cameraId, this, new GetCameraImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
                 String s1 = FastJsonUtil.getString(json, "specialPhotoPath");
                 String s2 = FastJsonUtil.getString(json, "imgPath");
                 String s3 = FastJsonUtil.getString(json, "locationPhotoPath");
@@ -244,14 +270,6 @@ public class DossierDetailActivity extends BaseActivity {
                     photo3.addAll(Arrays.asList(s3.split("!")));
                     adapter3.notifyDataSetChanged();
                 }
-                initInfo();
-
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                ToastUtil.toast(msg);
             }
         });
     }
