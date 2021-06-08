@@ -3,6 +3,8 @@ package com.hwc.dwcj.activity.second;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
@@ -12,17 +14,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 档案详情查看 -工单处理(管理员)
+ * Created by Christ on 2021/6/8.
+ * By an amateur android developer
+ * Email 627447123@qq.com
+ * <p>
+ * <p>
+ * 工单处理（管理员） - 事件审核 - 问题上报
  */
-public class WorkOrderDetailActivity extends BaseActivity {
+public class WorkOrderProblemUpActivity extends BaseActivity {
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
+    @BindView(R.id.tv_sure)
+    TextView tvSure;
+    @BindView(R.id.ll_btn)
+    LinearLayout llBtn;
 
     @Override
     protected void initContentView(Bundle bundle) {
-        setContentView(R.layout.activity_work_order_detail);
+        setContentView(R.layout.activity_work_order_problem_up);
     }
 
     @Override

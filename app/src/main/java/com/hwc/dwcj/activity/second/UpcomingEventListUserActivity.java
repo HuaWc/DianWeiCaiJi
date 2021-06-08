@@ -7,12 +7,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.adapter.second.UpcomingEventUserAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.second.UpcomingEventUser;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zds.base.entity.EventCenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +53,9 @@ public class UpcomingEventListUserActivity extends BaseActivity {
     @BindView(R.id.all)
     LinearLayout all;
 
+    private List<UpcomingEventUser> mList;
+    private UpcomingEventUserAdapter adapter;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_upcoming_event_list_user);
@@ -56,7 +66,32 @@ public class UpcomingEventListUserActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
+        initAdapter();
     }
+
+    private void initAdapter() {
+        mList = new ArrayList<>();
+        adapter = new UpcomingEventUserAdapter(mList);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+        getData();
+    }
+
+    private void getData() {
+        for (int i = 0; i < 10; i++) {
+            UpcomingEventUser upcomingEventUser = new UpcomingEventUser();
+            upcomingEventUser.setName("XX路XX路摄像机设备离线（12.12.12.1）");
+            mList.add(upcomingEventUser);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
 
     private void initClick() {
         ivBack.setOnClickListener(new View.OnClickListener() {
