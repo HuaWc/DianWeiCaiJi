@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amap.api.maps.model.LatLng;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
@@ -204,6 +206,10 @@ public class AddCameraDetailActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.bar)
     View bar;
+    @BindView(R.id.rl_locate)
+    RelativeLayout rlLocate;
+
+
     private CommonImageAdapter adapter1;
     private CommonImageAdapter adapter2;
     private CommonImageAdapter adapter3;
@@ -284,13 +290,22 @@ public class AddCameraDetailActivity extends BaseActivity {
     private String checkUserId;
     private String notifyUserId;
     private int currentStatus;
-    private boolean isEdit;
+    private boolean isEdit;//是否是修改
+    private boolean isDraft;//修改之前是不是草稿
     private String cameraId;
     private PtCameraInfo entityInfo;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Long orgId;
     private String longitude;
     private String latitude;
+    private LatLng l;
+
+
+    /**
+     * 草稿->草稿，直接修改
+     * 草稿->发布，先删后加
+     * 撤回，驳回->发布，先删后加
+     */
 
 
     @Override
@@ -303,10 +318,11 @@ public class AddCameraDetailActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
-        etLongitude.setFocusable(false);
-        etLatitude.setFocusable(false);
+        //etLongitude.setFocusable(false);
+        //etLatitude.setFocusable(false);
         etDwmc.setFocusable(false);
         if (!isEdit) {
+            //新增
             if (from == 1) {
                 etDwbm.setText(positionCode);
                 etDwmc.setText(positionName);
@@ -314,18 +330,36 @@ public class AddCameraDetailActivity extends BaseActivity {
                 etDwmc.setFocusable(false);
                 if (!StringUtil.isEmpty(longitude)) {
                     etLongitude.setText(longitude);
-                } else {
+                } /*else {
                     etLatitude.setFocusable(true);
-                }
+                }*/
                 if (!StringUtil.isEmpty(latitude)) {
                     etLatitude.setText(latitude);
-                } else {
+                } /*else {
                     etLatitude.setFocusable(true);
-                }
+                }*/
             }
             getDictData();
             initAdapter();
         } else {
+            //修改
+            if (isDraft) {
+                //是草稿，显示保存为草稿
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvSave.setVisibility(View.VISIBLE);
+                    }
+                });
+            } else {
+                //不是，不显示
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvSave.setVisibility(View.GONE);
+                    }
+                });
+            }
             initAdapter2();
             tvTitle.setText("修  改");
             etDwbm.setFocusable(false);
@@ -686,6 +720,17 @@ public class AddCameraDetailActivity extends BaseActivity {
     }
 
     private void initClick() {
+        rlLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                if(!StringUtil.isEmpty(etLatitude) && !StringUtil.isEmpty(etLongitude)){
+                    bundle.putDouble("latitude",Double.parseDouble(etLatitude.getText().toString()));
+                    bundle.putDouble("longitude",Double.parseDouble(etLongitude.getText().toString()));
+                }
+                toTheActivity(SelectMapPointActivity.class,bundle);
+            }
+        });
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -740,12 +785,17 @@ public class AddCameraDetailActivity extends BaseActivity {
                 return;
             }
         }
+        positionCode = "" ;
+        etLongitude.setText("");
+        etLatitude.setText("");
+        etDwmc.setText("");
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("positionCode", etDwbm.getText().toString().trim());
         ApiClient.requestNetPost(this, AppConfig.getPosition, "检测中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (StringUtil.isEmpty(json)) {
+                    positionCode = etDwbm.getText().toString();
                     ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
                     etDwbm.setText("");
                     etDwbm.requestFocus();
@@ -753,6 +803,7 @@ public class AddCameraDetailActivity extends BaseActivity {
                 }
                 CheckPositionCodeEntity checkPositionCodeEntity = FastJsonUtil.getObject(json, CheckPositionCodeEntity.class);
                 if (checkPositionCodeEntity == null) {
+                    positionCode = etDwbm.getText().toString();
                     ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
                     etDwbm.setText("");
                     etDwbm.requestFocus();
@@ -1030,10 +1081,10 @@ public class AddCameraDetailActivity extends BaseActivity {
             ToastUtil.toast("请填写设备名称");
             return;
         }
-        if (StringUtil.isEmpty(etSbbm.getText().toString().trim())) {
+        /*if (StringUtil.isEmpty(etSbbm.getText().toString().trim())) {
             ToastUtil.toast("请填写设备编码");
             return;
-        }
+        }*/
         if (StringUtil.isEmpty(etIpv4.getText().toString().trim())) {
             ToastUtil.toast("请填写IPV4地址");
             return;
@@ -1095,7 +1146,7 @@ public class AddCameraDetailActivity extends BaseActivity {
             return;
         }
         this.currentStatus = currentStatus;
-        if (isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())) {
+        /*if (isEdit && etSbbm.getText().toString().trim().equals(entityInfo.getCameraNo())) {
             // checkIpv4Address();
             if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
                 toSelectCheckUser();
@@ -1108,10 +1159,17 @@ public class AddCameraDetailActivity extends BaseActivity {
             } else {
                 checkCameraNo();
             }
-        }
+        }*/
+            // checkIpv4Address();
+            if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
+                toSelectCheckUser();
+            } else {
+                checkIpv4Address();
+            }
+
     }
 
-    private void checkCameraNo() {
+    /*private void checkCameraNo() {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("cameraNo", etSbbm.getText().toString().trim());
         ApiClient.requestNetPost(this, AppConfig.toHeavyNumber, "校验中", hashMap, new ResultListener() {
@@ -1135,10 +1193,10 @@ public class AddCameraDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-                ToastUtil.toast("IPV4地址校验失败：" + msg);
+                ToastUtil.toast("设备编码校验失败：" + msg);
             }
         });
-    }
+    }*/
 
     private void checkIpv4Address() {
         Map<String, Object> hashMap = new HashMap<>();
@@ -1190,7 +1248,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         });
     }
 
-    private void getImgData(){
+    private void getImgData() {
         GetCameraImgHttp.getImg(cameraId, this, new GetCameraImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {
@@ -1302,6 +1360,24 @@ public class AddCameraDetailActivity extends BaseActivity {
         }
         getDictData2();
 
+    }
+
+    private void deleteOld() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("cameraIp", etIpv4.getText().toString().trim());
+        ApiClient.requestNetGet(this, AppConfig.dropRecord, "处理中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+                submit();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+
+            }
+        });
     }
 
     private void submit() {
@@ -1590,7 +1666,18 @@ public class AddCameraDetailActivity extends BaseActivity {
                 Map<String, Object> hashMap = (Map<String, Object>) center.getData();
                 checkUserId = (String) hashMap.get("check");
                 notifyUserId = (String) hashMap.get("send");
-                submit();
+                if (currentStatus == 0) {
+                    submit();
+                } else {
+                    deleteOld();
+                }
+                break;
+            case EventUtil.SELECT_MAP_POINT:
+                l = (LatLng) center.getData();
+                if (l != null) {
+                    etLatitude.setText(String.valueOf(l.latitude));
+                    etLongitude.setText(String.valueOf(l.longitude));
+                }
                 break;
         }
     }
@@ -1601,6 +1688,8 @@ public class AddCameraDetailActivity extends BaseActivity {
         positionCode = extras.getString("positionCode");
         from = extras.getInt("from");
         isEdit = extras.getBoolean("isEdit", false);
+        //修改的时候看看是不是本来是草稿
+
         cameraId = extras.getString("cameraId");
         longitude = extras.getString("longitude");
         latitude = extras.getString("latitude");

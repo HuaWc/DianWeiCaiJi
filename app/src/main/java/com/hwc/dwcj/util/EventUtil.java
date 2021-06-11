@@ -54,7 +54,10 @@ public class EventUtil {
      */
     public static final int FLUSH_LIST_SP = 11;
 
-
+    /**
+     * 刷新审批列表数据
+     */
+    public static final int SELECT_MAP_POINT = 12;
 
 
 }

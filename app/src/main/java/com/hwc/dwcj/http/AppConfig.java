@@ -194,7 +194,10 @@ public class AppConfig {
      */
     public static final String getCameraImg = mainUrl + "v1/operation/getCameraImg";
 
-
+    /**
+     *  删除某一相机的信息和审批的流程
+     */
+    public static final String dropRecord = mainUrl + "v1/operation/dropRecord";
 
 
 

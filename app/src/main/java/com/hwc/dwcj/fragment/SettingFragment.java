@@ -237,6 +237,7 @@ public class SettingFragment extends BaseFragment {
                 //bundle.putString("positionName", positionName);
                 bundle.putString("cameraId", c.getId());
                 bundle.putBoolean("isEdit", true);
+                bundle.putBoolean("isDraft",c.getCurrentStatus() == 0);
                 toTheActivity(AddCameraDetailActivity.class, bundle);
             }
 

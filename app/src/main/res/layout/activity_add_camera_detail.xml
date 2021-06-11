@@ -213,50 +213,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="设备编码"
-                        android:textColor="#B1B1B1"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="（需唯一）"
-                        android:textColor="#FF4949"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/et_sbbm"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/app_edit"
-                    android:gravity="center_vertical"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textColor="#FF333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*"
-                        android:textColor="#FF4949"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="IPV4地址"
                         android:textColor="#B1B1B1"
                         android:textSize="15sp" />
@@ -459,6 +415,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_locate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="10dp"
+                            android:src="@mipmap/add_locate" />
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -870,6 +840,51 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="#FF4949"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设备编码"
+                            android:textColor="#B1B1B1"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="（需唯一）"
+                            android:textColor="#FF4949"
+                            android:textSize="15sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/et_sbbm"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/app_edit"
+                        android:gravity="center_vertical"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="#FF333333"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
 
                     <LinearLayout
@@ -2669,6 +2684,7 @@
                         android:id="@+id/tv_save"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_add_camera_btn"
                         android:gravity="center"
@@ -2682,7 +2698,6 @@
                         android:id="@+id/tv_submit"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_add_camera_btn"
                         android:gravity="center"

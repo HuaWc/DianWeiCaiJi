@@ -12,7 +12,7 @@ import com.zds.base.entity.EventCenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class InspectionResultDetailActivity extends BaseActivity {
+public class InspectionResultNextDetailActivity extends BaseActivity {
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.iv_back)
@@ -22,7 +22,7 @@ public class InspectionResultDetailActivity extends BaseActivity {
 
     @Override
     protected void initContentView(Bundle bundle) {
-        setContentView(R.layout.activity_inspection_result_detail);
+        setContentView(R.layout.activity_inspection_result_next_detail);
     }
 
     @Override
@@ -44,6 +44,7 @@ public class InspectionResultDetailActivity extends BaseActivity {
     private void initAdapter() {
 
     }
+
 
     @Override
     protected void onEventComing(EventCenter center) {

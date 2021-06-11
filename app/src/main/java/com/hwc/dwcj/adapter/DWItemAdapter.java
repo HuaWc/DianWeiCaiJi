@@ -76,12 +76,12 @@ public class DWItemAdapter extends BaseQuickAdapter<DWItem, BaseViewHolder> {
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_yellow));
                 } else if (item.getCurrentStatus() == 2) {
                     helper.setText(R.id.tv_status, "已撤销");
-                    tvEdit.setVisibility(View.GONE);
-                    tvLook.setVisibility(View.VISIBLE);
+                    tvEdit.setVisibility(View.VISIBLE);
+                    tvLook.setVisibility(View.GONE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_gray));
                 } else if (item.getCurrentStatus() == 3) {
                     helper.setText(R.id.tv_status, "已驳回");
-                    tvEdit.setVisibility(View.GONE);
+                    tvEdit.setVisibility(View.VISIBLE);
                     tvLook.setVisibility(View.VISIBLE);
                     ((TextView) helper.getView(R.id.tv_status)).setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
                 } else if (item.getCurrentStatus() == 4) {

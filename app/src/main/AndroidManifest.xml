@@ -111,6 +111,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".activity.SelectMapPointActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".activity.second.InspectionManageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
