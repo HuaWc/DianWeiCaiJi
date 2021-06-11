@@ -86,7 +86,7 @@ public class InspectionManageAdminActivity extends BaseActivity {
     private void initTab() {
         currentTabIndex = 0;
         index = 0;
-        ivTab1.setImageResource(R.mipmap.dts);
+        ivTab1.setImageResource(R.mipmap.new_xjs);
         tvTab1.setTextColor(getResources().getColor(R.color.homeblue));
         inspectionFragment = new InspectionAdminFragment();
         changeFragment = new ChangeAdminFragment();
@@ -131,10 +131,10 @@ public class InspectionManageAdminActivity extends BaseActivity {
             currentTabIndex = index;
             switch (currentTabIndex) {
                 case 0:
-                    ivTab1.setImageResource(R.mipmap.dts);
-                    ivTab2.setImageResource(R.mipmap.da);
-                    ivTab3.setImageResource(R.mipmap.sp);
-                    ivTab4.setImageResource(R.mipmap.dwcj);
+                    ivTab1.setImageResource(R.mipmap.new_xjs);
+                    ivTab2.setImageResource(R.mipmap.new_bg);
+                    ivTab3.setImageResource(R.mipmap.new_hc);
+                    ivTab4.setImageResource(R.mipmap.new_bz);
 
                     tvTab1.setTextColor(getResources().getColor(R.color.homeblue));
                     tvTab2.setTextColor(getResources().getColor(R.color.homegray));
@@ -142,10 +142,10 @@ public class InspectionManageAdminActivity extends BaseActivity {
                     tvTab4.setTextColor(getResources().getColor(R.color.homegray));
                     break;
                 case 1:
-                    ivTab1.setImageResource(R.mipmap.dt);
-                    ivTab2.setImageResource(R.mipmap.das);
-                    ivTab3.setImageResource(R.mipmap.sp);
-                    ivTab4.setImageResource(R.mipmap.dwcj);
+                    ivTab1.setImageResource(R.mipmap.new_xj);
+                    ivTab2.setImageResource(R.mipmap.new_bgs);
+                    ivTab3.setImageResource(R.mipmap.new_hc);
+                    ivTab4.setImageResource(R.mipmap.new_bz);
 
                     tvTab1.setTextColor(getResources().getColor(R.color.homegray));
                     tvTab2.setTextColor(getResources().getColor(R.color.homeblue));
@@ -153,10 +153,10 @@ public class InspectionManageAdminActivity extends BaseActivity {
                     tvTab4.setTextColor(getResources().getColor(R.color.homegray));
                     break;
                 case 2:
-                    ivTab1.setImageResource(R.mipmap.dt);
-                    ivTab2.setImageResource(R.mipmap.da);
-                    ivTab3.setImageResource(R.mipmap.sps);
-                    ivTab4.setImageResource(R.mipmap.dwcj);
+                    ivTab1.setImageResource(R.mipmap.new_xj);
+                    ivTab2.setImageResource(R.mipmap.new_bg);
+                    ivTab3.setImageResource(R.mipmap.new_hcs);
+                    ivTab4.setImageResource(R.mipmap.new_bz);
 
                     tvTab1.setTextColor(getResources().getColor(R.color.homegray));
                     tvTab2.setTextColor(getResources().getColor(R.color.homegray));
@@ -164,10 +164,10 @@ public class InspectionManageAdminActivity extends BaseActivity {
                     tvTab4.setTextColor(getResources().getColor(R.color.homegray));
                     break;
                 case 3:
-                    ivTab1.setImageResource(R.mipmap.dt);
-                    ivTab2.setImageResource(R.mipmap.da);
-                    ivTab3.setImageResource(R.mipmap.sp);
-                    ivTab4.setImageResource(R.mipmap.dwcjs);
+                    ivTab1.setImageResource(R.mipmap.new_xj);
+                    ivTab2.setImageResource(R.mipmap.new_bg);
+                    ivTab3.setImageResource(R.mipmap.new_hc);
+                    ivTab4.setImageResource(R.mipmap.new_bzs);
 
                     tvTab1.setTextColor(getResources().getColor(R.color.homegray));
                     tvTab2.setTextColor(getResources().getColor(R.color.homeblue));
