@@ -99,9 +99,9 @@ public class AddCameraActivity extends BaseActivity {
                 if(a){
                     Bundle bundle = new Bundle();
                     bundle.putString("positionCode", positionCode);
-                    bundle.putString("longitude",longitude);
+/*                    bundle.putString("longitude",longitude);
                     bundle.putString("latitude",latitude);
-                    bundle.putString("positionName", positionName);
+                    bundle.putString("positionName", positionName);*/
                     bundle.putInt("from", 1);
                     toTheActivity(AddCameraDetailActivity.class, bundle);
                 } else {

@@ -70,12 +70,12 @@ public class AppConfig {
     /**
      * 档案页面点位相机详情
      */
-    public static final String filePositionDetails = mainUrl + "v1/operation/filePositionDetails";
+    public static final String filePositionDetails = mainUrl + "v1/operation/PtCameraInfo/filePositionDetails";
 
     /**
      * 档案-某一相机详情数据获取接口,所有图片属性返回图片的绝对路径
      */
-    public static final String selectCamera = mainUrl + "v1/operation/selectCamera";
+    public static final String selectCamera = mainUrl + "v1/operation/PtCameraInfo/selectCamera";
 
     /**
      * 点位采集首页获取数据接口
@@ -85,17 +85,17 @@ public class AppConfig {
     /**
      * 地图首页树状菜单信息(一级和二级数据)
      */
-    public static final String tree = mainUrl + "v1/operation/tree";
+    public static final String tree = mainUrl + "v1/operation/PtCameraInfo/tree";
 
     /**
      * 地图首页相机树信息(三级数据)
      */
-    public static final String treeThree = mainUrl + "v1/operation/treeThree";
+    public static final String treeThree = mainUrl + "v1/operation/PtCameraInfo/treeThree";
 
     /**
      * 地图页关键字查询接口
      */
-    public static final String mapKeywords = mainUrl + "v1/operation/mapKeywords";
+    public static final String mapKeywords = mainUrl + "v1/operation/PtCameraInfo/mapKeywords";
 
 
     /**
@@ -111,7 +111,7 @@ public class AppConfig {
     /**
      * 新增摄像机接口,currentStatus =0表示新增一条草稿记录
      */
-    public static final String addCamera = mainUrl + "v1/operation/addCamera";
+    public static final String addCamera = mainUrl + "v1/operation/PtCameraInfo/addCamera";
 
     /**
      * 用户退出
@@ -126,18 +126,18 @@ public class AppConfig {
     /**
      * 根据主键ID查询某一相机实体的全部信息(且将此条审批流程修改为已阅状态)
      */
-    public static final String cameradetails = mainUrl + "v1/operation/cameradetails";
+    public static final String cameradetails = mainUrl + "v1/operation/PtCameraInfo/cameradetails";
 
     /**
      * 流程催办接口,参数:相机表主键Id
      */
-    public static final String expedite = mainUrl + "v1/operation/expedite";
+    public static final String expedite = mainUrl + "v1/operation/OpCameraProcess/expedite";
 
     /**
      * 根据相机实体主键ID撤销某一相机的审批流程
      */
 
-    public static final String dropCamera = mainUrl + "v1/operation/dropCamera";
+    public static final String dropCamera = mainUrl + "v1/operation/PtCameraInfo/dropCamera";
 
     /**
      * 获取用于审批权限人员信息
@@ -157,32 +157,32 @@ public class AppConfig {
     /**
      * 某一相机详情数据获取接口,所有图片属性返回BASE64编码
      */
-    public static final String getCamera = mainUrl + "v1/operation/getCamera";
+    public static final String getCamera = mainUrl + "v1/operation/PtCameraInfo/getCamera";
 
     /**
      * 单图上传ftp .返回ftp中存储路径
      */
-    public static final String upload = mainUrl + "v1/operation/upload";
+    public static final String upload = mainUrl + "v1/operation/PtCameraInfo/upload";
 
     /**
      * 单图删除ftp .参数:图片存储的路径,返回boolean值
      */
-    public static final String deleteFile = mainUrl + "v1/operation/deleteFile";
+    public static final String deleteFile = mainUrl + "v1/operation/PtCameraInfo/deleteFile";
 
     /**
      * 根据相机Id修改相机信息 CURRENT_STATUS属性 =1
      */
-    public static final String updateCamera = mainUrl + "v1/operation/updateCamera";
+    public static final String updateCamera = mainUrl + "v1/operation/PtCameraInfo/updateCamera";
 
     /**
      * 查詢相機的ipv4地址是否重复
      */
-    public static final String whetherToRepeat = mainUrl + "v1/operation/whetherToRepeat";
+    public static final String whetherToRepeat = mainUrl + "v1/operation/PtCameraInfo/whetherToRepeat";
 
     /**
      * 验证相机设备编码是否重复
      */
-    public static final String toHeavyNumber = mainUrl + "v1/operation/toHeavyNumber";
+    public static final String toHeavyNumber = mainUrl + "v1/operation/PtCameraInfo/toHeavyNumber";
 
     /**
      *  根据点位编码获取点位信息(用于新增操作点位数据的回显)
@@ -192,12 +192,12 @@ public class AppConfig {
     /**
      *  获取相机图片base64编码接口
      */
-    public static final String getCameraImg = mainUrl + "v1/operation/getCameraImg";
+    public static final String getCameraImg = mainUrl + "v1/operation/PtCameraInfo/getCameraImg";
 
     /**
      *  删除某一相机的信息和审批的流程
      */
-    public static final String dropRecord = mainUrl + "v1/operation/dropRecord";
+    public static final String dropRecord = mainUrl + "v1/operation/PtCameraInfo/dropRecord";
 
 
 

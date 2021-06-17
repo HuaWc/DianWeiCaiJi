@@ -46,6 +46,7 @@ import com.zds.base.util.RegexUtils;
 import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -324,20 +325,24 @@ public class AddCameraDetailActivity extends BaseActivity {
         if (!isEdit) {
             //新增
             if (from == 1) {
-                etDwbm.setText(positionCode);
+/*                etDwbm.setText(positionCode);
                 etDwmc.setText(positionName);
                 etDwbm.setFocusable(false);
                 etDwmc.setFocusable(false);
                 if (!StringUtil.isEmpty(longitude)) {
                     etLongitude.setText(longitude);
-                } /*else {
+                } *//*else {
                     etLatitude.setFocusable(true);
-                }*/
+                }*//*
                 if (!StringUtil.isEmpty(latitude)) {
                     etLatitude.setText(latitude);
-                } /*else {
+                } *//*else {
                     etLatitude.setFocusable(true);
                 }*/
+                etDwbm.setFocusable(false);
+                etDwmc.setFocusable(false);
+                etDwbm.setText(positionCode);
+                checkPositionCode();
             }
             getDictData();
             initAdapter();
@@ -724,11 +729,11 @@ public class AddCameraDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                if(!StringUtil.isEmpty(etLatitude) && !StringUtil.isEmpty(etLongitude)){
-                    bundle.putDouble("latitude",Double.parseDouble(etLatitude.getText().toString()));
-                    bundle.putDouble("longitude",Double.parseDouble(etLongitude.getText().toString()));
+                if (!StringUtil.isEmpty(etLatitude) && !StringUtil.isEmpty(etLongitude)) {
+                    bundle.putDouble("latitude", Double.parseDouble(etLatitude.getText().toString()));
+                    bundle.putDouble("longitude", Double.parseDouble(etLongitude.getText().toString()));
                 }
-                toTheActivity(SelectMapPointActivity.class,bundle);
+                toTheActivity(SelectMapPointActivity.class, bundle);
             }
         });
         close.setOnClickListener(new View.OnClickListener() {
@@ -780,15 +785,25 @@ public class AddCameraDetailActivity extends BaseActivity {
 
 
     private void checkPositionCode() {
-        if (!StringUtil.isEmpty(positionCode)) {
+        if (!StringUtil.isEmpty(positionCode) && from == 0) {
             if (positionCode.equals(etDwbm.getText().toString().trim())) {
                 return;
             }
         }
-        positionCode = "" ;
+        positionCode = "";
         etLongitude.setText("");
         etLatitude.setText("");
         etDwmc.setText("");
+        xzqyStr = "";
+        tvSelectXzqy.setText("");
+        ssfjStr = "";
+        if (pcsDictItems != null) {
+            pcsDictItems.clear();
+        }
+        tvSelectSsfj.setText("");
+        tvSelectSspcs.setText("");
+        sspcsStr = "";
+        orgId = null;
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("positionCode", etDwbm.getText().toString().trim());
         ApiClient.requestNetPost(this, AppConfig.getPosition, "检测中", hashMap, new ResultListener() {
@@ -801,23 +816,32 @@ public class AddCameraDetailActivity extends BaseActivity {
                     etDwbm.requestFocus();
                     return;
                 }
-                CheckPositionCodeEntity checkPositionCodeEntity = FastJsonUtil.getObject(json, CheckPositionCodeEntity.class);
+                CheckPositionCodeEntity checkPositionCodeEntity = FastJsonUtil.getObject(FastJsonUtil.getString(json, "model"), CheckPositionCodeEntity.class);
                 if (checkPositionCodeEntity == null) {
                     positionCode = etDwbm.getText().toString();
                     ToastUtil.toast("点位编码不存在，请重新输入正确的点位编码！");
                     etDwbm.setText("");
                     etDwbm.requestFocus();
                 } else {
-                    ToastUtil.toast("点位编码正确，为您填入经纬度！");
+                    ToastUtil.toast("点位编码正确，为您填入相关信息！");
                     positionCode = etDwbm.getText().toString();
                     etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude()) ? "" : checkPositionCodeEntity.getLongitude());
                     etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude()) ? "" : checkPositionCodeEntity.getLatitude());
                     etDwmc.setText(StringUtil.isEmpty(checkPositionCodeEntity.getPositionName()) ? "" : checkPositionCodeEntity.getPositionName());
+                    xzqyStr = FastJsonUtil.getString(json, "areaCode");
+                    tvSelectXzqy.setText(FastJsonUtil.getString(json, "areaName"));
+                    ssfjStr = FastJsonUtil.getString(json, "fjId");
+                    getPcsData(ssfjStr);
+                    tvSelectSsfj.setText(FastJsonUtil.getString(json, "fj"));
+                    sspcsStr = FastJsonUtil.getString(json, "orgName");
+                    tvSelectSspcs.setText(FastJsonUtil.getString(json, "orgName"));
+                    orgId = Long.parseLong(FastJsonUtil.getString(json, "pcsId"));
                 }
             }
 
             @Override
             public void onFailure(String msg) {
+                ToastUtil.toast(msg);
 
             }
         });
@@ -1160,12 +1184,12 @@ public class AddCameraDetailActivity extends BaseActivity {
                 checkCameraNo();
             }
         }*/
-            // checkIpv4Address();
-            if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
-                toSelectCheckUser();
-            } else {
-                checkIpv4Address();
-            }
+        // checkIpv4Address();
+        if (isEdit && etIpv4.getText().toString().trim().equals(entityInfo.getCameraIp())) {
+            toSelectCheckUser();
+        } else {
+            checkIpv4Address();
+        }
 
     }
 
@@ -1261,21 +1285,30 @@ public class AddCameraDetailActivity extends BaseActivity {
                         img1.add("");
                     }
                     adapter1.notifyDataSetChanged();
+                } else {
+                    img1.add("");
                 }
+                adapter1.notifyDataSetChanged();
                 if (!StringUtil.isEmpty(s2)) {
                     img2.addAll(Arrays.asList(s2.split("!")));
                     if (img2.size() < num) {
                         img2.add("");
                     }
                     adapter2.notifyDataSetChanged();
+                } else {
+                    img2.add("");
                 }
+                adapter2.notifyDataSetChanged();
                 if (!StringUtil.isEmpty(s3)) {
                     img3.addAll(Arrays.asList(s3.split("!")));
                     if (img3.size() < num) {
                         img3.add("");
                     }
-                    adapter3.notifyDataSetChanged();
+                } else {
+                    img3.add("");
                 }
+                adapter3.notifyDataSetChanged();
+
             }
         });
     }
@@ -1364,12 +1397,12 @@ public class AddCameraDetailActivity extends BaseActivity {
 
     private void deleteOld() {
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("cameraIp", etIpv4.getText().toString().trim());
-        ApiClient.requestNetGet(this, AppConfig.dropRecord, "处理中", hashMap, new ResultListener() {
+        hashMap.put("cameraId", cameraId);
+        ApiClient.requestNetPost(this, AppConfig.dropRecord, "处理中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                ToastUtil.toast(msg);
-                submit();
+                //ToastUtil.toast(msg);
+                //submit();
             }
 
             @Override
@@ -1666,11 +1699,22 @@ public class AddCameraDetailActivity extends BaseActivity {
                 Map<String, Object> hashMap = (Map<String, Object>) center.getData();
                 checkUserId = (String) hashMap.get("check");
                 notifyUserId = (String) hashMap.get("send");
-                if (currentStatus == 0) {
-                    submit();
+                //新增状态下 直接加
+                //修改情况下 1.之前是草稿，继续保存为草稿  2.之前是草稿，保存为正常状态  3.撤销和驳回，保存为正常状态
+                //草稿->草稿，              先删后加
+                //草稿->发布，              先删后加
+                //撤回，驳回->发布，         先删后加
+/*                if (isEdit) {
+                    //修改
+                    //deleteOld();
+
                 } else {
-                    deleteOld();
-                }
+                    //新增
+                    //新增状态下 直接加
+                    submit();
+
+                }*/
+                submit();
                 break;
             case EventUtil.SELECT_MAP_POINT:
                 l = (LatLng) center.getData();
@@ -1689,6 +1733,7 @@ public class AddCameraDetailActivity extends BaseActivity {
         from = extras.getInt("from");
         isEdit = extras.getBoolean("isEdit", false);
         //修改的时候看看是不是本来是草稿
+        isDraft = extras.getBoolean("isDraft", false);
 
         cameraId = extras.getString("cameraId");
         longitude = extras.getString("longitude");
@@ -1765,6 +1810,33 @@ public class AddCameraDetailActivity extends BaseActivity {
                                 });
                                 break;
                         }
+/*
+                        switch (type1) {
+                            case 0:
+                                img1.remove(position);
+                                images1.remove(position);
+                                if (img1.size() < num && !img1.contains("")) {
+                                    img1.add("");
+                                }
+                                adapter1.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                img2.remove(position);
+                                images2.remove(position);
+                                if (img2.size() < num && !img2.contains("")) {
+                                    img2.add("");
+                                }
+                                adapter2.notifyDataSetChanged();
+                                break;
+                            case 2:
+                                img3.remove(position);
+                                images3.remove(position);
+                                if (img3.size() < num && !img3.contains("")) {
+                                    img3.add("");
+                                }
+                                adapter3.notifyDataSetChanged();
+                                break;
+                        }*/
 
 
                     }
@@ -1775,6 +1847,9 @@ public class AddCameraDetailActivity extends BaseActivity {
     private void deleteFile(String fileName, DeleteResult deleteResult) {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("fileName", fileName);
+        if (!StringUtil.isEmpty(cameraId)) {
+            hashMap.put("cameraId", cameraId);
+        }
         ApiClient.requestNetPost(this, AppConfig.deleteFile, "删除中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -1943,21 +2018,21 @@ public class AddCameraDetailActivity extends BaseActivity {
         Map<String, Object> hashMap = new HashMap<>();
         switch (type) {
             case 0:
-                hashMap.put("imgType", IMG_PATH1);
+                hashMap.put("fileType", IMG_PATH1);
                 break;
             case 1:
-                hashMap.put("imgType", IMG_PATH2);
+                hashMap.put("fileType", IMG_PATH2);
                 break;
             case 2:
-                hashMap.put("imgType", IMG_PATH3);
+                hashMap.put("fileType", IMG_PATH3);
                 break;
         }
-        hashMap.put("img", file);
+        hashMap.put("file", file);
         ApiClient.requestNetPostFile(this, AppConfig.upload, "上传中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
-                String fileName = FastJsonUtil.getString(json, "fileName");
+                String fileName = FastJsonUtil.getString(json, "filePath");
                 if (!StringUtil.isEmpty(fileName)) {
                     uploadResult.onSuccess(fileName);
                 }
