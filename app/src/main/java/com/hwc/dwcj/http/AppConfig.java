@@ -199,7 +199,10 @@ public class AppConfig {
      */
     public static final String dropRecord = mainUrl + "v1/operation/PtCameraInfo/dropRecord";
 
-
+    /**
+     * 保障任务分页查询接口
+     */
+    public static final String OpSecurityTaskList = mainUrl + "v1/operation/OpSecurityTask/list";
 
 
 

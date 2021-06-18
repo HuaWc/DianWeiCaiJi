@@ -44,7 +44,7 @@
                 android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:text="待反馈"
-                android:textColor="#F28585"
+                android:textColor="@color/sp_status_green"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -88,6 +88,7 @@
                 android:layout_marginStart="30dp"
                 android:singleLine="true"
                 android:text="共1项"
+                android:visibility="gone"
                 android:textColor="#999999"
                 android:textSize="12sp" />
 
@@ -114,6 +115,17 @@
 
 
             <TextView
+                android:id="@+id/tv_status2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:singleLine="true"
+                android:text="待反馈"
+                android:textColor="@color/sp_status_green"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/tv_look"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
@@ -123,6 +135,18 @@
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="反馈"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/tv_check"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_common_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="审核"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 

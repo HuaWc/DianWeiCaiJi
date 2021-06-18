@@ -237,7 +237,7 @@ public class SettingFragment extends BaseFragment {
                 //bundle.putString("positionName", positionName);
                 bundle.putString("cameraId", c.getId());
                 bundle.putBoolean("isEdit", true);
-                bundle.putBoolean("isDraft",c.getCurrentStatus() == 0);
+                bundle.putBoolean("isDraft", c.getCurrentStatus() == 0);
                 toTheActivity(AddCameraDetailActivity.class, bundle);
             }
 
@@ -516,14 +516,10 @@ public class SettingFragment extends BaseFragment {
                 if (page > 1) {
                     page--;
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
-                        refreshLayout.finishLoadmore();
-                        refreshLayout.finishRefresh();
+                Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
 
-                    }
-                });
             }
         });
     }

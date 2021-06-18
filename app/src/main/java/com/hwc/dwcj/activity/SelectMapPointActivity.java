@@ -81,7 +81,7 @@ public class SelectMapPointActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (marker != null) {
-                    EventBus.getDefault().post(new EventCenter(EventUtil.SELECT_MAP_POINT, new LatLng(latitude,longitude)));
+                    EventBus.getDefault().post(new EventCenter(EventUtil.SELECT_MAP_POINT, new LatLng(latitude, longitude)));
                     finish();
                 }
 
@@ -104,18 +104,18 @@ public class SelectMapPointActivity extends BaseActivity {
             uiSettings.setZoomControlsEnabled(false);
             //mAMap.setOnMapLoadedListener(this);
 //            mAMap.setMyLocationEnabled(true);
-            if(latitude != 0.0 && longitude != 0.0){
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(latitude,longitude), 15, 0, 0));
+            if (latitude != 0.0 && longitude != 0.0) {
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(latitude, longitude), 15, 0, 0));
                 mAMap.moveCamera(cameraUpdate);//地图移向指定区域
                 markerOption = new MarkerOptions();
-                LatLng l = new LatLng(latitude,longitude);
+                LatLng l = new LatLng(latitude, longitude);
                 markerOption.position(l);
                 markerOption.draggable(false);
                 markerOption.setFlat(true);//设置marker平贴地图效果
                 markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_mark));
                 marker = mAMap.addMarker(markerOption);
                 marker.showInfoWindow();
-            } else{
+            } else {
                 PermissionsUtil.requestPermission(this, new PermissionListener() {
                     @Override
                     public void permissionGranted(@NonNull String[] permission) {
@@ -128,7 +128,7 @@ public class SelectMapPointActivity extends BaseActivity {
                                 markerOption = new MarkerOptions();
                                 LatLng l = new LatLng(location.getLatitude(), location.getLongitude());
                                 latitude = l.latitude;
-                                longitude = l .longitude;
+                                longitude = l.longitude;
                                 markerOption.position(l);
                                 markerOption.draggable(false);
                                 markerOption.setFlat(true);//设置marker平贴地图效果
@@ -154,7 +154,7 @@ public class SelectMapPointActivity extends BaseActivity {
                         marker.destroy();
                     }
                     latitude = latLng.latitude;
-                    longitude = latLng .longitude;
+                    longitude = latLng.longitude;
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 15, 0, 0));
                     mAMap.moveCamera(cameraUpdate);//地图移向指定区域
                     markerOption = new MarkerOptions();
@@ -162,7 +162,7 @@ public class SelectMapPointActivity extends BaseActivity {
                     markerOption.draggable(false);
                     markerOption.setFlat(true);//设置marker平贴地图效果
                     markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_openmap_mark));
-                    Marker marker = mAMap.addMarker(markerOption);
+                    marker = mAMap.addMarker(markerOption);
                     marker.showInfoWindow();
                 }
             });

@@ -828,14 +828,16 @@ public class AddCameraDetailActivity extends BaseActivity {
                     etLongitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLongitude()) ? "" : checkPositionCodeEntity.getLongitude());
                     etLatitude.setText(StringUtil.isEmpty(checkPositionCodeEntity.getLatitude()) ? "" : checkPositionCodeEntity.getLatitude());
                     etDwmc.setText(StringUtil.isEmpty(checkPositionCodeEntity.getPositionName()) ? "" : checkPositionCodeEntity.getPositionName());
+
+
                     xzqyStr = FastJsonUtil.getString(json, "areaCode");
-                    tvSelectXzqy.setText(FastJsonUtil.getString(json, "areaName"));
+                    tvSelectXzqy.setText(FastJsonUtil.getString(json, "areaName") == null ? "" : FastJsonUtil.getString(json, "areaName"));
                     ssfjStr = FastJsonUtil.getString(json, "fjId");
                     getPcsData(ssfjStr);
-                    tvSelectSsfj.setText(FastJsonUtil.getString(json, "fj"));
+                    tvSelectSsfj.setText(FastJsonUtil.getString(json, "fj") == null ? "" : FastJsonUtil.getString(json, "fj"));
                     sspcsStr = FastJsonUtil.getString(json, "orgName");
-                    tvSelectSspcs.setText(FastJsonUtil.getString(json, "orgName"));
-                    orgId = Long.parseLong(FastJsonUtil.getString(json, "pcsId"));
+                    tvSelectSspcs.setText(FastJsonUtil.getString(json, "orgName") == null ? "" : FastJsonUtil.getString(json, "orgName"));
+                    orgId = FastJsonUtil.getString(json, "pcsId") == null ? null : Long.parseLong(FastJsonUtil.getString(json, "pcsId"));
                 }
             }
 

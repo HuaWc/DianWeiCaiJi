@@ -1,10 +1,12 @@
 package com.hwc.dwcj.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.util.RegularCheckUtil;
 import com.zds.base.Toast.ToastUtil;
+import com.zds.base.code.encoding.EncodingHandler;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
@@ -79,8 +82,8 @@ public class AuditDetailAdminActivity extends BaseActivity {
     TextView tvLwrdh;
     @BindView(R.id.tv_qdrdh)
     TextView tvQdrdh;
-    @BindView(R.id.yv_code)
-    ImageView yvCode;
+    @BindView(R.id.iv_code)
+    ImageView ivCode;
     @BindView(R.id.tv_code)
     TextView tvCode;
     @BindView(R.id.tv_sbr)
@@ -252,6 +255,26 @@ public class AuditDetailAdminActivity extends BaseActivity {
             public void onClick(View view) {
                 doAboutSp(2);
 
+            }
+        });
+        tvCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (StringUtil.isEmpty(entity.getPositionCode())) {
+                    Toast.makeText(AuditDetailAdminActivity.this, "生成失败，杆件编码为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(AuditDetailAdminActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
+                Bitmap bitmap = EncodingHandler.createQRCode(entity.getPositionCode(), 143, 143, null);
+                if (bitmap != null) {
+                    AuditDetailAdminActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivCode.setImageBitmap(bitmap);
+                            tvCode.setVisibility(View.GONE);
+                        }
+                    });
+                }
             }
         });
     }

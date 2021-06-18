@@ -12,10 +12,13 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.PointCheckActivity;
 import com.hwc.dwcj.activity.second.AlertManagementActivity;
 import com.hwc.dwcj.activity.second.InspectionManageActivity;
+import com.hwc.dwcj.activity.second.KnowledgeBaseListActivity;
+import com.hwc.dwcj.activity.second.WorkOrderEvaluationActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementAdminActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementUserActivity;
 import com.hwc.dwcj.base.BaseFragment;
 import com.hwc.dwcj.view.dialog.BaseDialog;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 
 import butterknife.BindView;
@@ -114,12 +117,14 @@ public class FirstHomeFragment extends BaseFragment {
                 toTheActivity(InspectionManageActivity.class);
                 break;
             case R.id.ll_ywzsk:
+                toTheActivity(KnowledgeBaseListActivity.class);
                 break;
             case R.id.ll_gdpjgl:
+                toTheActivity(WorkOrderEvaluationActivity.class);
                 break;
             case R.id.ll_dzdt:
-                break;
             case R.id.ll_jqqd:
+                ToastUtil.toast("敬请期待！");
                 break;
         }
     }

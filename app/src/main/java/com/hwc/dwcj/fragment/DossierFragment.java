@@ -308,14 +308,13 @@ public class DossierFragment extends BaseFragment {
 
             @Override
             public void onFailure(String msg) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
-                        refreshLayout.finishLoadmore();
-                        refreshLayout.finishRefresh();
+                if (page > 1) {
+                    page--;
+                }
+                Toast.makeText(mContext, "请求失败" + msg, Toast.LENGTH_SHORT).show();
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
 
-                    }
-                });
 
             }
         });

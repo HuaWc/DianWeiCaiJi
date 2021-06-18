@@ -101,7 +101,7 @@
                 android:background="@drawable/bg_da_select_pcs"
                 android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
                 android:gravity="center_vertical"
-                android:hint="保障管理"
+                android:hint="保障状态"
                 android:paddingHorizontal="11dp"
                 android:singleLine="true"
                 android:textColor="#999999"

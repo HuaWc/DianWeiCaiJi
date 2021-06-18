@@ -28,6 +28,8 @@ import okhttp3.OkHttpClient;
 public class SelfAppContext extends Application {
     public static SelfAppContext appContext;
 
+    public static final long LONG_FOR_IMG_MILLISECONDS = 6000000;      //默认的超时时间
+
     @Override
     public void onCreate() {
         super.onCreate();
