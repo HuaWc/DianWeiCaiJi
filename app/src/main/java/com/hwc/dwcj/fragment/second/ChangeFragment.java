@@ -54,6 +54,7 @@ public class ChangeFragment extends BaseFragment {
     private List<ChangeUser> mList;
     private ChangeUserAdapter adapter;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_change, container, false);

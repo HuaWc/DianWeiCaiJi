@@ -1,13 +1,12 @@
 package com.hwc.dwcj.entity.second;
 
-import java.util.Map;
-
 /**
  * Created by Christ on 2021/6/10.
  * By an amateur android developer
  * Email 627447123@qq.com
  */
 public class GuaranteeUser {
+
 
     private String id;
     private String taskName;
@@ -197,5 +196,17 @@ public class GuaranteeUser {
 
     public void setMap(Map map) {
         this.map = map;
+    }
+
+    public static class Map {
+        private String addName;
+
+        public String getAddName() {
+            return addName;
+        }
+
+        public void setAddName(String addName) {
+            this.addName = addName;
+        }
     }
 }

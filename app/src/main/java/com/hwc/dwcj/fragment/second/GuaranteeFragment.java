@@ -27,6 +27,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.PickerViewUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -150,12 +151,14 @@ public class GuaranteeFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 String myId = MyApplication.getInstance().getUserInfo().getId();
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(position).getId());
                 switch (view.getId()) {
                     case R.id.tv_look:
                         //反馈
                         if (!StringUtil.isEmpty(mList.get(position).getSryPeopleIds()) && Arrays.asList(mList.get(position).getSryPeopleIds().split(",")).contains(myId)) {
                             //进入反馈页面
-                            toTheActivity(StartGuaranteeActivity.class);
+                            toTheActivity(StartGuaranteeActivity.class, bundle);
                         } else {
                             ToastUtil.toast("您还不是该任务的保障人，无法反馈");
                         }
@@ -164,8 +167,7 @@ public class GuaranteeFragment extends BaseFragment {
                         //审核
                         if (!StringUtil.isEmpty(mList.get(position).getAddId()) && mList.get(position).getAddId().equals(myId)) {
                             //进入审核页面
-                            toTheActivity(GuaranteeDetailAdminActivity.class);
-
+                            toTheActivity(GuaranteeDetailAdminActivity.class, bundle);
                         } else {
                             ToastUtil.toast("您还不是该任务的创建人，无法审核");
                         }
@@ -176,8 +178,9 @@ public class GuaranteeFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toTheActivity(GuaranteeDetailActivity.class);
-
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(position).getId());
+                toTheActivity(GuaranteeDetailActivity.class, bundle);
             }
         });
         getData(false);
@@ -230,7 +233,11 @@ public class GuaranteeFragment extends BaseFragment {
 
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()) {
+            case EventUtil.REFRESH_GUARANTEE_LIST:
+                getData(false);
+                break;
+        }
     }
 
     @Override

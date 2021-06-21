@@ -204,6 +204,30 @@ public class AppConfig {
      */
     public static final String OpSecurityTaskList = mainUrl + "v1/operation/OpSecurityTask/list";
 
+    /**
+     * 查看保障任务表信息
+     */
+    public static final String OpSecurityTaskInfo = mainUrl + "v1/operation/OpSecurityTask/info";
+
+    /**
+     * 编辑保障任务表信息
+     */
+    public static final String OpSecurityTaskEdit = mainUrl + "v1/operation/OpSecurityTask/edit";
+
+    /**
+     * 获取核查任务主表列表信息
+     */
+    public static final String OpVerificationTaskList = mainUrl + "v1/operation/OpVerificationTask/list";
+
+    /**
+     * 查看核查任务主表信息
+     */
+    public static final String OpVerificationTaskInfo = mainUrl + "v1/operation/OpVerificationTask/info";
+
+    /**
+     * 编辑核查任务主表信息
+     */
+    public static final String OpVerificationTaskEdit = mainUrl + "v1/operation/OpVerificationTask/edit";
 
 
 

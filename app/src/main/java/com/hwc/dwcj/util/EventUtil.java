@@ -59,5 +59,13 @@ public class EventUtil {
      */
     public static final int SELECT_MAP_POINT = 12;
 
+    /**
+     * 刷新保障任务数据
+     */
+    public static final int REFRESH_GUARANTEE_LIST = 13;
 
+    /**
+     * 刷新核查任务数据
+     */
+    public static final int REFRESH_CHECK_LIST = 14;
 }

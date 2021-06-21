@@ -97,6 +97,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -135,6 +136,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -173,6 +175,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -211,6 +214,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -249,6 +253,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -287,6 +292,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv6"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -325,6 +331,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv7"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -363,6 +370,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -404,6 +412,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_bz"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -441,7 +450,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_sure"
+                        android:id="@+id/tv_agree"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="40dp"
