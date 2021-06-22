@@ -229,9 +229,15 @@ public class AppConfig {
      */
     public static final String OpVerificationTaskEdit = mainUrl + "v1/operation/OpVerificationTask/edit";
 
+    /**
+     * 知识库列表分页信息
+     */
+    public static final String OpKnowledgeManagerList = mainUrl + "v1/operation/OpKnowledgeManager/list";
 
-
-
+    /**
+     * 获取数据字典的资产种类
+     */
+    public static final String getPtDictDatasForSelect = mainUrl + "v1/operation/getPtDictDatasForSelect";
 
 
 

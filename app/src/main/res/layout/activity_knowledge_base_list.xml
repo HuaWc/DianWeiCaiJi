@@ -37,6 +37,35 @@
                 android:tint="@color/white" />
 
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_search"
+                android:hint="知识编码、知识主题、作者"
+                android:paddingHorizontal="14dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#C8C8C8"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/iv_ss"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingHorizontal="15dp"
+                android:src="@mipmap/ss2" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -47,46 +76,6 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                android:id="@+id/tv_zsbm"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="知识编码"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_zszt"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="知识主题"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +101,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/tc_gzlx"
+                android:id="@+id/tv_gzlx"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="12dp"
@@ -121,22 +110,6 @@
                 android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
                 android:gravity="center_vertical"
                 android:hint="故障类型"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_zz"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="作者"
                 android:paddingHorizontal="11dp"
                 android:singleLine="true"
                 android:textColor="#999999"
