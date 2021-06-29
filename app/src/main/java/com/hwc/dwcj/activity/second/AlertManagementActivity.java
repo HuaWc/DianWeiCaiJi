@@ -39,6 +39,8 @@ import butterknife.ButterKnife;
  * 告警管理页面
  */
 public class AlertManagementActivity extends BaseActivity {
+
+
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.iv_back)
@@ -51,8 +53,8 @@ public class AlertManagementActivity extends BaseActivity {
     ImageView ivSs;
     @BindView(R.id.tv_wdsb)
     TextView tvWdsb;
-    @BindView(R.id.tc_ssjg)
-    TextView tcSsjg;
+    @BindView(R.id.tv_ssjg)
+    TextView tvSsjg;
     @BindView(R.id.tv_zczl)
     TextView tvZczl;
     @BindView(R.id.rv)
@@ -61,8 +63,6 @@ public class AlertManagementActivity extends BaseActivity {
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.all)
     LinearLayout all;
-
-
     private List<AlertMenuInfo> mList;
     private AlertMenuAdapter adapter;
 
@@ -109,12 +109,7 @@ public class AlertManagementActivity extends BaseActivity {
     }
 
     private void getData() {
-        for (int i = 0; i < 10; i++) {
-            AlertMenuInfo info = new AlertMenuInfo();
-            info.setName("XX路XX路摄像机设备离线（123.12.12.1)");
-            mList.add(info);
-        }
-        adapter.notifyDataSetChanged();
+
     }
 
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--progressbar的背景颜色-->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="5dp" />
+            <gradient
+                android:startColor="#F2F5FC"
+                android:centerColor="#F2F5FC"
+                android:endColor="#F2F5FC"
+                android:angle="0"
+                />
+        </shape>
+    </item>
+    <!--progressBar的最终进度颜色-->
+    <item android:id="@android:id/progress"
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp">
+        <clip>
+            <shape>
+                <corners android:radius="5dp" />
+                <gradient
+                    android:startColor="#005279E1"
+                    android:endColor="#5279E1"
+                    android:angle="0"
+                    />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

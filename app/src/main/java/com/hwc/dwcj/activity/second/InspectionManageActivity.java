@@ -166,9 +166,9 @@ public class InspectionManageActivity extends BaseActivity {
                     ivTab4.setImageResource(R.mipmap.new_bzs);
 
                     tvTab1.setTextColor(getResources().getColor(R.color.homegray));
-                    tvTab2.setTextColor(getResources().getColor(R.color.homeblue));
+                    tvTab2.setTextColor(getResources().getColor(R.color.homegray));
                     tvTab3.setTextColor(getResources().getColor(R.color.homegray));
-                    tvTab4.setTextColor(getResources().getColor(R.color.homegray));
+                    tvTab4.setTextColor(getResources().getColor(R.color.homeblue));
                     break;
             }
 

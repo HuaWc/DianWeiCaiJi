@@ -1,17 +1,17 @@
 package com.hwc.dwcj.entity.second;
 
 /**
- * Created by Christ on 2021/6/22.
+ * Created by Christ on 2021/6/25.
  * By an amateur android developer
  * Email 627447123@qq.com
  */
-public class KnowledgeClass {
+public class InspectionOption {
 
     private String dataId;
     private String dataName;
     private String dataValue;
-    private String parentId;
-    private String dataDescr;
+    private Object parentId;
+    private Object dataDescr;
     private Object dataPriority;
     private int dataEnable;
     private Object dataYear;
@@ -47,19 +47,19 @@ public class KnowledgeClass {
         this.dataValue = dataValue;
     }
 
-    public String getParentId() {
+    public Object getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Object parentId) {
         this.parentId = parentId;
     }
 
-    public String getDataDescr() {
+    public Object getDataDescr() {
         return dataDescr;
     }
 
-    public void setDataDescr(String dataDescr) {
+    public void setDataDescr(Object dataDescr) {
         this.dataDescr = dataDescr;
     }
 

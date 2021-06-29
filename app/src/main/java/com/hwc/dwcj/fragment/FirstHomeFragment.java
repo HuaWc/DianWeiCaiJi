@@ -12,6 +12,7 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.PointCheckActivity;
 import com.hwc.dwcj.activity.second.AlertManagementActivity;
 import com.hwc.dwcj.activity.second.InspectionManageActivity;
+import com.hwc.dwcj.activity.second.KnowledgeBaseActivity;
 import com.hwc.dwcj.activity.second.KnowledgeBaseListActivity;
 import com.hwc.dwcj.activity.second.WorkOrderEvaluationActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementAdminActivity;
@@ -117,7 +118,7 @@ public class FirstHomeFragment extends BaseFragment {
                 toTheActivity(InspectionManageActivity.class);
                 break;
             case R.id.ll_ywzsk:
-                toTheActivity(KnowledgeBaseListActivity.class);
+                toTheActivity(KnowledgeBaseActivity.class);
                 break;
             case R.id.ll_gdpjgl:
                 toTheActivity(WorkOrderEvaluationActivity.class);

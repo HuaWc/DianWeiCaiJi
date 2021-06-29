@@ -36,10 +36,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="11dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
                 android:text="处理中"
                 android:textColor="#FEB837"
                 android:textSize="9sp" />
+
             <TextView
                 android:id="@+id/tv_g"
                 android:layout_width="wrap_content"
@@ -63,16 +65,61 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:gravity="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="2021-03-31"
+                android:gravity="end"
                 android:singleLine="true"
+                android:text="2021-03-31"
                 android:textColor="#C5C5C5"
-                android:textSize="9sp"
-                />
+                android:textSize="9sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_jg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="17dp"
+                android:singleLine="true"
+                android:text="前端点位档案 > 摄像机 > 人脸相机"
+                android:textColor="#9F9F9F"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_look"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_common_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="流程查看"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/tv_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_common_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="进行评价"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

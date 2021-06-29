@@ -67,6 +67,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv1"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -96,6 +97,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv2"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -125,6 +127,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv3"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -154,6 +157,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv4"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -183,6 +187,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv5"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -212,6 +217,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv6"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -241,6 +247,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv7"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -270,12 +277,14 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv8"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:background="@drawable/app_edit"
                     android:gravity="center"
+                    android:minHeight="30dp"
                     android:text=""
                     android:textColor="#333333"
                     android:textSize="16sp" />
@@ -284,6 +293,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -299,12 +309,14 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv9"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:background="@drawable/app_edit"
                     android:gravity="center"
+                    android:minHeight="30dp"
                     android:text=""
                     android:textColor="#333333"
                     android:textSize="16sp" />
@@ -328,12 +340,14 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv10"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:background="@drawable/app_edit"
                     android:gravity="center"
+                    android:minHeight="30dp"
                     android:text=""
                     android:textColor="#333333"
                     android:textSize="16sp" />

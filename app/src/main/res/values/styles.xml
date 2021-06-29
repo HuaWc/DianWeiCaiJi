@@ -74,4 +74,16 @@
         <item name="android:scrollbarThumbVertical">@color/titlecolor</item>
         <item name="android:scrollbarSize">2dp</item>
     </style>
+
+    <!--style属性-->
+    <style name="BlueProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/shape_progressbar_blue</item>
+    </style>
+
+    <style name="RedProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/shape_progressbar_red</item>
+    </style>
+
 </resources>

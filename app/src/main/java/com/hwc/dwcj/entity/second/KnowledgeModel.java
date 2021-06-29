@@ -3,11 +3,12 @@ package com.hwc.dwcj.entity.second;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Christ on 2021/6/22.
+ * Created by Christ on 2021/6/23.
  * By an amateur android developer
  * Email 627447123@qq.com
  */
-public class Knowledge {
+public class KnowledgeModel {
+
     private String id;
     private String theme;
     private String knowledgeType;
@@ -130,9 +131,15 @@ public class Knowledge {
         @SerializedName("KnowledgeClass")
         private String knowledgeClass;
         private String author;
-        private boolean authority;
-        @SerializedName("KnowledgeType")
         private String knowledgeType;
+
+        public String getKnowledgeType() {
+            return knowledgeType;
+        }
+
+        public void setKnowledgeType(String knowledgeType) {
+            this.knowledgeType = knowledgeType;
+        }
 
         public String getKnowledgeClass() {
             return knowledgeClass;
@@ -148,22 +155,6 @@ public class Knowledge {
 
         public void setAuthor(String author) {
             this.author = author;
-        }
-
-        public boolean isAuthority() {
-            return authority;
-        }
-
-        public void setAuthority(boolean authority) {
-            this.authority = authority;
-        }
-
-        public String getKnowledgeType() {
-            return knowledgeType;
-        }
-
-        public void setKnowledgeType(String knowledgeType) {
-            this.knowledgeType = knowledgeType;
         }
     }
 }

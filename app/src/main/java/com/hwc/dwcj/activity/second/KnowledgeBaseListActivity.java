@@ -21,6 +21,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.PickerViewUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -68,11 +69,14 @@ public class KnowledgeBaseListActivity extends BaseActivity {
     private List<KnowledgeType> typeList;
 
     private List<KnowledgeClass> classList;
-    private List<String> options1;
-    private List<String> options2;
+    private List<String> stringOptions1;
+    private List<String> stringOptions2;
 
     private int pageSize = 10;
     private int page = 1;
+
+    private String select1;
+    private String select2;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -91,8 +95,8 @@ public class KnowledgeBaseListActivity extends BaseActivity {
     private void initAdapter() {
         typeList = new ArrayList<>();
         classList = new ArrayList<>();
-        options1 = new ArrayList<>();
-        options2 = new ArrayList<>();
+        stringOptions1 = new ArrayList<>();
+        stringOptions2 = new ArrayList<>();
         mList = new ArrayList<>();
         adapter = new KnowledgeAdapter(mList);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -100,7 +104,9 @@ public class KnowledgeBaseListActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(position).getId());
+                toTheActivity(LookUpKnowledgeBaseActivity.class, bundle);
             }
         });
         getData(false);
@@ -109,13 +115,13 @@ public class KnowledgeBaseListActivity extends BaseActivity {
 
     private void getSelectData1() {
         Map<String, Object> params = new HashMap<>();
-        params.put("pageNum", String.valueOf(page));
-        params.put("pageSize", String.valueOf(pageSize));
+        params.put("pageNum", 1);
+        params.put("pageSize", 10);
         ApiClient.requestNetGet(this, AppConfig.OpKnowledgeManagerList, "", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<KnowledgeType> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "knowledgeTypes"), KnowledgeType.class);
-                if (typeList != null && typeList.size() != 0) {
+                if (list != null && list.size() != 0) {
                     typeList.addAll(list);
                     initSelect1();
                 }
@@ -131,7 +137,7 @@ public class KnowledgeBaseListActivity extends BaseActivity {
 
     private void initSelect1() {
         for (KnowledgeType t : typeList) {
-            options1.add(t.getDataName());
+            stringOptions1.add(t.getDataName());
         }
     }
 
@@ -146,6 +152,15 @@ public class KnowledgeBaseListActivity extends BaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("pageNum", String.valueOf(page));
         params.put("pageSize", String.valueOf(pageSize));
+        if (!StringUtil.isEmpty(select1)) {
+            params.put("knowledgeClass", select1);
+        }
+        if (!StringUtil.isEmpty(select2)) {
+            params.put("appearance", select2);
+        }
+        if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
+            params.put("keywords", etSearch.getText().toString().trim());
+        }
         ApiClient.requestNetGet(this, AppConfig.OpKnowledgeManagerList, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -206,33 +221,48 @@ public class KnowledgeBaseListActivity extends BaseActivity {
                 showSelect2();
             }
         });
+        ivSs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData(false);
+            }
+        });
+
     }
 
     private void showSelect1() {
-        if (options1 == null || options1.size() == 0) {
+        if (stringOptions1 == null || stringOptions1.size() == 0) {
             ToastUtil.toast("条件为空或获取失败，请稍后再试！");
             return;
         }
-        PickerViewUtils.selectOptions(this, "分类", options1, null, null, new PickerViewSelectOptionsResult() {
+        PickerViewUtils.selectOptions(this, "分类", stringOptions1, null, null, new PickerViewSelectOptionsResult() {
             @Override
             public void getOptionsResult(int options1, int options2, int options3) {
-
+                tvSjfldy.setText(stringOptions1.get(options1));
+                tvGzlx.setText("");
+                select2 = "";
+                select1 = typeList.get(options1).getDataValue();
+                getSelectData2();
+                getData(false);
             }
         });
     }
 
     private void showSelect2() {
-        if(StringUtil.isEmpty(tvSjfldy.getText().toString().trim())){
+        if (StringUtil.isEmpty(tvSjfldy.getText().toString().trim())) {
             ToastUtil.toast("请先选择事件分类，再选择类型！");
             return;
         }
-        if (options2 == null || options2.size() == 0) {
+        if (stringOptions2 == null || stringOptions2.size() == 0) {
             ToastUtil.toast("条件为空或获取失败，请稍后再试！");
             return;
         }
-        PickerViewUtils.selectOptions(this, "类型", options2, null, null, new PickerViewSelectOptionsResult() {
+        PickerViewUtils.selectOptions(this, "类型", stringOptions2, null, null, new PickerViewSelectOptionsResult() {
             @Override
             public void getOptionsResult(int options1, int options2, int options3) {
+                tvGzlx.setText(stringOptions2.get(options1));
+                select2 = classList.get(options1).getDataValue();
+                getData(false);
 
             }
         });
@@ -240,13 +270,15 @@ public class KnowledgeBaseListActivity extends BaseActivity {
 
 
     private void getSelectData2() {
+        classList.clear();
         Map<String, Object> params = new HashMap<>();
-        params.put("pageNum", String.valueOf(page));
-        params.put("pageSize", String.valueOf(pageSize));
-        ApiClient.requestNetGet(this, AppConfig.OpKnowledgeManagerList, "查询中", params, new ResultListener() {
+        params.put("dataValue", select1);
+        ApiClient.requestNetPost(this, AppConfig.getPtDictDatasForSelect, "加载中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<KnowledgeType> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "knowledgeTypes"), KnowledgeType.class);
+                List<KnowledgeClass> list = FastJsonUtil.getList(json, KnowledgeClass.class);
+                classList.addAll(list);
+                initSelect2();
 
             }
 
@@ -258,9 +290,22 @@ public class KnowledgeBaseListActivity extends BaseActivity {
         });
     }
 
+    private void initSelect2() {
+        stringOptions2.clear();
+        if (classList != null) {
+            for (KnowledgeClass c : classList) {
+                stringOptions2.add(c.getDataName());
+            }
+        }
+    }
+
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()) {
+            case EventUtil.REFRESH_KNOWLEDGE_LIST:
+                getData(false);
+                break;
+        }
     }
 
     @Override

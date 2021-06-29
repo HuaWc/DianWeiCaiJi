@@ -239,11 +239,69 @@ public class AppConfig {
      */
     public static final String getPtDictDatasForSelect = mainUrl + "v1/operation/getPtDictDatasForSelect";
 
+    /**
+     * 查看信息
+     */
+    public static final String OpKnowledgeManagerShow = mainUrl + "v1/operation/OpKnowledgeManager/show";
+
+    /**
+     * 新增信息页面获取知识类型
+     */
+    public static final String OpKnowledgeManagerToNew = mainUrl + "v1/operation/OpKnowledgeManager/toNew";
+
+    /**
+     * 新增信息
+     */
+    public static final String OpKnowledgeManagerCreate = mainUrl + "v1/operation/OpKnowledgeManager/create";
+
+    /**
+     * 巡检管理信息列表
+     */
+    public static final String inspectionInfoList = mainUrl + "v1/operation/inspectionInfoList";
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 编辑变更任务表信息
+     */
+    public static final String OpChangeTaskEdit = mainUrl + "v1/operation/OpChangeTask/edit";
+
+    /**
+     * 查看变更任务表信息
+     */
+    public static final String OpChangeTaskInfo = mainUrl + "v1/operation/OpChangeTask/info";
+
+    /**
+     * 获取变更任务表列表信息
+     */
+    public static final String OpChangeTaskList = mainUrl + "v1/operation/OpChangeTask/list";
+
+    /**
+     * 查看数据字典信息接口
+     */
+    public static final String getDataTypeList = mainUrl + "v1/operation/PtDictClass/getDataTypeList";
 
 
 

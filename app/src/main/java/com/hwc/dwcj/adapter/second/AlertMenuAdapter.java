@@ -16,6 +16,10 @@ public class AlertMenuAdapter extends BaseQuickAdapter<AlertMenuInfo, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, AlertMenuInfo item) {
-        helper.setText(R.id.tv_name, item.getName());
+        helper.setText(R.id.tv_name, item.getAlarmName())
+                .setText(R.id.tv_status, item.getAlarmStatus())
+                .setText(R.id.tv_time, item.getMap().getAlarmTime())
+                .setText(R.id.tv_g, item.getAlarmSource())
+                .setText(R.id.tv_jg, item.getProject());
     }
 }

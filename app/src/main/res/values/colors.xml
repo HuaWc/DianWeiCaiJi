@@ -37,4 +37,10 @@
 
 
     <color name="locate_circle_color">#99FEB837</color>
+
+    <color name="inspection_blue">#5279E1</color>
+    <color name="inspection_red">#FF3333</color>
+    <color name="inspection_green">#4BC470</color>
+
+
 </resources>

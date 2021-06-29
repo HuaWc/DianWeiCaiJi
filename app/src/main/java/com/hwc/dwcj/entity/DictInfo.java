@@ -1,17 +1,17 @@
-package com.hwc.dwcj.entity.second;
+package com.hwc.dwcj.entity;
 
 /**
- * Created by Christ on 2021/6/22.
+ * Created by Christ on 2021/6/28.
  * By an amateur android developer
  * Email 627447123@qq.com
  */
-public class KnowledgeClass {
+public class DictInfo {
 
     private String dataId;
     private String dataName;
     private String dataValue;
     private String parentId;
-    private String dataDescr;
+    private Object dataDescr;
     private Object dataPriority;
     private int dataEnable;
     private Object dataYear;
@@ -55,11 +55,11 @@ public class KnowledgeClass {
         this.parentId = parentId;
     }
 
-    public String getDataDescr() {
+    public Object getDataDescr() {
         return dataDescr;
     }
 
-    public void setDataDescr(String dataDescr) {
+    public void setDataDescr(Object dataDescr) {
         this.dataDescr = dataDescr;
     }
 

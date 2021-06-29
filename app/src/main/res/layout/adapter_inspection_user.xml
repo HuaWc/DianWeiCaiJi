@@ -15,6 +15,64 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="外场巡检"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="（"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="正常"
+                android:textColor="@color/inspection_blue"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="）"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="2021.11.06-2021.11.06"
+                android:textColor="#C5C5C5"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
             android:orientation="horizontal">
 
             <View
@@ -24,71 +82,113 @@
                 android:background="@drawable/bg_da_circle" />
 
             <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:text="清溪路清溪路清溪路清溪路清溪路清溪路"
-                android:textColor="#ff5279e1"
-                android:textSize="14sp" />
-
-
-            <TextView
-                android:id="@+id/tv_status"
+                android:id="@+id/tv_status2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
-                android:singleLine="true"
-                android:text="未审核"
-                android:textColor="#F28585"
-                android:textSize="12sp" />
+                android:text="巡检中"
+                android:textColor="@color/inspection_blue"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_urgent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="高"
+                android:textColor="#9F9F9F"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="张玉婷、李三光、王光正"
+                android:textColor="#9F9F9F"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:layout_marginTop="11dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:singleLine="true"
-                android:text="来源：视频质量诊断平台"
-                android:textColor="#999999"
-                android:textSize="12sp" />
+            <RelativeLayout
+                android:layout_width="@dimen/dp_233"
+                android:layout_height="9dp"
+                android:layout_gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/pb_red"
+                    style="@style/RedProgressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100" />
+
+                <ProgressBar
+                    android:id="@+id/pb_blue"
+                    style="@style/BlueProgressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_type"
+                android:id="@+id/tv_jd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:singleLine="true"
-                android:text="问题上报"
-                android:layout_marginStart="10dp"
-                android:textColor="#F28585"
-                android:textSize="10sp" />
+                android:layout_marginStart="6dp"
+                android:text="89"
+                android:textColor="@color/inspection_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="%"
+                android:textColor="#CECECE"
+                android:textSize="8sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="87"
+                    android:textStyle="bold"
+                    android:textColor="@color/inspection_blue"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_num_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/180项"
+                    android:textColor="#CECECE"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/tv_jg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="11dp"
-            android:singleLine="true"
-            android:text="前端点位 > 摄像机 > 人脸相机"
-            android:textColor="#999999"
-            android:textSize="11sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,29 +197,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_g"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="17dp"
-                android:singleLine="true"
-                android:text="六安市公安局金安区"
-                android:textColor="#9F9F9F"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:singleLine="true"
-                android:text="2021-03-31"
-                android:textColor="#9F9F9F"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_look"
+                android:id="@+id/tv_map"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
@@ -127,7 +205,20 @@
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
-                android:text="查看"
+                android:text="地图"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_common_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="开始巡检"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 
@@ -140,22 +231,22 @@
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
-                android:text="审核"
+                android:text="确认审核"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 
             <TextView
-                android:id="@+id/tv_evaluate"
+                android:id="@+id/tv_status3"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="发起评价"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:singleLine="true"
+                android:text="审核已通过"
+                android:textColor="@color/inspection_green"
+                android:textSize="12sp" />
+
+
         </LinearLayout>
     </LinearLayout>
 

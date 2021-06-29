@@ -68,4 +68,86 @@ public class EventUtil {
      * 刷新核查任务数据
      */
     public static final int REFRESH_CHECK_LIST = 14;
+
+    /**
+     * 刷新知识库列表
+     */
+    public static final int REFRESH_KNOWLEDGE_LIST = 15;
+
+    /**
+     * 刷新变更任务列表
+     */
+    public static final int REFRESH_CHANGE_LIST = 16;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

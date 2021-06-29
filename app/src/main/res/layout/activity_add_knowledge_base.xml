@@ -82,6 +82,7 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/et_theme"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
@@ -90,6 +91,7 @@
                         android:background="@null"
                         android:gravity="center_vertical|end"
                         android:hint="请输入"
+                        android:maxLength="20"
                         android:textColor="#333333"
                         android:textColorHint="#BABABA"
                         android:textSize="15sp" />
@@ -129,6 +131,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_select_type"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_alignParentEnd="true"
@@ -139,8 +142,9 @@
                         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_grey"
                         android:drawablePadding="10dp"
                         android:paddingHorizontal="11dp"
-                        android:text="请选择"
-                        android:textColor="#ffc9c9c9"
+                        android:hint="请选择"
+                        android:textColorHint="#BABABA"
+                        android:textColor="#333333"
                         android:textSize="11sp" />
 
                 </RelativeLayout>
@@ -179,6 +183,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_select_class"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_alignParentEnd="true"
@@ -189,8 +194,9 @@
                         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_grey"
                         android:drawablePadding="10dp"
                         android:paddingHorizontal="11dp"
-                        android:text="请选择"
-                        android:textColor="#ffc9c9c9"
+                        android:hint="请选择"
+                        android:textColorHint="#BABABA"
+                        android:textColor="#333333"
                         android:textSize="11sp" />
 
                 </RelativeLayout>
@@ -224,6 +230,7 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/et_appearance"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
@@ -232,6 +239,7 @@
                         android:background="@null"
                         android:gravity="center_vertical|end"
                         android:hint="请输入"
+                        android:maxLength="20"
                         android:textColor="#333333"
                         android:textColorHint="#BABABA"
                         android:textSize="15sp" />
@@ -243,6 +251,7 @@
                     android:background="#BFCFF5" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:orientation="horizontal">
@@ -280,6 +289,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="#BFCFF5" />
@@ -310,6 +320,7 @@
 
                 </LinearLayout>
                 <EditText
+                    android:id="@+id/et_solution"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:padding="20dp"
@@ -319,6 +330,7 @@
                     android:background="@null"
                     android:gravity="start|top"
                     android:hint="请输入"
+                    android:maxLength="500"
                     android:textColor="#333333"
                     android:textColorHint="#BABABA"
                     android:textSize="15sp" />
