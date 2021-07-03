@@ -2,6 +2,7 @@ package com.hwc.dwcj.entity.second;
 
 public class AlertMenuInfo {
 
+
     private String id;
     private String alarmCode;
     private String alarmName;
@@ -22,9 +23,9 @@ public class AlertMenuInfo {
     private Object deadlineTime;
     private String deviceKind;
     private Object deviceName;
-    private Object ip;
+    private String ip;
     private String project;
-    private String pictureUrl;
+    private Object pictureUrl;
     private Object recoveryTime;
     private Object deviceId;
     private Object taskSubId;
@@ -199,11 +200,11 @@ public class AlertMenuInfo {
         this.deviceName = deviceName;
     }
 
-    public Object getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(Object ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 
@@ -215,11 +216,11 @@ public class AlertMenuInfo {
         this.project = project;
     }
 
-    public String getPictureUrl() {
+    public Object getPictureUrl() {
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) {
+    public void setPictureUrl(Object pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
 
@@ -330,8 +331,14 @@ public class AlertMenuInfo {
     public static class Map {
         private String recoveryTime;
         private String deadlineTime;
+        private String assetNature;
+        private String orgName;
         private String handleTime;
         private String alarmTime;
+        private String assetName;
+        private String assetClass;
+        private String orgId;
+        private String assetType;
 
         public String getRecoveryTime() {
             return recoveryTime;
@@ -349,6 +356,22 @@ public class AlertMenuInfo {
             this.deadlineTime = deadlineTime;
         }
 
+        public String getAssetNature() {
+            return assetNature;
+        }
+
+        public void setAssetNature(String assetNature) {
+            this.assetNature = assetNature;
+        }
+
+        public String getOrgName() {
+            return orgName;
+        }
+
+        public void setOrgName(String orgName) {
+            this.orgName = orgName;
+        }
+
         public String getHandleTime() {
             return handleTime;
         }
@@ -363,6 +386,38 @@ public class AlertMenuInfo {
 
         public void setAlarmTime(String alarmTime) {
             this.alarmTime = alarmTime;
+        }
+
+        public String getAssetName() {
+            return assetName;
+        }
+
+        public void setAssetName(String assetName) {
+            this.assetName = assetName;
+        }
+
+        public String getAssetClass() {
+            return assetClass;
+        }
+
+        public void setAssetClass(String assetClass) {
+            this.assetClass = assetClass;
+        }
+
+        public String getOrgId() {
+            return orgId;
+        }
+
+        public void setOrgId(String orgId) {
+            this.orgId = orgId;
+        }
+
+        public String getAssetType() {
+            return assetType;
+        }
+
+        public void setAssetType(String assetType) {
+            this.assetType = assetType;
         }
     }
 }

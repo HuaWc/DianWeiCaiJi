@@ -15,7 +15,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="41dp"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="19dp"
@@ -24,14 +24,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl_scan"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="41dp">
 
                 <ImageView
                     android:layout_width="19dp"
@@ -41,6 +40,7 @@
             </RelativeLayout>
 
             <View
+                android:id="@+id/view_l1"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginHorizontal="6dp"
@@ -49,8 +49,7 @@
             <RelativeLayout
                 android:id="@+id/rl_locate"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="41dp">
 
                 <ImageView
                     android:layout_width="24dp"

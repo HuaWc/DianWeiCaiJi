@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.second.InspectionDetailActivity;
 import com.hwc.dwcj.activity.second.InspectionDetailAdminActivity;
+import com.hwc.dwcj.activity.second.MapShowCameraActivity;
 import com.hwc.dwcj.activity.second.StartInspectionActivity;
 import com.hwc.dwcj.adapter.second.InspectionUserAdapter;
 import com.hwc.dwcj.base.BaseFragment;
@@ -309,6 +310,7 @@ public class InspectionFragment extends BaseFragment {
                 switch (view.getId()) {
                     case R.id.tv_map:
                         //地图按钮
+                        toTheActivity(MapShowCameraActivity.class, bundle);
                         break;
                     case R.id.tv_start:
                         //开始巡检-->任务下的相机列表-->点击开始巡检，填写巡检信息

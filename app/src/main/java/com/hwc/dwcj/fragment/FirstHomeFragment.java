@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.PointCheckActivity;
 import com.hwc.dwcj.activity.second.AlertManagementActivity;
+import com.hwc.dwcj.activity.second.ElectronicMapActivity;
 import com.hwc.dwcj.activity.second.InspectionManageActivity;
 import com.hwc.dwcj.activity.second.KnowledgeBaseActivity;
 import com.hwc.dwcj.activity.second.KnowledgeBaseListActivity;
@@ -112,7 +113,8 @@ public class FirstHomeFragment extends BaseFragment {
                 toTheActivity(AlertManagementActivity.class);
                 break;
             case R.id.ll_gdgl:
-                showDialog();
+                toTheActivity(WorkOrderManagementUserActivity.class);
+                //showDialog();
                 break;
             case R.id.ll_rwgl:
                 toTheActivity(InspectionManageActivity.class);
@@ -124,6 +126,8 @@ public class FirstHomeFragment extends BaseFragment {
                 toTheActivity(WorkOrderEvaluationActivity.class);
                 break;
             case R.id.ll_dzdt:
+                toTheActivity(ElectronicMapActivity.class);
+                break;
             case R.id.ll_jqqd:
                 ToastUtil.toast("敬请期待！");
                 break;

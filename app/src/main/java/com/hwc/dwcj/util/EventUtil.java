@@ -79,12 +79,20 @@ public class EventUtil {
      */
     public static final int REFRESH_CHANGE_LIST = 16;
 
+    /**
+     * 刷新告警列表
+     */
+    public static final int REFRESH_ALERT_LIST = 17;
 
+    /**
+     * 选择资产设备
+     */
+    public static final int SELECT_ASSET_EQUIPMENT = 18;
 
-
-
-
-
+    /**
+     * 刷新工单列表
+     */
+    public static final int REFRESH_FAULT_LIST = 19;
 
 
 

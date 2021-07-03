@@ -67,9 +67,9 @@
                 android:background="@drawable/app_edit"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
-                android:textSize="15sp"
-                android:text="请张三进行协同处理"
-                android:textColor="#999999" />
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,13 +116,14 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="end"
                             android:singleLine="true"
-                            android:text="摄像机SD卡故障"
+                            android:text=""
                             android:textColor="#999999"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -154,6 +155,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -192,6 +194,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -230,6 +233,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -268,6 +272,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -306,6 +311,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv6"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -344,6 +350,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv7"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -382,6 +389,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -420,6 +428,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv9"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -458,6 +467,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv10"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -496,6 +506,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv11"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -534,6 +545,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv12"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -572,6 +584,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -610,6 +623,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -648,6 +662,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv15"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -686,6 +701,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv16"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -724,6 +740,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv17"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -762,6 +779,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv18"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -800,6 +818,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv19"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -838,6 +857,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv20"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -876,6 +896,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv21"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -914,6 +935,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -952,6 +974,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv23"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1161,14 +1184,15 @@
 
 
                     <RadioGroup
+                        android:id="@+id/rg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
                         android:layout_marginStart="20dp"
-
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/rb_fix"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -1176,6 +1200,7 @@
                             android:textSize="13sp" />
 
                         <RadioButton
+                            android:id="@+id/rb_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -1183,24 +1208,19 @@
                             android:textSize="13sp" />
 
                         <RadioButton
+                            android:id="@+id/rb_other"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="已处理"
+                            android:text="其他方式处理"
                             android:textSize="13sp" />
 
                         <RadioButton
+                            android:id="@+id/rb_problem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="问题上报"
-                            android:textSize="13sp" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="退回"
                             android:textSize="13sp" />
 
                     </RadioGroup>
@@ -1213,10 +1233,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_change_part"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1427,9 +1449,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_clr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1551,6 +1575,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_pzrz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -1569,7 +1594,6 @@
                             android:text="排障日志"
                             android:textColor="#333333"
                             android:textSize="15sp" />
-
 
                     </LinearLayout>
 
@@ -1605,15 +1629,14 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
-                        android:id="@+id/tv_sure"
+                        android:id="@+id/tv_submit"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:paddingHorizontal="40dp"
                         android:background="@drawable/bg_event_btn_blue"
                         android:gravity="center"
-                        android:text="同意"
+                        android:paddingHorizontal="40dp"
+                        android:text="提交"
                         android:textColor="#ffffffff"
                         android:textSize="16sp"
                         android:textStyle="bold" />

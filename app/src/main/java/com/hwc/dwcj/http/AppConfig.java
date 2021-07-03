@@ -259,30 +259,6 @@ public class AppConfig {
      */
     public static final String inspectionInfoList = mainUrl + "v1/operation/inspectionInfoList";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 编辑变更任务表信息
      */
@@ -302,6 +278,79 @@ public class AppConfig {
      * 查看数据字典信息接口
      */
     public static final String getDataTypeList = mainUrl + "v1/operation/PtDictClass/getDataTypeList";
+
+    /**
+     * 获取告警列表信息
+     */
+    public static final String OpAlarmInfoList = mainUrl + "v1/wfm/ucm/OpAlarmInfo/list";
+
+    /**
+     * 新增手动告警信息
+     */
+    public static final String OpAlarmInfoAdd = mainUrl + "v1/wfm/ucm/OpAlarmInfo/add";
+
+    /**
+     * 分页获取资产信息列表
+     */
+    public static final String OpAssetEquipmentList = mainUrl + "v1/wfm/ucm/OpAssetEquipment/list";
+
+    /**
+     * 获取工单信息表列表信息
+     */
+    public static final String OpFaultInfoList = mainUrl + "v1/operation/OpFaultInfo/list";
+
+    /**
+     * 工单信息查看页面
+     */
+    public static final String OpFaultInfoInfo = mainUrl + "v1/operation/OpFaultInfo/info";
+
+    /**
+     * 根据工单ID查看流程图信息
+     */
+    public static final String lookOpFaultHandleMap = mainUrl + "v1/wfm/ucm/OpAssetEquipment/lookOpFaultHandleMap";
+
+
+    /**
+     * 工单审核评价
+     */
+    public static final String OpFaultInfoCheck = mainUrl + "v1/operation/OpFaultInfo/check";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

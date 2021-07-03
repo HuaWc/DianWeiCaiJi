@@ -7,6 +7,7 @@ package com.hwc.dwcj.entity;
  */
 public class DictInfo {
 
+    private boolean isSelected;
     private String dataId;
     private String dataName;
     private String dataValue;
@@ -22,6 +23,14 @@ public class DictInfo {
     private Map map;
     private Object subSysId;
     private Object className;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public String getDataId() {
         return dataId;

@@ -8,7 +8,17 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +43,8 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
 
+    private String id;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_work_order_process_audit);
@@ -53,6 +65,45 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
                 finish();
             }
         });
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // doCheck(true);
+            }
+        });
+        tvRefuse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // doCheck(false);
+
+            }
+        });
+    }
+
+
+    private void doCheck(boolean agree) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        if (agree) {
+            hashMap.put("verifyStatus", 1);
+        } else {
+            hashMap.put("verifyStatus", 2);
+            hashMap.put("verifyRemark", "");
+        }
+        ApiClient.requestNetPost(this, AppConfig.OpFaultInfoCheck, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+                EventBus.getDefault().post(new EventCenter(EventUtil.REFRESH_ALERT_LIST));
+                finish();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+
     }
 
     @Override
@@ -62,6 +113,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
+        id = extras.getString("id");
 
     }
 

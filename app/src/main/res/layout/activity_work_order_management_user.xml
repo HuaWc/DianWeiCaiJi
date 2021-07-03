@@ -69,7 +69,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_search"
-                android:hint="点位名称、IP、查询"
+                android:hint="名称、IP"
                 android:paddingHorizontal="14dp"
                 android:singleLine="true"
                 android:textColor="#333333"
@@ -158,7 +158,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/tv_gd"
+                android:id="@+id/tv_more"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="12dp"
@@ -173,13 +173,24 @@
                 android:textColorHint="#999999"
                 android:textSize="13sp" />
 
-            <ImageView
-                android:id="@+id/iv_px"
-                android:layout_width="25dp"
+            <TextView
+                android:id="@+id/tv_more_blue"
+                android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:padding="3dp"
-                android:src="@mipmap/trash" />
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_up_24"
+                android:drawableTint="@color/text_bar_blue"
+                android:gravity="center_vertical"
+                android:hint="更多"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="@color/text_bar_blue"
+                android:textSize="13sp" />
+
         </LinearLayout>
 
 
@@ -187,19 +198,68 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EDF1FC">
+        android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#EDF1FC">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_select"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ll_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="40dp"
+                    android:background="@drawable/bg_event_btn_white"
+                    android:gravity="center"
+                    android:text="返回"
+                    android:textColor="#2196F3"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="40dp"
+                    android:paddingHorizontal="40dp"
+                    android:background="@drawable/bg_event_btn_blue"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

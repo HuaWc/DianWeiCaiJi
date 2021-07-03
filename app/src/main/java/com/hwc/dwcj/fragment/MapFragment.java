@@ -15,11 +15,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -65,7 +63,6 @@ import com.hwc.dwcj.map.ClusterClickListener;
 import com.hwc.dwcj.map.ClusterItem;
 import com.hwc.dwcj.map.ClusterOverlay;
 import com.hwc.dwcj.map.ClusterRender;
-import com.hwc.dwcj.map.RegionItem;
 import com.hwc.dwcj.util.GDLocationUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
@@ -74,7 +71,6 @@ import com.zds.base.util.BarUtils;
 import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +127,8 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     CardView cvSearchRelative;
     @BindView(R.id.ll_3)
     LinearLayout ll3;
+    @BindView(R.id.view_l1)
+    View viewL1;
 
 
     private AMap mAMap;
@@ -158,6 +156,8 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     private int positionNow;
     private int positionChild;
 
+    private int from;//0 来自点位采集  1 来自电子地图
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -173,6 +173,10 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
      */
     @Override
     protected void initLogic() {
+        if (from == 1) {
+            viewL1.setVisibility(View.GONE);
+            rlScan.setVisibility(View.GONE);
+        }
         initNowPosition();
         /* markerOption = new MarkerOptions().draggable(false);*/
 /*        mMapView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -578,7 +582,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                 public boolean onMarkerClick(Marker marker) {
                     //相机点击事件  进入详情
                     //难点：取到相机id
-                    int p2 = marker.getPeriod()-1;
+                    int p2 = marker.getPeriod() - 1;
                     Bundle bundle = new Bundle();
 /*                    if(markers.size() == 1){
                         bundle.putString("cameraId", treeItems.get(positionNow).getCameraList().get(0).getId());
@@ -634,7 +638,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
      */
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        from = extras.getInt("from", 0);
     }
 
     @Override

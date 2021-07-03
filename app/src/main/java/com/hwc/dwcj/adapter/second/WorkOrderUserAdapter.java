@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.WorkOrderUser;
+import com.zds.base.util.StringUtil;
 
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, WorkOrderUser item) {
-        helper.setText(R.id.tv_name, item.getName());
+        helper.setText(R.id.tv_name, item.getAlarmName())
+                .setText(R.id.tv_time, StringUtil.isEmpty(item.getAlarmTime()) ? "" : StringUtil.dealDateFormat(item.getAlarmTime()))
+                .setText(R.id.tv_jg, StringUtil.isEmpty(item.getMap().getAssetName()) ? "" : item.getMap().getAssetName())
+                .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
+                .setText(R.id.tv_status, StringUtil.isEmpty(item.getMap().getDeviceStatus()) ? "" : item.getMap().getDeviceStatus())
+                .addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_do).addOnClickListener(R.id.tv_track).addOnClickListener(R.id.tv_evaluate).addOnClickListener(R.id.tv_check);
     }
 }

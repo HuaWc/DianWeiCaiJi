@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,15 +24,26 @@ import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.second.AlertMenuAdapter;
+import com.hwc.dwcj.adapter.second.SelectOptionsAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.second.AlertMenuInfo;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,20 +64,34 @@ public class AlertManagementActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.iv_ss)
     ImageView ivSs;
-    @BindView(R.id.tv_wdsb)
-    TextView tvWdsb;
     @BindView(R.id.tv_ssjg)
     TextView tvSsjg;
-    @BindView(R.id.tv_zczl)
-    TextView tvZczl;
+    @BindView(R.id.tv_more)
+    TextView tvMore;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.ll_select)
+    LinearLayout llSelect;
+    @BindView(R.id.tv_more_blue)
+    TextView tvMoreBlue;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.ll_btn)
+    LinearLayout llBtn;
+
     private List<AlertMenuInfo> mList;
     private AlertMenuAdapter adapter;
+
+    private int page = 1;
+    private int pageSize = 10;
+
+    private SelectOptionsAdapter optionAdapter;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -92,6 +119,102 @@ public class AlertManagementActivity extends BaseActivity {
                 showDialog();
             }
         });
+        tvMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llSelect.getVisibility() == View.GONE) {
+                    llSelect.setVisibility(View.VISIBLE);
+                    show(llSelect);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvMore.setVisibility(View.GONE);
+                            tvMoreBlue.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+        tvMoreBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llSelect.getVisibility() == View.VISIBLE) {
+                    llSelect.setVisibility(View.GONE);
+                    hide(llSelect);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvMoreBlue.setVisibility(View.GONE);
+                            tvMore.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llSelect.getVisibility() == View.VISIBLE) {
+                    llSelect.setVisibility(View.GONE);
+                    hide(llSelect);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvMoreBlue.setVisibility(View.GONE);
+                            tvMore.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+        tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llSelect.getVisibility() == View.VISIBLE) {
+                    llSelect.setVisibility(View.GONE);
+                    hide(llSelect);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvMoreBlue.setVisibility(View.GONE);
+                            tvMore.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                getData(true);
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getData(false);
+            }
+        });
+    }
+
+    public void show(View view) {
+        // 显示动画
+        TranslateAnimation mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, -0.0f);
+        mShowAction.setRepeatMode(Animation.REVERSE);
+        mShowAction.setDuration(500);
+        view.startAnimation(mShowAction);
+    }
+
+    public void hide(View view) {
+        // 隐藏动画
+        TranslateAnimation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
+        mHiddenAction.setDuration(500);
+        view.startAnimation(mHiddenAction);
     }
 
     private void initAdapter() {
@@ -105,11 +228,62 @@ public class AlertManagementActivity extends BaseActivity {
 
             }
         });
-        getData();
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("alarmId", mList.get(position).getId());
+                switch (view.getId()) {
+                    case R.id.tv_look:
+                        toTheActivity(AlertToTrackActivity.class, bundle);
+                        break;
+                    case R.id.tv_evaluate:
+                        toTheActivity(AlertToEvaluateActivity.class, bundle);
+                        break;
+                }
+            }
+        });
+        getData(false);
     }
 
-    private void getData() {
+    private void getData(boolean more) {
+        if (more) {
+            page++;
+        } else {
+            page = 1;
+            mList.clear();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageNum", String.valueOf(page));
+        params.put("pageSize", String.valueOf(pageSize));
 
+        ApiClient.requestNetGet(this, AppConfig.OpAlarmInfoList, "查询中", params, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<AlertMenuInfo> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), AlertMenuInfo.class);
+                if (list != null && list.size() != 0) {
+                    mList.addAll(list);
+                } else {
+                    if (page > 1) {
+                        page--;
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                if (page > 1) {
+                    page--;
+                }
+                ToastUtil.toast(msg);
+                refreshLayout.finishLoadmore();
+                refreshLayout.finishRefresh();
+
+            }
+        });
     }
 
 
@@ -136,7 +310,10 @@ public class AlertManagementActivity extends BaseActivity {
 
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()) {
+            case EventUtil.REFRESH_ALERT_LIST:
+                getData(false);
+        }
     }
 
     @Override
