@@ -13,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
@@ -24,13 +28,16 @@ import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.second.AlertMenuAdapter;
-import com.hwc.dwcj.adapter.second.SelectOptionsAdapter;
+import com.hwc.dwcj.adapter.second.SelectOptionsChildAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.AlertMenuInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.EventUtil;
+import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -39,14 +46,20 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.hwc.dwcj.util.PickerViewUtils.lineSpace;
 
 /**
  * 告警管理页面
@@ -84,6 +97,18 @@ public class AlertManagementActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.rv1)
+    RecyclerView rv1;
+    @BindView(R.id.rv2)
+    RecyclerView rv2;
+    @BindView(R.id.rv3)
+    RecyclerView rv3;
+    @BindView(R.id.rv4)
+    RecyclerView rv4;
+    @BindView(R.id.tv_time_start)
+    TextView tvTimeStart;
+    @BindView(R.id.tv_time_end)
+    TextView tvTimeEnd;
 
     private List<AlertMenuInfo> mList;
     private AlertMenuAdapter adapter;
@@ -91,7 +116,31 @@ public class AlertManagementActivity extends BaseActivity {
     private int page = 1;
     private int pageSize = 10;
 
-    private SelectOptionsAdapter optionAdapter;
+
+    private List<DictInfo> mList1;
+    private SelectOptionsChildAdapter adapter1;
+    private String value1 = "";
+
+    private List<DictInfo> mList2;
+    private SelectOptionsChildAdapter adapter2;
+    private String value2 = "";
+
+    private List<DictInfo> mList3;
+    private SelectOptionsChildAdapter adapter3;
+    private String value3 = "";
+
+    private List<DictInfo> mList4;
+    private SelectOptionsChildAdapter adapter4;
+    private String value4 = "";
+
+    private String startStr = "";
+    private String endStr = "";
+
+    private Date startDate;
+    private Date endDate;
+
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -181,6 +230,7 @@ public class AlertManagementActivity extends BaseActivity {
                         }
                     });
                 }
+                getData(false);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
@@ -192,6 +242,80 @@ public class AlertManagementActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                getData(false);
+            }
+        });
+        tvTimeStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //开始时间
+                Calendar nowDate = Calendar.getInstance();
+                //时间选择器
+                TimePickerView pvTime = new TimePickerBuilder(AlertManagementActivity.this, new OnTimeSelectListener() {
+                    public void onTimeSelect(final Date date, View v) {
+                        if (endDate != null && date.getTime() > endDate.getTime()) {
+                            ToastUtil.toast("开始时间不能晚于结束时间！");
+                            return;
+                        }
+                        startStr = formatter.format(date);//日期 String
+                        startDate = date;
+                        tvTimeStart.setText(startStr);
+                        getData(false);
+
+
+                    }
+                }).setDate(nowDate)//设置系统时间为当前时间
+                        .setType(new boolean[]{true, true, true, true, true, true})//设置年月日时分秒是否显示 true:显示 false:隐藏
+                        //.setLabel("年", "月", "日", "时", "分", "秒")
+                        .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                        .setDividerColor(0x1F191F25)//设置分割线颜色
+                        .isCyclic(false)//是否循环显示日期 例如滑动到31日自动转到1日 有个问题：不能实现日期和月份联动
+                        .setSubmitColor(0xFFF79D1F)//确定按钮文字颜色
+                        .setCancelColor(0xFFA3A5A8)//取消按钮文字颜色
+                        .setTitleText("安装时间")//标题文字
+                        .setTitleColor(0xFF191F25)//标题文字颜色
+                        .setLineSpacingMultiplier(lineSpace)
+                        .build();
+                pvTime.show();
+            }
+        });
+        tvTimeEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //结束时间
+                Calendar nowDate = Calendar.getInstance();
+                //时间选择器
+                TimePickerView pvTime = new TimePickerBuilder(AlertManagementActivity.this, new OnTimeSelectListener() {
+                    public void onTimeSelect(final Date date, View v) {
+                        if (startDate != null && date.getTime() < startDate.getTime()) {
+                            ToastUtil.toast("结束时间不能早于开始时间！");
+                            return;
+                        }
+                        endStr = formatter.format(date);//日期 String
+                        endDate = date;
+                        tvTimeEnd.setText(endStr);
+                        getData(false);
+
+
+                    }
+                }).setDate(nowDate)//设置系统时间为当前时间
+                        .setType(new boolean[]{true, true, true, true, true, true})//设置年月日时分秒是否显示 true:显示 false:隐藏
+                        //.setLabel("年", "月", "日", "时", "分", "秒")
+                        .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                        .setDividerColor(0x1F191F25)//设置分割线颜色
+                        .isCyclic(false)//是否循环显示日期 例如滑动到31日自动转到1日 有个问题：不能实现日期和月份联动
+                        .setSubmitColor(0xFFF79D1F)//确定按钮文字颜色
+                        .setCancelColor(0xFFA3A5A8)//取消按钮文字颜色
+                        .setTitleText("安装时间")//标题文字
+                        .setTitleColor(0xFF191F25)//标题文字颜色
+                        .setLineSpacingMultiplier(lineSpace)
+                        .build();
+                pvTime.show();
+            }
+        });
+        ivSs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 getData(false);
             }
         });
@@ -217,7 +341,195 @@ public class AlertManagementActivity extends BaseActivity {
         view.startAnimation(mHiddenAction);
     }
 
+    private void getDictData1() {
+        GetDictDataHttp.getDictData(this, "OP_ASSET_TYPE", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList1.addAll(list);
+                    adapter1.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void getDictData2() {
+        mList2.clear();
+        GetDictDataHttp.getDictData(this, value1, new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList2.addAll(list);
+                    adapter2.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void getDictData3() {
+        mList3.clear();
+        GetDictDataHttp.getDictData(this, value2, new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList3.addAll(list);
+                    adapter3.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void getDictData4() {
+        mList4.clear();
+        GetDictDataHttp.getDictData(this, "OP_ALARM_SOURCE", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList4.addAll(list);
+                    adapter4.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
     private void initAdapter() {
+        mList1 = new ArrayList<>();
+        adapter1 = new SelectOptionsChildAdapter(mList1);
+        adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!mList1.get(position).isSelected()) {
+                    //当前未选中
+                    for (DictInfo dictInfo : mList1) {
+                        if (dictInfo.isSelected()) {
+                            dictInfo.setSelected(false);
+                            adapter1.notifyItemChanged(mList1.indexOf(dictInfo));
+                            break;
+                        }
+                    }
+                    mList1.get(position).setSelected(true);
+                    adapter1.notifyItemChanged(position);
+                    value1 = mList1.get(position).getDataValue();
+                    value2 = "";
+                    value3 = "";
+                    getDictData2();
+                    mList3.clear();
+                    adapter3.notifyDataSetChanged();
+                } else {
+                    //当前选中
+                    mList1.get(position).setSelected(false);
+                    adapter1.notifyItemChanged(position);
+                    value1 = "";
+                    value2 = "";
+                    value3 = "";
+                    mList2.clear();
+                    adapter2.notifyDataSetChanged();
+                    mList3.clear();
+                    adapter3.notifyDataSetChanged();
+                }
+            }
+        });
+        rv1.setAdapter(adapter1);
+        rv1.setLayoutManager(new GridLayoutManager(this, 3));
+        RecyclerViewHelper.recyclerviewAndScrollView(rv1);
+        getDictData1();
+
+
+        mList2 = new ArrayList<>();
+        adapter2 = new SelectOptionsChildAdapter(mList2);
+        adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!mList2.get(position).isSelected()) {
+                    //当前未选中
+                    for (DictInfo dictInfo : mList2) {
+                        if (dictInfo.isSelected()) {
+                            dictInfo.setSelected(false);
+                            adapter2.notifyItemChanged(mList2.indexOf(dictInfo));
+                            break;
+                        }
+                    }
+                    mList2.get(position).setSelected(true);
+                    adapter2.notifyItemChanged(position);
+                    value2 = mList2.get(position).getDataValue();
+                    value3 = "";
+                    getDictData3();
+                } else {
+                    //当前选中
+                    mList2.get(position).setSelected(false);
+                    adapter2.notifyItemChanged(position);
+                    value2 = "";
+                    value3 = "";
+                    mList3.clear();
+                    adapter3.notifyDataSetChanged();
+                }
+            }
+        });
+        rv2.setAdapter(adapter2);
+        rv2.setLayoutManager(new GridLayoutManager(this, 3));
+        RecyclerViewHelper.recyclerviewAndScrollView(rv2);
+
+        mList3 = new ArrayList<>();
+        adapter3 = new SelectOptionsChildAdapter(mList3);
+        adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!mList3.get(position).isSelected()) {
+                    //当前未选中
+                    for (DictInfo dictInfo : mList3) {
+                        if (dictInfo.isSelected()) {
+                            dictInfo.setSelected(false);
+                            adapter3.notifyItemChanged(mList3.indexOf(dictInfo));
+                            break;
+                        }
+                    }
+                    mList3.get(position).setSelected(true);
+                    adapter3.notifyItemChanged(position);
+                    value3 = mList3.get(position).getDataValue();
+
+                } else {
+                    //当前选中
+                    mList3.get(position).setSelected(false);
+                    adapter3.notifyItemChanged(position);
+                    value3 = "";
+                }
+            }
+        });
+        rv3.setAdapter(adapter3);
+        rv3.setLayoutManager(new GridLayoutManager(this, 3));
+        RecyclerViewHelper.recyclerviewAndScrollView(rv3);
+
+        mList4 = new ArrayList<>();
+        adapter4 = new SelectOptionsChildAdapter(mList4);
+        adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!mList4.get(position).isSelected()) {
+                    //当前未选中
+                    for (DictInfo dictInfo : mList4) {
+                        if (dictInfo.isSelected()) {
+                            dictInfo.setSelected(false);
+                            adapter4.notifyItemChanged(mList4.indexOf(dictInfo));
+                            break;
+                        }
+                    }
+                    mList4.get(position).setSelected(true);
+                    adapter4.notifyItemChanged(position);
+                    value4 = mList4.get(position).getDataValue();
+
+                } else {
+                    //当前选中
+                    mList4.get(position).setSelected(false);
+                    adapter4.notifyItemChanged(position);
+                    value4 = "";
+                }
+            }
+        });
+        rv4.setAdapter(adapter4);
+        rv4.setLayoutManager(new GridLayoutManager(this, 3));
+        RecyclerViewHelper.recyclerviewAndScrollView(rv4);
+        getDictData4();
+
         mList = new ArrayList<>();
         adapter = new AlertMenuAdapter(mList);
         rv.setAdapter(adapter);
@@ -232,7 +544,7 @@ public class AlertManagementActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("alarmId", mList.get(position).getId());
+                bundle.putString("id", mList.get(position).getId());
                 switch (view.getId()) {
                     case R.id.tv_look:
                         toTheActivity(AlertToTrackActivity.class, bundle);
@@ -256,7 +568,27 @@ public class AlertManagementActivity extends BaseActivity {
         Map<String, Object> params = new HashMap<>();
         params.put("pageNum", String.valueOf(page));
         params.put("pageSize", String.valueOf(pageSize));
-
+        if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
+            params.put("keywords", etSearch.getText().toString().trim());
+        }
+        if (!StringUtil.isEmpty(value1)) {
+            params.put("assetNature", value1);
+        }
+        if (!StringUtil.isEmpty(value2)) {
+            params.put("assetType", value2);
+        }
+        if (!StringUtil.isEmpty(value3)) {
+            params.put("assetClass", value3);
+        }
+        if (!StringUtil.isEmpty(value4)) {
+            params.put("alarmSource", value4);
+        }
+        if (!StringUtil.isEmpty(startStr)) {
+            params.put("startTime", startStr);
+        }
+        if (!StringUtil.isEmpty(endStr)) {
+            params.put("endTime", endStr);
+        }
         ApiClient.requestNetGet(this, AppConfig.OpAlarmInfoList, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {

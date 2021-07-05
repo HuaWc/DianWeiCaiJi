@@ -352,24 +352,20 @@ public class WorkOrderUser {
     }
 
     public static class Map {
-        private String orgType;
+
         private String assetNature;
         private String assetCode;
         private String orgName;
-        private String manageIp;
+        private String assetNatureName;
         private String alarmTime;
-        private String assetName;
+        private String assetTypeName;
         private String assetClass;
         private String assetType;
         private String deviceStatus;
-
-        public String getOrgType() {
-            return orgType;
-        }
-
-        public void setOrgType(String orgType) {
-            this.orgType = orgType;
-        }
+        private String orgType;
+        private String manageIp;
+        private String assetName;
+        private String assetClassName;
 
         public String getAssetNature() {
             return assetNature;
@@ -395,12 +391,12 @@ public class WorkOrderUser {
             this.orgName = orgName;
         }
 
-        public String getManageIp() {
-            return manageIp;
+        public String getAssetNatureName() {
+            return assetNatureName;
         }
 
-        public void setManageIp(String manageIp) {
-            this.manageIp = manageIp;
+        public void setAssetNatureName(String assetNatureName) {
+            this.assetNatureName = assetNatureName;
         }
 
         public String getAlarmTime() {
@@ -411,12 +407,12 @@ public class WorkOrderUser {
             this.alarmTime = alarmTime;
         }
 
-        public String getAssetName() {
-            return assetName;
+        public String getAssetTypeName() {
+            return assetTypeName;
         }
 
-        public void setAssetName(String assetName) {
-            this.assetName = assetName;
+        public void setAssetTypeName(String assetTypeName) {
+            this.assetTypeName = assetTypeName;
         }
 
         public String getAssetClass() {
@@ -441,6 +437,38 @@ public class WorkOrderUser {
 
         public void setDeviceStatus(String deviceStatus) {
             this.deviceStatus = deviceStatus;
+        }
+
+        public String getOrgType() {
+            return orgType;
+        }
+
+        public void setOrgType(String orgType) {
+            this.orgType = orgType;
+        }
+
+        public String getManageIp() {
+            return manageIp;
+        }
+
+        public void setManageIp(String manageIp) {
+            this.manageIp = manageIp;
+        }
+
+        public String getAssetName() {
+            return assetName;
+        }
+
+        public void setAssetName(String assetName) {
+            this.assetName = assetName;
+        }
+
+        public String getAssetClassName() {
+            return assetClassName;
+        }
+
+        public void setAssetClassName(String assetClassName) {
+            this.assetClassName = assetClassName;
         }
     }
 }

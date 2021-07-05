@@ -35,6 +35,21 @@ public class WorkOrderTrackAdapter extends BaseQuickAdapter<WorkOrderTrackInfo, 
         helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getAlarmStep()) ? "" : item.getAlarmStep())
                 .setText(R.id.tv_time, StringUtil.isEmpty(item.getHandleTime()) ? "" : item.getHandleTime())
                 .setText(R.id.tv_people, "处理人：" + (StringUtil.isEmpty(item.getAlarmSourceOrPersonName()) ? "" : item.getAlarmSourceOrPersonName()))
-                .setText(R.id.tv_phone, "联系电话：" + (StringUtil.isEmpty(item.getTel()) ? "" : item.getTel()));
+                .setText(R.id.tv_phone, "联系电话：" + (StringUtil.isEmpty(item.getTel()) ? "" : item.getTel()))
+                .setText(R.id.tv_f1, "处置内容：" + (StringUtil.isEmpty(item.getAlarmName()) ? "" : item.getAlarmName()))
+                .setText(R.id.tv_f2, "处置思路：" + (StringUtil.isEmpty(item.getHandleMethod()) ? "" : item.getHandleMethod()))
+                .setText(R.id.tv_f3, "问题描述：" + (StringUtil.isEmpty(item.getRemark()) ? "" : item.getRemark()))
+                .setText(R.id.tv_f4, "排障日志：" + (StringUtil.isEmpty(item.getErrorLog()) ? "" : item.getErrorLog()));
+
+        helper.getView(R.id.tv_name).setVisibility(StringUtil.isEmpty(item.getAlarmStep()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_time).setVisibility(StringUtil.isEmpty(item.getHandleTime()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_people).setVisibility(StringUtil.isEmpty(item.getAlarmSourceOrPersonName()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_phone).setVisibility(StringUtil.isEmpty(item.getTel()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_f1).setVisibility(StringUtil.isEmpty(item.getAlarmName()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_f2).setVisibility(StringUtil.isEmpty(item.getHandleMethod()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_f3).setVisibility(StringUtil.isEmpty(item.getRemark()) ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.tv_f4).setVisibility(StringUtil.isEmpty(item.getErrorLog()) ? View.GONE : View.VISIBLE);
+
+
     }
 }

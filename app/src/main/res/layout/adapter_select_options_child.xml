@@ -12,7 +12,8 @@
         android:background="@drawable/bg_option_btn_grey"
         android:gravity="center"
         android:text=""
+        android:singleLine="true"
+        android:textStyle="bold"
         android:textColor="@drawable/selector_options_text"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textSize="12sp"/>
 </RelativeLayout>

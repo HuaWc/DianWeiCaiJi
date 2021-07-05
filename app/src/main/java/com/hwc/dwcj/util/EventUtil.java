@@ -94,7 +94,10 @@ public class EventUtil {
      */
     public static final int REFRESH_FAULT_LIST = 19;
 
-
+    /**
+     * 刷新工单列表
+     */
+    public static final int SELECT_CHANGE_ASSET = 20;
 
 
 

@@ -140,18 +140,6 @@
                 android:text="审核"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
-            <TextView
-                android:id="@+id/tv_evaluate"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="评价"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
 
         </LinearLayout>
     </LinearLayout>

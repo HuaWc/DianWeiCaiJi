@@ -1,21 +1,40 @@
 package com.hwc.dwcj.activity.second;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.AddCameraDetailActivity;
+import com.hwc.dwcj.adapter.CommonImageAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.DictInfo;
+import com.hwc.dwcj.entity.second.AssetEquipment;
 import com.hwc.dwcj.entity.second.WorkOrderUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
+import com.hwc.dwcj.util.EventUtil;
+import com.hwc.dwcj.util.PickerViewUtils;
+import com.hwc.dwcj.util.RecyclerViewHelper;
+import com.hwc.dwcj.view.dialog.CommonTipDialog;
+import com.hwc.dwcj.view.dialog.PictureSelectDialogUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
@@ -103,11 +122,40 @@ public class WorkOrderHandleActivity extends BaseActivity {
     LinearLayout llClr;
     @BindView(R.id.ll_pzrz)
     LinearLayout llPzrz;
+    @BindView(R.id.tv24)
+    TextView tv24;
+    @BindView(R.id.tv25)
+    TextView tv25;
+    @BindView(R.id.tv26)
+    TextView tv26;
+    @BindView(R.id.tv27)
+    TextView tv27;
+    @BindView(R.id.tv28)
+    TextView tv28;
+    @BindView(R.id.et_sm)
+    EditText etSm;
+    @BindView(R.id.rv_add_img)
+    RecyclerView rvAddImg;
+    @BindView(R.id.et_pzrz)
+    EditText etPzrz;
 
     private String id;
     private WorkOrderUser info;
     private int type = 0;
     private List<DictInfo> methodList;
+
+    private CommonImageAdapter adapter1;
+    private List<String> img1;//用于展示
+    private List<String> images1;//用于接口
+    private List<LocalMedia> images;
+    private int num = 3;
+
+
+    private List<DictInfo> statusList;
+    private String statusStr = "";
+    private List<String> optionList;
+
+    private String newAssetId = "";
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -121,12 +169,106 @@ public class WorkOrderHandleActivity extends BaseActivity {
         initClick();
         initAdapter();
         getData();
-        rbFix.setSelected(true);
+        rbFix.setChecked(true);
     }
 
     private void initAdapter() {
+        statusList = new ArrayList<>();
+        optionList = new ArrayList<>();
+        getStatusData();
         methodList = new ArrayList<>();
         getMethodData();
+        img1 = new ArrayList<>();
+        images1 = new ArrayList<>();
+        adapter1 = new CommonImageAdapter(img1);
+        adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.iv_add:
+                        showSelectPhotoDialog();
+                        break;
+                    case R.id.iv_delete:
+                        showDeleteDialog(position);
+                        break;
+                }
+            }
+        });
+
+        rvAddImg.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rvAddImg.setAdapter(adapter1);
+        RecyclerViewHelper.recyclerviewAndScrollView(rvAddImg);
+        img1.add("");
+        adapter1.notifyDataSetChanged();
+    }
+
+    private void getStatusData() {
+        GetDictDataHttp.getDictData(this, "OP_ASSET_STATUS", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    statusList.addAll(list);
+                    for (DictInfo d : list) {
+                        optionList.add(d.getDataName());
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 选择图片回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PictureConfig.CHOOSE_REQUEST) {// 图片选择结果回调
+                images = PictureSelector.obtainMultipleResult(data);
+                if (images != null && images.size() != 0) {
+
+                }
+
+
+            }
+        }
+    }
+
+    private void showSelectPhotoDialog() {
+        if (!img1.contains("") && img1.size() == num) {
+            ToastUtil.toast("最多可以选择" + num + "张图片");
+            return;
+        } else if (img1.contains("") && img1.size() == num + 1) {
+            ToastUtil.toast("最多可以选择" + num + "张图片");
+            return;
+        }
+        PictureSelectDialogUtils.showSelectPictureSelector(this, num + 1 - img1.size());
+    }
+
+    private void showDeleteDialog(int position) {
+        CommonTipDialog.getInstance()
+                .addTipData(this, "提示", "取消", "确定")
+                .addBtnColor("#FF191F25", "#FF4F77E1")
+                .addTipContent("确定要删除吗？")
+                .setCancelable(false)
+                .addOnClickListener(new CommonTipDialog.OnClickListener() {
+                    @Override
+                    public void onLeft(View v, Dialog dialog) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onRight(View v, Dialog dialog) {
+                        dialog.dismiss();
+                        ;
+                    }
+                })
+                .show();
     }
 
     private void getMethodData() {
@@ -163,9 +305,9 @@ public class WorkOrderHandleActivity extends BaseActivity {
         }
         tv1.setText(StringUtil.isEmpty(info.getAlarmName()) ? "" : info.getAlarmName());
         tv2.setText(StringUtil.isEmpty(info.getAlarmCode()) ? "" : info.getAlarmCode());
-        tv3.setText(StringUtil.isEmpty(info.getMap().getAssetNature()) ? "" : info.getMap().getAssetNature());
-        tv4.setText(StringUtil.isEmpty(info.getMap().getAssetType()) ? "" : info.getMap().getAssetType());
-        tv5.setText(StringUtil.isEmpty(info.getMap().getAssetClass()) ? "" : info.getMap().getAssetClass());
+        tv3.setText(StringUtil.isEmpty(info.getMap().getAssetNatureName()) ? "" : info.getMap().getAssetNatureName());
+        tv4.setText(StringUtil.isEmpty(info.getMap().getAssetTypeName()) ? "" : info.getMap().getAssetTypeName());
+        tv5.setText(StringUtil.isEmpty(info.getMap().getAssetClassName()) ? "" : info.getMap().getAssetClassName());
         tv6.setText(StringUtil.isEmpty(info.getAlarmSource()) ? "" : info.getAlarmSource());
         tv7.setText(StringUtil.isEmpty(info.getAlarmGrade()) ? "" : info.getAlarmGrade());
         tv8.setText(StringUtil.isEmpty(info.getFaultType()) ? "" : info.getFaultType());
@@ -184,6 +326,9 @@ public class WorkOrderHandleActivity extends BaseActivity {
         tv21.setText(StringUtil.isEmpty(info.getClosedLoopStatus()) ? "" : info.getClosedLoopStatus());//闭环状态
         //tv22.setText(StringUtil.isEmpty(info.getAlarmName()) ? "" : info.getAlarmName());//超时闭环时间
         tv23.setText(StringUtil.isEmpty(info.getAlarmRemark()) ? "" : info.getAlarmRemark());//告警发生原因
+
+        tv24.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());//设备名称
+        tv25.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());//设备编号
 
 
     }
@@ -251,18 +396,90 @@ public class WorkOrderHandleActivity extends BaseActivity {
                 submit();
             }
         });
+        tv26.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //选择原设备状态
+                if (optionList == null || optionList.size() == 0) {
+                    ToastUtil.toast("状态值为空，请稍后再试！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(WorkOrderHandleActivity.this, "选择状态", optionList, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tv26.setText(optionList.get(options1));
+                        statusStr = statusList.get(options1).getDataValue();
+                    }
+                });
+            }
+        });
+        tv27.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //选择更换设备信息
+                //到新页面吧
+                Bundle bundle = new Bundle();
+                bundle.putString("faultId", id);
+                toTheActivity(SelectChangeAssetActivity.class);
+
+            }
+        });
     }
 
+
     private void submit() {
-            Map<String,Object> hashMap = new HashMap<>();
-            hashMap.put("id",id);
-            hashMap.put("handleMethod",methodList.get(type).getDataValue());
+        if (type == 1) {
+            if (StringUtil.isEmpty(tv26)) {
+                ToastUtil.toast("请选择原设备状态");
+                return;
+            }
+            if (StringUtil.isEmpty(tv27)) {
+                ToastUtil.toast("请选择更换设备信息");
+                return;
+            }
+        }
+        if (StringUtil.isEmpty(etSm.getText().toString().trim())) {
+            ToastUtil.toast("请填写说明");
+            return;
+        }
+
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        hashMap.put("handleMethod", methodList.get(type).getDataValue());
+
+        hashMap.put("handRemark", etSm.getText().toString().trim());
+        if (type != 1) {
+            hashMap.put("remarkLog", etPzrz.getText().toString().trim());//排障日志
+        } else {
+            hashMap.put("assetId", info.getAssetId());
+            hashMap.put("oldDeviceStatus", statusStr);
+            hashMap.put("newAssetId", newAssetId);
+        }
+        ApiClient.requestNetPost(this, AppConfig.FaultHandleForYWPerson, "提交中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+
     }
 
 
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()) {
+            case EventUtil.SELECT_CHANGE_ASSET:
+                AssetEquipment a = (AssetEquipment) center.getData();
+                tv27.setText(a.getAssetName());
+                tv28.setText(a.getAssetCode());
+                newAssetId = a.getId();
+                break;
+        }
     }
 
     @Override

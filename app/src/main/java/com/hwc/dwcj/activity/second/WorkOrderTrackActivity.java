@@ -92,7 +92,8 @@ public class WorkOrderTrackActivity extends BaseActivity {
 
     private void getTrackData() {
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("faultId", id);
+        hashMap.put("faultOrAlarmId", id);
+        hashMap.put("checkFlag", 1);
         ApiClient.requestNetGet(this, AppConfig.lookOpFaultHandleMap, "", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {

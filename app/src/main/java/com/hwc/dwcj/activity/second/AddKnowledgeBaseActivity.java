@@ -147,6 +147,8 @@ public class AddKnowledgeBaseActivity extends BaseActivity {
     }
 
     private void showSelectClassDialog() {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         if (StringUtil.isEmpty(tvSelectType.getText().toString().trim())) {
             ToastUtil.toast("请先选择事件分类定义！");
             return;
@@ -165,6 +167,8 @@ public class AddKnowledgeBaseActivity extends BaseActivity {
     }
 
     private void showSelectTypeDialog() {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         if (selectTypeOptions == null || selectTypeOptions.size() == 0) {
             ToastUtil.toast("数据为空或者数据获取失败，请重试！");
             return;

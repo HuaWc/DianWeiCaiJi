@@ -309,13 +309,25 @@ public class AppConfig {
      */
     public static final String lookOpFaultHandleMap = mainUrl + "v1/wfm/ucm/OpAssetEquipment/lookOpFaultHandleMap";
 
-
     /**
      * 工单审核评价
      */
     public static final String OpFaultInfoCheck = mainUrl + "v1/operation/OpFaultInfo/check";
 
+    /**
+     * 获取可供更换的设备列表
+     */
+    public static final String getAssetList = mainUrl + "v1/wfm/ucm/OpAssetEquipment/getAssetList";
 
+    /**
+     * 运维人员工单处理
+     */
+    public static final String FaultHandleForYWPerson = mainUrl + "v1/wfm/ucm/OpAssetEquipment/FaultHandleForYWPerson";
+
+    /**
+     * 告警事件评价
+     */
+    public static final String getAlarmEvaluate = mainUrl + "v1/wfm/ucm/OpAlarmInfo/getAlarmEvaluate";
 
 
 

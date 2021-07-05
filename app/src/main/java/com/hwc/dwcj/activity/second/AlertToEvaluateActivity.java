@@ -8,8 +8,17 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,7 +106,29 @@ public class AlertToEvaluateActivity extends BaseActivity {
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // doEvaluate();
+                doEvaluate();
+            }
+        });
+    }
+
+    private void doEvaluate() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("alarmId", alarmId);
+        hashMap.put("serviceRating", tv1.getText().toString());
+        hashMap.put("serviceRating2", tv2.getText().toString());
+        hashMap.put("serviceRating3", tv3.getText().toString());
+        hashMap.put("serviceRating4", tv4.getText().toString());
+        ApiClient.requestNetPost(this, AppConfig.getAlarmEvaluate, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+                EventBus.getDefault().post(new EventCenter(EventUtil.REFRESH_ALERT_LIST));
+                finish();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
             }
         });
     }

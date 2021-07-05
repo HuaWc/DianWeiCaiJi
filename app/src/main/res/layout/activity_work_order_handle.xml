@@ -1268,6 +1268,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv24"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1306,6 +1307,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv25"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1344,7 +1346,10 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv26"
+                                android:background="@drawable/app_edit"
                                 android:layout_width="0dp"
+                                android:paddingHorizontal="5dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="1"
@@ -1390,10 +1395,13 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv27"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="1"
+                                android:background="@drawable/app_edit"
+                                android:paddingHorizontal="5dp"
                                 android:gravity="end"
                                 android:singleLine="true"
                                 android:text=""
@@ -1428,10 +1436,13 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv28"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="1"
+                                android:background="@drawable/app_edit"
+                                android:paddingHorizontal="5dp"
                                 android:gravity="end"
                                 android:singleLine="true"
                                 android:text=""
@@ -1521,6 +1532,7 @@
 
 
                     <EditText
+                        android:id="@+id/et_sm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -1568,6 +1580,7 @@
                         android:layout_height="wrap_content">
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_add_img"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -1599,6 +1612,7 @@
 
 
                     <EditText
+                        android:id="@+id/et_pzrz"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"

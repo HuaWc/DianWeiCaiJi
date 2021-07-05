@@ -2,24 +2,28 @@ package com.hwc.dwcj.activity.second;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
-import com.hwc.dwcj.adapter.second.WorkOrderTrackAdapter;
+import com.hwc.dwcj.adapter.second.AssetEquipmentAdapter;
 import com.hwc.dwcj.base.BaseActivity;
-import com.hwc.dwcj.entity.second.WorkOrderTrackInfo;
+import com.hwc.dwcj.entity.second.AssetEquipment;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
-import com.hwc.dwcj.util.RecyclerViewHelper;
+import com.hwc.dwcj.util.EventUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,25 +38,31 @@ import butterknife.ButterKnife;
  * By an amateur android developer
  * Email 627447123@qq.com
  */
-public class AlertToTrackActivity extends BaseActivity {
+public class SelectChangeAssetActivity extends BaseActivity {
+
+
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.tv_return)
-    TextView tvReturn;
-    @BindView(R.id.ll_btn)
-    LinearLayout llBtn;
-    @BindView(R.id.rv_track)
-    RecyclerView rvTrack;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.iv_ss)
+    ImageView ivSs;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.all)
+    LinearLayout all;
 
-    private String id;
-    private List<WorkOrderTrackInfo> mList;
-    private WorkOrderTrackAdapter adapter;
+    private String faultId;
+    private List<AssetEquipment> mList;
+    private AssetEquipmentAdapter adapter;
 
     @Override
     protected void initContentView(Bundle bundle) {
-        setContentView(R.layout.activity_alert_to_track);
+        setContentView(R.layout.activity_select_change_asset);
     }
 
     @Override
@@ -61,19 +71,12 @@ public class AlertToTrackActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
         initAdapter();
-    }
 
-    private void initAdapter() {
-        mList = new ArrayList<>();
-        adapter = new WorkOrderTrackAdapter(mList);
-        rvTrack.setAdapter(adapter);
-        rvTrack.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewHelper.recyclerviewAndScrollView(rvTrack);
-        getTrackData();
     }
-
 
     private void initClick() {
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setEnableLoadmore(false);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,19 +85,33 @@ public class AlertToTrackActivity extends BaseActivity {
         });
     }
 
+    private void initAdapter() {
+        mList = new ArrayList<>();
+        adapter = new AssetEquipmentAdapter(mList);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EventBus.getDefault().post(new EventCenter(EventUtil.SELECT_CHANGE_ASSET, mList.get(position)));
+                finish();
+            }
+        });
+        getData();
+    }
 
-    private void getTrackData() {
-        Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("faultOrAlarmId", id);
-        hashMap.put("checkFlag", 0);
-        ApiClient.requestNetGet(this, AppConfig.lookOpFaultHandleMap, "", hashMap, new ResultListener() {
+    private void getData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("faultId", faultId);
+        ApiClient.requestNetPost(this, AppConfig.getAssetList, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<WorkOrderTrackInfo> list = FastJsonUtil.getList(json, WorkOrderTrackInfo.class);
-                if(list != null){
+                List<AssetEquipment> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), AssetEquipment.class);
+                if (list != null && list.size() != 0) {
                     mList.addAll(list);
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -104,6 +121,7 @@ public class AlertToTrackActivity extends BaseActivity {
         });
     }
 
+
     @Override
     protected void onEventComing(EventCenter center) {
 
@@ -111,7 +129,7 @@ public class AlertToTrackActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-        id = extras.getString("id");
+        faultId = extras.getString("faultId");
     }
 
     @Override

@@ -68,7 +68,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_search"
-                android:hint="点位名称、IP、查询"
+                android:hint="名称、IP、查询"
                 android:paddingHorizontal="14dp"
                 android:singleLine="true"
                 android:textColor="#333333"
@@ -186,20 +186,24 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10sp"
                         android:layout_marginTop="10dp"
-                        android:text="发生时间"
+                        android:text="资产种类"
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -208,6 +212,7 @@
                             android:id="@+id/rv1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
                             android:overScrollMode="never" />
 
                     </RelativeLayout>
@@ -219,7 +224,9 @@
                         android:layout_marginTop="10dp"
                         android:text="资产类别"
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -228,6 +235,7 @@
                             android:id="@+id/rv2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
                             android:overScrollMode="never" />
 
                     </RelativeLayout>
@@ -239,7 +247,9 @@
                         android:layout_marginTop="10dp"
                         android:text="设备类型"
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -248,6 +258,7 @@
                             android:id="@+id/rv3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
                             android:overScrollMode="never" />
 
                     </RelativeLayout>
@@ -259,7 +270,9 @@
                         android:layout_marginTop="10dp"
                         android:text="告警来源"
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -268,6 +281,7 @@
                             android:id="@+id/rv4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
                             android:overScrollMode="never" />
 
                     </RelativeLayout>
@@ -280,13 +294,14 @@
                         android:layout_marginBottom="10dp"
                         android:text="发生时间"
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="10dp">
+                        android:paddingHorizontal="20dp">
 
                         <TextView
                             android:id="@+id/tv_time_start"
@@ -297,7 +312,8 @@
                             android:gravity="center"
                             android:text=""
                             android:textColor="#333333"
-                            android:textSize="14sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -316,7 +332,8 @@
                             android:background="@drawable/app_edit"
                             android:gravity="center"
                             android:textColor="#333333"
-                            android:textSize="14sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout

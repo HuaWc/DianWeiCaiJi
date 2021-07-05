@@ -25,12 +25,12 @@ public class AlertMenuAdapter extends BaseQuickAdapter<AlertMenuInfo, BaseViewHo
                 .setText(R.id.tv_status, item.getAlarmStatus())
                 .setText(R.id.tv_time, item.getMap().getAlarmTime())
                 .setText(R.id.tv_g, item.getMap().getOrgName())
-                .setText(R.id.tv_jg, item.getProject());
+                .setText(R.id.tv_jg, item.getAssetNature() + ">" + item.getAssetType() + ">" + item.getMap().getAssetClass());
         helper.addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_evaluate);
         if ("闭环".equals(item.getAlarmStatus())) {
-            tv_look.setVisibility(View.VISIBLE);
+            tv_evaluate.setVisibility(View.VISIBLE);
         } else {
-            tv_look.setVisibility(View.GONE);
+            tv_evaluate.setVisibility(View.GONE);
         }
     }
 }

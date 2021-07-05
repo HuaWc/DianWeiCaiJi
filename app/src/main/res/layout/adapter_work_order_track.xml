@@ -1,55 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="@dimen/dp_240"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_work_order_track_green"
-        android:orientation="vertical"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="10dp">
+        android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/tv_name"
+        <LinearLayout
+            android:id="@+id/ll_main"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_work_order_track_green"
+            android:orientation="vertical"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="工单派发"
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="2021-4-1 11:33:33"
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="处理人：张三、李四"
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="联系电弧：13399887766"
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_f"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="工单派发"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="2021-4-1 11:33:33"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/tv_people"
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="处理人：张三、李四"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="联系电弧：13399887766"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/ll_main"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_f1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处置内容"
+                android:textColor="#5A5A5A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_f2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处置内容"
+                android:textColor="#5A5A5A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_f3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处置内容"
+                android:textColor="#5A5A5A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_f4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处置内容：阿斯顿阿斯"
+                android:textColor="#5A5A5A"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <ImageView
