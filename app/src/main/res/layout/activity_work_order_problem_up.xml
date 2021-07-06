@@ -67,8 +67,9 @@
                 android:background="@drawable/app_edit"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
-                android:text="请张三进行协同处理"
-                android:textColor="#999999" />
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,13 +116,14 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="end"
                             android:singleLine="true"
-                            android:text="摄像机SD卡故障"
+                            android:text=""
                             android:textColor="#999999"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -153,6 +155,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -191,6 +194,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -229,6 +233,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -267,6 +272,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -305,6 +311,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv6"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -343,6 +350,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv7"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -381,6 +389,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -419,6 +428,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv9"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -457,6 +467,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv10"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -495,6 +506,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv11"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -533,6 +545,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv12"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -571,6 +584,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -609,6 +623,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -647,6 +662,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv15"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -685,6 +701,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv16"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -723,6 +740,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv17"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -761,6 +779,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv18"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -799,6 +818,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv19"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -837,6 +857,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv20"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -875,6 +896,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv21"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -913,6 +935,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -951,6 +974,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv23"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1005,7 +1029,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="告警处理（四创）"
+                    android:text="告警处理"
                     android:textColor="#2196F3"
                     android:textSize="15sp" />
 
@@ -1075,7 +1099,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
                         android:layout_marginStart="20dp"
-                        android:text="个人无法处理，请求协调人员"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="15sp" />
 
@@ -1102,12 +1126,14 @@
                         android:textSize="15sp" />
 
                     <RadioGroup
+                        android:id="@+id/rg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/rb_help"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -1115,26 +1141,155 @@
                             android:textSize="13sp" />
 
                         <RadioButton
+                            android:id="@+id/rb_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="新增处理"
                             android:textSize="13sp" />
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="继续派单"
-                            android:textSize="13sp" />
-
 
                     </RadioGroup>
 
                     <LinearLayout
+                        android:id="@+id/ll_help_part"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:text="处理人："
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_clr"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="7"
+                                    android:background="@drawable/app_edit"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginStart="10dp"
+                                android:background="#999999" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:text="协同处理人："
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_xtclr"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="7"
+                                    android:background="@drawable/app_edit"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginStart="10dp"
+                                android:background="#999999" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:text="手机号码："
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/et_phone1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="7"
+                                    android:background="@drawable/app_edit"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginStart="10dp"
+                                android:background="#999999" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_part"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
 
                         <TextView
@@ -1160,9 +1315,9 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_weight="3"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -1175,18 +1330,19 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="处置时限"
+                                        android:text="处理截止时间"
                                         android:textColor="#333333"
                                         android:textSize="15sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="7"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    android:layout_height="wrap_content">
+                                    android:layout_weight="7">
 
-                                    <EditText
+                                    <TextView
+                                        android:id="@+id/tv_time"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -1199,13 +1355,6 @@
                                         android:textColor="#333333"
                                         android:textSize="14sp" />
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginHorizontal="10dp"
-                                        android:text="小时"
-                                        android:textColor="#333333"
-                                        android:textSize="14sp" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -1231,9 +1380,9 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_weight="3"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -1253,11 +1402,12 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="7"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    android:layout_height="wrap_content">
+                                    android:layout_weight="7">
 
-                                    <EditText
+                                    <TextView
+                                        android:id="@+id/tv_clr2"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -1295,9 +1445,9 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_weight="3"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -1317,11 +1467,12 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="7"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    android:layout_height="wrap_content">
+                                    android:layout_weight="7">
 
                                     <EditText
+                                        android:id="@+id/et_phone2"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -1359,9 +1510,9 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_weight="3"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -1381,102 +1532,21 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
-                                    android:layout_weight="7"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_height="wrap_content">
-
-                                    <EditText
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:layout_weight="1"
-                                        android:background="@drawable/app_edit"
-                                        android:gravity="end"
-                                        android:paddingHorizontal="10dp"
-                                        android:ellipsize="end"
-                                        android:lines="5"
-                                        android:text=""
-                                        android:textColor="#333333"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginStart="10dp"
-                                android:background="#999999" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="继续派单"
-                            android:textColor="#2196F3"
-                            android:textSize="15sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginVertical="5dp"
-                                android:layout_marginStart="20dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="*"
-                                        android:textColor="#FF0000"
-                                        android:textSize="15sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="说明"
-                                        android:textColor="#333333"
-                                        android:textSize="15sp" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="7"
                                     android:layout_marginStart="10dp"
-                                    android:layout_height="wrap_content">
+                                    android:layout_weight="7">
 
                                     <EditText
+                                        android:id="@+id/et_sm"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
                                         android:layout_weight="1"
                                         android:background="@drawable/app_edit"
-                                        android:gravity="end"
-                                        android:paddingHorizontal="10dp"
                                         android:ellipsize="end"
+                                        android:gravity="end"
                                         android:lines="5"
+                                        android:paddingHorizontal="10dp"
                                         android:text=""
                                         android:textColor="#333333"
                                         android:textSize="14sp" />
@@ -1493,83 +1563,6 @@
                         </LinearLayout>
 
 
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="角色："
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="操作者："
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
                     </LinearLayout>
 
 
@@ -1589,9 +1582,9 @@
                         android:id="@+id/tv_cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:paddingHorizontal="40dp"
                         android:background="@drawable/bg_event_btn_blue"
                         android:gravity="center"
+                        android:paddingHorizontal="40dp"
                         android:text="取消"
                         android:textColor="#ffffffff"
                         android:textSize="16sp"
@@ -1602,10 +1595,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="40dp"
-                        android:paddingHorizontal="40dp"
                         android:background="@drawable/bg_event_btn_blue"
                         android:gravity="center"
-                        android:text="同意"
+                        android:paddingHorizontal="40dp"
+                        android:text="确定"
                         android:textColor="#ffffffff"
                         android:textSize="16sp"
                         android:textStyle="bold" />

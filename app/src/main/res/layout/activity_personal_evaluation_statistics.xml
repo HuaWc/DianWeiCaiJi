@@ -94,51 +94,20 @@
             android:paddingHorizontal="10dp">
 
             <TextView
-                android:id="@+id/tv_clr"
+                android:id="@+id/tv_time"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_select_pcs"
                 android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
                 android:gravity="center_vertical"
-                android:hint="处理人"
+                android:hint="时间"
                 android:paddingHorizontal="11dp"
                 android:singleLine="true"
                 android:textColor="#999999"
                 android:textColorHint="#999999"
                 android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tc_ssjg"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="所属机构"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_fz"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="分值"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
         </LinearLayout>
 
     </LinearLayout>

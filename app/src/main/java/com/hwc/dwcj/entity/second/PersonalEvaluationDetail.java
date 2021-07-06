@@ -5,7 +5,8 @@ package com.hwc.dwcj.entity.second;
  * By an amateur android developer
  * Email 627447123@qq.com
  */
-public class WorkOrderEvaluationInfo {
+public class PersonalEvaluationDetail {
+
 
     private String id;
     private String faultCode;
@@ -28,17 +29,17 @@ public class WorkOrderEvaluationInfo {
     private String verifyTime;
     private String addId;
     private String addTime;
-    private Object modifyId;
-    private Object modifyTime;
+    private String modifyId;
+    private String modifyTime;
     private int isDel;
-    private Object exp1;
-    private Object exp2;
-    private Object exp3;
+    private String exp1;
+    private String exp2;
+    private String exp3;
     private String alarmTime;
-    private Object faultType;
+    private String faultType;
     private String closedLoopStatus;
     private String serviceRating;
-    private Object cameraFaultType;
+    private String cameraFaultType;
     private String remark2;
     private String remarkLog;
     private String serviceRating2;
@@ -214,19 +215,19 @@ public class WorkOrderEvaluationInfo {
         this.addTime = addTime;
     }
 
-    public Object getModifyId() {
+    public String getModifyId() {
         return modifyId;
     }
 
-    public void setModifyId(Object modifyId) {
+    public void setModifyId(String modifyId) {
         this.modifyId = modifyId;
     }
 
-    public Object getModifyTime() {
+    public String getModifyTime() {
         return modifyTime;
     }
 
-    public void setModifyTime(Object modifyTime) {
+    public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
     }
 
@@ -238,27 +239,27 @@ public class WorkOrderEvaluationInfo {
         this.isDel = isDel;
     }
 
-    public Object getExp1() {
+    public String getExp1() {
         return exp1;
     }
 
-    public void setExp1(Object exp1) {
+    public void setExp1(String exp1) {
         this.exp1 = exp1;
     }
 
-    public Object getExp2() {
+    public String getExp2() {
         return exp2;
     }
 
-    public void setExp2(Object exp2) {
+    public void setExp2(String exp2) {
         this.exp2 = exp2;
     }
 
-    public Object getExp3() {
+    public String getExp3() {
         return exp3;
     }
 
-    public void setExp3(Object exp3) {
+    public void setExp3(String exp3) {
         this.exp3 = exp3;
     }
 
@@ -270,11 +271,11 @@ public class WorkOrderEvaluationInfo {
         this.alarmTime = alarmTime;
     }
 
-    public Object getFaultType() {
+    public String getFaultType() {
         return faultType;
     }
 
-    public void setFaultType(Object faultType) {
+    public void setFaultType(String faultType) {
         this.faultType = faultType;
     }
 
@@ -294,11 +295,11 @@ public class WorkOrderEvaluationInfo {
         this.serviceRating = serviceRating;
     }
 
-    public Object getCameraFaultType() {
+    public String getCameraFaultType() {
         return cameraFaultType;
     }
 
-    public void setCameraFaultType(Object cameraFaultType) {
+    public void setCameraFaultType(String cameraFaultType) {
         this.cameraFaultType = cameraFaultType;
     }
 
@@ -351,26 +352,24 @@ public class WorkOrderEvaluationInfo {
     }
 
     public static class Map {
-        private String orgType;
         private String assetNature;
         private String assetCode;
         private String orgName;
-        private String manageIp;
+        private double totalAverageScore;
         private String alarmTime;
-        private String assetName;
+        private double averageFault;
         private String assetClass;
-        private double totalScore;
-        private String handlePersionName;
         private String assetType;
         private String deviceStatus;
-
-        public String getOrgType() {
-            return orgType;
-        }
-
-        public void setOrgType(String orgType) {
-            this.orgType = orgType;
-        }
+        private String orgType;
+        private String manageIp;
+        private int averageAlarm;
+        private String alarmRating3;
+        private String alarmRating2;
+        private String alarmRating;
+        private String alarmRating4;
+        private String assetName;
+        private String handlePersionName;
 
         public String getAssetNature() {
             return assetNature;
@@ -396,12 +395,12 @@ public class WorkOrderEvaluationInfo {
             this.orgName = orgName;
         }
 
-        public String getManageIp() {
-            return manageIp;
+        public double getTotalAverageScore() {
+            return totalAverageScore;
         }
 
-        public void setManageIp(String manageIp) {
-            this.manageIp = manageIp;
+        public void setTotalAverageScore(double totalAverageScore) {
+            this.totalAverageScore = totalAverageScore;
         }
 
         public String getAlarmTime() {
@@ -412,12 +411,12 @@ public class WorkOrderEvaluationInfo {
             this.alarmTime = alarmTime;
         }
 
-        public String getAssetName() {
-            return assetName;
+        public double getAverageFault() {
+            return averageFault;
         }
 
-        public void setAssetName(String assetName) {
-            this.assetName = assetName;
+        public void setAverageFault(double averageFault) {
+            this.averageFault = averageFault;
         }
 
         public String getAssetClass() {
@@ -426,22 +425,6 @@ public class WorkOrderEvaluationInfo {
 
         public void setAssetClass(String assetClass) {
             this.assetClass = assetClass;
-        }
-
-        public double getTotalScore() {
-            return totalScore;
-        }
-
-        public void setTotalScore(double totalScore) {
-            this.totalScore = totalScore;
-        }
-
-        public String getHandlePersionName() {
-            return handlePersionName;
-        }
-
-        public void setHandlePersionName(String handlePersionName) {
-            this.handlePersionName = handlePersionName;
         }
 
         public String getAssetType() {
@@ -458,6 +441,78 @@ public class WorkOrderEvaluationInfo {
 
         public void setDeviceStatus(String deviceStatus) {
             this.deviceStatus = deviceStatus;
+        }
+
+        public String getOrgType() {
+            return orgType;
+        }
+
+        public void setOrgType(String orgType) {
+            this.orgType = orgType;
+        }
+
+        public String getManageIp() {
+            return manageIp;
+        }
+
+        public void setManageIp(String manageIp) {
+            this.manageIp = manageIp;
+        }
+
+        public int getAverageAlarm() {
+            return averageAlarm;
+        }
+
+        public void setAverageAlarm(int averageAlarm) {
+            this.averageAlarm = averageAlarm;
+        }
+
+        public String getAlarmRating3() {
+            return alarmRating3;
+        }
+
+        public void setAlarmRating3(String alarmRating3) {
+            this.alarmRating3 = alarmRating3;
+        }
+
+        public String getAlarmRating2() {
+            return alarmRating2;
+        }
+
+        public void setAlarmRating2(String alarmRating2) {
+            this.alarmRating2 = alarmRating2;
+        }
+
+        public String getAlarmRating() {
+            return alarmRating;
+        }
+
+        public void setAlarmRating(String alarmRating) {
+            this.alarmRating = alarmRating;
+        }
+
+        public String getAlarmRating4() {
+            return alarmRating4;
+        }
+
+        public void setAlarmRating4(String alarmRating4) {
+            this.alarmRating4 = alarmRating4;
+        }
+
+        public String getAssetName() {
+            return assetName;
+        }
+
+        public void setAssetName(String assetName) {
+            this.assetName = assetName;
+        }
+
+        public String getHandlePersionName() {
+            return handlePersionName;
+        }
+
+        public void setHandlePersionName(String handlePersionName) {
+            this.handlePersionName = handlePersionName;
         }
     }
 }

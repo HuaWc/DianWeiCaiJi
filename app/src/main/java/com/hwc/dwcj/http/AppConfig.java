@@ -329,17 +329,30 @@ public class AppConfig {
      */
     public static final String getAlarmEvaluate = mainUrl + "v1/wfm/ucm/OpAlarmInfo/getAlarmEvaluate";
 
+    /**
+     * 工单问题处理人员选择
+     */
+    public static final String getQsDealer = mainUrl + "v1/operation/OpFaultInfo/getQsDealer";
 
+    /**
+     * 工单问题处理提交
+     */
+    public static final String getQsDealCommit = mainUrl + "v1/operation/OpFaultInfo/getQsDealCommit";
 
+    /**
+     * 工单问题处理提交
+     */
+    public static final String faultEvaluationStatistics = mainUrl + "v1/operation/OpFaultInfo/faultEvaluationStatistics";
 
+    /**
+     * 个人评价统计
+     */
+    public static final String personalEvaluationStatistics = mainUrl + "v1/operation/OpFaultInfo/personalEvaluationStatistics";
 
-
-
-
-
-
-
-
+    /**
+     * 工单评价详情
+     */
+    public static final String faultEvaluationDetails = mainUrl + "v1/operation/OpFaultInfo/faultEvaluationDetails";
 
 
 

@@ -27,6 +27,6 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
                 .setText(R.id.tv_jg, item.getMap().getAssetNatureName() + ">" + item.getMap().getAssetTypeName() + ">" + item.getMap().getAssetClassName())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
                 .setText(R.id.tv_status, StringUtil.isEmpty(item.getMap().getDeviceStatus()) ? "" : item.getMap().getDeviceStatus())
-                .addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_do).addOnClickListener(R.id.tv_track).addOnClickListener(R.id.tv_check);
+                .addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_do).addOnClickListener(R.id.tv_track).addOnClickListener(R.id.tv_check).addOnClickListener(R.id.tv_submit);
     }
 }

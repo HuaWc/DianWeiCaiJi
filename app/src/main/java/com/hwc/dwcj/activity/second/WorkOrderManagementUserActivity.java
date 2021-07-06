@@ -29,6 +29,7 @@ import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.PickerViewUtils;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -287,6 +288,8 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.tv_look:
                         //查看
+                        //toTheActivity(WorkOrderDetailActivity.class, bundle);
+                        //toTheActivity(EventDetailAfterReviewActivity.class, bundle);
                         break;
                     case R.id.tv_do:
                         //处理
@@ -300,8 +303,9 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                         //审核
                         toTheActivity(WorkOrderProcessAuditActivity.class, bundle);
                         break;
-                    //问题上报
-                    //toTheActivity(WorkOrderProblemUpActivity.class, bundle);
+                    case R.id.tv_submit:
+                        //问题上报
+                        toTheActivity(WorkOrderProblemUpActivity.class, bundle);
                 }
             }
         });
@@ -654,7 +658,10 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()){
+            case EventUtil.REFRESH_FAULT_LIST:
+                getData(false);
+        }
     }
 
     @Override

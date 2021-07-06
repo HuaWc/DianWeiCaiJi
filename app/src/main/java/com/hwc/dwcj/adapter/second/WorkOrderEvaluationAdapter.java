@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.WorkOrderEvaluationInfo;
+import com.zds.base.util.StringUtil;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class WorkOrderEvaluationAdapter extends BaseQuickAdapter<WorkOrderEvalua
 
     @Override
     protected void convert(BaseViewHolder helper, WorkOrderEvaluationInfo item) {
-        helper.setText(R.id.tv_name, item.getName());
+        helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getMap().getHandlePersionName()) ? "" : item.getMap().getHandlePersionName())
+                .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getAssetName()) ? "" : item.getMap().getAssetName())
+                .setText(R.id.tv_number, String.valueOf(item.getMap().getTotalScore()));
     }
 }

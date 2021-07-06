@@ -115,7 +115,7 @@ public class StartCheckActivity extends BaseActivity {
                 PickerViewUtils.selectOptions(StartCheckActivity.this, "状态反馈", options, null, null, new PickerViewSelectOptionsResult() {
                     @Override
                     public void getOptionsResult(int options1, int options2, int options3) {
-                        tv8.setText(options.get(options1));
+                        tvStatus.setText(options.get(options1));
                         status = options1 + 1;
                     }
                 });

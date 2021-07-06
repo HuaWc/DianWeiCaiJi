@@ -89,34 +89,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp">
 
             <TextView
-                android:id="@+id/tv_clr"
+                android:id="@+id/tv_time"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_select_pcs"
                 android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
                 android:gravity="center_vertical"
-                android:hint="处理人"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tc_fwlx"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="服务类型"
+                android:hint="时间"
                 android:paddingHorizontal="11dp"
                 android:singleLine="true"
                 android:textColor="#999999"
@@ -124,55 +109,6 @@
                 android:textSize="13sp" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                android:id="@+id/tv_ssxd"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="所属小队"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_ljfz"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="累计分值"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-<!--            <ImageView
-                android:id="@+id/iv_px"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:padding="3dp"
-                android:src="@mipmap/trash" />-->
-        </LinearLayout>
-
 
     </LinearLayout>
 
