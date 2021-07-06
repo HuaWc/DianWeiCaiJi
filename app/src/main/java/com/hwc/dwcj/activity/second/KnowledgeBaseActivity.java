@@ -51,6 +51,12 @@ public class KnowledgeBaseActivity extends BaseActivity {
                 toTheActivity(KnowledgeBaseListActivity.class);
             }
         });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 

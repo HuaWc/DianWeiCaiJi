@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_40"
             android:layout_marginTop="@dimen/dp_200"
+            android:visibility="gone"
             android:text="消息列表"
             android:textColor="#8BABF7"
             android:textSize="@dimen/sp_14" />

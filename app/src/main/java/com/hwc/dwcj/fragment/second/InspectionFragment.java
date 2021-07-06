@@ -277,7 +277,12 @@ public class InspectionFragment extends BaseFragment {
             }
         });
 
-
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
     }
 
     private void initAdapter() {
