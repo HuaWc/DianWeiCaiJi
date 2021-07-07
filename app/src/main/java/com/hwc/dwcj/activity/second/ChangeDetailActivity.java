@@ -16,6 +16,10 @@ import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +66,12 @@ public class ChangeDetailActivity extends BaseActivity {
     TextView tvTimeEnd;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.tv_bgdx)
+    TextView tvBgdx;
+    @BindView(R.id.tv_zq)
+    TextView tvZq;
+    @BindView(R.id.tv_cszt)
+    TextView tvCszt;
     private String id;
     private ChangeUser info;
 
@@ -120,6 +130,8 @@ public class ChangeDetailActivity extends BaseActivity {
                 tvPriority.setText("低");
                 break;
         }
+        tvBgdx.setText(StringUtil.isEmpty(info.getAssetName()) ? "" : info.getAssetName());
+        tvZq.setText(StringUtil.dealDateFormat(info.getEffectiveStartTime()) + "~" + StringUtil.dealDateFormat(info.getEffectiveEndTime()));
         tvChangePeople.setText(StringUtil.isEmpty(info.getChangePeopleNames()) ? "" : info.getChangePeopleNames());
         tvContent.setText(StringUtil.isEmpty(info.getTaskContent()) ? "" : info.getTaskContent());
         tvRequire.setText(StringUtil.isEmpty(info.getTaskRequest()) ? "" : info.getTaskRequest());
@@ -138,12 +150,29 @@ public class ChangeDetailActivity extends BaseActivity {
                 tvChangeStatus.setText("待变更");
                 break;
             case 1:
-                tvPriority.setText("已变更");
+                tvChangeStatus.setText("已变更");
                 break;
 
         }
-        tvTimeStart.setText(StringUtil.isEmpty(info.getEffectiveStartTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveStartTime()));
-        tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
+
+        try {
+            Date d = new Date();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if (df.parse(StringUtil.dealDateFormat(info.getEffectiveEndTime())).getTime() > d.getTime()) {
+                tvCszt.setText("正常");
+                //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+            } else {
+                tvCszt.setText("超时");
+                //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            tvCszt.setText("未知");
+            //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+        }
+
+        tvTimeStart.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
+        //tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
 
 
     }

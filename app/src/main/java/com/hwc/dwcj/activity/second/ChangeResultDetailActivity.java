@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.ChangeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -106,12 +107,12 @@ public class ChangeResultDetailActivity extends BaseActivity {
             ToastUtil.toast("请填写变更报告！");
             return;
         }
-        Map<String, Object> hashMap = new HashMap<>();
         ChangeUser c = new ChangeUser();
         c.setId(id);
         c.setChangeStatus(1);
         c.setCheckStatus(1);
         c.setChangeReport(etReport.getText().toString().trim());
+        c.setChangePeopleId(MyApplication.getInstance().getUserInfo().getId());
         if (!StringUtil.isEmpty(etNewName.getText().toString().trim())) {
             c.setAssetNameChanged(etNewName.getText().toString().trim());
         }
@@ -121,8 +122,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
         if (!StringUtil.isEmpty(etNewJg.getText().toString().trim())) {
             c.setAssetOrgidChanged(etNewJg.getText().toString().trim());
         }
-        hashMap.put("opChangeTask", FastJsonUtil.toJSONString(c));
-        ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", hashMap, new ResultListener() {
+        ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", FastJsonUtil.toJSONString(c), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);

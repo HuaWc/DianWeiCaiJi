@@ -94,7 +94,7 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
         ivSs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData(true);
+                getData(false);
             }
         });
     }

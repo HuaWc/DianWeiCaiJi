@@ -43,6 +43,7 @@ import com.zds.base.util.StringUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,6 +140,8 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     private List<DictInfo> mList5;
     private List<String> optionsList5;
     private String value5 = "";
+
+    private List<String> userTypes;
 
 
     @Override
@@ -270,8 +273,32 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         optionsList5 = new ArrayList<>();
         getDictData5();
 
+        getUserTypes();
+    }
+
+
+    private void getUserTypes() {
+        userTypes = new ArrayList<>();
+        Map<String, Object> hashMap = new HashMap<>();
+        ApiClient.requestNetGet(this, AppConfig.getLoginRoleType, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                //第一次默认处理下返回的用户的权限，转化为数组
+                List<String> list = Arrays.asList(json.split(","));
+                userTypes.addAll(list);
+                initMainAdapter();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+    }
+
+    private void initMainAdapter() {
         mList = new ArrayList<>();
-        adapter = new WorkOrderUserAdapter(mList);
+        adapter = new WorkOrderUserAdapter(mList, userTypes);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -285,6 +312,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", mList.get(position).getId());
+                WorkOrderUser item = mList.get(position);
                 switch (view.getId()) {
                     case R.id.tv_look:
                         //查看
@@ -293,7 +321,11 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                         break;
                     case R.id.tv_do:
                         //处理
-                        toTheActivity(WorkOrderHandleActivity.class, bundle);
+                        if ((StringUtil.isEmpty(item.getExp1()) || !item.getExp1().equals("QUESTION_REPORT"))
+                                && (StringUtil.isEmpty(item.getMap().getHandleStatusZibiao()) || !item.getMap().getHandleStatusZibiao().equals("CHANGE_DEAL"))
+                                && (item.getHandleStatus() != null && (item.getHandleStatus().equals("UN_DEAL") || item.getHandleStatus().equals("DEALING") || item.getHandleStatus().equals("HELP_DEAL") || item.getHandleStatus().equals("CHANGE_DEAL")))) {
+                            toTheActivity(WorkOrderHandleActivity.class, bundle);
+                        }
                         break;
                     case R.id.tv_track:
                         //跟踪
@@ -301,11 +333,15 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                         break;
                     case R.id.tv_check:
                         //审核
-                        toTheActivity(WorkOrderProcessAuditActivity.class, bundle);
+                        if ((item.getHandleStatus() != null && item.getHandleStatus().equals("DEALED")) && (item.getVerifyStatus() != null && (item.getVerifyStatus().equals("UN_AUDITED") || item.getVerifyStatus().equals("'AUDITING")))) {
+                            toTheActivity(WorkOrderProcessAuditActivity.class, bundle);
+                        }
                         break;
                     case R.id.tv_submit:
                         //问题上报
-                        toTheActivity(WorkOrderProblemUpActivity.class, bundle);
+                        if ((item.getExp1() != null && item.getExp1().equals("QUESTION_REPORT")) && (item.getHandleStatus() != null && item.getHandleStatus().equals("DEALING"))) {
+                            toTheActivity(WorkOrderProblemUpActivity.class, bundle);
+                        }
                 }
             }
         });
@@ -324,7 +360,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         params.put("pageNum", String.valueOf(page));
         params.put("pageSize", String.valueOf(pageSize));
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
-            params.put("keywords", etSearch.getText().toString().trim());
+            params.put("keyWords", etSearch.getText().toString().trim());
         }
         if (!StringUtil.isEmpty(value1)) {
             params.put("assetNature", value1);
@@ -350,7 +386,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         ApiClient.requestNetGet(this, AppConfig.OpFaultInfoList, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<WorkOrderUser> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), WorkOrderUser.class);
+                List<WorkOrderUser> list = FastJsonUtil.getList(FastJsonUtil.getString(FastJsonUtil.getString(json, "pageInfo"), "list"), WorkOrderUser.class);
                 if (list != null && list.size() != 0) {
                     mList.addAll(list);
                 } else {
@@ -658,7 +694,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
     @Override
     protected void onEventComing(EventCenter center) {
-        switch (center.getEventCode()){
+        switch (center.getEventCode()) {
             case EventUtil.REFRESH_FAULT_LIST:
                 getData(false);
         }

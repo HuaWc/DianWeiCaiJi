@@ -45,7 +45,7 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
             //完成
         } else {
             //未完成
-            tv_status.setText("未反馈");
+            tv_status.setText("待反馈");
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
         switch (item.getCheckStatus()) {
@@ -68,7 +68,7 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
                 tv_status2.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
                 break;
             case 3:
-                tv_look.setVisibility(View.GONE);
+                tv_look.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
                 tv_status2.setVisibility(View.VISIBLE);
                 tv_status2.setText("审核已驳回");

@@ -354,7 +354,10 @@ public class AppConfig {
      */
     public static final String faultEvaluationDetails = mainUrl + "v1/operation/OpFaultInfo/faultEvaluationDetails";
 
-
+    /**
+     * 当前登录人权限标志
+     */
+    public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
 
 
 

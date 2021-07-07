@@ -25,7 +25,7 @@ import butterknife.OnClick;
 /**
  * 巡检管理
  */
-public class InspectionManageActivity extends BaseActivity {
+public class EventManageActivity extends BaseActivity {
 
     @BindView(R.id.fragment_container)
     RelativeLayout fragmentContainer;
@@ -68,7 +68,7 @@ public class InspectionManageActivity extends BaseActivity {
 
     @Override
     protected void initContentView(Bundle bundle) {
-        setContentView(R.layout.activity_inspection_management);
+        setContentView(R.layout.activity_event_management);
     }
 
     @Override

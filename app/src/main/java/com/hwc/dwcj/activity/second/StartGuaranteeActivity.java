@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.GuaranteeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -126,14 +127,14 @@ public class StartGuaranteeActivity extends BaseActivity {
             return;
         }
 
-        Map<String, Object> hashMap = new HashMap<>();
         GuaranteeUser i = new GuaranteeUser();
         i.setId(id);
         i.setCheckStatus(1);
         i.setSryFeedback(status);
+        i.setFeedbackId(MyApplication.getInstance().getUserInfo().getId());
         i.setSryContent(etBz.getText().toString().trim());
-        hashMap.put("opSecurityTask", FastJsonUtil.toJSONString(i));
-        ApiClient.requestNetPost(this, AppConfig.OpSecurityTaskEdit, "提交中", hashMap, new ResultListener() {
+
+        ApiClient.requestNetPost(this, AppConfig.OpSecurityTaskEdit, "提交中", FastJsonUtil.toJSONString(i), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);

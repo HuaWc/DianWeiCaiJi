@@ -93,7 +93,7 @@ public class CheckFragment extends BaseFragment {
     private void initSelectData() {
         selectOptions = new ArrayList<>();
         selectOptions.add("全部");
-        selectOptions.add("待反馈");
+        selectOptions.add("待核查");
         selectOptions.add("待审核");
         selectOptions.add("审核通过");
         selectOptions.add("审核驳回");

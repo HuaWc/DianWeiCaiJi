@@ -60,23 +60,22 @@
             android:textColor="#999999"
             android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/tv_jg"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="17dp"
             android:layout_marginTop="11dp"
-            android:singleLine="true"
-            android:text="前端点位 > 摄像机 > 人脸相机"
-            android:textColor="#999999"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_jg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="前端点位 > 摄像机 > 人脸相机"
+                android:textColor="#999999"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_g"
@@ -88,30 +87,26 @@
                 android:text="六安市公安局金安区"
                 android:textColor="#9F9F9F"
                 android:textSize="9sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="17dp"
+            android:orientation="horizontal">
+
 
             <TextView
                 android:id="@+id/tv_look"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="查看"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_do"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="处理"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 
@@ -127,6 +122,20 @@
                 android:text="跟踪"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/tv_do"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_common_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="工单处理"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp" />
+
 
             <TextView
                 android:id="@+id/tv_check"
@@ -150,7 +159,7 @@
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
-                android:text="上报"
+                android:text="问题处理"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 

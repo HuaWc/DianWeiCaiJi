@@ -210,13 +210,13 @@ public class AddAlertActivity extends BaseActivity {
         //提交
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("alarmName", etName.getText().toString().trim());
-        hashMap.put("alarmLevel", alarmLevel);
+        hashMap.put("alarmLevel", tvSelectLevel.getText().toString());
         hashMap.put("assetId", assetId);
         hashMap.put("alarmTime", tvTime.getText().toString().trim());
         hashMap.put("alarmReason", etReason.getText().toString().trim());
         hashMap.put("alarmPersonId", MyApplication.getInstance().getUserInfo().getId());
         hashMap.put("orgId", orgId);
-        ApiClient.requestNetPost(this, AppConfig.OpAlarmInfoAdd, "", hashMap, new ResultListener() {
+        ApiClient.requestNetPost(this, AppConfig.OpAlarmInfoAdd, "提交中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
@@ -238,7 +238,7 @@ public class AddAlertActivity extends BaseActivity {
             case EventUtil.SELECT_ASSET_EQUIPMENT:
                 AssetEquipment assetEquipment = (AssetEquipment) center.getData();
                 tvAssetName.setText(assetEquipment.getAssetName());
-                assetId = assetEquipment.getId();
+                assetId = assetEquipment.getAssetCode();
                 orgId = assetEquipment.getOrgId();
                 tvJg.setText(assetEquipment.getMap().getOrg_name());
                 break;

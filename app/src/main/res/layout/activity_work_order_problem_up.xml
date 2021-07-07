@@ -1121,7 +1121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="审核意见"
+                        android:text="处理意见"
                         android:textColor="#2196F3"
                         android:textSize="15sp" />
 

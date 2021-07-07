@@ -37,7 +37,6 @@
                 android:tint="@color/white" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_result"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -47,7 +46,8 @@
                 android:text="结果"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                android:tint="@color/white" />
+                android:tint="@color/white"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -265,6 +265,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_bgdx"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -381,6 +382,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_zq"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -731,6 +733,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_cszt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -828,6 +831,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -866,6 +870,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -904,6 +909,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -939,6 +945,45 @@
                         android:layout_height="0.5dp"
                         android:layout_marginStart="10dp"
                         android:background="#999999" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginStart="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="审批理由"
+                            android:textColor="#333333"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/et_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/app_edit"
+                        android:ellipsize="end"
+                        android:gravity="top|start"
+                        android:lines="7"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="15sp" />
+
                 </LinearLayout>
 
                 <LinearLayout

@@ -2,12 +2,14 @@ package com.hwc.dwcj.activity.second;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.CheckUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -20,6 +22,8 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +67,8 @@ public class CheckDetailAdminActivity extends BaseActivity {
     TextView tv11;
     @BindView(R.id.tv_bz)
     TextView tvBz;
+    @BindView(R.id.et_reason)
+    EditText etReason;
 
     private String id;
     private CheckUser info;
@@ -100,18 +106,24 @@ public class CheckDetailAdminActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //拒绝
+                if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
+                    ToastUtil.toast("拒绝请先填写拒绝理由！");
+                    return;
+                }
                 doCheck(3);
             }
         });
     }
 
     private void doCheck(int type) {
-        Map<String, Object> hashMap = new HashMap<>();
         CheckUser i = new CheckUser();
         i.setId(id);
         i.setCheckStatus(type);
-        hashMap.put("opVerificationTask", FastJsonUtil.toJSONString(i));
-        ApiClient.requestNetPost(this, AppConfig.OpVerificationTaskEdit, "提交中", hashMap, new ResultListener() {
+        i.setCheckReason(etReason.getText().toString().trim());
+        i.setCheckPeopleId(MyApplication.getInstance().getUserInfo().getId());
+        i.setCheckPeople(MyApplication.getInstance().getUserInfo().getRealName());
+        i.setCheckTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        ApiClient.requestNetPost(this, AppConfig.OpVerificationTaskEdit, "提交中", FastJsonUtil.toJSONString(i), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
@@ -151,7 +163,7 @@ public class CheckDetailAdminActivity extends BaseActivity {
         tv2.setText(StringUtil.isEmpty(info.getVerPeopleNames()) ? "" : info.getVerPeopleNames());
         tv4.setText(StringUtil.isEmpty(info.getVerContent()) ? "" : info.getVerContent());
         tv5.setText(StringUtil.isEmpty(info.getTaskrequires()) ? "" : info.getTaskrequires());
-        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName())?"":info.getMap().getAddName());
+        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         switch (info.getVerFeedback()) {
             case 1:

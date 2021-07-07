@@ -60,7 +60,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_search"
-                android:hint="点位名称、IP、查询"
+                android:hint="任务名称"
                 android:paddingHorizontal="14dp"
                 android:singleLine="true"
                 android:textColor="#333333"

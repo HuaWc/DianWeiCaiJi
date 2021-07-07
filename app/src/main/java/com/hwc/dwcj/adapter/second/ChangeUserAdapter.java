@@ -11,6 +11,10 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.ChangeUser;
 import com.zds.base.util.StringUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,24 +31,44 @@ public class ChangeUserAdapter extends BaseQuickAdapter<ChangeUser, BaseViewHold
     protected void convert(BaseViewHolder helper, ChangeUser item) {
         TextView tv_status = helper.getView(R.id.tv_status);
         TextView tv_status2 = helper.getView(R.id.tv_status2);
+        TextView tv_status3 = helper.getView(R.id.tv_status3);
+
         TextView tv_change = helper.getView(R.id.tv_change);
         TextView tv_check = helper.getView(R.id.tv_check);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getTaskName()) ? "" : item.getTaskName())
-                .setText(R.id.tv_time, StringUtil.dealDateFormat(item.getAddTime()))
+                .setText(R.id.tv_time, StringUtil.dealDateFormat(item.getEffectiveStartTime()) + "~" + StringUtil.dealDateFormat(item.getEffectiveEndTime()))
                 .setText(R.id.tv_person, StringUtil.isEmpty(item.getChangePeopleNames()) ? "" : item.getChangePeopleNames())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getTaskRequest()) ? "" : item.getTaskRequest())
                 .addOnClickListener(R.id.tv_change).addOnClickListener(R.id.tv_check);
-        if (item.getChangeStatus() == 0) {
-            tv_status.setText("待变更");
+        try {
+            Date d = new Date();
+            if (df.parse(StringUtil.dealDateFormat(item.getEffectiveEndTime())).getTime() > d.getTime()) {
+                tv_status.setText("正常");
+                tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+                //完成
+            } else {
+                //未完成
+                tv_status.setText("超时");
+                tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            tv_status.setText("未知");
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+        }
+
+        if (item.getChangeStatus() == 0) {
+            tv_status3.setText("待变更");
+            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
             //待变更
-        } else if (item.getChangeStatus() == 0) {
+        } else if (item.getChangeStatus() == 1) {
             //已变更
-            tv_status.setText("已变更");
-            tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+            tv_status3.setText("已变更");
+            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
         } else {
-            tv_status.setText("");
+            tv_status3.setText("");
         }
         switch (item.getCheckStatus()) {
             //0待变更完成 1待审核 2:审核通过 3:审核驳回
@@ -66,7 +90,7 @@ public class ChangeUserAdapter extends BaseQuickAdapter<ChangeUser, BaseViewHold
                 tv_status2.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
                 break;
             case 3:
-                tv_change.setVisibility(View.GONE);
+                tv_change.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
                 tv_status2.setVisibility(View.VISIBLE);
                 tv_status2.setText("审核已驳回");

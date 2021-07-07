@@ -2,12 +2,14 @@ package com.hwc.dwcj.activity.second;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.GuaranteeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -20,6 +22,8 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +63,8 @@ public class GuaranteeDetailAdminActivity extends BaseActivity {
     LinearLayout llBtn;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.et_reason)
+    EditText etReason;
 
     private String id;
     private GuaranteeUser info;
@@ -95,18 +101,24 @@ public class GuaranteeDetailAdminActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //拒绝
+                if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
+                    ToastUtil.toast("拒绝请先填写拒绝理由！");
+                    return;
+                }
                 doCheck(3);
             }
         });
     }
 
     private void doCheck(int type) {
-        Map<String, Object> hashMap = new HashMap<>();
         GuaranteeUser i = new GuaranteeUser();
         i.setId(id);
         i.setCheckStatus(type);
-        hashMap.put("opSecurityTask", FastJsonUtil.toJSONString(i));
-        ApiClient.requestNetPost(this, AppConfig.OpSecurityTaskEdit, "提交中", hashMap, new ResultListener() {
+        i.setCheckReason(etReason.getText().toString().trim());
+        i.setCheckPeopleId(MyApplication.getInstance().getUserInfo().getId());
+        i.setCheckPeople(MyApplication.getInstance().getUserInfo().getRealName());
+        i.setCheckTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        ApiClient.requestNetPost(this, AppConfig.OpSecurityTaskEdit, "提交中", FastJsonUtil.toJSONString(i), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);

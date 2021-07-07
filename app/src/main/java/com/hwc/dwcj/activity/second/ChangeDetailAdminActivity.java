@@ -2,12 +2,14 @@ package com.hwc.dwcj.activity.second;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.ChangeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -20,6 +22,10 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +77,14 @@ public class ChangeDetailAdminActivity extends BaseActivity {
     TextView tvSure;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.et_reason)
+    EditText etReason;
+    @BindView(R.id.tv_bgdx)
+    TextView tvBgdx;
+    @BindView(R.id.tv_zq)
+    TextView tvZq;
+    @BindView(R.id.tv_cszt)
+    TextView tvCszt;
 
     private String id;
     private ChangeUser info;
@@ -100,6 +114,10 @@ public class ChangeDetailAdminActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //拒绝
+                if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
+                    ToastUtil.toast("拒绝请先填写拒绝理由！");
+                    return;
+                }
                 doCheck(3);
             }
         });
@@ -113,12 +131,14 @@ public class ChangeDetailAdminActivity extends BaseActivity {
     }
 
     private void doCheck(int type) {
-        Map<String, Object> hashMap = new HashMap<>();
         ChangeUser c = new ChangeUser();
         c.setId(id);
         c.setCheckStatus(type);
-        hashMap.put("opChangeTask", FastJsonUtil.toJSONString(c));
-        ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", hashMap, new ResultListener() {
+        c.setCheckReason(etReason.getText().toString().trim());
+        c.setCheckPeopleId(MyApplication.getInstance().getUserInfo().getId());
+        c.setCheckPeople(MyApplication.getInstance().getUserInfo().getRealName());
+        c.setCheckTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", FastJsonUtil.toJSONString(c), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
@@ -166,6 +186,8 @@ public class ChangeDetailAdminActivity extends BaseActivity {
                 tvPriority.setText("低");
                 break;
         }
+        tvBgdx.setText(StringUtil.isEmpty(info.getAssetName()) ? "" : info.getAssetName());
+        tvZq.setText(StringUtil.dealDateFormat(info.getEffectiveStartTime()) + "~" + StringUtil.dealDateFormat(info.getEffectiveEndTime()));
         tvChangePeople.setText(StringUtil.isEmpty(info.getChangePeopleNames()) ? "" : info.getChangePeopleNames());
         tvContent.setText(StringUtil.isEmpty(info.getTaskContent()) ? "" : info.getTaskContent());
         tvRequire.setText(StringUtil.isEmpty(info.getTaskRequest()) ? "" : info.getTaskRequest());
@@ -184,15 +206,33 @@ public class ChangeDetailAdminActivity extends BaseActivity {
                 tvChangeStatus.setText("待变更");
                 break;
             case 1:
-                tvPriority.setText("已变更");
+                tvChangeStatus.setText("已变更");
                 break;
 
         }
-        tvTimeStart.setText(StringUtil.isEmpty(info.getEffectiveStartTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveStartTime()));
-        tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
+
+        try {
+            Date d = new Date();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if (df.parse(StringUtil.dealDateFormat(info.getEffectiveEndTime())).getTime() > d.getTime()) {
+                tvCszt.setText("正常");
+                //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+            } else {
+                tvCszt.setText("超时");
+                //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            tvCszt.setText("未知");
+            //tvCszt.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+        }
+
+        tvTimeStart.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
+        //tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
 
 
     }
+
 
     @Override
     protected void onEventComing(EventCenter center) {

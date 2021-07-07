@@ -33,6 +33,31 @@
                 android:text="清溪路清溪路清溪路清溪路清溪路清溪路"
                 android:textColor="#ff5279e1"
                 android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="（"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="）"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout

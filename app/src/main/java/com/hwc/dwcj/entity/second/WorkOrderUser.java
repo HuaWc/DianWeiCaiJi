@@ -22,29 +22,29 @@ public class WorkOrderUser {
     private String handleTel;
     private String handleStatus;
     private String deadlineTime;
-    private Object recoverTime;
-    private Object remark;
-    private Object verifyStatus;
-    private Object verifyPersionId;
-    private Object verifyTime;
+    private String recoverTime;
+    private String remark;
+    private String verifyStatus;
+    private String verifyPersionId;
+    private String verifyTime;
     private String addId;
     private String addTime;
     private Object modifyId;
     private Object modifyTime;
     private int isDel;
-    private Object exp1;
+    private String exp1;
     private Object exp2;
     private Object exp3;
     private String alarmTime;
-    private String faultType;
+    private Object faultType;
     private String closedLoopStatus;
-    private Object serviceRating;
+    private String serviceRating;
     private Object cameraFaultType;
     private String remark2;
-    private Object remarkLog;
-    private Object serviceRating2;
-    private Object serviceRating3;
-    private Object serviceRating4;
+    private String remarkLog;
+    private String serviceRating2;
+    private String serviceRating3;
+    private String serviceRating4;
     private Map map;
 
     public String getId() {
@@ -159,43 +159,43 @@ public class WorkOrderUser {
         this.deadlineTime = deadlineTime;
     }
 
-    public Object getRecoverTime() {
+    public String getRecoverTime() {
         return recoverTime;
     }
 
-    public void setRecoverTime(Object recoverTime) {
+    public void setRecoverTime(String recoverTime) {
         this.recoverTime = recoverTime;
     }
 
-    public Object getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(Object remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 
-    public Object getVerifyStatus() {
+    public String getVerifyStatus() {
         return verifyStatus;
     }
 
-    public void setVerifyStatus(Object verifyStatus) {
+    public void setVerifyStatus(String verifyStatus) {
         this.verifyStatus = verifyStatus;
     }
 
-    public Object getVerifyPersionId() {
+    public String getVerifyPersionId() {
         return verifyPersionId;
     }
 
-    public void setVerifyPersionId(Object verifyPersionId) {
+    public void setVerifyPersionId(String verifyPersionId) {
         this.verifyPersionId = verifyPersionId;
     }
 
-    public Object getVerifyTime() {
+    public String getVerifyTime() {
         return verifyTime;
     }
 
-    public void setVerifyTime(Object verifyTime) {
+    public void setVerifyTime(String verifyTime) {
         this.verifyTime = verifyTime;
     }
 
@@ -239,11 +239,11 @@ public class WorkOrderUser {
         this.isDel = isDel;
     }
 
-    public Object getExp1() {
+    public String getExp1() {
         return exp1;
     }
 
-    public void setExp1(Object exp1) {
+    public void setExp1(String exp1) {
         this.exp1 = exp1;
     }
 
@@ -271,11 +271,11 @@ public class WorkOrderUser {
         this.alarmTime = alarmTime;
     }
 
-    public String getFaultType() {
+    public Object getFaultType() {
         return faultType;
     }
 
-    public void setFaultType(String faultType) {
+    public void setFaultType(Object faultType) {
         this.faultType = faultType;
     }
 
@@ -287,11 +287,11 @@ public class WorkOrderUser {
         this.closedLoopStatus = closedLoopStatus;
     }
 
-    public Object getServiceRating() {
+    public String getServiceRating() {
         return serviceRating;
     }
 
-    public void setServiceRating(Object serviceRating) {
+    public void setServiceRating(String serviceRating) {
         this.serviceRating = serviceRating;
     }
 
@@ -311,35 +311,35 @@ public class WorkOrderUser {
         this.remark2 = remark2;
     }
 
-    public Object getRemarkLog() {
+    public String getRemarkLog() {
         return remarkLog;
     }
 
-    public void setRemarkLog(Object remarkLog) {
+    public void setRemarkLog(String remarkLog) {
         this.remarkLog = remarkLog;
     }
 
-    public Object getServiceRating2() {
+    public String getServiceRating2() {
         return serviceRating2;
     }
 
-    public void setServiceRating2(Object serviceRating2) {
+    public void setServiceRating2(String serviceRating2) {
         this.serviceRating2 = serviceRating2;
     }
 
-    public Object getServiceRating3() {
+    public String getServiceRating3() {
         return serviceRating3;
     }
 
-    public void setServiceRating3(Object serviceRating3) {
+    public void setServiceRating3(String serviceRating3) {
         this.serviceRating3 = serviceRating3;
     }
 
-    public Object getServiceRating4() {
+    public String getServiceRating4() {
         return serviceRating4;
     }
 
-    public void setServiceRating4(Object serviceRating4) {
+    public void setServiceRating4(String serviceRating4) {
         this.serviceRating4 = serviceRating4;
     }
 
@@ -352,18 +352,19 @@ public class WorkOrderUser {
     }
 
     public static class Map {
-
         private String assetNature;
         private String assetCode;
         private String orgName;
         private String assetNatureName;
         private String alarmTime;
         private String assetTypeName;
+        private String handleStatusZibiao;
         private String assetClass;
         private String assetType;
         private String deviceStatus;
         private String orgType;
         private String manageIp;
+        private String handle_person_id_zb;
         private String assetName;
         private String assetClassName;
 
@@ -415,6 +416,14 @@ public class WorkOrderUser {
             this.assetTypeName = assetTypeName;
         }
 
+        public String getHandleStatusZibiao() {
+            return handleStatusZibiao;
+        }
+
+        public void setHandleStatusZibiao(String handleStatusZibiao) {
+            this.handleStatusZibiao = handleStatusZibiao;
+        }
+
         public String getAssetClass() {
             return assetClass;
         }
@@ -453,6 +462,14 @@ public class WorkOrderUser {
 
         public void setManageIp(String manageIp) {
             this.manageIp = manageIp;
+        }
+
+        public String getHandle_person_id_zb() {
+            return handle_person_id_zb;
+        }
+
+        public void setHandle_person_id_zb(String handle_person_id_zb) {
+            this.handle_person_id_zb = handle_person_id_zb;
         }
 
         public String getAssetName() {

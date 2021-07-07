@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.CheckUser;
 import com.hwc.dwcj.entity.second.GuaranteeUser;
 import com.hwc.dwcj.http.ApiClient;
@@ -23,6 +24,7 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,14 +141,14 @@ public class StartCheckActivity extends BaseActivity {
             return;
         }
 
-        Map<String, Object> hashMap = new HashMap<>();
+
         CheckUser i = new CheckUser();
         i.setId(id);
         i.setCheckStatus(1);
         i.setVerFeedback(status);
         i.setExp1(etBz.getText().toString().trim());
-        hashMap.put("opVerificationTask", FastJsonUtil.toJSONString(i));
-        ApiClient.requestNetPost(this, AppConfig.OpVerificationTaskEdit, "提交中", hashMap, new ResultListener() {
+        i.setFeedbackId(MyApplication.getInstance().getUserInfo().getId());
+        ApiClient.requestNetPost(this, AppConfig.OpVerificationTaskEdit, "提交中", FastJsonUtil.toJSONString(i), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);

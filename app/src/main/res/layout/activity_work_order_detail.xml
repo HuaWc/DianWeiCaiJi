@@ -1689,7 +1689,7 @@
                         android:background="@drawable/app_edit"
                         android:paddingHorizontal="5dp"
                         android:paddingVertical="5dp"
-                        android:text="完成按时，继续保持"
+                        android:text=""
                         android:textColor="#333333"
                         android:textSize="15sp" />
 

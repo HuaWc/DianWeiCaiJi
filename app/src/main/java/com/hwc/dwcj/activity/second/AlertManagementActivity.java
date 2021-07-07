@@ -30,13 +30,16 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.second.AlertMenuAdapter;
 import com.hwc.dwcj.adapter.second.SelectOptionsChildAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.DAPcs;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.AlertMenuInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.EventUtil;
+import com.hwc.dwcj.util.PickerViewUtils;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -77,26 +80,18 @@ public class AlertManagementActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.iv_ss)
     ImageView ivSs;
-    @BindView(R.id.tv_ssjg)
-    TextView tvSsjg;
+    @BindView(R.id.tv_fj)
+    TextView tvFj;
+    @BindView(R.id.tv_pcs)
+    TextView tvPcs;
     @BindView(R.id.tv_more)
     TextView tvMore;
+    @BindView(R.id.tv_more_blue)
+    TextView tvMoreBlue;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
-    @BindView(R.id.all)
-    LinearLayout all;
-    @BindView(R.id.ll_select)
-    LinearLayout llSelect;
-    @BindView(R.id.tv_more_blue)
-    TextView tvMoreBlue;
-    @BindView(R.id.tv_cancel)
-    TextView tvCancel;
-    @BindView(R.id.tv_submit)
-    TextView tvSubmit;
-    @BindView(R.id.ll_btn)
-    LinearLayout llBtn;
     @BindView(R.id.rv1)
     RecyclerView rv1;
     @BindView(R.id.rv2)
@@ -109,7 +104,18 @@ public class AlertManagementActivity extends BaseActivity {
     TextView tvTimeStart;
     @BindView(R.id.tv_time_end)
     TextView tvTimeEnd;
-
+    @BindView(R.id.rv5)
+    RecyclerView rv5;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.ll_btn)
+    LinearLayout llBtn;
+    @BindView(R.id.ll_select)
+    LinearLayout llSelect;
+    @BindView(R.id.all)
+    LinearLayout all;
     private List<AlertMenuInfo> mList;
     private AlertMenuAdapter adapter;
 
@@ -120,18 +126,28 @@ public class AlertManagementActivity extends BaseActivity {
     private List<DictInfo> mList1;
     private SelectOptionsChildAdapter adapter1;
     private String value1 = "";
+    private String name1 = "";
+
 
     private List<DictInfo> mList2;
     private SelectOptionsChildAdapter adapter2;
     private String value2 = "";
+    private String name2 = "";
 
     private List<DictInfo> mList3;
     private SelectOptionsChildAdapter adapter3;
     private String value3 = "";
+    private String name3 = "";
 
     private List<DictInfo> mList4;
     private SelectOptionsChildAdapter adapter4;
     private String value4 = "";
+    private String name4 = "";
+
+    private List<DictInfo> mList5;
+    private SelectOptionsChildAdapter adapter5;
+    private String value5 = "";
+    private String name5 = "";
 
     private String startStr = "";
     private String endStr = "";
@@ -141,6 +157,14 @@ public class AlertManagementActivity extends BaseActivity {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+
+    private List<DictInfo> mList6;
+    private List<DAPcs> mList7;
+
+    private List<String> fjList;
+    private List<String> pcsList;
+
+    private String selectedorgIds = "";
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -153,9 +177,97 @@ public class AlertManagementActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
         initAdapter();
+        initFjData();
+    }
+
+    private void initFjData(){
+        mList6 = new ArrayList<>();
+        mList7 = new ArrayList<>();
+        fjList = new ArrayList<>();
+        pcsList = new ArrayList<>();
+
+        getFjData();
+    }
+
+    private void getFjData(){
+        mList6.clear();
+        fjList.clear();
+        GetDictDataHttp.getDictData(this, "PT_FEN_JU", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList6.addAll(list);
+                    for(DictInfo d:list){
+                        fjList.add(d.getDataName());
+                    }
+                }
+            }
+        });
+    }
+
+    private void getPcsData(String id){
+        mList7.clear();
+        pcsList.clear();
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("areaCode", id);
+        ApiClient.requestNetGet(this, AppConfig.pcsList, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<DAPcs> list = FastJsonUtil.getList(json, DAPcs.class);
+                if (list != null && list.size() != 0) {
+                    mList7.addAll(list);
+                    //装配派出所数据
+                    for (DAPcs d : list) {
+                        pcsList.add(d.getOrgName());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     private void initClick() {
+        tvFj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fjList == null || fjList.size() == 0){
+                    ToastUtil.toast("暂无分局数据，请稍后再试！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(AlertManagementActivity.this, "分局", fjList, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tvFj.setText(fjList.get(options1));
+                        tvPcs.setText("");
+                        getPcsData(mList6.get(options1).getDataValue());
+                        selectedorgIds = mList6.get(options1).getDataValue();
+                        getData(false);
+                    }
+                });
+            }
+        });
+        tvPcs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pcsList == null || pcsList.size() == 0){
+                    ToastUtil.toast("暂无派出所数据，请稍后再试！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(AlertManagementActivity.this, "派出所", pcsList, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tvPcs.setText(pcsList.get(options1));
+                        selectedorgIds = mList7.get(options1).getId()+"";
+                        getData(false);
+                    }
+                });
+            }
+        });
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -392,6 +504,19 @@ public class AlertManagementActivity extends BaseActivity {
         });
     }
 
+    private void getDictData5() {
+        mList5.clear();
+        GetDictDataHttp.getDictData(this, "OP_ALARM_SEND_STATUS", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList5.addAll(list);
+                    adapter5.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
     private void initAdapter() {
         mList1 = new ArrayList<>();
         adapter1 = new SelectOptionsChildAdapter(mList1);
@@ -410,6 +535,7 @@ public class AlertManagementActivity extends BaseActivity {
                     mList1.get(position).setSelected(true);
                     adapter1.notifyItemChanged(position);
                     value1 = mList1.get(position).getDataValue();
+                    name1 = mList1.get(position).getDataName();
                     value2 = "";
                     value3 = "";
                     getDictData2();
@@ -452,6 +578,7 @@ public class AlertManagementActivity extends BaseActivity {
                     mList2.get(position).setSelected(true);
                     adapter2.notifyItemChanged(position);
                     value2 = mList2.get(position).getDataValue();
+                    name2 = mList2.get(position).getDataName();
                     value3 = "";
                     getDictData3();
                 } else {
@@ -486,6 +613,8 @@ public class AlertManagementActivity extends BaseActivity {
                     mList3.get(position).setSelected(true);
                     adapter3.notifyItemChanged(position);
                     value3 = mList3.get(position).getDataValue();
+                    name3 = mList3.get(position).getDataName();
+
 
                 } else {
                     //当前选中
@@ -516,6 +645,7 @@ public class AlertManagementActivity extends BaseActivity {
                     mList4.get(position).setSelected(true);
                     adapter4.notifyItemChanged(position);
                     value4 = mList4.get(position).getDataValue();
+                    name4 = mList4.get(position).getDataName();
 
                 } else {
                     //当前选中
@@ -529,6 +659,39 @@ public class AlertManagementActivity extends BaseActivity {
         rv4.setLayoutManager(new GridLayoutManager(this, 3));
         RecyclerViewHelper.recyclerviewAndScrollView(rv4);
         getDictData4();
+
+        mList5 = new ArrayList<>();
+        adapter5 = new SelectOptionsChildAdapter(mList5);
+        adapter5.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!mList5.get(position).isSelected()) {
+                    //当前未选中
+                    for (DictInfo dictInfo : mList5) {
+                        if (dictInfo.isSelected()) {
+                            dictInfo.setSelected(false);
+                            adapter5.notifyItemChanged(mList5.indexOf(dictInfo));
+                            break;
+                        }
+                    }
+                    mList5.get(position).setSelected(true);
+                    adapter5.notifyItemChanged(position);
+                    value5 = mList5.get(position).getDataValue();
+                    name5 = mList5.get(position).getDataName();
+
+                } else {
+                    //当前选中
+                    mList5.get(position).setSelected(false);
+                    adapter5.notifyItemChanged(position);
+                    value5 = "";
+                }
+            }
+        });
+        rv5.setAdapter(adapter5);
+        rv5.setLayoutManager(new GridLayoutManager(this, 3));
+        RecyclerViewHelper.recyclerviewAndScrollView(rv5);
+        getDictData5();
+
 
         mList = new ArrayList<>();
         adapter = new AlertMenuAdapter(mList);
@@ -569,19 +732,25 @@ public class AlertManagementActivity extends BaseActivity {
         params.put("pageNum", String.valueOf(page));
         params.put("pageSize", String.valueOf(pageSize));
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
-            params.put("keywords", etSearch.getText().toString().trim());
+            params.put("keyWords", etSearch.getText().toString().trim());
+        }
+        if (!StringUtil.isEmpty(selectedorgIds)) {
+            params.put("selectedorgIds", selectedorgIds);
         }
         if (!StringUtil.isEmpty(value1)) {
-            params.put("assetNature", value1);
+            params.put("assetNature", name1);
         }
         if (!StringUtil.isEmpty(value2)) {
-            params.put("assetType", value2);
+            params.put("assetType", name2);
         }
         if (!StringUtil.isEmpty(value3)) {
-            params.put("assetClass", value3);
+            params.put("assetClass", name3);
         }
         if (!StringUtil.isEmpty(value4)) {
-            params.put("alarmSource", value4);
+            params.put("alarmSource", name4);
+        }
+        if (!StringUtil.isEmpty(value5)) {
+            params.put("alarmStatus", name5);
         }
         if (!StringUtil.isEmpty(startStr)) {
             params.put("startTime", startStr);
