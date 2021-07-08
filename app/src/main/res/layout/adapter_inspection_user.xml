@@ -14,14 +14,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp">
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_da_circle" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:text="外场巡检"
                 android:textColor="#ff5279e1"
@@ -56,40 +62,39 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_status2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:singleLine="true"
-                android:text="2021.11.06-2021.11.06"
-                android:textColor="#C5C5C5"
-                android:textSize="9sp" />
+                android:text="巡检中"
+                android:textColor="@color/sp_status_green"
+                android:textSize="12sp" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
             android:layout_marginTop="11dp"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_da_circle" />
 
             <TextView
-                android:id="@+id/tv_status2"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="巡检中"
-                android:textColor="@color/inspection_blue"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="2021.11.06-2021.11.06"
+                android:textColor="#9F9F9F"
                 android:textSize="9sp"
                 android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/tv_urgent"
@@ -121,7 +126,7 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="@dimen/dp_233"
+                android:layout_width="@dimen/dp_200"
                 android:layout_height="9dp"
                 android:layout_gravity="center_vertical">
 
@@ -146,46 +151,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="6dp"
-                android:text="89"
+                android:text="89%"
                 android:textColor="@color/inspection_blue"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="%"
-                android:textColor="#CECECE"
-                android:textSize="8sp" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_num_all"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:gravity="end"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:id="@+id/tv_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="87"
-                    android:textStyle="bold"
-                    android:textColor="@color/inspection_blue"
-                    android:textSize="9sp" />
-
-                <TextView
-                    android:id="@+id/tv_num_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/180项"
-                    android:textColor="#CECECE"
-                    android:textSize="8sp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="共100项，剩余100项"
+                android:textColor="#9F9F9F"
+                android:textSize="8sp" />
 
         </LinearLayout>
 
@@ -193,15 +174,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
             android:layout_marginTop="11dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_g"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="外场巡检1，外场巡检2"
+                android:textColor="#9F9F9F"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_map"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"

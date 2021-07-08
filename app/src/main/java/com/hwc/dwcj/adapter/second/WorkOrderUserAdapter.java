@@ -12,6 +12,7 @@ import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.WorkOrderUser;
 import com.zds.base.util.StringUtil;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,12 +37,24 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
         View tv_submit = helper.getView(R.id.tv_submit);
 
 
+        StringBuilder builder = new StringBuilder();
+        if (!StringUtil.isEmpty(item.getMap().getHandleStatusName())) {
+            builder.append(item.getMap().getHandleStatusName());
+        }
+        if (builder.length() > 0) {
+            if(!StringUtil.isEmpty(item.getMap().getVerifyStatusName())){
+                builder.append("-").append(item.getMap().getVerifyStatusName());
+            }
+        } else {
+            builder.append(item.getMap().getVerifyStatusName());
+        }
+
         helper.setText(R.id.tv_name, item.getAlarmName())
-                .setText(R.id.tv_time, StringUtil.isEmpty(item.getAlarmTime()) ? "" : StringUtil.dealDateFormat(item.getAlarmTime()))
+                .setText(R.id.tv_time, StringUtil.isEmpty(item.getAddTime()) ? "" : StringUtil.dealDateFormat(item.getAddTime()))
+                .setText(R.id.tv_ip, item.getMap().getManageIp())
                 .setText(R.id.tv_jg, item.getMap().getAssetNatureName() + ">" + item.getMap().getAssetTypeName() + ">" + item.getMap().getAssetClassName())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
-                .setText(R.id.tv_status, StringUtil.isEmpty(item.getMap().getDeviceStatus()) ? "" : item.getMap().getDeviceStatus());
-
+                .setText(R.id.tv_status, builder.toString());
 
         //权限控制
         tv_look.setVisibility(View.VISIBLE);

@@ -372,7 +372,7 @@ public class AlertManagementActivity extends BaseActivity {
                         startStr = formatter.format(date);//日期 String
                         startDate = date;
                         tvTimeStart.setText(startStr);
-                        getData(false);
+                        //getData(false);
 
 
                     }
@@ -406,7 +406,7 @@ public class AlertManagementActivity extends BaseActivity {
                         endStr = formatter.format(date);//日期 String
                         endDate = date;
                         tvTimeEnd.setText(endStr);
-                        getData(false);
+                        //getData(false);
 
 
                     }

@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_title_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -93,11 +94,54 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+
+            <TextView
+                android:id="@+id/tv_fj"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                android:gravity="center_vertical"
+                android:hint="所属分局"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#999999"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_pcs"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_da_select_pcs"
+                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                android:gravity="center_vertical"
+                android:hint="所属派出所"
+                android:paddingHorizontal="11dp"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#999999"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp">
 
@@ -126,31 +170,6 @@
                 android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
                 android:gravity="center_vertical"
                 android:hint="审核状态"
-                android:paddingHorizontal="11dp"
-                android:singleLine="true"
-                android:textColor="#999999"
-                android:textColorHint="#999999"
-                android:textSize="13sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                android:id="@+id/tv_ssjg"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_da_select_pcs"
-                android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                android:gravity="center_vertical"
-                android:hint="所属机构"
                 android:paddingHorizontal="11dp"
                 android:singleLine="true"
                 android:textColor="#999999"
@@ -191,7 +210,9 @@
                 android:textColorHint="@color/text_bar_blue"
                 android:textSize="13sp" />
 
+
         </LinearLayout>
+
 
 
     </LinearLayout>

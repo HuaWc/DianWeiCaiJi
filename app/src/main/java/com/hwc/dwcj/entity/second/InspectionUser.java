@@ -156,10 +156,10 @@ public class InspectionUser {
     public static class Map {
         private String groupName;
         private String urgentType;
+        private String inspectionPercent;
         private int inspectionSumNow;
         private String overtimeStatus;
         private String inspectionProgress;
-        private String oneself;
 
         public String getGroupName() {
             return groupName;
@@ -175,6 +175,14 @@ public class InspectionUser {
 
         public void setUrgentType(String urgentType) {
             this.urgentType = urgentType;
+        }
+
+        public String getInspectionPercent() {
+            return inspectionPercent;
+        }
+
+        public void setInspectionPercent(String inspectionPercent) {
+            this.inspectionPercent = inspectionPercent;
         }
 
         public int getInspectionSumNow() {
@@ -199,14 +207,6 @@ public class InspectionUser {
 
         public void setInspectionProgress(String inspectionProgress) {
             this.inspectionProgress = inspectionProgress;
-        }
-
-        public String getOneself() {
-            return oneself;
-        }
-
-        public void setOneself(String oneself) {
-            this.oneself = oneself;
         }
     }
 }

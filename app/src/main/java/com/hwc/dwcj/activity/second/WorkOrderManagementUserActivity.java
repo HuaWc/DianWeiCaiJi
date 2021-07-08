@@ -22,6 +22,7 @@ import com.hwc.dwcj.adapter.second.SelectOptionsChildAdapter;
 import com.hwc.dwcj.adapter.second.WorkOrderUserAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
+import com.hwc.dwcj.entity.DAPcs;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.WorkOrderUser;
 import com.hwc.dwcj.http.ApiClient;
@@ -71,12 +72,14 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.iv_ss)
     ImageView ivSs;
+    @BindView(R.id.tv_fj)
+    TextView tvFj;
+    @BindView(R.id.tv_pcs)
+    TextView tvPcs;
     @BindView(R.id.tv_clzt)
     TextView tvClzt;
     @BindView(R.id.tv_shzt)
     TextView tvShzt;
-    @BindView(R.id.tv_ssjg)
-    TextView tvSsjg;
     @BindView(R.id.tv_more)
     TextView tvMore;
     @BindView(R.id.tv_more_blue)
@@ -105,6 +108,9 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     LinearLayout llSelect;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.tv_title_main)
+    TextView tvTitleMain;
+
 
     private int page = 1;
     private int pageSize = 10;
@@ -143,6 +149,15 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
     private List<String> userTypes;
 
+    private List<DictInfo> mList6;
+    private List<DAPcs> mList7;
+
+    private List<String> fjList;
+    private List<String> pcsList;
+
+    private String selectedorgIds = "";
+
+    private boolean isUpcoming = false;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -152,10 +167,66 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
     @Override
     protected void initLogic() {
+        if (isUpcoming) {
+            tvTitleMain.setText("待办事件");
+            tvDbsj.setVisibility(View.GONE);
+        }
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
         initAdapter();
+        initFjData();
+    }
+
+    private void initFjData() {
+        mList6 = new ArrayList<>();
+        mList7 = new ArrayList<>();
+        fjList = new ArrayList<>();
+        pcsList = new ArrayList<>();
+
+        getFjData();
+    }
+
+    private void getFjData() {
+        mList6.clear();
+        fjList.clear();
+        GetDictDataHttp.getDictData(this, "PT_FEN_JU", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    mList6.addAll(list);
+                    for (DictInfo d : list) {
+                        fjList.add(d.getDataName());
+                    }
+                }
+            }
+        });
+    }
+
+    private void getPcsData(String id) {
+        mList7.clear();
+        pcsList.clear();
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("areaCode", id);
+        ApiClient.requestNetGet(this, AppConfig.pcsList, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<DAPcs> list = FastJsonUtil.getList(json, DAPcs.class);
+                if (list != null && list.size() != 0) {
+                    mList7.addAll(list);
+                    //装配派出所数据
+                    for (DAPcs d : list) {
+                        pcsList.add(d.getOrgName());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     private void initAdapter() {
@@ -291,7 +362,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
             }
         });
     }
@@ -362,6 +433,9 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
             params.put("keyWords", etSearch.getText().toString().trim());
         }
+        if (!StringUtil.isEmpty(selectedorgIds)) {
+            params.put("selectedorgIds", selectedorgIds);
+        }
         if (!StringUtil.isEmpty(value1)) {
             params.put("assetNature", value1);
         }
@@ -378,10 +452,13 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
             params.put("verifyStatus", value5);
         }
         if (!StringUtil.isEmpty(startStr)) {
-            params.put("startTime", startStr);
+            params.put("alarmTimeStart", startStr);
         }
         if (!StringUtil.isEmpty(endStr)) {
-            params.put("endTime", endStr);
+            params.put("alarmTimeEnd", endStr);
+        }
+        if(isUpcoming){
+            params.put("isTodoThings", 1);
         }
         ApiClient.requestNetGet(this, AppConfig.OpFaultInfoList, "查询中", params, new ResultListener() {
             @Override
@@ -413,6 +490,42 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     }
 
     private void initClick() {
+        tvFj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fjList == null || fjList.size() == 0) {
+                    ToastUtil.toast("暂无分局数据，请稍后再试！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(WorkOrderManagementUserActivity.this, "分局", fjList, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tvFj.setText(fjList.get(options1));
+                        tvPcs.setText("");
+                        getPcsData(mList6.get(options1).getDataValue());
+                        selectedorgIds = mList6.get(options1).getDataValue();
+                        getData(false);
+                    }
+                });
+            }
+        });
+        tvPcs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pcsList == null || pcsList.size() == 0) {
+                    ToastUtil.toast("暂无派出所数据，请稍后再试！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(WorkOrderManagementUserActivity.this, "派出所", pcsList, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tvPcs.setText(pcsList.get(options1));
+                        selectedorgIds = mList7.get(options1).getId() + "";
+                        getData(false);
+                    }
+                });
+            }
+        });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
@@ -428,7 +541,9 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         tvDbsj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toTheActivity(UpcomingEventListUserActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isUpcoming",true);
+                toTheActivity(WorkOrderManagementUserActivity.class,bundle);
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -517,7 +632,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                         startStr = formatter.format(date);//日期 String
                         startDate = date;
                         tvTimeStart.setText(startStr);
-                        getData(false);
+                        //getData(false);
 
 
                     }
@@ -551,7 +666,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                         endStr = formatter.format(date);//日期 String
                         endDate = date;
                         tvTimeEnd.setText(endStr);
-                        getData(false);
+                        //getData(false);
 
 
                     }
@@ -702,7 +817,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        isUpcoming = extras.getBoolean("isUpcoming", false);
     }
 
     @Override

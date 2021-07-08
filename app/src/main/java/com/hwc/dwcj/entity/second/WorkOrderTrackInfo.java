@@ -15,6 +15,15 @@ public class WorkOrderTrackInfo {
     private String handleMethod;
     private String remark;
     private String errorLog;
+    private String colorType;
+
+    public String getColorType() {
+        return colorType;
+    }
+
+    public void setColorType(String colorType) {
+        this.colorType = colorType;
+    }
 
     public String getAlarmStep() {
         return alarmStep;

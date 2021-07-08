@@ -367,6 +367,24 @@ public class WorkOrderUser {
         private String handle_person_id_zb;
         private String assetName;
         private String assetClassName;
+        private String handleStatusName;
+        private String verifyStatusName;
+
+        public String getHandleStatusName() {
+            return handleStatusName;
+        }
+
+        public void setHandleStatusName(String handleStatusName) {
+            this.handleStatusName = handleStatusName;
+        }
+
+        public String getVerifyStatusName() {
+            return verifyStatusName;
+        }
+
+        public void setVerifyStatusName(String verifyStatusName) {
+            this.verifyStatusName = verifyStatusName;
+        }
 
         public String getAssetNature() {
             return assetNature;

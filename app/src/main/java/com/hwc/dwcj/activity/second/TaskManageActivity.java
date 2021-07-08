@@ -25,7 +25,7 @@ import butterknife.OnClick;
 /**
  * 巡检管理
  */
-public class EventManageActivity extends BaseActivity {
+public class TaskManageActivity extends BaseActivity {
 
     @BindView(R.id.fragment_container)
     RelativeLayout fragmentContainer;

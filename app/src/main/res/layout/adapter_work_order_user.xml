@@ -25,23 +25,51 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
                 android:singleLine="true"
                 android:text=""
                 android:textColor="#ff5279e1"
                 android:textSize="14sp" />
 
-
             <TextView
-                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="（"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="）"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:singleLine="true"
                 android:text=""
                 android:textColor="#ff5279e1"
@@ -93,8 +121,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
             android:layout_marginStart="17dp"
+            android:layout_marginTop="11dp"
             android:orientation="horizontal">
 
 

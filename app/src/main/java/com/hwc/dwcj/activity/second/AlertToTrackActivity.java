@@ -80,6 +80,12 @@ public class AlertToTrackActivity extends BaseActivity {
                 finish();
             }
         });
+        tvReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 
@@ -91,7 +97,7 @@ public class AlertToTrackActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 List<WorkOrderTrackInfo> list = FastJsonUtil.getList(json, WorkOrderTrackInfo.class);
-                if(list != null){
+                if (list != null) {
                     mList.addAll(list);
                     adapter.notifyDataSetChanged();
                 }

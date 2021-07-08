@@ -357,7 +357,7 @@ public class AppConfig {
     /**
      * 当前登录人权限标志
      */
-    public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
+        public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
 
 
 

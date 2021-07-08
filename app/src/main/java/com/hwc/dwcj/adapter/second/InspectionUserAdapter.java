@@ -9,7 +9,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.InspectionUser;
+import com.zds.base.util.StringUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,10 +36,41 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
         TextView tv_status2 = helper.getView(R.id.tv_status2);
         TextView tv_status3 = helper.getView(R.id.tv_status3);
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         helper.addOnClickListener(R.id.tv_map).addOnClickListener(R.id.tv_start).addOnClickListener(R.id.tv_check);
 
+        try {
+            Date d = new Date();
+            if (df.parse(StringUtil.dealDateFormat(item.getEffectiveTimeEnd())).getTime() > d.getTime()) {
+                tv_status.setText("正常");
+                tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+            } else {
+                tv_status.setText("超时");
+                tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            tv_status.setText("未知");
+            tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+        }
+
+        double percent = Double.parseDouble(item.getMap().getInspectionPercent().replace("%",""));
+        int i = new Double(percent).intValue();
+        pb_blue.setProgress(i);
+        pb_red.setProgress(i);
+
+
+        //两个状态  一个是右上角是否巡检  进度条的颜色
+        //第二个决定下方显示按键和状态文字
+
         helper.setText(R.id.tv_name, item.getTaskName())
-                .setText(R.id.tv_time, item.getEffectiveTimeStart() + "-" + item.getEffectiveTimeEnd())
-                .setText(R.id.tv_urgent, item.getMap().getUrgentType());
+                .setText(R.id.tv_time, StringUtil.dealDateFormat(item.getEffectiveTimeStart()) + "~" + StringUtil.dealDateFormat(item.getEffectiveTimeEnd()))
+                .setText(R.id.tv_urgent, StringUtil.isEmpty(item.getMap().getUrgentType())?"":item.getMap().getUrgentType())
+                .setText(R.id.tv_people, StringUtil.isEmpty(item.getInspectionName())?"":item.getInspectionName())
+                .setText(R.id.tv_jd, StringUtil.isEmpty(item.getMap().getInspectionPercent())?"":item.getMap().getInspectionPercent())
+                .setText(R.id.tv_num_all, StringUtil.isEmpty(item.getMap().getInspectionProgress())?"":item.getMap().getInspectionProgress())
+                .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getGroupName()) ? "" : item.getMap().getGroupName());
+
     }
 }
