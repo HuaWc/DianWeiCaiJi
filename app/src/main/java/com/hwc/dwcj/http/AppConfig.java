@@ -357,7 +357,18 @@ public class AppConfig {
     /**
      * 当前登录人权限标志
      */
-        public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
+    public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
+
+    /*
+    * 巡检管理信息列表
+    * */
+    public static final String startInspectionList = mainUrl + "v1/operation/inspectionStartList";
+
+    /*
+    * 巡检管理信息详情
+    *
+    * */
+    public static final String startInspectionDetail = mainUrl + "v1/operation/inspectionStartDetail";
 
 
 

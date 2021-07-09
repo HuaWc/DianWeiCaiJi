@@ -1234,4 +1234,102 @@ public class ApiClient {
 
     }
 
+    public static void getInspectionList(final Context context, String url, String log, final Map<String, Object> mapParams, final ResultListener listener){
+        if (!MyApplication.getInstance().isNetworkConnected()) {
+            //没网络
+            listener.onFailure("网络连接异常,请检查您的网络设置");
+            return;
+        }
+        try {
+            OkGo.<String>post(url)
+                    .tag(context)
+                    .headers("token", MyApplication.getInstance().getToken())
+                    .params(getFormatMap(mapParams))
+                    .execute(new StringCallback() {
+                                 /**
+                                  * 对返回数据进行操作的回调， UI线程
+                                  * @param response
+                                  */
+                                 @Override
+                                 public void onSuccess(Response<String> response) {
+                                     formatData(response, listener, context);
+                                 }
+
+                                 @Override
+                                 public void onFinish() {
+                                     super.onFinish();
+                                     listener.onFinsh();
+                                     dismiss();
+                                 }
+
+                                 @Override
+                                 public void onError(Response<String> response) {
+                                     try {
+                                         if (response.code() == 404 || response.code() >= 500) {
+                                             listener.onFailure("服务器异常！错误码：" + response.code());
+                                         } else {
+                                             listener.onFailure(response.getException().getMessage());
+                                         }
+                                     } catch (Exception e) {
+                                         XLog.error(e);
+                                     }
+
+                                 }
+                             }
+
+                    );
+        } catch (Exception e) {
+            listener.onFailure(e.getMessage());
+        }
+    }
+
+    public static void getInspectionDetail(final Context context, String url, String log, final Map<String, Object> mapParams, final ResultListener listener){
+        if (!MyApplication.getInstance().isNetworkConnected()) {
+            //没网络
+            listener.onFailure("网络连接异常,请检查您的网络设置");
+            return;
+        }
+        try {
+            OkGo.<String>post(url)
+                    .tag(context)
+                    .headers("token", MyApplication.getInstance().getToken())
+                    .params(getFormatMap(mapParams))
+                    .execute(new StringCallback() {
+                                 /**
+                                  * 对返回数据进行操作的回调， UI线程
+                                  * @param response
+                                  */
+                                 @Override
+                                 public void onSuccess(Response<String> response) {
+                                     formatData(response, listener, context);
+                                 }
+
+                                 @Override
+                                 public void onFinish() {
+                                     super.onFinish();
+                                     listener.onFinsh();
+                                     dismiss();
+                                 }
+
+                                 @Override
+                                 public void onError(Response<String> response) {
+                                     try {
+                                         if (response.code() == 404 || response.code() >= 500) {
+                                             listener.onFailure("服务器异常！错误码：" + response.code());
+                                         } else {
+                                             listener.onFailure(response.getException().getMessage());
+                                         }
+                                     } catch (Exception e) {
+                                         XLog.error(e);
+                                     }
+
+                                 }
+                             }
+
+                    );
+        } catch (Exception e) {
+            listener.onFailure(e.getMessage());
+        }
+    }
+
 }

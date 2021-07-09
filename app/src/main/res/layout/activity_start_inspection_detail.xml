@@ -96,6 +96,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_dev_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -134,6 +135,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_group_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -172,6 +174,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_ip"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -210,6 +213,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_position_code"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -292,606 +296,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:orientation="vertical">
-
                 <LinearLayout
+                    android:id="@+id/ll_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="安装方式"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="杆件类型"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="横臂类型1"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp"
-                            android:visibility="invisible" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="横臂类型2"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="补光灯（数量）"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="补光灯（状态）"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="背包箱"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="检修口盖板"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="手井盖"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="线路"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="杆件编码"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginStart="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="*"
-                            android:textColor="#FF0000"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="非法设备安装"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/app_edit"
-                            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24_black"
-                            android:gravity="start"
-                            android:hint="请选择"
-                            android:paddingHorizontal="5dp"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#333333"
-                            android:textColorHint="#333333"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="10dp"
-                        android:background="#999999" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -936,11 +346,11 @@
                         android:background="#999999" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1020,6 +430,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv_address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -1032,6 +443,7 @@
                             android:textSize="15sp" />
 
                         <ImageView
+                            android:id="@+id/iv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/add_locate" />
@@ -1047,7 +459,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1066,7 +479,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
