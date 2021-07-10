@@ -370,6 +370,36 @@ public class AppConfig {
     * */
     public static final String startInspectionDetail = mainUrl + "v1/operation/inspectionStartDetail";
 
+    /*
+     * 巡检新增
+     *
+     * */
+    public static final String startInspectionInsert = mainUrl + "v1/operation/inspectionResultInsert";
+
+    /*
+     * 巡检管理信息详情
+     *
+     * */
+    public static final String inspectionManageDetail = mainUrl + "v1/operation/inspectionInfoDetail";
+
+    /*
+     * 巡检结果列表
+     *
+     * */
+    public static final String inspectionResultData = mainUrl + "v1/operation/getInspectionResult";
+
+    /*
+     * 巡检结果详情
+     *
+     * */
+    public static final String inspectionResultDetail = mainUrl + "v1/operation/ itemInfoDetail";
+
+    /*
+     * 巡检任务审核接口
+     *
+     * */
+    public static final String inspectionCheck = mainUrl + "v1/operation/checkinugAudit";
+
 
 
 
