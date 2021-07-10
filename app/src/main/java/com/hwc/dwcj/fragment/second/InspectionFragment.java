@@ -416,6 +416,7 @@ public class InspectionFragment extends BaseFragment {
                 List<InspectionUser> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), InspectionUser.class);
                 if (list != null && list.size() != 0) {
                     mList.addAll(list);
+
                 } else {
                     if (page > 1) {
                         page--;
@@ -434,7 +435,6 @@ public class InspectionFragment extends BaseFragment {
                 ToastUtil.toast(msg);
                 refreshLayout.finishLoadmore();
                 refreshLayout.finishRefresh();
-
             }
         });
     }

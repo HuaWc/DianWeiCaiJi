@@ -229,8 +229,9 @@
 
             <TextView
                 android:id="@+id/tv_status3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:singleLine="true"

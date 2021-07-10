@@ -176,7 +176,6 @@ public class InspectionDetailAdminActivity extends BaseActivity {
 
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ToastUtil.toast(editText.getText().toString());
 
                         Map<String,Object> paramsRefuse = new HashMap<>();
                         paramsRefuse.put("taskId",id);
