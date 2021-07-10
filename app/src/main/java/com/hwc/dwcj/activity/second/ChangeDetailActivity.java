@@ -72,6 +72,10 @@ public class ChangeDetailActivity extends BaseActivity {
     TextView tvZq;
     @BindView(R.id.tv_cszt)
     TextView tvCszt;
+    @BindView(R.id.tv_remark)
+    TextView tvRemark;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
     private String id;
     private ChangeUser info;
 
@@ -173,6 +177,8 @@ public class ChangeDetailActivity extends BaseActivity {
 
         tvTimeStart.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         //tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
+        tvRemark.setText(StringUtil.isEmpty(info.getChangeReport()) ? "" : info.getChangeReport());
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
 
 
     }

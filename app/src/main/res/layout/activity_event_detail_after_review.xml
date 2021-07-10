@@ -60,6 +60,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/tv_pd_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -735,7 +736,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="工单负责人"
+                            android:text="实际处理人"
                             android:textColor="#333333"
                             android:textSize="15sp" />
 
@@ -801,7 +802,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -840,7 +842,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1283,202 +1286,210 @@
                             android:background="#999999" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="关联设备信息1"
-                        android:textColor="#2196F3"
-                        android:textSize="15sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="关联设备信息1"
+                            android:textColor="#2196F3"
+                            android:textSize="15sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="设备名称"
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="设备名称"
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
+                                android:background="#999999" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="设备编号"
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="设备编号"
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
+                                android:background="#999999" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="原设备状态"
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="原设备状态"
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
+                                android:background="#999999" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="更换关联设备名称"
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="更换关联设备名称"
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
+                                android:background="#999999" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="5dp"
-                            android:layout_marginStart="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="设备编号"
-                                android:textColor="#333333"
-                                android:textSize="15sp" />
+                                android:layout_marginVertical="5dp"
+                                android:layout_marginStart="20dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="设备编号"
+                                    android:textColor="#333333"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="#999999"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#999999"
-                                android:textSize="15sp" />
+                                android:background="#999999" />
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginStart="10dp"
-                            android:background="#999999" />
                     </LinearLayout>
 
 
@@ -1747,11 +1758,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/app_edit"
                         android:paddingHorizontal="5dp"
                         android:paddingVertical="5dp"
                         android:text="完成按时，继续保持"
-                        android:layout_marginBottom="10dp"
                         android:textColor="#333333"
                         android:textSize="15sp" />
 

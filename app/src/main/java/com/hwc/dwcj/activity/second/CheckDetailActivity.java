@@ -54,6 +54,8 @@ public class CheckDetailActivity extends BaseActivity {
     TextView tv11;
     @BindView(R.id.tv_bz)
     TextView tvBz;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
 
     private String id;
     private CheckUser info;
@@ -105,9 +107,10 @@ public class CheckDetailActivity extends BaseActivity {
         tv2.setText(StringUtil.isEmpty(info.getVerPeopleNames()) ? "" : info.getVerPeopleNames());
         tv4.setText(StringUtil.isEmpty(info.getVerContent()) ? "" : info.getVerContent());
         tv5.setText(StringUtil.isEmpty(info.getTaskrequires()) ? "" : info.getTaskrequires());
-        tv6.setText(StringUtil.dealDateFormat(info.getTaskStartTime())+"~"+StringUtil.dealDateFormat(info.getTaskEndTime()));
-        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName())?"":info.getMap().getAddName());
+        tv6.setText(StringUtil.dealDateFormat(info.getTaskStartTime()) + "~" + StringUtil.dealDateFormat(info.getTaskEndTime()));
+        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
         switch (info.getVerFeedback()) {
             case 1:
                 tv11.setText("正常");

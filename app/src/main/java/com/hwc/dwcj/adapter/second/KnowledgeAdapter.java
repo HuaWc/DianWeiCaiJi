@@ -22,7 +22,7 @@ public class KnowledgeAdapter extends BaseQuickAdapter<Knowledge, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, Knowledge item) {
-        helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getCode()) ? "" : item.getCode())
+        helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getCode()) ? "" : item.getCode()).setText(R.id.tv_theme,item.getTheme())
                 .setText(R.id.tv_type, item.getMap().getKnowledgeType() + (StringUtil.isEmpty(item.getMap().getKnowledgeClass()) ? "" : (" > " + item.getMap().getKnowledgeClass())))
                 .setText(R.id.tv_time, StringUtil.isEmpty(item.getCreateTime()) ? "" : item.getCreateTime())
                 .setText(R.id.tv_author, StringUtil.isEmpty(item.getMap().getAuthor()) ? "" : item.getMap().getAuthor())

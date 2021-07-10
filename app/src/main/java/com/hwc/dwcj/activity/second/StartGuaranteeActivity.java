@@ -64,6 +64,8 @@ public class StartGuaranteeActivity extends BaseActivity {
     TextView tv8;
     @BindView(R.id.et_bz)
     EditText etBz;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
 
     private String id;
     private GuaranteeUser info;
@@ -185,6 +187,7 @@ public class StartGuaranteeActivity extends BaseActivity {
         tv5.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv6.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         //tv7.setText(StringUtil.isEmpty(info.getPeopleNames()) ? "" : info.getPeopleNames());
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
     }
 
 

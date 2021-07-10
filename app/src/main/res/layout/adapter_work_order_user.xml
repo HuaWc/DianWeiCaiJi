@@ -4,43 +4,40 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="11dp"
-        android:background="@drawable/bg_da_item"
+        android:background="@drawable/bg_work_order_item_blue"
         android:orientation="vertical"
         android:padding="14dp">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginStart="17dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_da_circle" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="#ff5279e1"
+                android:textColor="#ffffff"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_l"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text="（"
-                android:textColor="#ff5279e1"
+                android:textColor="#ffffff"
                 android:textSize="14sp" />
 
             <TextView
@@ -50,16 +47,17 @@
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="#ff5279e1"
+                android:textColor="#ffffff"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_r"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text="）"
-                android:textColor="#ff5279e1"
+                android:textColor="#ffffff"
                 android:textSize="14sp" />
 
             <TextView
@@ -72,7 +70,7 @@
                 android:gravity="end"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="#ff5279e1"
+                android:textColor="#ffffff"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -85,7 +83,7 @@
             android:layout_marginTop="11dp"
             android:singleLine="true"
             android:text=""
-            android:textColor="#999999"
+            android:textColor="#ffffff"
             android:textSize="11sp" />
 
         <LinearLayout
@@ -102,7 +100,7 @@
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text="前端点位 > 摄像机 > 人脸相机"
-                android:textColor="#999999"
+                android:textColor="#ffffff"
                 android:textSize="12sp" />
 
             <TextView
@@ -113,7 +111,7 @@
                 android:layout_marginStart="17dp"
                 android:singleLine="true"
                 android:text="六安市公安局金安区"
-                android:textColor="#9F9F9F"
+                android:textColor="#ffffff"
                 android:textSize="9sp" />
         </LinearLayout>
 
@@ -131,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/bg_common_btn"
+                android:background="@drawable/bg_work_order_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="查看"
@@ -144,7 +142,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
+                android:background="@drawable/bg_work_order_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="跟踪"
@@ -157,7 +155,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
+                android:background="@drawable/bg_work_order_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="工单处理"
@@ -171,7 +169,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
+                android:background="@drawable/bg_work_order_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="审核"
@@ -184,7 +182,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
+                android:background="@drawable/bg_work_order_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="问题处理"
