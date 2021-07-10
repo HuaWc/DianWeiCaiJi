@@ -52,6 +52,8 @@ public class GuaranteeDetailActivity extends BaseActivity {
     TextView tvReturn;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
 
     private String id;
     private GuaranteeUser info;
@@ -126,6 +128,8 @@ public class GuaranteeDetailActivity extends BaseActivity {
                 break;
         }
         tvBz.setText(StringUtil.isEmpty(info.getSryContent()) ? "" : info.getSryContent());
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
+
     }
 
     @Override

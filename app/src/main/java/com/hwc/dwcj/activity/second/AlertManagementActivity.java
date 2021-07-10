@@ -180,7 +180,7 @@ public class AlertManagementActivity extends BaseActivity {
         initFjData();
     }
 
-    private void initFjData(){
+    private void initFjData() {
         mList6 = new ArrayList<>();
         mList7 = new ArrayList<>();
         fjList = new ArrayList<>();
@@ -189,7 +189,7 @@ public class AlertManagementActivity extends BaseActivity {
         getFjData();
     }
 
-    private void getFjData(){
+    private void getFjData() {
         mList6.clear();
         fjList.clear();
         GetDictDataHttp.getDictData(this, "PT_FEN_JU", new GetDictDataHttp.GetDictDataResult() {
@@ -197,7 +197,7 @@ public class AlertManagementActivity extends BaseActivity {
             public void getData(List<DictInfo> list) {
                 if (list != null) {
                     mList6.addAll(list);
-                    for(DictInfo d:list){
+                    for (DictInfo d : list) {
                         fjList.add(d.getDataName());
                     }
                 }
@@ -205,7 +205,7 @@ public class AlertManagementActivity extends BaseActivity {
         });
     }
 
-    private void getPcsData(String id){
+    private void getPcsData(String id) {
         mList7.clear();
         pcsList.clear();
         Map<String, Object> hashMap = new HashMap<>();
@@ -235,7 +235,7 @@ public class AlertManagementActivity extends BaseActivity {
         tvFj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(fjList == null || fjList.size() == 0){
+                if (fjList == null || fjList.size() == 0) {
                     ToastUtil.toast("暂无分局数据，请稍后再试！");
                     return;
                 }
@@ -254,7 +254,7 @@ public class AlertManagementActivity extends BaseActivity {
         tvPcs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(pcsList == null || pcsList.size() == 0){
+                if (pcsList == null || pcsList.size() == 0) {
                     ToastUtil.toast("暂无派出所数据，请稍后再试！");
                     return;
                 }
@@ -262,7 +262,7 @@ public class AlertManagementActivity extends BaseActivity {
                     @Override
                     public void getOptionsResult(int options1, int options2, int options3) {
                         tvPcs.setText(pcsList.get(options1));
-                        selectedorgIds = mList7.get(options1).getId()+"";
+                        selectedorgIds = mList7.get(options1).getId() + "";
                         getData(false);
                     }
                 });
@@ -277,7 +277,9 @@ public class AlertManagementActivity extends BaseActivity {
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                toTheActivity(AddAlertActivity.class);
+
+                // showDialog();
             }
         });
         tvMore.setOnClickListener(new View.OnClickListener() {
@@ -708,6 +710,11 @@ public class AlertManagementActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", mList.get(position).getId());
+                bundle.putString("str1", mList.get(position).getMap().getAssetName());
+                bundle.putString("str2", mList.get(position).getMap().getOrgName());
+                bundle.putString("str3", mList.get(position).getMap().getAlarmTime());
+                bundle.putString("str4", "");
+
                 switch (view.getId()) {
                     case R.id.tv_look:
                         toTheActivity(AlertToTrackActivity.class, bundle);

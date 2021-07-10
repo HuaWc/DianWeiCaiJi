@@ -123,6 +123,8 @@ public class AddAlertActivity extends BaseActivity {
         tvSelectLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard3();
+                hideSoftKeyboard();
                 if (levelOptions == null || levelOptions.size() == 0) {
                     ToastUtil.toast("条件为空，请稍后重试！");
                     return;
@@ -203,17 +205,19 @@ public class AddAlertActivity extends BaseActivity {
             ToastUtil.toast("请选择发生时间");
             return;
         }
-        if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
+/*        if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
             ToastUtil.toast("请输入发生原因");
             return;
-        }
+        }*/
         //提交
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("alarmName", etName.getText().toString().trim());
         hashMap.put("alarmLevel", tvSelectLevel.getText().toString());
         hashMap.put("assetId", assetId);
         hashMap.put("alarmTime", tvTime.getText().toString().trim());
-        hashMap.put("alarmReason", etReason.getText().toString().trim());
+        if (!StringUtil.isEmpty(etReason.getText().toString().trim())) {
+            hashMap.put("alarmReason", etReason.getText().toString().trim());
+        }
         hashMap.put("alarmPersonId", MyApplication.getInstance().getUserInfo().getId());
         hashMap.put("orgId", orgId);
         ApiClient.requestNetPost(this, AppConfig.OpAlarmInfoAdd, "提交中", hashMap, new ResultListener() {

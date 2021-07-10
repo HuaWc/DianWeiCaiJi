@@ -54,7 +54,7 @@ public class KnowledgeBaseActivity extends BaseActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
     }

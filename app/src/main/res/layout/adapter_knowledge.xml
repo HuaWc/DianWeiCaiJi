@@ -24,12 +24,21 @@
                 android:background="@drawable/bg_da_circle" />
 
             <TextView
+                android:id="@+id/tv_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:singleLine="true"
-                android:text="系统盘告警（"
+                android:text="系统盘告警"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="（"
                 android:textColor="#ff5279e1"
                 android:textSize="14sp" />
             <TextView

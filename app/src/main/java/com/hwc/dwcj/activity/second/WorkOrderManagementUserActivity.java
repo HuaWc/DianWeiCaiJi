@@ -351,7 +351,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     private void getUserTypes() {
         userTypes = new ArrayList<>();
         Map<String, Object> hashMap = new HashMap<>();
-        ApiClient.requestNetGet(this, AppConfig.getLoginRoleType, "", hashMap, new ResultListener() {
+        ApiClient.requestNetGet(this, AppConfig.getLoginRoleType, "请求中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 //第一次默认处理下返回的用户的权限，转化为数组
@@ -387,7 +387,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.tv_look:
                         //查看
-                        //toTheActivity(WorkOrderDetailActivity.class, bundle);
+                        toTheActivity(WorkOrderDetailActivity.class, bundle);
                         //toTheActivity(EventDetailAfterReviewActivity.class, bundle);
                         break;
                     case R.id.tv_do:

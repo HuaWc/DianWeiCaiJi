@@ -14,6 +14,7 @@ import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.EventUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -64,10 +65,24 @@ public class AlertToEvaluateActivity extends BaseActivity {
     ImageView ivUp4;
     @BindView(R.id.Iv_down4)
     ImageView IvDown4;
+    @BindView(R.id.tv_t1)
+    TextView tvT1;
+    @BindView(R.id.tv_t2)
+    TextView tvT2;
+    @BindView(R.id.tv_t3)
+    TextView tvT3;
+    @BindView(R.id.tv_t4)
+    TextView tvT4;
 
     private String alarmId;
-    private int maxScore = 10;
+    private int maxScore = 5;
     private int minScore = 1;
+
+    private String str1;
+    private String str2;
+    private String str3;
+    private String str4;
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -80,6 +95,12 @@ public class AlertToEvaluateActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
+        tvT1.setText(StringUtil.isEmpty(str1)?"":str1);
+        tvT2.setText(StringUtil.isEmpty(str2)?"":str2);
+        tvT3.setText(StringUtil.isEmpty(str3)?"":str3);
+        tvT4.setText(StringUtil.isEmpty(str4)?"":str4);
+
+
     }
 
 
@@ -118,7 +139,7 @@ public class AlertToEvaluateActivity extends BaseActivity {
         hashMap.put("serviceRating2", tv2.getText().toString());
         hashMap.put("serviceRating3", tv3.getText().toString());
         hashMap.put("serviceRating4", tv4.getText().toString());
-        ApiClient.requestNetPost(this, AppConfig.getAlarmEvaluate, "加载中", hashMap, new ResultListener() {
+        ApiClient.requestNetGet(this, AppConfig.getAlarmEvaluate, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
@@ -140,7 +161,12 @@ public class AlertToEvaluateActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-        alarmId = extras.getString("alarmId");
+        alarmId = extras.getString("id");
+        str1 = extras.getString("str1");
+        str2 = extras.getString("str2");
+        str3 = extras.getString("str3");
+        str4 = extras.getString("str4");
+
 
     }
 

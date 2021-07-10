@@ -22,6 +22,8 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +68,8 @@ public class ChangeResultDetailActivity extends BaseActivity {
     TextView tvTime;
     @BindView(R.id.et_report)
     EditText etReport;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
 
     private String id;
     private ChangeUser info;
@@ -81,6 +85,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
         getData();
+        tvPeople.setText(MyApplication.getInstance().getUserInfo().getRealName());
     }
 
     private void initClick() {
@@ -113,6 +118,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
         c.setCheckStatus(1);
         c.setChangeReport(etReport.getText().toString().trim());
         c.setChangePeopleId(MyApplication.getInstance().getUserInfo().getId());
+        c.setChangTime(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'").format(new Date()));
         if (!StringUtil.isEmpty(etNewName.getText().toString().trim())) {
             c.setAssetNameChanged(etNewName.getText().toString().trim());
         }
@@ -166,6 +172,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
         tvOldName.setText(StringUtil.isEmpty(info.getAssetName()) ? "" : info.getAssetName());
         tvOldIp.setText(StringUtil.isEmpty(info.getAssetIp()) ? "" : info.getAssetIp());
         tvOldJg.setText(StringUtil.isEmpty(info.getAssetOrgid()) ? "" : info.getAssetOrgid());
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
 
     }
 

@@ -11,7 +11,6 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.CheckUser;
-import com.hwc.dwcj.entity.second.GuaranteeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
@@ -24,7 +23,6 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +72,8 @@ public class StartCheckActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
 
     private String id;
     private CheckUser info;
@@ -188,8 +188,10 @@ public class StartCheckActivity extends BaseActivity {
         tv2.setText(StringUtil.isEmpty(info.getVerPeopleNames()) ? "" : info.getVerPeopleNames());
         tv4.setText(StringUtil.isEmpty(info.getVerContent()) ? "" : info.getVerContent());
         tv5.setText(StringUtil.isEmpty(info.getTaskrequires()) ? "" : info.getTaskrequires());
-        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName())?"":info.getMap().getAddName());
+        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
+        tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
+
     }
 
     @Override

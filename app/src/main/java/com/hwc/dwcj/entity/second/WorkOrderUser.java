@@ -369,6 +369,15 @@ public class WorkOrderUser {
         private String assetClassName;
         private String handleStatusName;
         private String verifyStatusName;
+        private String color;
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
 
         public String getHandleStatusName() {
             return handleStatusName;

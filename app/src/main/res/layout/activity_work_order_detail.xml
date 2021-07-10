@@ -60,6 +60,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/tv_pd_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -735,7 +736,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="工单负责人"
+                            android:text="实际处理人"
                             android:textColor="#333333"
                             android:textSize="15sp" />
 
@@ -801,6 +802,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -839,6 +841,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -1053,6 +1056,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv24"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1072,6 +1076,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_change_part"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -1105,6 +1110,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv25"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1143,6 +1149,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv26"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1181,6 +1188,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv27"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1227,6 +1235,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv28"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1265,6 +1274,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv29"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -1306,6 +1316,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv30"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1365,6 +1376,7 @@
                     <TableRow>
 
                         <TextView
+                            android:id="@+id/tv31"
                             android:layout_weight="1"
                             android:background="@drawable/border_table"
                             android:gravity="center"
@@ -1374,6 +1386,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv32"
                             android:layout_weight="1"
                             android:background="@drawable/border_table"
                             android:gravity="center"
@@ -1405,6 +1418,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv33"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1443,6 +1457,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv34"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1518,6 +1533,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv40"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -1525,7 +1541,7 @@
                     android:background="@drawable/app_edit"
                     android:paddingHorizontal="5dp"
                     android:paddingVertical="5dp"
-                    android:text="对无法维修的摄像机进行更换"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="15sp" />
 
@@ -1558,6 +1574,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv35"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1596,6 +1613,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv36"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1634,6 +1652,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv37"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -1672,15 +1691,17 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/tv38"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10分"
+                            android:text=""
                             android:textColor="#333333"
                             android:textSize="15sp" />
 
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv39"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
