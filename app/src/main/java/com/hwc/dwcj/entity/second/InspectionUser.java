@@ -21,7 +21,7 @@ public class InspectionUser {
     private String taskType;
     private String taskName;
     private String inspectionName;
-    private Object ckeckType;
+    private String ckeckType;
     private Object approvalOpinion;
     private Map map;
 
@@ -129,11 +129,11 @@ public class InspectionUser {
         this.inspectionName = inspectionName;
     }
 
-    public Object getCkeckType() {
+    public String getCkeckType() {
         return ckeckType;
     }
 
-    public void setCkeckType(Object ckeckType) {
+    public void setCkeckType(String ckeckType) {
         this.ckeckType = ckeckType;
     }
 

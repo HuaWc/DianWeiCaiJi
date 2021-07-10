@@ -119,7 +119,7 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
 
             }
         });
-        getData();
+//        getData();
     }
 
     private void getData() {
@@ -128,7 +128,7 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
         params.put("pageSize",pageSize);
         params.put("taskId",taskId);
         params.put("conditionLike",searchTxt);
-        ApiClient.getInspectionList(StartInspectionActivity.this,AppConfig.startInspectionList, "正在加载",params, new ResultListener() {
+        ApiClient.requestNetPost(StartInspectionActivity.this,AppConfig.startInspectionList, "正在加载",params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (pageIndex == 1){
@@ -144,7 +144,7 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
                 mList.addAll(startInspection.list);
                 adapter.notifyDataSetChanged();
 
-                if (pageIndex < startInspection.size){
+                if (pageIndex < startInspection.pages){
                     pageIndex ++;
                 }else {
                     refreshLayout.setEnableLoadmore(false);
@@ -186,6 +186,15 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mList.clear();
+        pageIndex = 1;
+        refreshLayout.setEnableLoadmore(true);
+        getData();
+    }
+
+    @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
@@ -194,6 +203,7 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         searchTxt = charSequence.toString();
         if (TextUtils.isEmpty(etSearch.getText().toString())){
+            mList.clear();
             getData();
         }
     }

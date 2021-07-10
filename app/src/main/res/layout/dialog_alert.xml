@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_dialog_alert">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="标题"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            tools:text="内容"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:gravity="center">
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#DDDDDD">
+        </View>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="确定"
+            android:textSize="18sp"
+            android:textColor="#256BFF"
+            android:gravity="center">
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

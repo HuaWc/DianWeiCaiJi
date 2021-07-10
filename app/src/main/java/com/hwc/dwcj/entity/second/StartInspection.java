@@ -10,7 +10,7 @@ import java.util.List;
 public class StartInspection {
     public String pageNum;
     public String pageSize;
-    public int size;
+    public int pages;
     public List<InspectionItemDTO> list;
 
     public class InspectionItemDTO{

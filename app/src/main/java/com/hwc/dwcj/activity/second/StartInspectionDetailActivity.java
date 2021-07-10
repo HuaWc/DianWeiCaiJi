@@ -2,6 +2,7 @@ package com.hwc.dwcj.activity.second;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.github.dfqin.grantor.PermissionsUtil;
 import com.google.gson.Gson;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.InspectionDetailDTO;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -24,11 +26,19 @@ import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.GDLocationUtil;
 import com.hwc.dwcj.util.PickerViewUtils;
+import com.hwc.dwcj.view.dialog.SimpleDialog;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.json.FastJsonUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -55,6 +65,12 @@ public class StartInspectionDetailActivity extends BaseActivity {
     LinearLayout ll_container;
     @BindView(R.id.tv_address)
     TextView tv_address;
+    @BindView(R.id.et_remark)
+    EditText et_remark;
+    @BindView(R.id.tv_chose_alarm_level)
+    TextView tv_chose_alarm_level;
+    @BindView(R.id.et_alarm_remark)
+    EditText et_alarm_remark;
 
     private String id = "";
     private String devName = "";
@@ -62,6 +78,11 @@ public class StartInspectionDetailActivity extends BaseActivity {
     private String ip = "";
     private String positionCode = "";
     private String memberbarCode = "";
+    private String address = "";
+    private int alarmStatus = 1;//运行状态(0:异常，1:正常)
+
+    private List<View> listViews = new ArrayList<>();
+    public List<InspectionDetailDTO.ItemListDTO> inspectionInfoList;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -96,51 +117,63 @@ public class StartInspectionDetailActivity extends BaseActivity {
         Map<String,Object> params = new HashMap<>();
         params.put("taskSubId",id);
 
-        ApiClient.getInspectionDetail(StartInspectionDetailActivity.this, AppConfig.startInspectionDetail, "正在加载", params, new ResultListener() {
+        ApiClient.requestNetPost(StartInspectionDetailActivity.this, AppConfig.startInspectionDetail, "正在加载", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 InspectionDetailDTO inspectionDetailDTO = new Gson().fromJson(json, InspectionDetailDTO.class);
-//                ToastUtil.toast(inspectionDetailDTO.map.groupName);
+                inspectionInfoList = inspectionDetailDTO.itemList;
 
-                for (int i=0;i<inspectionDetailDTO.itemList.size();i++){
+                for (int i=0;i<inspectionInfoList.size();i++){
                     View view = LayoutInflater.from(StartInspectionDetailActivity.this).inflate(R.layout.layout_inspection_detail_task, null);
-                    TextView tv_must_fill = (TextView) view.findViewById(R.id.tv_must_fill);
-                    TextView name = (TextView) view.findViewById(R.id.tv_name);
-                    TextView tv_chose = (TextView) view.findViewById(R.id.tv_chose);
-                    EditText et_content = (EditText) view.findViewById(R.id.et_content);
-                    InspectionDetailDTO.ItemListDTO itemListDTO = inspectionDetailDTO.itemList.get(i);
 
-                    name.setText(itemListDTO.itemName);
+                    MyViewHolder myViewHolder = new MyViewHolder(view);
+                    InspectionDetailDTO.ItemListDTO itemListDTO = inspectionInfoList.get(i);
+
+                    myViewHolder.name.setText(itemListDTO.itemName);
                     if (itemListDTO.itemType.equals("1")){
-                        tv_must_fill.setText("*");
+                        myViewHolder.tv_must_fill.setText("*");
                     }else {
-                        tv_must_fill.setText("");
+                        myViewHolder.tv_must_fill.setText("");
                     }
 
                     if (itemListDTO.itemInputType.equals("0")){
-                        tv_chose.setVisibility(View.VISIBLE);
-                        et_content.setVisibility(View.GONE);
+                        myViewHolder.tv_chose.setVisibility(View.VISIBLE);
+                        myViewHolder.et_content.setVisibility(View.GONE);
                         String[] split = itemListDTO.runStatus.split(",");
 
-                        tv_chose.setOnClickListener(new View.OnClickListener() {
+                        myViewHolder.tv_chose.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 PickerViewUtils.selectOptions(StartInspectionDetailActivity.this, itemListDTO.itemName, Arrays.asList(split), null, null, new PickerViewSelectOptionsResult() {
                                     @Override
                                     public void getOptionsResult(int options1, int options2, int options3) {
-                                        tv_chose.setText(split[options1]);
-//                                        tvPcs.setText("");
-//                                        getPcsData(mList6.get(options1).getDataValue());
-//                                        selectedorgIds = mList6.get(options1).getDataValue();
-//                                        getData(false);
+                                        myViewHolder.tv_chose.setText(split[options1]);
+                                        for (int i=0;i<listViews.size();i++){
+                                            View v = listViews.get(i);
+                                            MyViewHolder mvh = new MyViewHolder(v);
+                                            if (mvh.name.getText().toString().equals(myViewHolder.name.getText().toString())){
+                                                v.setTag(split[options1]);
+                                                listViews.set(i,v);
+                                            }
+                                        }
                                     }
                                 });
                             }
                         });
                     }else {
-                        et_content.setVisibility(View.VISIBLE);
-                        tv_chose.setVisibility(View.GONE);
+                        myViewHolder.et_content.setVisibility(View.VISIBLE);
+                        myViewHolder.tv_chose.setVisibility(View.GONE);
+                        for (int j=0;j<listViews.size();j++){
+                            View v = listViews.get(j);
+                            MyViewHolder mvh = new MyViewHolder(v);
+                            if (mvh.name.getText().toString().equals(myViewHolder.name.getText().toString())){
+                                v.setTag(mvh.et_content.getText().toString());
+                                listViews.set(j,v);
+                            }
+                        }
                     }
+
+                    listViews.add(view);
                     ll_container.addView(view);
                 }
             }
@@ -179,18 +212,19 @@ public class StartInspectionDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.iv_location)
+    @OnClick({R.id.iv_location,R.id.tv_chose_alarm_level,R.id.tv_submit})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_location:
                 PermissionsUtil.requestPermission(StartInspectionDetailActivity.this, new PermissionListener() {
                     @Override
                     public void permissionGranted(@NonNull String[] permission) {
-                        tv_address.setText("正在定位");
+                        tv_address.setText("正在定位...");
                         GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
                             @Override
                             public void result(AMapLocation location) {
-                                tv_address.setText(location.getAddress());
+                                address = location.getAddress();
+                                tv_address.setText(address);
                             }
                         });
                     }
@@ -201,6 +235,111 @@ public class StartInspectionDetailActivity extends BaseActivity {
                     }
                 }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
                 break;
+            case R.id.tv_chose_alarm_level:
+                List<String> levelOptions = new ArrayList<>();
+                Map<String,Object> paramsAlarmLevel = new HashMap<>();
+                paramsAlarmLevel.put("dataTypeCode","OP_ALARM_LEVEL");
+                ApiClient.requestNetPost(StartInspectionDetailActivity.this, AppConfig.getDataTypeList, "正在加载", paramsAlarmLevel, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        List<DictInfo> list = FastJsonUtil.getList(json, DictInfo.class);
+                        if (list != null) {
+                            for (DictInfo d : list) {
+                                levelOptions.add(d.getDataName());
+                            }
+                            PickerViewUtils.selectOptions(StartInspectionDetailActivity.this, "告警等级", levelOptions, null, null, new PickerViewSelectOptionsResult() {
+                                @Override
+                                public void getOptionsResult(int options1, int options2, int options3) {
+                                    alarmStatus = 0;
+                                    tv_chose_alarm_level.setText(levelOptions.get(options1));
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
+                break;
+            case R.id.tv_submit:
+                JSONArray jsonArray = new JSONArray();
+                if (listViews.size()>0){
+                    for (int i=0;i<listViews.size();i++){
+                        MyViewHolder myViewHolder = new MyViewHolder(listViews.get(i));
+                        String tag = (String) listViews.get(i).getTag();
+                        if (myViewHolder.tv_must_fill.getText().toString().equals("*")){
+
+                            if (TextUtils.isEmpty(tag)){
+                                ToastUtil.toast(myViewHolder.name.getText().toString()+"信息不能为空");
+                                return;
+                            }
+                        }
+                        try {
+                            if (!TextUtils.isEmpty(tag)){
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("itemId",inspectionInfoList.get(i).itemId);
+                                jsonObject.put("itemValue",(String) listViews.get(i).getTag());
+                                jsonObject.put("itemDesc","");
+                                jsonArray.put(jsonObject);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (TextUtils.isEmpty(address)){
+                    ToastUtil.toast("位置信息不能为空");
+                    return;
+                }
+                Map<String,Object> params = new HashMap<>();
+                params.put("taskSubId",id);
+                params.put("operateStatus",alarmStatus+"");
+                params.put("inspectionAddress",address);
+                params.put("itemsJson",jsonArray.toString());
+                params.put("otherQuest",et_remark.getText().toString());
+                if (alarmStatus == 0){
+                    params.put("alarmLevel",tv_chose_alarm_level.getText().toString());
+                    params.put("alarmReason",et_alarm_remark.getText().toString().trim());
+                }
+
+                ApiClient.requestNetPost(StartInspectionDetailActivity.this, AppConfig.startInspectionInsert, "正在加载", params, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        new SimpleDialog.Builder(StartInspectionDetailActivity.this)
+                                .setMessage("提交成功")
+                                .setOnConfirmClickListener(new SimpleDialog.OnConfirmClickListener() {
+                                    @Override
+                                    public void onClick() {
+                                        finish();
+                                    }
+                                })
+                                .create().show(getSupportFragmentManager(),"SimpleDialog");
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
+                break;
+        }
+    }
+
+    public class MyViewHolder{
+        public LinearLayout root;
+        public TextView tv_must_fill;
+        public TextView name;
+        public TextView tv_chose;
+        public TextView et_content;
+
+        public MyViewHolder(View view) {
+            root = (LinearLayout) view.findViewById(R.id.ll_root);
+            tv_must_fill = (TextView) view.findViewById(R.id.tv_must_fill);
+            name = (TextView) view.findViewById(R.id.tv_name);
+            tv_chose = (TextView) view.findViewById(R.id.tv_chose);
+            et_content = (EditText) view.findViewById(R.id.et_content);
         }
     }
 }

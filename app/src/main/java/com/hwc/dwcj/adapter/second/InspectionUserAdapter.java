@@ -1,5 +1,6 @@
 package com.hwc.dwcj.adapter.second;
 
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,6 +36,8 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
         TextView tv_status = helper.getView(R.id.tv_status);
         TextView tv_status2 = helper.getView(R.id.tv_status2);
         TextView tv_status3 = helper.getView(R.id.tv_status3);
+        TextView tv_start = helper.getView(R.id.tv_start);
+        TextView tv_check = helper.getView(R.id.tv_check);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -60,7 +63,48 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
         pb_blue.setProgress(i);
         pb_red.setProgress(i);
 
+        switch (item.getInspectionStatus()){
+            case "0":
+                tv_status2.setText("待巡检");
+                tv_start.setVisibility(View.VISIBLE);
+                break;
+            case "1":
+                tv_status2.setText("巡检中");
+                tv_start.setVisibility(View.VISIBLE);
+                break;
+            case "2":
+                tv_status2.setText("已巡检-正常");
+                tv_start.setVisibility(View.GONE);
+                break;
+            case "3":
+                tv_status2.setText("已巡检-异常");
+                tv_start.setVisibility(View.GONE);
+                break;
+        }
 
+        switch (item.getCkeckType()){
+            case "0":
+//                tv_status3.setText("待审核");
+                tv_status3.setVisibility(View.GONE);
+                tv_check.setVisibility(View.VISIBLE);
+                break;
+            case "1":
+//                tv_status3.setText("待处理");
+                tv_status3.setText("待处理");
+                tv_status3.setVisibility(View.VISIBLE);
+                tv_check.setVisibility(View.GONE);
+                break;
+            case "2":
+                tv_status3.setText("审核已通过");
+                tv_status3.setVisibility(View.VISIBLE);
+                tv_check.setVisibility(View.GONE);
+                break;
+            case "3":
+                tv_status3.setText("审核已驳回");
+                tv_status3.setVisibility(View.VISIBLE);
+                tv_check.setVisibility(View.GONE);
+                break;
+        }
         //两个状态  一个是右上角是否巡检  进度条的颜色
         //第二个决定下方显示按键和状态文字
 

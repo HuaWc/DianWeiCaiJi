@@ -303,7 +303,7 @@ public class InspectionFragment extends BaseFragment {
                 //巡检详情，右上角有结果按钮
                 Bundle bundle = new Bundle();
                 bundle.putString("id", mList.get(position).getId());
-                toTheActivity(InspectionDetailActivity.class);
+                toTheActivity(InspectionDetailActivity.class,bundle);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -323,17 +323,18 @@ public class InspectionFragment extends BaseFragment {
                         break;
                     case R.id.tv_check:
                         //确认审核-->任务审核详情统览-->点击结果进入相机列表，查看单个相机的巡检信息
-                        toTheActivity(InspectionDetailAdminActivity.class, bundle);
+                        Bundle bundleCheck = new Bundle();
+                        bundleCheck.putString("id", mList.get(position).getId());
+                        toTheActivity(InspectionDetailAdminActivity.class, bundleCheck);
                         break;
                 }
             }
         });
         getSelectData();
-        getData(false);
+
     }
 
     private void getSelectData() {
-
         Map<String, Object> params = new HashMap<>();
         params.put("pageNum", 1);
         params.put("pageSize", 10);
@@ -375,6 +376,11 @@ public class InspectionFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(false);
+    }
 
     private void getData(boolean more) {
         if (more) {
