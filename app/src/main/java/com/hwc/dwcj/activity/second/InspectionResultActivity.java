@@ -59,7 +59,6 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
     private int pageIndex = 1;
     private int pageSize = 20;
     private String id;
-    private String searchTxt = "";
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -128,6 +127,7 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
         params.put("pageNum",pageIndex);
         params.put("pageSize",pageSize);
         params.put("taskId",id);
+        params.put("deviceRoomName",etSearch.getText().toString());
         ApiClient.requestNetPost(InspectionResultActivity.this, AppConfig.inspectionResultData, "正在加载", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -183,7 +183,6 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        searchTxt = charSequence.toString();
         if (TextUtils.isEmpty(etSearch.getText().toString())){
             mList.clear();
             getData();
