@@ -108,11 +108,6 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
                     if (!TextUtils.isEmpty(map.inspectionStatus) && map.inspectionStatus.equals("待巡检")){
                         Bundle bundle = new Bundle();
                         bundle.putString("id",mList.get(position).id);
-                        bundle.putString("devName",map.devName);
-                        bundle.putString("groupName",map.groupName);
-                        bundle.putString("ip",map.ip);
-                        bundle.putString("positionCode",map.positionCode);
-                        bundle.putString("memberbarCode",map.memberbarCode);
                         toTheActivity(StartInspectionDetailActivity.class,bundle);
                     }
                 }

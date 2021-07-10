@@ -61,6 +61,8 @@ public class StartInspectionDetailActivity extends BaseActivity {
     TextView tv_ip;
     @BindView(R.id.tv_position_code)
     TextView tv_position_code;
+    @BindView(R.id.tv_type)
+    TextView tv_type;
     @BindView(R.id.ll_container)
     LinearLayout ll_container;
     @BindView(R.id.tv_address)
@@ -73,11 +75,6 @@ public class StartInspectionDetailActivity extends BaseActivity {
     EditText et_alarm_remark;
 
     private String id = "";
-    private String devName = "";
-    private String groupName = "";
-    private String ip = "";
-    private String positionCode = "";
-    private String memberbarCode = "";
     private String address = "";
     private int alarmStatus = 1;//运行状态(0:异常，1:正常)
 
@@ -98,17 +95,7 @@ public class StartInspectionDetailActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             id = bundle.getString("id");
-            devName = bundle.getString("devName");
-            groupName = bundle.getString("groupName");
-            ip = bundle.getString("ip");
-            positionCode = bundle.getString("positionCode");
-            memberbarCode = bundle.getString("memberbarCode");
         }
-
-        tv_group_name.setText(groupName);
-        tv_dev_name.setText(devName);
-        tv_ip.setText(ip);
-        tv_position_code.setText(positionCode);
 
         getData();
     }
@@ -121,6 +108,13 @@ public class StartInspectionDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 InspectionDetailDTO inspectionDetailDTO = new Gson().fromJson(json, InspectionDetailDTO.class);
+
+                tv_group_name.setText(inspectionDetailDTO.orgName);
+                tv_dev_name.setText(inspectionDetailDTO.devName);
+                tv_ip.setText(inspectionDetailDTO.ip);
+                tv_position_code.setText(inspectionDetailDTO.positionCode);
+                tv_type.setText(inspectionDetailDTO.cameraType);
+
                 inspectionInfoList = inspectionDetailDTO.itemList;
 
                 for (int i=0;i<inspectionInfoList.size();i++){
