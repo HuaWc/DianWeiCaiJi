@@ -66,53 +66,85 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
 
         String myId = MyApplication.getInstance().getUserInfo().getId();
 
-        switch (item.getCkeckType()){
-            case "0":
-                //待审核
-                tv_status3.setVisibility(View.GONE);
-                break;
-            case "1":
-//                tv_status3.setText("待处理");
-                tv_status3.setText("待处理");
-                tv_status3.setVisibility(View.VISIBLE);
-                break;
-            case "2":
-                tv_status3.setText("审核已通过");
-                tv_status3.setVisibility(View.VISIBLE);
-                break;
-            case "3":
-                tv_status3.setText("审核已驳回");
-                tv_status3.setVisibility(View.VISIBLE);
-                break;
-        }
-
         switch (item.getInspectionStatus()){
             case "0":
                 tv_status2.setText("待巡检");
                 tv_start.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
+                tv_status3.setVisibility(View.GONE);
                 break;
             case "1":
                 tv_status2.setText("巡检中");
                 tv_start.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
+                tv_status3.setVisibility(View.GONE);
                 break;
             case "2":
                 tv_status2.setText("已巡检-正常");
                 tv_start.setVisibility(View.GONE);
-                if (!myId.equals(item.getInspectionId())){
-                    tv_check.setVisibility(View.GONE);
-                }else {
-                    tv_check.setVisibility(View.VISIBLE);
+                switch (item.getCkeckType()){
+                    case "0":
+                        //待审核
+                        if (myId.equals(item.getInspectionId())){
+                            tv_check.setVisibility(View.VISIBLE);
+                            tv_status3.setVisibility(View.GONE);
+                        }else {
+                            tv_status3.setText("待审核");
+                            tv_check.setVisibility(View.GONE);
+                            tv_status3.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case "1":
+                        tv_status3.setText("待处理");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    case "2":
+                        tv_status3.setText("审核已通过");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    case "3":
+                        tv_status3.setText("审核已驳回");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
                 }
                 break;
             case "3":
                 tv_status2.setText("已巡检-异常");
                 tv_start.setVisibility(View.GONE);
-                if (!myId.equals(item.getRuleId())){
-                    tv_check.setVisibility(View.GONE);
-                }else {
-                    tv_check.setVisibility(View.VISIBLE);
+                switch (item.getCkeckType()){
+                    case "0":
+                        //待审核
+                        if (myId.equals(item.getInspectionId())){
+                            tv_check.setVisibility(View.VISIBLE);
+                            tv_status3.setVisibility(View.GONE);
+                        }else {
+                            tv_status3.setText("待审核");
+                            tv_check.setVisibility(View.GONE);
+                            tv_status3.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case "1":
+                        tv_status3.setText("待处理");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    case "2":
+                        tv_status3.setText("审核已通过");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    case "3":
+                        tv_status3.setText("审核已驳回");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        tv_check.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
                 }
                 break;
         }
