@@ -24,10 +24,11 @@ import com.hwc.dwcj.activity.second.StartInspectionActivity;
 import com.hwc.dwcj.adapter.second.InspectionUserAdapter;
 import com.hwc.dwcj.base.BaseFragment;
 import com.hwc.dwcj.base.MyApplication;
-import com.hwc.dwcj.entity.second.InspectionOption;
+import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.InspectionUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.PickerViewUtils;
@@ -86,11 +87,11 @@ public class InspectionFragment extends BaseFragment {
     private InspectionUserAdapter adapter;
     private int page = 1;
     private int pageSize = 10;
-    private List<InspectionOption> statusList;
+    private List<DictInfo> statusList;
     private List<String> statusStrOptions;
-    private List<InspectionOption> urgentList;
+    private List<DictInfo> urgentList;
     private List<String> urgentStrOptions;
-    private List<InspectionOption> overtimeList;
+    private List<DictInfo> overtimeList;
     private List<String> overtimeStrOptions;
 
 
@@ -330,48 +331,51 @@ public class InspectionFragment extends BaseFragment {
                 }
             }
         });
-        getSelectData();
+        getList1();
+        getList2();
+        getList3();
 
     }
 
-    private void getSelectData() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("pageNum", 1);
-        params.put("pageSize", 10);
-        ApiClient.requestNetPost(getContext(), AppConfig.inspectionInfoList, "", params, new ResultListener() {
+    private void getList1(){
+        GetDictDataHttp.getDictData(getContext(), "OP_INSPECTION_STATUS", new GetDictDataHttp.GetDictDataResult() {
             @Override
-            public void onSuccess(String json, String msg) {
-                List<InspectionOption> list1 = FastJsonUtil.getList(FastJsonUtil.getString(json, "opInspectionList"), InspectionOption.class);
-                List<InspectionOption> list2 = FastJsonUtil.getList(FastJsonUtil.getString(json, "urgentTypeList"), InspectionOption.class);
-                List<InspectionOption> list3 = FastJsonUtil.getList(FastJsonUtil.getString(json, "opOvertimeList"), InspectionOption.class);
-                if (list1 != null) {
-                    statusList.addAll(list1);
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    statusList.addAll(list);
                     statusStrOptions.add("全部");
-                    for (InspectionOption op : list1) {
+                    for (DictInfo op : list) {
                         statusStrOptions.add(op.getDataName());
                     }
                 }
-                if (list2 != null) {
-                    urgentList.addAll(list2);
+            }
+        });
+    }
+    private void getList2(){
+        GetDictDataHttp.getDictData(getContext(), "URGENT_TYPE", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    urgentList.addAll(list);
                     urgentStrOptions.add("全部");
-                    for (InspectionOption op : list2) {
+                    for (DictInfo op : list) {
                         urgentStrOptions.add(op.getDataName());
                     }
                 }
-
-                if (list3 != null) {
-                    overtimeList.addAll(list3);
+            }
+        });
+    }
+    private void getList3(){
+        GetDictDataHttp.getDictData(getContext(), "OP_OVERTIME", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    overtimeList.addAll(list);
                     overtimeStrOptions.add("全部");
-                    for (InspectionOption op : list3) {
+                    for (DictInfo op : list) {
                         overtimeStrOptions.add(op.getDataName());
                     }
                 }
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
             }
         });
     }

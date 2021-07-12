@@ -430,7 +430,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
                 //到新页面吧
                 Bundle bundle = new Bundle();
                 bundle.putString("faultId", id);
-                toTheActivity(SelectChangeAssetActivity.class);
+                toTheActivity(SelectChangeAssetActivity.class,bundle);
 
             }
         });

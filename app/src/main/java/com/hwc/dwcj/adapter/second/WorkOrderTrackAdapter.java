@@ -79,9 +79,17 @@ public class WorkOrderTrackAdapter extends BaseQuickAdapter<WorkOrderTrackInfo, 
         } else {
             down.setVisibility(View.VISIBLE);
         }
+
+        StringBuilder sb = new StringBuilder();
+        if (mData.indexOf(item) == 0) {
+            sb.append("告警来源：");
+        } else {
+            sb.append("处理人：");
+        }
+        sb.append(StringUtil.isEmpty(item.getAlarmSourceOrPersonName()) ? "" : item.getAlarmSourceOrPersonName());
         helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getAlarmStep()) ? "" : item.getAlarmStep())
                 .setText(R.id.tv_time, StringUtil.isEmpty(item.getHandleTime()) ? "" : item.getHandleTime())
-                .setText(R.id.tv_people, "处理人：" + (StringUtil.isEmpty(item.getAlarmSourceOrPersonName()) ? "" : item.getAlarmSourceOrPersonName()))
+                .setText(R.id.tv_people, sb)
                 .setText(R.id.tv_phone, "联系电话：" + (StringUtil.isEmpty(item.getTel()) ? "" : item.getTel()))
                 .setText(R.id.tv_f1, "处置内容：" + (StringUtil.isEmpty(item.getAlarmName()) ? "" : item.getAlarmName()))
                 .setText(R.id.tv_f2, "处置思路：" + (StringUtil.isEmpty(item.getHandleMethod()) ? "" : item.getHandleMethod()))

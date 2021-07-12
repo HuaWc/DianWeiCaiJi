@@ -14,7 +14,7 @@ public class AssetEquipment {
     private Object assetSnCode;
     private String assetCode;
     private String assetName;
-    private Object assetPinyin;
+    private String assetPinyin;
     private Object assetDesc;
     private Object uint;
     private String assetType;
@@ -23,7 +23,7 @@ public class AssetEquipment {
     private String deviceBrand;
     private String orgType;
     private String deviceStatus;
-    private String operationIp;
+    private Object operationIp;
     private String manageIp;
     private String orgId;
     private Object company;
@@ -41,23 +41,23 @@ public class AssetEquipment {
     private Object orderValue;
     private Object checkTime;
     private Object mainStatus;
-    private String mainBeginTime;
+    private Object mainBeginTime;
     private String mainTime;
-    private String mainEndTime;
+    private Object mainEndTime;
     private String mainPersionId;
     private String mainPersionTell;
     private Object addId;
-    private String addTime;
-    private Object modifyId;
+    private Object addTime;
+    private String modifyId;
     private Object modifyTime;
     private int isDel;
     private Object exp1;
     private String exp2;
     private Object exp3;
     private String verifyStatus;
-    private Object verifyPersionId;
+    private String verifyPersionId;
     private String assetUses;
-    private Object assetMac;
+    private String assetMac;
     private Map map;
 
     public String getId() {
@@ -108,11 +108,11 @@ public class AssetEquipment {
         this.assetName = assetName;
     }
 
-    public Object getAssetPinyin() {
+    public String getAssetPinyin() {
         return assetPinyin;
     }
 
-    public void setAssetPinyin(Object assetPinyin) {
+    public void setAssetPinyin(String assetPinyin) {
         this.assetPinyin = assetPinyin;
     }
 
@@ -180,11 +180,11 @@ public class AssetEquipment {
         this.deviceStatus = deviceStatus;
     }
 
-    public String getOperationIp() {
+    public Object getOperationIp() {
         return operationIp;
     }
 
-    public void setOperationIp(String operationIp) {
+    public void setOperationIp(Object operationIp) {
         this.operationIp = operationIp;
     }
 
@@ -324,11 +324,11 @@ public class AssetEquipment {
         this.mainStatus = mainStatus;
     }
 
-    public String getMainBeginTime() {
+    public Object getMainBeginTime() {
         return mainBeginTime;
     }
 
-    public void setMainBeginTime(String mainBeginTime) {
+    public void setMainBeginTime(Object mainBeginTime) {
         this.mainBeginTime = mainBeginTime;
     }
 
@@ -340,11 +340,11 @@ public class AssetEquipment {
         this.mainTime = mainTime;
     }
 
-    public String getMainEndTime() {
+    public Object getMainEndTime() {
         return mainEndTime;
     }
 
-    public void setMainEndTime(String mainEndTime) {
+    public void setMainEndTime(Object mainEndTime) {
         this.mainEndTime = mainEndTime;
     }
 
@@ -372,19 +372,19 @@ public class AssetEquipment {
         this.addId = addId;
     }
 
-    public String getAddTime() {
+    public Object getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(String addTime) {
+    public void setAddTime(Object addTime) {
         this.addTime = addTime;
     }
 
-    public Object getModifyId() {
+    public String getModifyId() {
         return modifyId;
     }
 
-    public void setModifyId(Object modifyId) {
+    public void setModifyId(String modifyId) {
         this.modifyId = modifyId;
     }
 
@@ -436,11 +436,11 @@ public class AssetEquipment {
         this.verifyStatus = verifyStatus;
     }
 
-    public Object getVerifyPersionId() {
+    public String getVerifyPersionId() {
         return verifyPersionId;
     }
 
-    public void setVerifyPersionId(Object verifyPersionId) {
+    public void setVerifyPersionId(String verifyPersionId) {
         this.verifyPersionId = verifyPersionId;
     }
 
@@ -452,11 +452,11 @@ public class AssetEquipment {
         this.assetUses = assetUses;
     }
 
-    public Object getAssetMac() {
+    public String getAssetMac() {
         return assetMac;
     }
 
-    public void setAssetMac(Object assetMac) {
+    public void setAssetMac(String assetMac) {
         this.assetMac = assetMac;
     }
 
@@ -469,20 +469,20 @@ public class AssetEquipment {
     }
 
     public static class Map {
-        private String deviceModleValue;
+        private Object deviceModleValue;
         private String assetTypeValue;
         private String verifyStatusValue;
         private String assetNatureValue;
-        private String deviceBrandValue;
+        private Object deviceBrandValue;
         private String org_name;
         private String assetClassValue;
         private String deviceStatusValue;
 
-        public String getDeviceModleValue() {
+        public Object getDeviceModleValue() {
             return deviceModleValue;
         }
 
-        public void setDeviceModleValue(String deviceModleValue) {
+        public void setDeviceModleValue(Object deviceModleValue) {
             this.deviceModleValue = deviceModleValue;
         }
 
@@ -510,11 +510,11 @@ public class AssetEquipment {
             this.assetNatureValue = assetNatureValue;
         }
 
-        public String getDeviceBrandValue() {
+        public Object getDeviceBrandValue() {
             return deviceBrandValue;
         }
 
-        public void setDeviceBrandValue(String deviceBrandValue) {
+        public void setDeviceBrandValue(Object deviceBrandValue) {
             this.deviceBrandValue = deviceBrandValue;
         }
 

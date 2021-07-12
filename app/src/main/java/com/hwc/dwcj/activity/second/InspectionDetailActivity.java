@@ -22,6 +22,7 @@ import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.FullyLinearLayoutManager;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -125,7 +126,7 @@ public class InspectionDetailActivity extends BaseActivity {
                 tv_object.setText(inspectionManageDetailDTO.map.groupName);
                 tv_inspection_status.setText(inspectionManageDetailDTO.map.inspectionStatus);
                 tv_timeout_status.setText(inspectionManageDetailDTO.map.overtimeStatus);
-                tv_task_start_time.setText(inspectionManageDetailDTO.taskTimeStart);
+                tv_task_start_time.setText(StringUtil.dealDateFormat(inspectionManageDetailDTO.taskTimeStart));
                 tv_task_end_time.setText(inspectionManageDetailDTO.taskTimeEnd);
                 tv_inspection_sum.setText(inspectionManageDetailDTO.inspectionSum);
                 tv_inspection_already.setText(inspectionManageDetailDTO.map.inspectionSumNow);

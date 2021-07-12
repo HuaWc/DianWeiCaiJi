@@ -10,11 +10,15 @@ import android.widget.TextView;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
+import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.ChangeUser;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.EventUtil;
+import com.hwc.dwcj.util.PickerViewUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
@@ -23,8 +27,10 @@ import com.zds.base.util.StringUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -70,9 +76,16 @@ public class ChangeResultDetailActivity extends BaseActivity {
     EditText etReport;
     @BindView(R.id.tv_reason)
     TextView tvReason;
+    @BindView(R.id.tv_old_status)
+    TextView tvOldStatus;
+    @BindView(R.id.tv_new_status)
+    TextView tvNewStatus;
 
     private String id;
     private ChangeUser info;
+    private List<String> statusOptions;
+    private List<DictInfo> statusList;
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -84,8 +97,25 @@ public class ChangeResultDetailActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
+        statusOptions = new ArrayList<>();
+        statusList = new ArrayList<>();
+        getStatusData();
         getData();
         tvPeople.setText(MyApplication.getInstance().getUserInfo().getRealName());
+    }
+
+    private void getStatusData(){
+        GetDictDataHttp.getDictData(this, "OP_ASSET_STATUS", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if(list != null){
+                    statusList.addAll(list);
+                    for(DictInfo d:list){
+                        statusOptions.add(d.getDataName());
+                    }
+                }
+            }
+        });
     }
 
     private void initClick() {
@@ -101,10 +131,25 @@ public class ChangeResultDetailActivity extends BaseActivity {
                 submit();
             }
         });
+        tvNewStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(statusOptions == null || statusOptions.size() ==0){
+                    ToastUtil.toast("选项数据获取失败！");
+                    return;
+                }
+                PickerViewUtils.selectOptions(ChangeResultDetailActivity.this, "资产状态", statusOptions, null, null, new PickerViewSelectOptionsResult() {
+                    @Override
+                    public void getOptionsResult(int options1, int options2, int options3) {
+                        tvNewStatus.setText(statusOptions.get(options1));
+                    }
+                });
+            }
+        });
     }
 
     private void submit() {
-        if (StringUtil.isEmpty(etNewIp.getText().toString().trim()) && StringUtil.isEmpty(etNewName.getText().toString().trim()) && StringUtil.isEmpty(etNewJg.getText().toString().trim())) {
+        if (StringUtil.isEmpty(etNewIp.getText().toString().trim()) && StringUtil.isEmpty(etNewName.getText().toString().trim()) && StringUtil.isEmpty(etNewJg.getText().toString().trim())&& StringUtil.isEmpty(tvNewStatus.getText().toString().trim())) {
             ToastUtil.toast("请至少填写一项变更值！");
             return;
         }
@@ -127,6 +172,9 @@ public class ChangeResultDetailActivity extends BaseActivity {
         }
         if (!StringUtil.isEmpty(etNewJg.getText().toString().trim())) {
             c.setAssetOrgidChanged(etNewJg.getText().toString().trim());
+        }
+        if (!StringUtil.isEmpty(tvNewStatus.getText().toString().trim())) {
+            c.setAssetStatusChanged(tvNewStatus.getText().toString().trim());
         }
         ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", FastJsonUtil.toJSONString(c), new ResultListener() {
             @Override
@@ -172,6 +220,8 @@ public class ChangeResultDetailActivity extends BaseActivity {
         tvOldName.setText(StringUtil.isEmpty(info.getAssetName()) ? "" : info.getAssetName());
         tvOldIp.setText(StringUtil.isEmpty(info.getAssetIp()) ? "" : info.getAssetIp());
         tvOldJg.setText(StringUtil.isEmpty(info.getAssetOrgid()) ? "" : info.getAssetOrgid());
+        tvOldStatus.setText(StringUtil.isEmpty(info.getAssetStatus()) ? "" : info.getAssetStatus());
+
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
 
     }

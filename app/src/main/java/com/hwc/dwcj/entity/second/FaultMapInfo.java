@@ -31,17 +31,17 @@ public class FaultMapInfo {
     private String verifyTime;
     private String addId;
     private String addTime;
-    private Object modifyId;
-    private Object modifyTime;
+    private String modifyId;
+    private String modifyTime;
     private int isDel;
     private String exp1;
-    private Object exp2;
-    private Object exp3;
+    private String exp2;
+    private String exp3;
     private String alarmTime;
-    private Object faultType;
+    private String faultType;
     private String closedLoopStatus;
     private String serviceRating;
-    private Object cameraFaultType;
+    private String cameraFaultType;
     private String remark2;
     private String remarkLog;
     private String serviceRating2;
@@ -217,19 +217,19 @@ public class FaultMapInfo {
         this.addTime = addTime;
     }
 
-    public Object getModifyId() {
+    public String getModifyId() {
         return modifyId;
     }
 
-    public void setModifyId(Object modifyId) {
+    public void setModifyId(String modifyId) {
         this.modifyId = modifyId;
     }
 
-    public Object getModifyTime() {
+    public String getModifyTime() {
         return modifyTime;
     }
 
-    public void setModifyTime(Object modifyTime) {
+    public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
     }
 
@@ -249,19 +249,19 @@ public class FaultMapInfo {
         this.exp1 = exp1;
     }
 
-    public Object getExp2() {
+    public String getExp2() {
         return exp2;
     }
 
-    public void setExp2(Object exp2) {
+    public void setExp2(String exp2) {
         this.exp2 = exp2;
     }
 
-    public Object getExp3() {
+    public String getExp3() {
         return exp3;
     }
 
-    public void setExp3(Object exp3) {
+    public void setExp3(String exp3) {
         this.exp3 = exp3;
     }
 
@@ -273,11 +273,11 @@ public class FaultMapInfo {
         this.alarmTime = alarmTime;
     }
 
-    public Object getFaultType() {
+    public String getFaultType() {
         return faultType;
     }
 
-    public void setFaultType(Object faultType) {
+    public void setFaultType(String faultType) {
         this.faultType = faultType;
     }
 
@@ -297,11 +297,11 @@ public class FaultMapInfo {
         this.serviceRating = serviceRating;
     }
 
-    public Object getCameraFaultType() {
+    public String getCameraFaultType() {
         return cameraFaultType;
     }
 
-    public void setCameraFaultType(Object cameraFaultType) {
+    public void setCameraFaultType(String cameraFaultType) {
         this.cameraFaultType = cameraFaultType;
     }
 
@@ -356,47 +356,30 @@ public class FaultMapInfo {
     public static class Map {
         private String handleStatusName;
         private String assetNature;
-        private String assetCode;
-        private String orgName;
-        private String alarmGradeName;
         private String assetNatureName;
-        private String alarmTime;
         private String assetTypeName;
         private String positionCode;
         private String assetClass;
-        private String assetType;
         private String deviceStatus;
-        private String verifyStatusName;
         private String selectAssetType;
         private String orgType;
-        private String timeoutTime;
         private String alarmSourceName;
+        private String deviceStatusName;
+        private String assetClassName;
+        private String handlePersionName;
+        private String assetCode;
+        private String orgName;
+        private String alarmGradeName;
+        private String alarmTime;
+        private String verifyPersonName;
+        private String assetType;
+        private String verifyStatusName;
+        private String closedLoopStatusName;
+        private String timeoutTime;
         private String manageIp;
         @SerializedName("FaultTime")
         private double faultTime;
         private String assetName;
-        private String assetClassName;
-        private String handlePersionName;
-
-        private String closedLoopStatusName;
-
-        private String deviceStatusName;
-
-        public String getDeviceStatusName() {
-            return deviceStatusName;
-        }
-
-        public void setDeviceStatusName(String deviceStatusName) {
-            this.deviceStatusName = deviceStatusName;
-        }
-
-        public String getClosedLoopStatusName() {
-            return closedLoopStatusName;
-        }
-
-        public void setClosedLoopStatusName(String closedLoopStatusName) {
-            this.closedLoopStatusName = closedLoopStatusName;
-        }
 
         public String getHandleStatusName() {
             return handleStatusName;
@@ -414,44 +397,12 @@ public class FaultMapInfo {
             this.assetNature = assetNature;
         }
 
-        public String getAssetCode() {
-            return assetCode;
-        }
-
-        public void setAssetCode(String assetCode) {
-            this.assetCode = assetCode;
-        }
-
-        public String getOrgName() {
-            return orgName;
-        }
-
-        public void setOrgName(String orgName) {
-            this.orgName = orgName;
-        }
-
-        public String getAlarmGradeName() {
-            return alarmGradeName;
-        }
-
-        public void setAlarmGradeName(String alarmGradeName) {
-            this.alarmGradeName = alarmGradeName;
-        }
-
         public String getAssetNatureName() {
             return assetNatureName;
         }
 
         public void setAssetNatureName(String assetNatureName) {
             this.assetNatureName = assetNatureName;
-        }
-
-        public String getAlarmTime() {
-            return alarmTime;
-        }
-
-        public void setAlarmTime(String alarmTime) {
-            this.alarmTime = alarmTime;
         }
 
         public String getAssetTypeName() {
@@ -478,28 +429,12 @@ public class FaultMapInfo {
             this.assetClass = assetClass;
         }
 
-        public String getAssetType() {
-            return assetType;
-        }
-
-        public void setAssetType(String assetType) {
-            this.assetType = assetType;
-        }
-
         public String getDeviceStatus() {
             return deviceStatus;
         }
 
         public void setDeviceStatus(String deviceStatus) {
             this.deviceStatus = deviceStatus;
-        }
-
-        public String getVerifyStatusName() {
-            return verifyStatusName;
-        }
-
-        public void setVerifyStatusName(String verifyStatusName) {
-            this.verifyStatusName = verifyStatusName;
         }
 
         public String getSelectAssetType() {
@@ -518,20 +453,108 @@ public class FaultMapInfo {
             this.orgType = orgType;
         }
 
-        public String getTimeoutTime() {
-            return timeoutTime;
-        }
-
-        public void setTimeoutTime(String timeoutTime) {
-            this.timeoutTime = timeoutTime;
-        }
-
         public String getAlarmSourceName() {
             return alarmSourceName;
         }
 
         public void setAlarmSourceName(String alarmSourceName) {
             this.alarmSourceName = alarmSourceName;
+        }
+
+        public String getDeviceStatusName() {
+            return deviceStatusName;
+        }
+
+        public void setDeviceStatusName(String deviceStatusName) {
+            this.deviceStatusName = deviceStatusName;
+        }
+
+        public String getAssetClassName() {
+            return assetClassName;
+        }
+
+        public void setAssetClassName(String assetClassName) {
+            this.assetClassName = assetClassName;
+        }
+
+        public String getHandlePersionName() {
+            return handlePersionName;
+        }
+
+        public void setHandlePersionName(String handlePersionName) {
+            this.handlePersionName = handlePersionName;
+        }
+
+        public String getAssetCode() {
+            return assetCode;
+        }
+
+        public void setAssetCode(String assetCode) {
+            this.assetCode = assetCode;
+        }
+
+        public String getOrgName() {
+            return orgName;
+        }
+
+        public void setOrgName(String orgName) {
+            this.orgName = orgName;
+        }
+
+        public String getAlarmGradeName() {
+            return alarmGradeName;
+        }
+
+        public void setAlarmGradeName(String alarmGradeName) {
+            this.alarmGradeName = alarmGradeName;
+        }
+
+        public String getAlarmTime() {
+            return alarmTime;
+        }
+
+        public void setAlarmTime(String alarmTime) {
+            this.alarmTime = alarmTime;
+        }
+
+        public String getVerifyPersonName() {
+            return verifyPersonName;
+        }
+
+        public void setVerifyPersonName(String verifyPersonName) {
+            this.verifyPersonName = verifyPersonName;
+        }
+
+        public String getAssetType() {
+            return assetType;
+        }
+
+        public void setAssetType(String assetType) {
+            this.assetType = assetType;
+        }
+
+        public String getVerifyStatusName() {
+            return verifyStatusName;
+        }
+
+        public void setVerifyStatusName(String verifyStatusName) {
+            this.verifyStatusName = verifyStatusName;
+        }
+
+        public String getClosedLoopStatusName() {
+            return closedLoopStatusName;
+        }
+
+        public void setClosedLoopStatusName(String closedLoopStatusName) {
+            this.closedLoopStatusName = closedLoopStatusName;
+        }
+
+        public String getTimeoutTime() {
+            return timeoutTime;
+        }
+
+        public void setTimeoutTime(String timeoutTime) {
+            this.timeoutTime = timeoutTime;
         }
 
         public String getManageIp() {
@@ -556,22 +579,6 @@ public class FaultMapInfo {
 
         public void setAssetName(String assetName) {
             this.assetName = assetName;
-        }
-
-        public String getAssetClassName() {
-            return assetClassName;
-        }
-
-        public void setAssetClassName(String assetClassName) {
-            this.assetClassName = assetClassName;
-        }
-
-        public String getHandlePersionName() {
-            return handlePersionName;
-        }
-
-        public void setHandlePersionName(String handlePersionName) {
-            this.handlePersionName = handlePersionName;
         }
     }
 }

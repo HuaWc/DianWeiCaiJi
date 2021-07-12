@@ -87,6 +87,10 @@ public class ChangeDetailAdminActivity extends BaseActivity {
     TextView tvCszt;
     @BindView(R.id.tv_remark)
     TextView tvRemark;
+    @BindView(R.id.tv_zt_old)
+    TextView tvZtOld;
+    @BindView(R.id.tv_zt_new)
+    TextView tvZtNew;
 
     private String id;
     private ChangeUser info;
@@ -197,10 +201,12 @@ public class ChangeDetailAdminActivity extends BaseActivity {
         tvNameOld.setText(StringUtil.isEmpty(info.getAssetName()) ? "" : info.getAssetName());
         tvIpOld.setText(StringUtil.isEmpty(info.getAssetIp()) ? "" : info.getAssetIp());
         tvJgOld.setText(StringUtil.isEmpty(info.getAssetOrgid()) ? "" : info.getAssetOrgid());
+        tvZtOld.setText(StringUtil.isEmpty(info.getAssetStatus()) ? "" : info.getAssetStatus());
 
         tvNameNew.setText(StringUtil.isEmpty(info.getAssetNameChanged()) ? "" : info.getAssetNameChanged());
         tvIpNew.setText(StringUtil.isEmpty(info.getAssetIpChanged()) ? "" : info.getAssetIpChanged());
         tvJgNew.setText(StringUtil.isEmpty(info.getAssetOrgidChanged()) ? "" : info.getAssetOrgidChanged());
+        tvZtNew.setText(StringUtil.isEmpty(info.getAssetStatusChanged()) ? "" : info.getAssetStatusChanged());
 
         tvAddName.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         switch (info.getChangeStatus()) {

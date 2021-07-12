@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.DictInfo;
+import com.hwc.dwcj.entity.second.FaultAssetInfo;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -118,9 +119,21 @@ public class WorkOrderDetailActivity extends BaseActivity {
     TextView tv39;
     @BindView(R.id.tv40)
     TextView tv40;
+    @BindView(R.id.tv_s1)
+    TextView tvS1;
+    @BindView(R.id.tv_s2)
+    TextView tvS2;
+    @BindView(R.id.tv_s3)
+    TextView tvS3;
+    @BindView(R.id.tv_s4)
+    TextView tvS4;
+    @BindView(R.id.ll_agree_part)
+    LinearLayout llAgreePart;
 
     private String id;
     private FaultMapInfo info;
+    private FaultAssetInfo asset;
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -142,6 +155,8 @@ public class WorkOrderDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 info = FastJsonUtil.getObject(FastJsonUtil.getString(json, "OpFaultInfoModel"), FaultMapInfo.class);
+                asset = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ofia"), FaultAssetInfo.class);
+
                 initData();
             }
 
@@ -189,7 +204,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
 
         if (info.getExp1() != null) {
             getStatus();
-        } else{
+        } else {
             llChangePart.setVisibility(View.GONE);
         }
         tv30.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());
@@ -201,18 +216,24 @@ public class WorkOrderDetailActivity extends BaseActivity {
         tv40.setText(StringUtil.isEmpty(info.getRemarkLog()) ? "" : info.getRemarkLog());
         tv35.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());
 
-        if (!StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ){
-            if ( info.getMap().getVerifyStatusName().equals("审核通过")) {
+        if (!StringUtil.isEmpty(info.getMap().getVerifyStatusName())) {
+            if (info.getMap().getVerifyStatusName().equals("审核通过")) {
                 //通过 有分数
-                //tv38.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());//分数
+                llAgreePart.setVisibility(View.VISIBLE);
+                tv39.setVisibility(View.GONE);
+                tvS1.setText(StringUtil.isEmpty(info.getServiceRating()) ? "" : info.getServiceRating());
+                tvS2.setText(StringUtil.isEmpty(info.getServiceRating2()) ? "" : info.getServiceRating2());
+                tvS3.setText(StringUtil.isEmpty(info.getServiceRating3()) ? "" : info.getServiceRating3());
+                tvS4.setText(StringUtil.isEmpty(info.getServiceRating4()) ? "" : info.getServiceRating4());
             } else {
-                //tv39.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());//审批理由
+                llAgreePart.setVisibility(View.GONE);
+                tv39.setVisibility(View.VISIBLE);
+                tv39.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());//审批理由
 
             }
-            //tv36.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());//审核人
-            //tv37.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());//审核时间
+            tv36.setText(StringUtil.isEmpty(info.getMap().getVerifyPersonName()) ? "" : info.getMap().getVerifyPersonName());//审核人
+            tv37.setText(StringUtil.isEmpty(info.getVerifyTime()) ? "" : StringUtil.dealDateFormat(info.getVerifyTime()));//审核时间
         }
-
 
 
     }
@@ -234,8 +255,8 @@ public class WorkOrderDetailActivity extends BaseActivity {
                         tv25.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
                         tv26.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());
                         tv27.setText(StringUtil.isEmpty(info.getMap().getDeviceStatusName()) ? "" : info.getMap().getDeviceStatusName());//原设备状态
-                        //tv28.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());//更换设备名称
-                        //tv29.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());//更换设备编号
+                        tv28.setText(StringUtil.isEmpty(asset.getMap().getNewAssetName()) ? "" : asset.getMap().getNewAssetName());//更换设备名称
+                        tv29.setText(StringUtil.isEmpty(asset.getMap().getNewAssetCode()) ? "" : asset.getMap().getNewAssetCode());//更换设备编号
 
 
                     } else {

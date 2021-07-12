@@ -21,6 +21,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.FullyLinearLayoutManager;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 
 import java.util.HashMap;
@@ -75,11 +76,6 @@ public class InspectionResultDetailActivity extends BaseActivity {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         initClick();
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            id = bundle.getString("id");
-        }
-
         getData();
     }
 
@@ -92,9 +88,9 @@ public class InspectionResultDetailActivity extends BaseActivity {
         });
     }
 
-    public void getData(){
-        Map<String,Object> params = new HashMap<>();
-        params.put("taskSubId",id);
+    public void getData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("taskSubId", id);
         ApiClient.requestNetPost(InspectionResultDetailActivity.this, AppConfig.inspectionResultDetail, "正在加载", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -109,9 +105,9 @@ public class InspectionResultDetailActivity extends BaseActivity {
                 tv_inspection_people.setText(inspectionResultDetailDTO.inspectionName);
                 tv_inspection_time.setText(inspectionResultDetailDTO.inspectionTime);
                 tv_address.setText(inspectionResultDetailDTO.address);
-                if (TextUtils.isEmpty(inspectionResultDetailDTO.otherQuestion)){
+                if (TextUtils.isEmpty(inspectionResultDetailDTO.otherQuestion)) {
                     tv_other_remark.setText("无");
-                }else {
+                } else {
                     tv_other_remark.setText(inspectionResultDetailDTO.otherQuestion);
                 }
 
@@ -130,7 +126,7 @@ public class InspectionResultDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
             }
         });
     }
@@ -142,6 +138,7 @@ public class InspectionResultDetailActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
+        id = extras.getString("id");
 
     }
 

@@ -106,7 +106,7 @@ public class SelectChangeAssetActivity extends BaseActivity {
         ApiClient.requestNetPost(this, AppConfig.getAssetList, "查询中", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<AssetEquipment> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), AssetEquipment.class);
+                List<AssetEquipment> list = FastJsonUtil.getList(json, AssetEquipment.class);
                 if (list != null && list.size() != 0) {
                     mList.addAll(list);
                 }

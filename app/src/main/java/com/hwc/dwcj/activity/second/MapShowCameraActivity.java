@@ -26,9 +26,21 @@ import com.github.dfqin.grantor.PermissionsUtil;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.DossierDetailActivity;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.TreeCamera;
+import com.hwc.dwcj.entity.second.MapInspectionCameraInfo;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.GDLocationUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +62,11 @@ public class MapShowCameraActivity extends BaseActivity {
     private Marker marker;
     private double latitude;
     private double longitude;
+    private String id;
+
+    private List<MapInspectionCameraInfo> mList;
+    private int positionChild;
+
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -93,6 +110,8 @@ public class MapShowCameraActivity extends BaseActivity {
             uiSettings.setZoomControlsEnabled(false);
             //mAMap.setOnMapLoadedListener(this);
 //            mAMap.setMyLocationEnabled(true);
+            mList = new ArrayList<>();
+            getData();
             PermissionsUtil.requestPermission(this, new PermissionListener() {
                 @Override
                 public void permissionGranted(@NonNull String[] permission) {
@@ -128,6 +147,56 @@ public class MapShowCameraActivity extends BaseActivity {
         }
     }
 
+    private void getData() {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("taskId", id);
+        ApiClient.requestNetGet(this, AppConfig.getInspectionCameList, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<MapInspectionCameraInfo> list = FastJsonUtil.getList(json, MapInspectionCameraInfo.class);
+                if (list != null) {
+                    mList.addAll(list);
+                    initCameraPoint();
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    private void initCameraPoint() {
+        if (mList.size() > 0) {
+            boolean haveMove = false;
+            positionChild = 1;
+            for (MapInspectionCameraInfo t : mList) {
+                if (StringUtil.isEmpty(t.getLatitude()) || StringUtil.isEmpty(t.getLongitude())) {
+                    positionChild++;
+                    continue;
+                }
+                if (!haveMove) {
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude())), 15, 0, 0));
+                    mAMap.moveCamera(cameraUpdate);//地图移向指定区域
+                    haveMove = true;
+                }
+                markerOption = new MarkerOptions();
+                LatLng l = new LatLng(Double.parseDouble(t.getLatitude()), Double.parseDouble(t.getLongitude()));
+                markerOption.position(l);
+                markerOption.title(t.getCameraName()).snippet("1".equals(t.getIsInspection()) ? "已巡检" : "未巡检");
+                markerOption.draggable(false);
+                markerOption.setFlat(true);//设置marker平贴地图效果
+                markerOption.icon("1".equals(t.getIsInspection()) ? BitmapDescriptorFactory.fromResource(R.mipmap.camera_point_icon) : BitmapDescriptorFactory.fromResource(R.mipmap.red_camera_point_icon));
+                markerOption.period(positionChild);
+                Marker marker = mAMap.addMarker(markerOption);
+                marker.showInfoWindow();
+                positionChild++;
+            }
+
+        }
+    }
+
     public void locate() {
         PermissionsUtil.requestPermission(this, new PermissionListener() {
             @Override
@@ -156,7 +225,7 @@ public class MapShowCameraActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        id = extras.getString("id");
     }
 
     @Override

@@ -392,7 +392,7 @@ public class AppConfig {
      * 巡检结果详情
      *
      * */
-    public static final String inspectionResultDetail = mainUrl + "v1/operation/ itemInfoDetail";
+    public static final String inspectionResultDetail = mainUrl + "v1/operation/itemInfoDetail";
 
     /*
      * 巡检任务审核接口
@@ -400,7 +400,10 @@ public class AppConfig {
      * */
     public static final String inspectionCheck = mainUrl + "v1/operation/checkinugAudit";
 
-
+    /**
+     * 巡检地图查看相机分布
+     */
+    public static final String getInspectionCameList = mainUrl + "v1/operation/getInspectionCameList";
 
 
 

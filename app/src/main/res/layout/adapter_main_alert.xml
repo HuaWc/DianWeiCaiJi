@@ -139,7 +139,7 @@
                 android:background="@drawable/bg_common_btn"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
-                android:text="进行评价"
+                android:text="评价"
                 android:textColor="#FFFFFF"
                 android:textSize="9sp" />
 

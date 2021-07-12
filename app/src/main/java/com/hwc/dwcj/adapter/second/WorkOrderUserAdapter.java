@@ -142,7 +142,7 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
         helper.addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_track);
 
         //处理
-        if ((userTypes.contains("4") && item.getHandlePersionId().equals(MyApplication.getInstance().getUserInfo().getId())) || userTypes.contains("1")) {
+        if ((userTypes.contains("4") && item.getMap().getHandle_person_id_zb().equals(MyApplication.getInstance().getUserInfo().getId())) || userTypes.contains("1")) {
             if ((StringUtil.isEmpty(item.getExp1()) || !item.getExp1().equals("QUESTION_REPORT"))
                     && (StringUtil.isEmpty(item.getMap().getHandleStatusZibiao()) || !item.getMap().getHandleStatusZibiao().equals("CHANGE_DEAL"))
                     && (item.getHandleStatus() != null && (item.getHandleStatus().equals("UN_DEAL") || item.getHandleStatus().equals("DEALING") || item.getHandleStatus().equals("HELP_DEAL") || item.getHandleStatus().equals("CHANGE_DEAL")))) {
