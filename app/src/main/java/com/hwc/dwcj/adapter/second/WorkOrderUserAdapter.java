@@ -33,9 +33,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
     protected void convert(BaseViewHolder helper, WorkOrderUser item) {
         View ll_main = helper.getView(R.id.ll_main);
         TextView tv_name = helper.getView(R.id.tv_name);
-        TextView tv_l = helper.getView(R.id.tv_l);
+/*        TextView tv_l = helper.getView(R.id.tv_l);
         TextView tv_ip = helper.getView(R.id.tv_ip);
-        TextView tv_r = helper.getView(R.id.tv_r);
+        TextView tv_r = helper.getView(R.id.tv_r);*/
         TextView tv_status = helper.getView(R.id.tv_status);
         TextView tv_time = helper.getView(R.id.tv_time);
         TextView tv_jg = helper.getView(R.id.tv_jg);
@@ -54,9 +54,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
                 case "red":
                     ll_main.setBackground(mContext.getResources().getDrawable(R.drawable.bg_work_order_item_red));
                     tv_name.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
+/*                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_ip.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));
+                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));*/
                     tv_status.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_time.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_jg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -65,9 +65,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
                 case "yellow":
                     ll_main.setBackground(mContext.getResources().getDrawable(R.drawable.bg_work_order_item_yellow));
                     tv_name.setTextColor(mContext.getResources().getColor(R.color.black));
-                    tv_l.setTextColor(mContext.getResources().getColor(R.color.black));
+/*                    tv_l.setTextColor(mContext.getResources().getColor(R.color.black));
                     tv_ip.setTextColor(mContext.getResources().getColor(R.color.black));
-                    tv_r.setTextColor(mContext.getResources().getColor(R.color.black));
+                    tv_r.setTextColor(mContext.getResources().getColor(R.color.black));*/
                     tv_status.setTextColor(mContext.getResources().getColor(R.color.black));
                     tv_time.setTextColor(mContext.getResources().getColor(R.color.black));
                     tv_jg.setTextColor(mContext.getResources().getColor(R.color.black));
@@ -76,9 +76,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
                 case "blue":
                     ll_main.setBackground(mContext.getResources().getDrawable(R.drawable.bg_work_order_item_blue));
                     tv_name.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
+/*                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_ip.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));
+                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));*/
                     tv_status.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_time.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_jg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -87,9 +87,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
                 case "green":
                     ll_main.setBackground(mContext.getResources().getDrawable(R.drawable.bg_work_order_item_green));
                     tv_name.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
+/*                    tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_ip.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));
+                    tv_r.setTextColor(mContext.getResources().getColor(R.color.white));*/
                     tv_status.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_time.setTextColor(mContext.getResources().getColor(R.color.white));
                     tv_jg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -99,9 +99,9 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
         } else {
             ll_main.setBackground(mContext.getResources().getDrawable(R.drawable.bg_work_order_item_blue));
             tv_name.setTextColor(mContext.getResources().getColor(R.color.white));
-            tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
+/*            tv_l.setTextColor(mContext.getResources().getColor(R.color.white));
             tv_ip.setTextColor(mContext.getResources().getColor(R.color.white));
-            tv_r.setTextColor(mContext.getResources().getColor(R.color.white));
+            tv_r.setTextColor(mContext.getResources().getColor(R.color.white));*/
             tv_status.setTextColor(mContext.getResources().getColor(R.color.white));
             tv_time.setTextColor(mContext.getResources().getColor(R.color.white));
             tv_jg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -117,24 +117,29 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
 
 
 
-        StringBuilder builder = new StringBuilder();
+        StringBuilder statusBuilder = new StringBuilder();
         if (!StringUtil.isEmpty(item.getMap().getHandleStatusName())) {
-            builder.append(item.getMap().getHandleStatusName());
+            statusBuilder.append(item.getMap().getHandleStatusName());
         }
-        if (builder.length() > 0) {
+        if (statusBuilder.length() > 0) {
             if (!StringUtil.isEmpty(item.getMap().getVerifyStatusName())) {
-                builder.append("-").append(item.getMap().getVerifyStatusName());
+                statusBuilder.append("-").append(item.getMap().getVerifyStatusName());
             }
         } else {
-            builder.append(item.getMap().getVerifyStatusName());
+            statusBuilder.append(item.getMap().getVerifyStatusName());
         }
 
-        helper.setText(R.id.tv_name, item.getAlarmName())
+        StringBuilder nameBuilder = new StringBuilder(item.getAlarmName());
+        if (!StringUtil.isEmpty(item.getMap().getManageIp())) {
+            nameBuilder.append("（").append(item.getMap().getManageIp()).append("）");
+        }
+
+
+        helper.setText(R.id.tv_name, nameBuilder.toString())
                 .setText(R.id.tv_time, StringUtil.isEmpty(item.getAddTime()) ? "" : StringUtil.dealDateFormat(item.getAddTime()))
-                .setText(R.id.tv_ip, item.getMap().getManageIp())
                 .setText(R.id.tv_jg, item.getMap().getAssetNatureName() + ">" + item.getMap().getAssetTypeName() + ">" + item.getMap().getAssetClassName())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
-                .setText(R.id.tv_status, builder.toString());
+                .setText(R.id.tv_status, statusBuilder.toString());
 
         //权限控制
         tv_look.setVisibility(View.VISIBLE);

@@ -1382,6 +1382,7 @@
                             android:gravity="center"
                             android:paddingVertical="5dp"
                             android:text=""
+                            android:singleLine="true"
                             android:textColor="#2196F3"
                             android:textSize="12sp" />
 
@@ -1390,6 +1391,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/border_table"
                             android:gravity="center"
+                            android:singleLine="true"
                             android:paddingVertical="5dp"
                             android:text=""
                             android:textColor="#333333"
@@ -1482,12 +1484,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="重复发生"
+                    android:visibility="gone"
                     android:textColor="#2196F3"
                     android:textSize="15sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <LinearLayout

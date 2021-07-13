@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.entity.DictInfo;
+import com.hwc.dwcj.entity.second.FaultAssetInfo;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.EventUtil;
 import com.zds.base.Toast.ToastUtil;
@@ -24,6 +27,7 @@ import com.zds.base.util.StringUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -131,9 +135,29 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     LinearLayout llBtn;
     @BindView(R.id.tv_pd_remark)
     TextView tvPdRemark;
+    @BindView(R.id.tv24)
+    TextView tv24;
+    @BindView(R.id.tv25)
+    TextView tv25;
+    @BindView(R.id.tv26)
+    TextView tv26;
+    @BindView(R.id.tv27)
+    TextView tv27;
+    @BindView(R.id.tv28)
+    TextView tv28;
+    @BindView(R.id.tv29)
+    TextView tv29;
+    @BindView(R.id.ll_change_part)
+    LinearLayout llChangePart;
+    @BindView(R.id.tv30)
+    TextView tv30;
+    @BindView(R.id.tv31)
+    TextView tv31;
 
     private String id;
     private FaultMapInfo info;
+    private FaultAssetInfo asset;
+
     private int maxScore = 5;
     private int minScore = 1;
     private int type = 0;
@@ -159,6 +183,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 info = FastJsonUtil.getObject(FastJsonUtil.getString(json, "OpFaultInfoModel"), FaultMapInfo.class);
+                asset = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ofia"), FaultAssetInfo.class);
                 initData();
             }
 
@@ -191,7 +216,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
         tv16.setText(info.getMap().getFaultTime() + "");//故障时长
-        if(info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")){
+        if (info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")) {
             tv17.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());//实际处理人
             tv18.setText(StringUtil.isEmpty(info.getHandleTel()) ? "" : info.getHandleTel());//联系电话
         }
@@ -204,7 +229,45 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         tv22.setText(StringUtil.isEmpty(info.getMap().getTimeoutTime()) ? "" : info.getMap().getTimeoutTime());//超时闭环时间
         tv23.setText(StringUtil.isEmpty(info.getAlarmRemark()) ? "" : info.getAlarmRemark());//告警发生原因
 
+        if (info.getExp1() != null) {
+            getStatus();
+        } else {
+            llChangePart.setVisibility(View.GONE);
+        }
+        tv30.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());
+        tv31.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());
 
+
+    }
+
+    private void getStatus() {
+        GetDictDataHttp.getDictData(this, "OP_FAULT_METHOD", new GetDictDataHttp.GetDictDataResult() {
+            @Override
+            public void getData(List<DictInfo> list) {
+                if (list != null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (info.getExp1().equals(list.get(i).getDataValue())) {
+                            tv24.setText(list.get(i).getDataName());
+                            break;
+                        }
+                    }
+
+                    if (info.getExp1().equals("REPLACE")) {
+                        //更换
+                        llChangePart.setVisibility(View.VISIBLE);
+                        tv25.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
+                        tv26.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());
+                        tv27.setText(StringUtil.isEmpty(info.getMap().getDeviceStatusName()) ? "" : info.getMap().getDeviceStatusName());//原设备状态
+                        tv28.setText(StringUtil.isEmpty(asset.getMap().getNewAssetName()) ? "" : asset.getMap().getNewAssetName());//更换设备名称
+                        tv29.setText(StringUtil.isEmpty(asset.getMap().getNewAssetCode()) ? "" : asset.getMap().getNewAssetCode());//更换设备编号
+
+                    } else {
+                        llChangePart.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+        });
     }
 
     private void initClick() {

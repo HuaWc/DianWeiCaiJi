@@ -160,6 +160,15 @@ public class InspectionUser {
         private int inspectionSumNow;
         private String overtimeStatus;
         private String inspectionProgress;
+        private String addId;
+
+        public String getAddId() {
+            return addId;
+        }
+
+        public void setAddId(String addId) {
+            this.addId = addId;
+        }
 
         public String getGroupName() {
             return groupName;

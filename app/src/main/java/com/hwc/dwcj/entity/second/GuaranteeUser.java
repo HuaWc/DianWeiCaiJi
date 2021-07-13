@@ -15,11 +15,11 @@ public class GuaranteeUser {
     private String peopleNames;
     private String sryPeopleIds;
     private String sryContent;
-    private int sryFeedback;
+    private Integer sryFeedback;
     private String feedbackId;
     private String checkPeopleId;
     private String checkPeople;
-    private int checkStatus;
+    private Integer checkStatus;
     private String checkTime;
     private String checkReason;
     private String addId;
@@ -86,11 +86,11 @@ public class GuaranteeUser {
         this.sryContent = sryContent;
     }
 
-    public int getSryFeedback() {
+    public Integer getSryFeedback() {
         return sryFeedback;
     }
 
-    public void setSryFeedback(int sryFeedback) {
+    public void setSryFeedback(Integer sryFeedback) {
         this.sryFeedback = sryFeedback;
     }
 
@@ -118,11 +118,11 @@ public class GuaranteeUser {
         this.checkPeople = checkPeople;
     }
 
-    public int getCheckStatus() {
+    public Integer getCheckStatus() {
         return checkStatus;
     }
 
-    public void setCheckStatus(int checkStatus) {
+    public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
     }
 

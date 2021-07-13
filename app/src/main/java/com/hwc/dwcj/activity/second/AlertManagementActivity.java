@@ -197,6 +197,7 @@ public class AlertManagementActivity extends BaseActivity {
             public void getData(List<DictInfo> list) {
                 if (list != null) {
                     mList6.addAll(list);
+                    fjList.add("全部");
                     for (DictInfo d : list) {
                         fjList.add(d.getDataName());
                     }
@@ -244,8 +245,14 @@ public class AlertManagementActivity extends BaseActivity {
                     public void getOptionsResult(int options1, int options2, int options3) {
                         tvFj.setText(fjList.get(options1));
                         tvPcs.setText("");
-                        getPcsData(mList6.get(options1).getDataValue());
-                        selectedorgIds = mList6.get(options1).getDataValue();
+                        if (options1 != 0) {
+                            getPcsData(mList6.get(options1 - 1).getDataValue());
+                            selectedorgIds = mList6.get(options1 - 1).getDataValue();
+                        } else {
+                            mList7.clear();
+                            pcsList.clear();
+                            selectedorgIds = "";
+                        }
                         getData(false);
                     }
                 });
@@ -255,7 +262,7 @@ public class AlertManagementActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (pcsList == null || pcsList.size() == 0) {
-                    ToastUtil.toast("暂无派出所数据，请稍后再试！");
+                    ToastUtil.toast("暂无派出所数据！");
                     return;
                 }
                 PickerViewUtils.selectOptions(AlertManagementActivity.this, "派出所", pcsList, null, null, new PickerViewSelectOptionsResult() {

@@ -213,7 +213,8 @@ public class WorkOrderDetailActivity extends BaseActivity {
         tv33.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
         tv34.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());
 
-        tv40.setText(StringUtil.isEmpty(info.getRemarkLog()) ? "" : info.getRemarkLog());
+        //tv40.setText(StringUtil.isEmpty(info.getRemarkLog()) ? "" : info.getRemarkLog());
+        tv40.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());
         tv35.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());
 
         if (!StringUtil.isEmpty(info.getMap().getVerifyStatusName())) {

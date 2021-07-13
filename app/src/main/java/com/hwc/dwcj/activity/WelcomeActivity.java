@@ -30,9 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author 赵大帅
- * 日期 2018/10/12
- * 描述
+ *
  */
 public class WelcomeActivity extends BaseActivity {
     @BindView(R.id.img_welcome)

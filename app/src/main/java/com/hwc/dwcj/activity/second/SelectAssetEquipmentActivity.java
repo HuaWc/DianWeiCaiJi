@@ -58,7 +58,7 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
     LinearLayout all;
 
     private int page = 1;
-    private int pageSize = 10;
+    private int pageSize = 15;
     private List<AssetEquipment> mList;
     private AssetEquipmentAdapter adapter;
 

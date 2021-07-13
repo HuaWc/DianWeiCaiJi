@@ -15,11 +15,11 @@ public class CheckUser {
     private String verPeopleNames;
     private String verPeopleIds;
     private String feedbackId;
-    private int verFeedback;
+    private Integer verFeedback;
     private String verContent;
     private String checkPeopleId;
     private String checkPeople;
-    private int checkStatus;
+    private Integer checkStatus;
     private String checkTime;
     private String checkReason;
     private String addId;
@@ -94,11 +94,11 @@ public class CheckUser {
         this.feedbackId = feedbackId;
     }
 
-    public int getVerFeedback() {
+    public Integer getVerFeedback() {
         return verFeedback;
     }
 
-    public void setVerFeedback(int verFeedback) {
+    public void setVerFeedback(Integer verFeedback) {
         this.verFeedback = verFeedback;
     }
 
@@ -126,11 +126,11 @@ public class CheckUser {
         this.checkPeople = checkPeople;
     }
 
-    public int getCheckStatus() {
+    public Integer getCheckStatus() {
         return checkStatus;
     }
 
-    public void setCheckStatus(int checkStatus) {
+    public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
     }
 

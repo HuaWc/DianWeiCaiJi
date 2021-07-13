@@ -18,6 +18,7 @@ import com.github.dfqin.grantor.PermissionsUtil;
 import com.google.gson.Gson;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.InspectionDetailDTO;
 import com.hwc.dwcj.http.ApiClient;
@@ -292,6 +293,7 @@ public class StartInspectionDetailActivity extends BaseActivity {
                 params.put("operateStatus",alarmStatus+"");
                 params.put("inspectionAddress",address);
                 params.put("itemsJson",jsonArray.toString());
+                params.put("userId", MyApplication.getInstance().getUserInfo().getId());
                 params.put("otherQuest",et_remark.getText().toString());
                 if (alarmStatus == 0){
                     params.put("alarmLevel",tv_chose_alarm_level.getText().toString());

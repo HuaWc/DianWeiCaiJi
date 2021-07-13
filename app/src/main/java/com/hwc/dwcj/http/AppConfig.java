@@ -185,17 +185,17 @@ public class AppConfig {
     public static final String toHeavyNumber = mainUrl + "v1/operation/PtCameraInfo/toHeavyNumber";
 
     /**
-     *  根据点位编码获取点位信息(用于新增操作点位数据的回显)
+     * 根据点位编码获取点位信息(用于新增操作点位数据的回显)
      */
     public static final String getPosition = mainUrl + "v1/operation/PtPosition/getPosition";
 
     /**
-     *  获取相机图片base64编码接口
+     * 获取相机图片base64编码接口
      */
     public static final String getCameraImg = mainUrl + "v1/operation/PtCameraInfo/getCameraImg";
 
     /**
-     *  删除某一相机的信息和审批的流程
+     * 删除某一相机的信息和审批的流程
      */
     public static final String dropRecord = mainUrl + "v1/operation/PtCameraInfo/dropRecord";
 
@@ -359,51 +359,50 @@ public class AppConfig {
      */
     public static final String getLoginRoleType = mainUrl + "v1/operation/OpFaultInfo/getLoginRoleType";
 
-    /*
-    * 巡检管理信息列表
-    * */
+    /**
+     * 巡检管理信息列表
+     */
     public static final String startInspectionList = mainUrl + "v1/operation/inspectionStartList";
 
-    /*
-    * 巡检管理信息详情
-    *
-    * */
+    /**
+     * 巡检管理信息详情
+     */
     public static final String startInspectionDetail = mainUrl + "v1/operation/inspectionStartDetail";
 
-    /*
+    /**
      * 巡检新增
-     *
-     * */
+     */
     public static final String startInspectionInsert = mainUrl + "v1/operation/inspectionResultInsert";
 
-    /*
+    /**
      * 巡检管理信息详情
-     *
-     * */
+     */
     public static final String inspectionManageDetail = mainUrl + "v1/operation/inspectionInfoDetail";
 
-    /*
+    /**
      * 巡检结果列表
-     *
-     * */
+     */
     public static final String inspectionResultData = mainUrl + "v1/operation/getInspectionResult";
 
-    /*
+    /**
      * 巡检结果详情
-     *
-     * */
+     */
     public static final String inspectionResultDetail = mainUrl + "v1/operation/itemInfoDetail";
 
-    /*
+    /**
      * 巡检任务审核接口
-     *
-     * */
+     */
     public static final String inspectionCheck = mainUrl + "v1/operation/checkinugAudit";
 
     /**
      * 巡检地图查看相机分布
      */
     public static final String getInspectionCameList = mainUrl + "v1/operation/getInspectionCameList";
+
+
+
+
+
 
 
 

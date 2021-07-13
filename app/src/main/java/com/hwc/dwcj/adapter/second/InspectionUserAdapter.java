@@ -59,22 +59,31 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
 
-        double percent = Double.parseDouble(item.getMap().getInspectionPercent().replace("%",""));
+        double percent = Double.parseDouble(item.getMap().getInspectionPercent().replace("%", ""));
         int i = new Double(percent).intValue();
         pb_blue.setProgress(i);
         pb_red.setProgress(i);
 
         String myId = MyApplication.getInstance().getUserInfo().getId();
 
-        switch (item.getInspectionStatus()){
+        switch (item.getInspectionStatus()) {
             case "0":
                 tv_status2.setText("待巡检");
-                tv_start.setVisibility(View.VISIBLE);
+                if (myId.equals(item.getInspectionId())) {
+                    tv_start.setVisibility(View.VISIBLE);
+                } else {
+                    tv_start.setVisibility(View.GONE);
+                }
                 tv_check.setVisibility(View.GONE);
                 tv_status3.setVisibility(View.GONE);
                 break;
             case "1":
                 tv_status2.setText("巡检中");
+                if (myId.equals(item.getInspectionId())) {
+                    tv_start.setVisibility(View.VISIBLE);
+                } else {
+                    tv_start.setVisibility(View.GONE);
+                }
                 tv_start.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
                 tv_status3.setVisibility(View.GONE);
@@ -82,13 +91,13 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
             case "2":
                 tv_status2.setText("已巡检-正常");
                 tv_start.setVisibility(View.GONE);
-                switch (item.getCkeckType()){
+                switch (item.getCkeckType()) {
                     case "0":
                         //待审核
-                        if (myId.equals(item.getInspectionId())){
+                        if (myId.equals(item.getMap().getAddId())) {
                             tv_check.setVisibility(View.VISIBLE);
                             tv_status3.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_status3.setText("待审核");
                             tv_check.setVisibility(View.GONE);
                             tv_status3.setVisibility(View.VISIBLE);
@@ -116,13 +125,13 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
             case "3":
                 tv_status2.setText("已巡检-异常");
                 tv_start.setVisibility(View.GONE);
-                switch (item.getCkeckType()){
+                switch (item.getCkeckType()) {
                     case "0":
                         //待审核
-                        if (myId.equals(item.getInspectionId())){
+                        if (myId.equals(item.getMap().getAddId())) {
                             tv_check.setVisibility(View.VISIBLE);
                             tv_status3.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             tv_status3.setText("待审核");
                             tv_check.setVisibility(View.GONE);
                             tv_status3.setVisibility(View.VISIBLE);
@@ -154,10 +163,10 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
 
         helper.setText(R.id.tv_name, item.getTaskName())
                 .setText(R.id.tv_time, StringUtil.dealDateFormat(item.getEffectiveTimeStart()) + "~" + StringUtil.dealDateFormat(item.getEffectiveTimeEnd()))
-                .setText(R.id.tv_urgent, StringUtil.isEmpty(item.getMap().getUrgentType())?"":item.getMap().getUrgentType())
-                .setText(R.id.tv_people, StringUtil.isEmpty(item.getInspectionName())?"":item.getInspectionName())
-                .setText(R.id.tv_jd, StringUtil.isEmpty(item.getMap().getInspectionPercent())?"":item.getMap().getInspectionPercent())
-                .setText(R.id.tv_num_all, StringUtil.isEmpty(item.getMap().getInspectionProgress())?"":item.getMap().getInspectionProgress())
+                .setText(R.id.tv_urgent, StringUtil.isEmpty(item.getMap().getUrgentType()) ? "" : item.getMap().getUrgentType())
+                .setText(R.id.tv_people, StringUtil.isEmpty(item.getInspectionName()) ? "" : item.getInspectionName())
+                .setText(R.id.tv_jd, StringUtil.isEmpty(item.getMap().getInspectionPercent()) ? "" : item.getMap().getInspectionPercent())
+                .setText(R.id.tv_num_all, StringUtil.isEmpty(item.getMap().getInspectionProgress()) ? "" : item.getMap().getInspectionProgress())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getGroupName()) ? "" : item.getMap().getGroupName());
 
     }

@@ -17,6 +17,7 @@ import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.util.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,12 @@ public class FirstPersonalFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
+    @BindView(R.id.bar)
+    View bar;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_mobile)
+    TextView tvMobile;
 
 
     @Override
@@ -51,6 +58,9 @@ public class FirstPersonalFragment extends BaseFragment {
     protected void initLogic() {
         initBar();
         initClick();
+        tvName.setText(MyApplication.getInstance().getUserInfo().getRealName());
+        tvMobile.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getMobileNo())?"":MyApplication.getInstance().getUserInfo().getMobileNo());
+
 
     }
 

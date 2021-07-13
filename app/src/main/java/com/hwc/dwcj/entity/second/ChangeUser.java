@@ -12,7 +12,7 @@ public class ChangeUser {
     private String taskContent;
     private String taskRequest;
     private String resourcesType;
-    private int priority;
+    private Integer priority;
     private String effectiveStartTime;
     private String effectiveEndTime;
     private String remindRealtime;
@@ -20,7 +20,7 @@ public class ChangeUser {
     private String changePeopleNames;
     private String checkPeopleId;
     private String checkPeople;
-    private int checkStatus;
+    private Integer checkStatus;
     private String checkTime;
     private String checkReason;
     private String assetId;
@@ -29,7 +29,7 @@ public class ChangeUser {
     private String assetOrgid;
     private String changTime;
     private String changePeopleId;
-    private int changeStatus;
+    private Integer changeStatus;
     private String assetNameChanged;
     private String assetIpChanged;
     private String assetOrgidChanged;
@@ -84,11 +84,11 @@ public class ChangeUser {
         this.resourcesType = resourcesType;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
@@ -148,11 +148,11 @@ public class ChangeUser {
         this.checkPeople = checkPeople;
     }
 
-    public int getCheckStatus() {
+    public Integer getCheckStatus() {
         return checkStatus;
     }
 
-    public void setCheckStatus(int checkStatus) {
+    public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
     }
 
@@ -220,11 +220,11 @@ public class ChangeUser {
         this.changePeopleId = changePeopleId;
     }
 
-    public int getChangeStatus() {
+    public Integer getChangeStatus() {
         return changeStatus;
     }
 
-    public void setChangeStatus(int changeStatus) {
+    public void setChangeStatus(Integer changeStatus) {
         this.changeStatus = changeStatus;
     }
 
