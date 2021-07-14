@@ -19,6 +19,8 @@ import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.util.StringUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,14 +35,22 @@ import butterknife.Unbinder;
  */
 public class FirstPersonalFragment extends BaseFragment {
     Unbinder unbinder;
-    @BindView(R.id.tv_logout)
-    TextView tvLogout;
     @BindView(R.id.bar)
     View bar;
     @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.tv_mobile)
-    TextView tvMobile;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_email)
+    TextView tvEmail;
+    @BindView(R.id.tv_ip)
+    TextView tvIp;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_logout)
+    TextView tvLogout;
 
 
     @Override
@@ -57,9 +67,16 @@ public class FirstPersonalFragment extends BaseFragment {
     @Override
     protected void initLogic() {
         initBar();
+        bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
+
         initClick();
         tvName.setText(MyApplication.getInstance().getUserInfo().getRealName());
-        tvMobile.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getMobileNo())?"":MyApplication.getInstance().getUserInfo().getMobileNo());
+        tvAccount.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getUserName()) ? "暂无信息" : MyApplication.getInstance().getUserInfo().getUserName());
+        tvPhone.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getMobileNo()) ? "暂无信息" : MyApplication.getInstance().getUserInfo().getMobileNo());
+        tvEmail.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getEmail()) ? "暂无信息" : MyApplication.getInstance().getUserInfo().getEmail());
+//        tvIp.setText(StringUtil.isEmpty(MyApplication.getInstance().getUserInfo().getMap().getIpAdress()) ? "" : MyApplication.getInstance().getUserInfo().getMap().getIpAdress());
+        tvTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(MyApplication.getInstance().getUserInfo().getLoginTime())));
+
 
 
     }

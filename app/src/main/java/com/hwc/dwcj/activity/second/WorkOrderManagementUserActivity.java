@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -852,5 +853,24 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
                 -1.0f);
         mHiddenAction.setDuration(500);
         view.startAnimation(mHiddenAction);
+    }
+
+    //重写onBackPressed()方法,继承自退出的方法
+    @Override
+    public void onBackPressed() {
+
+        if (llSelect.getVisibility() == View.VISIBLE) {
+            llSelect.setVisibility(View.GONE);
+            hide(llSelect);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tvMoreBlue.setVisibility(View.GONE);
+                    tvMore.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            finish();
+        }
     }
 }

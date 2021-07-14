@@ -875,4 +875,24 @@ public class AlertManagementActivity extends BaseActivity {
                     }
                 }).bottomShow();
     }
+
+
+    //重写onBackPressed()方法,继承自退出的方法
+    @Override
+    public void onBackPressed() {
+
+        if (llSelect.getVisibility() == View.VISIBLE) {
+            llSelect.setVisibility(View.GONE);
+            hide(llSelect);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tvMoreBlue.setVisibility(View.GONE);
+                    tvMore.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            finish();
+        }
+    }
 }
