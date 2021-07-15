@@ -709,7 +709,9 @@ public class AlertManagementActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("alarmId", mList.get(position).getId());
+                toTheActivity(AlertDetailActivity.class, bundle);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

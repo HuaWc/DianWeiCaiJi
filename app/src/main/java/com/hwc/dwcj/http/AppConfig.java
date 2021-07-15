@@ -399,7 +399,10 @@ public class AppConfig {
      */
     public static final String getInspectionCameList = mainUrl + "v1/operation/getInspectionCameList";
 
-
+    /**
+     * 查看告警详情信息
+     */
+    public static final String OpAlarmInfo = mainUrl + "v1/wfm/ucm/OpAlarmInfo/info";
 
 
 

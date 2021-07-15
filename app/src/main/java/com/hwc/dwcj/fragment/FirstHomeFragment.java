@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.activity.PointCheckActivity;
 import com.hwc.dwcj.activity.second.AlertManagementActivity;
 import com.hwc.dwcj.activity.second.ElectronicMapActivity;
-import com.hwc.dwcj.activity.second.TaskManageActivity;
 import com.hwc.dwcj.activity.second.KnowledgeBaseActivity;
+import com.hwc.dwcj.activity.second.MessageListActivity;
+import com.hwc.dwcj.activity.second.TaskManageActivity;
 import com.hwc.dwcj.activity.second.WorkOrderEvaluationActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementAdminActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementUserActivity;
@@ -52,6 +54,8 @@ public class FirstHomeFragment extends BaseFragment {
     ScrollView scrollView;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
 
 
     @Override
@@ -72,7 +76,12 @@ public class FirstHomeFragment extends BaseFragment {
     @Override
     protected void initLogic() {
         initBar();
-
+        tvMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toTheActivity(MessageListActivity.class);
+            }
+        });
     }
 
     /**
