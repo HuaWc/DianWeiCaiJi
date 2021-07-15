@@ -73,20 +73,22 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
         initClick();
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             id = bundle.getString("id");
         }
 
         etSearch.addTextChangedListener(this);
 
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        refreshLayout.setEnableRefresh(false);
+
+/*        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 pageIndex = 1;
                 refreshlayout.setEnableLoadmore(true);
                 getData();
             }
-        });
+        });*/
 
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -116,27 +118,27 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("id",mList.get(position).taskSubId);
-                toTheActivity(InspectionResultDetailActivity.class,bundle);
+                bundle.putString("id", mList.get(position).taskSubId);
+                toTheActivity(InspectionResultDetailActivity.class, bundle);
             }
         });
     }
 
     private void getData() {
-        Map<String,Object> params = new HashMap<>();
-        params.put("pageNum",pageIndex);
-        params.put("pageSize",pageSize);
-        params.put("taskId",id);
-        params.put("deviceRoomName",etSearch.getText().toString());
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageNum", pageIndex);
+        params.put("pageSize", pageSize);
+        params.put("taskId", id);
+        params.put("deviceRoomName", etSearch.getText().toString());
         ApiClient.requestNetPost(InspectionResultActivity.this, AppConfig.inspectionResultData, "正在加载", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                if (pageIndex == 1){
-                    if (refreshLayout.isRefreshing()){
+                if (pageIndex == 1) {
+                    if (refreshLayout.isRefreshing()) {
                         refreshLayout.finishRefresh();
                     }
-                }else {
-                    if (refreshLayout.isLoading()){
+                } else {
+                    if (refreshLayout.isLoading()) {
                         refreshLayout.finishLoadmore();
                     }
                 }
@@ -145,9 +147,9 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
                 mList.addAll(inspectionResult.list);
                 adapter.notifyDataSetChanged();
 
-                if (pageIndex < inspectionResult.pages){
+                if (pageIndex < inspectionResult.pages) {
                     pageIndex++;
-                }else {
+                } else {
                     refreshLayout.setEnableLoadmore(false);
                 }
             }
@@ -183,7 +185,7 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        if (TextUtils.isEmpty(etSearch.getText().toString())){
+        if (TextUtils.isEmpty(etSearch.getText().toString())) {
             mList.clear();
             getData();
         }
@@ -195,10 +197,10 @@ public class InspectionResultActivity extends BaseActivity implements TextWatche
     }
 
     @OnClick(R.id.iv_ss)
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_ss:
-                if (TextUtils.isEmpty(etSearch.getText().toString().trim())){
+                if (TextUtils.isEmpty(etSearch.getText().toString().trim())) {
                     ToastUtil.toast("搜索字符串不能为空");
                     return;
                 }

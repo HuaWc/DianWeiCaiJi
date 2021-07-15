@@ -72,15 +72,15 @@ public class StartInspectionActivity extends BaseActivity implements TextWatcher
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
         Bundle extras = getIntent().getExtras();
         taskId = extras.getString("id");
-
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        refreshLayout.setEnableRefresh(false);
+/*        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 pageIndex = 1;
                 refreshlayout.setEnableLoadmore(true);
                 getData();
             }
-        });
+        });*/
 
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
