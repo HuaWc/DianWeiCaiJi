@@ -39,14 +39,12 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
                 .setText(R.id.tv_person, StringUtil.isEmpty(item.getPeopleNames()) ? "" : item.getPeopleNames())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getTaskRequires()) ? "" : item.getTaskRequires())
                 .addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_check);
-        if (item.getSryFeedback() == 1) {
-            tv_status.setText("已反馈");
-            tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
-            //完成
-        } else {
-            //未完成
+        if (item.getSryFeedback() == null || item.getSryFeedback() == 0) {
             tv_status.setText("待反馈");
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+        } else {
+            tv_status.setText("已反馈");
+            tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
         }
         switch (item.getCheckStatus()) {
             //0待反馈完成 1待审核 2:审核通过 3:审核驳回

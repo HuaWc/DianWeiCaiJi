@@ -163,16 +163,20 @@ public class GuaranteeDetailAdminActivity extends BaseActivity {
         tv5.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv6.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         //tv7.setText(StringUtil.isEmpty(info.getPeopleNames()) ? "" : info.getPeopleNames());
-        switch (info.getSryFeedback()) {
-            case 1:
-                tv8.setText("保障完成");
-                break;
-            case 2:
-                tv8.setText("保障未完成");
-                break;
-            default:
-                tv8.setText("");
-                break;
+        if (info.getSryFeedback() != null) {
+            switch (info.getSryFeedback()) {
+                case 1:
+                    tv8.setText("保障完成");
+                    break;
+                case 2:
+                    tv8.setText("保障未完成");
+                    break;
+                default:
+                    tv8.setText("");
+                    break;
+            }
+        } else {
+            tv8.setText("");
         }
         tvBz.setText(StringUtil.isEmpty(info.getSryContent()) ? "" : info.getSryContent());
     }

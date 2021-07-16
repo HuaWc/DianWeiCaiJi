@@ -179,7 +179,7 @@ public class InspectionDetailAdminActivity extends BaseActivity {
 
                         Map<String,Object> paramsRefuse = new HashMap<>();
                         paramsRefuse.put("taskId",id);
-                        paramsRefuse.put("checkType","2");
+                        paramsRefuse.put("checkType","3");
                         paramsRefuse.put("approvalOpinion",editText.getText().toString());
                         ApiClient.requestNetGet(InspectionDetailAdminActivity.this, AppConfig.inspectionCheck, "正在加载", paramsRefuse, new ResultListener() {
                             @Override
@@ -207,7 +207,7 @@ public class InspectionDetailAdminActivity extends BaseActivity {
             case R.id.tv_sure:
                 Map<String,Object> paramsSure = new HashMap<>();
                 paramsSure.put("taskId",id);
-                paramsSure.put("checkType","1");
+                paramsSure.put("checkType","2");
                 ApiClient.requestNetGet(InspectionDetailAdminActivity.this, AppConfig.inspectionCheck, "正在加载", paramsSure, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {

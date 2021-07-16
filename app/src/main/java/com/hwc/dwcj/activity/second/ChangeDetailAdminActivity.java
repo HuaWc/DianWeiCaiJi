@@ -209,14 +209,20 @@ public class ChangeDetailAdminActivity extends BaseActivity {
         tvZtNew.setText(StringUtil.isEmpty(info.getAssetStatusChanged()) ? "" : info.getAssetStatusChanged());
 
         tvAddName.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
-        switch (info.getChangeStatus()) {
-            case 0:
-                tvChangeStatus.setText("待变更");
-                break;
-            case 1:
-                tvChangeStatus.setText("已变更");
-                break;
-
+        if (info.getChangeStatus() != null) {
+            switch (info.getChangeStatus()) {
+                case 0:
+                    tvChangeStatus.setText("待变更");
+                    break;
+                case 1:
+                    tvChangeStatus.setText("已变更");
+                    break;
+                default:
+                    tvChangeStatus.setText("");
+                    break;
+            }
+        } else {
+            tvChangeStatus.setText("");
         }
 
         try {

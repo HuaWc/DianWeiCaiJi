@@ -111,17 +111,22 @@ public class CheckDetailActivity extends BaseActivity {
         tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
-        switch (info.getVerFeedback()) {
-            case 1:
-                tv11.setText("正常");
-                break;
-            case 2:
-                tv11.setText("异常");
-                break;
-            default:
-                tv11.setText("");
-                break;
+        if (info.getVerFeedback() != null) {
+            switch (info.getVerFeedback()) {
+                case 1:
+                    tv11.setText("正常");
+                    break;
+                case 2:
+                    tv11.setText("异常");
+                    break;
+                default:
+                    tv11.setText("");
+                    break;
+            }
+        } else{
+            tv11.setText("");
         }
+
         tvBz.setText(StringUtil.isEmpty(info.getExp1()) ? "" : info.getExp1());
 
     }
