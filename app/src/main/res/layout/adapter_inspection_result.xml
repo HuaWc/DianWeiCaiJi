@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:gravity="center"
-            tools:text="金安分局XX派出所"
+            android:text="金安分局XX派出所"
             android:textColor="#333333"
             android:textSize="12sp" />
 
@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            tools:text="摄像机1"
+            android:text="摄像机1"
             android:textColor="#333333"
             android:textSize="12sp" />
 
@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:gravity="center"
-            tools:text="172.3.168.21"
+            android:text="172.3.168.21"
             android:textColor="#333333"
             android:textSize="12sp" />
 
@@ -63,7 +63,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            tools:text="紧急"
+            android:text="紧急"
             android:textColor="#333333"
             android:textSize="12sp" />
     </LinearLayout>

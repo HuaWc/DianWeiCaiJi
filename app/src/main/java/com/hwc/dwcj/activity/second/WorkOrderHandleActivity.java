@@ -16,15 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.AddCameraDetailActivity;
 import com.hwc.dwcj.adapter.CommonImageAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.AssetEquipment;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
+import com.hwc.dwcj.entity.second.PtAttachment;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.http.UploadWorkOrderImgHttp;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.PickerViewUtils;
@@ -41,6 +44,7 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -149,7 +153,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
 
     private CommonImageAdapter adapter1;
     private List<String> img1;//用于展示
-    private List<String> images1;//用于接口
+    private List<PtAttachment> images1;//用于接口
     private List<LocalMedia> images;
     private int num = 3;
 
@@ -234,12 +238,39 @@ public class WorkOrderHandleActivity extends BaseActivity {
             if (requestCode == PictureConfig.CHOOSE_REQUEST) {// 图片选择结果回调
                 images = PictureSelector.obtainMultipleResult(data);
                 if (images != null && images.size() != 0) {
-
+                    img1.remove("");
+                    uploadImg(0);
                 }
 
 
             }
         }
+    }
+
+
+    /**
+     * 装载图片
+     */
+    private void uploadImg(int i) {
+        int in = i + 1;
+        if (i == images.size()) {
+            //后面没了
+            if (img1.size() < num) {
+                img1.add("");
+            }
+            adapter1.notifyDataSetChanged();
+            return;
+        }
+        UploadWorkOrderImgHttp.upload(this, "OP_FAULT_INFO", new File(images.get(i).getPath()), new UploadWorkOrderImgHttp.UploadResult() {
+            @Override
+            public void onSuccess(PtAttachment pic) {
+                img1.add(images.get(i).getPath());
+                images1.add(pic);
+                uploadImg(in);
+            }
+        });
+
+
     }
 
     private void showSelectPhotoDialog() {
@@ -267,8 +298,18 @@ public class WorkOrderHandleActivity extends BaseActivity {
 
                     @Override
                     public void onRight(View v, Dialog dialog) {
-                        dialog.dismiss();
-                        ;
+                        //images1.get(position)
+                        UploadWorkOrderImgHttp.delete(WorkOrderHandleActivity.this,"", new UploadWorkOrderImgHttp.DeleteResult() {
+                            @Override
+                            public void onSuccess() {
+                                img1.remove(position);
+                                images1.remove(position);
+                                if (img1.size() < num && !img1.contains("")) {
+                                    img1.add("");
+                                }
+                                adapter1.notifyDataSetChanged();
+                            }
+                        });
                     }
                 })
                 .show();
@@ -324,7 +365,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
         tv16.setText(info.getMap().getFaultTime() + "");//故障时长
-        if(info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")){
+        if (info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")) {
             tv17.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());//实际处理人
             tv18.setText(StringUtil.isEmpty(info.getHandleTel()) ? "" : info.getHandleTel());//联系电话
         }
@@ -430,7 +471,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
                 //到新页面吧
                 Bundle bundle = new Bundle();
                 bundle.putString("faultId", id);
-                toTheActivity(SelectChangeAssetActivity.class,bundle);
+                toTheActivity(SelectChangeAssetActivity.class, bundle);
 
             }
         });
@@ -463,11 +504,15 @@ public class WorkOrderHandleActivity extends BaseActivity {
             hashMap.put("newAssetId", newAssetId);
         }
 
-        if(type != 3){
-            if(!StringUtil.isEmpty(etPzrz.getText().toString().trim())){
+        if (type != 3) {
+            if (!StringUtil.isEmpty(etPzrz.getText().toString().trim())) {
                 hashMap.put("remarkLog", etPzrz.getText().toString().trim());//排障日志
             }
         }
+        if(images1 != null && images1.size() != 0){
+            hashMap.put("ptAttachments", FastJsonUtil.toJSONString(images));
+        }
+
         ApiClient.requestNetPost(this, AppConfig.FaultHandleForYWPerson, "提交中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {

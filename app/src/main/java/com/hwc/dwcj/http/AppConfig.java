@@ -404,9 +404,15 @@ public class AppConfig {
      */
     public static final String OpAlarmInfo = mainUrl + "v1/wfm/ucm/OpAlarmInfo/info";
 
+    /**
+     * 单个文件ftp .返回ftp中存储路径common方法
+     */
+    public static final String uploadCommon = mainUrl + "v1/operation/PtCameraInfo/uploadCommon";
 
-
-
+    /**
+     * 单文件删除ftp .参数:文件存储的路径,返回boolean值
+     */
+    public static final String deleteFileCommon = mainUrl + "v1/operation/PtCameraInfo/deleteFileCommon";
 
 
 
