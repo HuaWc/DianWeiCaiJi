@@ -20,9 +20,16 @@ import com.hwc.dwcj.activity.second.WorkOrderEvaluationActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementAdminActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementUserActivity;
 import com.hwc.dwcj.base.BaseFragment;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +63,8 @@ public class FirstHomeFragment extends BaseFragment {
     LinearLayout all;
     @BindView(R.id.tv_message)
     TextView tvMessage;
+    @BindView(R.id.tv_message_number)
+    TextView tvMessageNumber;
 
 
     @Override
@@ -82,6 +91,33 @@ public class FirstHomeFragment extends BaseFragment {
                 toTheActivity(MessageListActivity.class);
             }
         });
+        getMessageNumber();
+    }
+
+    private void getMessageNumber() {
+        Map<String, Object> hashMap = new HashMap<>();
+        ApiClient.requestNetGet(getContext(), AppConfig.PtMsgReceiverMsgCount, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    tvMessageNumber.setText(json);
+                    if ("0".equals(json)) {
+                        tvMessageNumber.setVisibility(View.GONE);
+                    } else {
+                        tvMessageNumber.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    tvMessageNumber.setText("0");
+                    tvMessageNumber.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     /**
@@ -91,6 +127,11 @@ public class FirstHomeFragment extends BaseFragment {
      */
     @Override
     protected void onEventComing(EventCenter center) {
+        switch (center.getEventCode()) {
+            case EventUtil.REFRESH_MESSAGE_NUMBER:
+                getMessageNumber();
+                break;
+        }
     }
 
     /**

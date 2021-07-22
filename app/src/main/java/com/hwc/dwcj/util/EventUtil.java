@@ -99,6 +99,10 @@ public class EventUtil {
      */
     public static final int SELECT_CHANGE_ASSET = 20;
 
+    /**
+     * 刷新消息数量
+     */
+    public static final int REFRESH_MESSAGE_NUMBER = 21;
 
 
 

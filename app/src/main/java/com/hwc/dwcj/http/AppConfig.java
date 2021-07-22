@@ -414,10 +414,25 @@ public class AppConfig {
      */
     public static final String deleteFileCommon = mainUrl + "v1/operation/PtCameraInfo/deleteFileCommon";
 
+    /**
+     * 获取工单图片base64编码接口
+     */
+    public static final String getCameraImgCommon = mainUrl + "v1/operation/PtCameraInfo/getCameraImgCommon";
 
+    /**
+     * 工单状态修改
+     */
+    public static final String PtMsgReceiverChange = mainUrl + "v1/operation/PtMsgReceiver/change";
 
+    /**
+     * 工单催办数量
+     */
+    public static final String PtMsgReceiverMsgCount = mainUrl + "v1/operation/PtMsgReceiver/msgCount";
 
-
+    /**
+     * 工单催办列表
+     */
+    public static final String PtMsgReceiverMsgList = mainUrl + "v1/operation/PtMsgReceiver/msgList";
 
 
 

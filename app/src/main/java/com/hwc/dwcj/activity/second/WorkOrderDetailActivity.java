@@ -6,7 +6,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.FaultAssetInfo;
@@ -14,12 +18,16 @@ import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
+import com.hwc.dwcj.http.GetWorkOrderImgHttp;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,10 +137,20 @@ public class WorkOrderDetailActivity extends BaseActivity {
     TextView tvS4;
     @BindView(R.id.ll_agree_part)
     LinearLayout llAgreePart;
+    @BindView(R.id.rv2)
+    RecyclerView rv2;
+    @BindView(R.id.rv1)
+    RecyclerView rv1;
 
     private String id;
     private FaultMapInfo info;
     private FaultAssetInfo asset;
+
+
+    private List<String> photo1;
+    private AdapterCameraPhoto adapter1;
+    private List<String> photo2;
+    private AdapterCameraPhoto adapter2;
 
 
     @Override
@@ -144,8 +162,39 @@ public class WorkOrderDetailActivity extends BaseActivity {
     protected void initLogic() {
         initBar();
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
-        getData();
+        initAdapter();
         initClick();
+    }
+
+    private void initAdapter() {
+        photo1 = new ArrayList<>();
+        adapter1 = new AdapterCameraPhoto(photo1);
+        rv1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rv1.setAdapter(adapter1);
+        RecyclerViewHelper.recyclerviewAndScrollView(rv1);
+
+        photo2 = new ArrayList<>();
+        adapter2 = new AdapterCameraPhoto(photo2);
+        rv2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rv2.setAdapter(adapter2);
+        RecyclerViewHelper.recyclerviewAndScrollView(rv2);
+
+        getData();
+        getImgData();
+    }
+
+    private void getImgData() {
+        GetWorkOrderImgHttp.getImg(id, this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if (!StringUtil.isEmpty(str)) {
+                    photo2.addAll(Arrays.asList(str.split("!")));
+                    adapter2.notifyDataSetChanged();
+                }
+
+            }
+        });
     }
 
     private void getData() {

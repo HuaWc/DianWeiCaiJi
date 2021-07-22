@@ -24,6 +24,8 @@ import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.json.FastJsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -169,6 +171,7 @@ public class MainActivity extends BaseActivity {
         }
 
         AppConfig.checkVersion(mContext, true);*/
+        EventBus.getDefault().post(new EventCenter(EventUtil.REFRESH_MESSAGE_NUMBER));
     }
 
     @Override

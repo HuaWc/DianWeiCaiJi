@@ -6,22 +6,125 @@ package com.hwc.dwcj.entity.second;
  * Email 627447123@qq.com
  */
 public class MessageInfo {
-    private String name;
-    private int status;
 
-    public String getName() {
-        return name;
+    private String id;
+    private int msgId;
+    private String receiverId;
+    private int msgState;
+    private int isDel;
+    private String msgTitle;
+    private String msgType;
+    private String msgContent;
+    private String userName;
+    private String subsysName;
+    private String sendTime;
+    private String faultId;
+    private Map map;
+
+    public String getFaultId() {
+        return faultId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFaultId(String faultId) {
+        this.faultId = faultId;
     }
 
-    public int getStatus() {
-        return status;
+    public String getId() {
+        return id;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(int msgId) {
+        this.msgId = msgId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public int getMsgState() {
+        return msgState;
+    }
+
+    public void setMsgState(int msgState) {
+        this.msgState = msgState;
+    }
+
+    public int getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(int isDel) {
+        this.isDel = isDel;
+    }
+
+    public String getMsgTitle() {
+        return msgTitle;
+    }
+
+    public void setMsgTitle(String msgTitle) {
+        this.msgTitle = msgTitle;
+    }
+
+    public String getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
+    }
+
+    public String getMsgContent() {
+        return msgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getSubsysName() {
+        return subsysName;
+    }
+
+    public void setSubsysName(String subsysName) {
+        this.subsysName = subsysName;
+    }
+
+    public String getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public static class Map {
     }
 }

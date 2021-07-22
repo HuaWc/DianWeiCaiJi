@@ -27,10 +27,9 @@ public class UploadWorkOrderImgHttp {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
-                PtAttachment pic = FastJsonUtil.getObject(FastJsonUtil.getString(json, "PtAttachment"), PtAttachment.class);
-                if (pic != null) {
-                    uploadResult.onSuccess(pic);
-                }
+                Object pic = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ptAttachment"), Object.class);
+                String path = FastJsonUtil.getString(json, "filePath");
+                uploadResult.onSuccess(pic, path);
             }
 
             @Override
@@ -40,7 +39,7 @@ public class UploadWorkOrderImgHttp {
         });
     }
 
-    public static void delete(Context mContext,String fileName, DeleteResult deleteResult) {
+    public static void delete(Context mContext, String fileName, DeleteResult deleteResult) {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("fileName", fileName);
         ApiClient.requestNetPost(mContext, AppConfig.deleteFileCommon, "删除中", hashMap, new ResultListener() {
@@ -60,7 +59,7 @@ public class UploadWorkOrderImgHttp {
     }
 
     public interface UploadResult {
-        void onSuccess(PtAttachment pic);
+        void onSuccess(Object pic, String path);
     }
 
     public interface DeleteResult {

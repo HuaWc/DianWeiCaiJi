@@ -14,6 +14,9 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.second.MessageInfoAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.second.MessageInfo;
+import com.hwc.dwcj.http.ApiClient;
+import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -21,7 +24,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.entity.EventCenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +95,11 @@ public class MessageListActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                //先调用已读，再进入详情
+                read(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",mList.get(position).getFaultId());
+                toTheActivity(WorkOrderDetailActivity.class, bundle);
             }
         });
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -98,16 +107,54 @@ public class MessageListActivity extends BaseActivity {
         getData();
     }
 
-    private void getData() {
-        for (int i = 0; i < 10; i++) {
-            MessageInfo messageInfo = new MessageInfo();
-            messageInfo.setName("【催办】XXXXXX工单被催办..");
-            messageInfo.setStatus(Math.random() > 0.5f ? 0 : 1);
-            mList.add(messageInfo);
-        }
-        adapter.notifyDataSetChanged();
+    private void read(int position) {
+        Map<String, Object> hashMap = new HashMap();
+        hashMap.put("msgId", mList.get(position).getMsgId());
+        hashMap.put("msgReceId", mList.get(position).getReceiverId());
+        ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverChange, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<MessageInfo> list = new ArrayList<>();
+                if (list != null) {
+                    mList.addAll(list);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
+
+    private void getData() {
+        mList.clear();
+        Map<String, Object> hashMap = new HashMap();
+        ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverMsgList, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                List<MessageInfo> list = new ArrayList<>();
+                if (list != null) {
+                    mList.addAll(list);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
 
     @Override
     protected void onEventComing(EventCenter center) {

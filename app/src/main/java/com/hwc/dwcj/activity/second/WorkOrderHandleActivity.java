@@ -153,7 +153,9 @@ public class WorkOrderHandleActivity extends BaseActivity {
 
     private CommonImageAdapter adapter1;
     private List<String> img1;//用于展示
-    private List<PtAttachment> images1;//用于接口
+    private List<Object> images1;//用于接口
+    private List<String> imagesPath1;//用于删除
+
     private List<LocalMedia> images;
     private int num = 3;
 
@@ -187,6 +189,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
         getMethodData();
         img1 = new ArrayList<>();
         images1 = new ArrayList<>();
+        imagesPath1 = new ArrayList<>();
         adapter1 = new CommonImageAdapter(img1);
         adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -261,11 +264,12 @@ public class WorkOrderHandleActivity extends BaseActivity {
             adapter1.notifyDataSetChanged();
             return;
         }
-        UploadWorkOrderImgHttp.upload(this, "OP_FAULT_INFO", new File(images.get(i).getPath()), new UploadWorkOrderImgHttp.UploadResult() {
+        UploadWorkOrderImgHttp.upload(this, "OpFaultInfo", new File(images.get(i).getPath()), new UploadWorkOrderImgHttp.UploadResult() {
             @Override
-            public void onSuccess(PtAttachment pic) {
+            public void onSuccess(Object pic, String path) {
                 img1.add(images.get(i).getPath());
                 images1.add(pic);
+                imagesPath1.add(path);
                 uploadImg(in);
             }
         });
@@ -299,15 +303,16 @@ public class WorkOrderHandleActivity extends BaseActivity {
                     @Override
                     public void onRight(View v, Dialog dialog) {
                         //images1.get(position)
-                        UploadWorkOrderImgHttp.delete(WorkOrderHandleActivity.this,"", new UploadWorkOrderImgHttp.DeleteResult() {
+                        UploadWorkOrderImgHttp.delete(WorkOrderHandleActivity.this, imagesPath1.get(position), new UploadWorkOrderImgHttp.DeleteResult() {
                             @Override
                             public void onSuccess() {
                                 img1.remove(position);
                                 images1.remove(position);
+                                imagesPath1.remove(position);
                                 if (img1.size() < num && !img1.contains("")) {
                                     img1.add("");
                                 }
-                                adapter1.notifyDataSetChanged();
+                                adapter1.notifyDataSetChanged();dialog.dismiss();
                             }
                         });
                     }
@@ -509,8 +514,8 @@ public class WorkOrderHandleActivity extends BaseActivity {
                 hashMap.put("remarkLog", etPzrz.getText().toString().trim());//排障日志
             }
         }
-        if(images1 != null && images1.size() != 0){
-            hashMap.put("ptAttachments", FastJsonUtil.toJSONString(images));
+        if (images1 != null && images1.size() != 0) {
+            hashMap.put("ptAttachments", FastJsonUtil.toJSONString(images1));
         }
 
         ApiClient.requestNetPost(this, AppConfig.FaultHandleForYWPerson, "提交中", hashMap, new ResultListener() {

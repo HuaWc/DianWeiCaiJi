@@ -30,6 +30,20 @@
             android:text="消息列表"
             android:textColor="#8BABF7"
             android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_message_number"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_11"
+            android:layout_marginStart="@dimen/dp_96"
+            android:layout_marginTop="@dimen/dp_200"
+            android:background="@drawable/bg_red_circle"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/dp_3"
+            android:textSize="@dimen/sp_8"
+            android:text="0"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 
 
@@ -47,15 +61,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_86"
                 android:layout_marginTop="@dimen/dp_14"
-                android:paddingHorizontal="@dimen/dp_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_8">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_dwkc"
                         android:layout_width="match_parent"
@@ -65,8 +81,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/dwkc" />
 
                         <TextView
@@ -82,12 +98,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/dp_2"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_gjgl"
                         android:layout_width="match_parent"
@@ -97,8 +114,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_gjgl" />
 
                         <TextView
@@ -119,15 +136,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_86"
                 android:layout_marginTop="@dimen/dp_6"
-                android:paddingHorizontal="@dimen/dp_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_8">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_gdgl"
                         android:layout_width="match_parent"
@@ -137,8 +156,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_gdgl" />
 
                         <TextView
@@ -154,12 +173,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/dp_2"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_rwgl"
                         android:layout_width="match_parent"
@@ -169,8 +189,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_rwgl" />
 
                         <TextView
@@ -191,15 +211,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_86"
                 android:layout_marginTop="@dimen/dp_6"
-                android:paddingHorizontal="@dimen/dp_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_8">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_ywzsk"
                         android:layout_width="match_parent"
@@ -209,8 +231,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_ywzsk" />
 
                         <TextView
@@ -226,12 +248,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/dp_2"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_gdpjgl"
                         android:layout_width="match_parent"
@@ -241,8 +264,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_gdpjtj" />
 
                         <TextView
@@ -263,15 +286,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_86"
                 android:layout_marginTop="@dimen/dp_6"
-                android:paddingHorizontal="@dimen/dp_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_8">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_dzdt"
                         android:layout_width="match_parent"
@@ -281,8 +306,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/new_dzdt" />
 
                         <TextView
@@ -299,11 +324,12 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="@dimen/dp_13"
                     android:layout_marginStart="@dimen/dp_2"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/dp_13"
                     app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true"
-                    android:layout_weight="1">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:id="@+id/ll_jqqd"
                         android:layout_width="match_parent"
@@ -313,8 +339,8 @@
                         <ImageView
                             android:layout_width="@dimen/dp_33"
                             android:layout_height="@dimen/dp_33"
-                            android:layout_marginTop="@dimen/dp_8"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_8"
                             android:src="@mipmap/jqqd" />
 
                         <TextView
