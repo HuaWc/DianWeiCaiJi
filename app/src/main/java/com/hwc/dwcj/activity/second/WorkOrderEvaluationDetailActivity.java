@@ -115,23 +115,23 @@ public class WorkOrderEvaluationDetailActivity extends BaseActivity {
             ToastUtil.toast("获取信息为空");
             return;
         }
-        tv1.setText(StringUtil.isEmpty(info.getAlarmName())?"":info.getAlarmName());
-        tv2.setText(StringUtil.isEmpty(info.getMap().getManageIp())?"":info.getMap().getManageIp());
-        tv3.setText(StringUtil.isEmpty(info.getAlarmCode())?"":info.getAlarmCode());
-        tv4.setText(StringUtil.isEmpty(info.getMap().getOrgName())?"":info.getMap().getOrgName());
-        tv5.setText(StringUtil.isEmpty(info.getAddTime())?"":StringUtil.dealDateFormat(info.getAddTime()));
-        tv6.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName())?"":info.getMap().getHandlePersionName());
-        tv7.setText(String.valueOf(info.getMap().getTotalAverageScore()));
-        tv8.setText(String.valueOf(info.getMap().getAverageFault()));
-        tv9.setText(StringUtil.isEmpty(info.getServiceRating())?"":info.getServiceRating());
-        tv10.setText(StringUtil.isEmpty(info.getServiceRating2())?"":info.getServiceRating2());
-        tv11.setText(StringUtil.isEmpty(info.getServiceRating3())?"":info.getServiceRating3());
-        tv12.setText(StringUtil.isEmpty(info.getServiceRating4())?"":info.getServiceRating4());
-        tv13.setText(String.valueOf(info.getMap().getAverageAlarm()));
-        tv14.setText(StringUtil.isEmpty(info.getMap().getAlarmRating())?"":info.getMap().getAlarmRating());
-        tv15.setText(StringUtil.isEmpty(info.getMap().getAlarmRating2())?"":info.getMap().getAlarmRating2());
-        tv16.setText(StringUtil.isEmpty(info.getMap().getAlarmRating3())?"":info.getMap().getAlarmRating3());
-        tv17.setText(StringUtil.isEmpty(info.getMap().getAlarmRating4())?"":info.getMap().getAlarmRating4());
+        tv1.setText(StringUtil.isEmpty(info.getAlarmName()) ? "" : info.getAlarmName());
+        tv2.setText(StringUtil.isEmpty(info.getMap().getManageIp()) ? "" : info.getMap().getManageIp());
+        tv3.setText(StringUtil.isEmpty(info.getAlarmCode()) ? "" : info.getAlarmCode());
+        tv4.setText(StringUtil.isEmpty(info.getMap().getOrgName()) ? "" : info.getMap().getOrgName());
+        tv5.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
+        tv6.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());
+        tv7.setText(info.getMap().getTotalAverageScore() == 0 ? "—" : String.valueOf(info.getMap().getTotalAverageScore()));
+        tv8.setText(info.getMap().getAverageFault() == 0 ? "—" : String.valueOf(info.getMap().getAverageFault()));
+        tv9.setText(StringUtil.isEmpty(info.getServiceRating()) ? "—" : info.getServiceRating());
+        tv10.setText(StringUtil.isEmpty(info.getServiceRating2()) ? "—" : info.getServiceRating2());
+        tv11.setText(StringUtil.isEmpty(info.getServiceRating3()) ? "—" : info.getServiceRating3());
+        tv12.setText(StringUtil.isEmpty(info.getServiceRating4()) ? "—" : info.getServiceRating4());
+        tv13.setText(info.getMap().getAverageAlarm() == 0 ? "—" : String.valueOf(info.getMap().getAverageAlarm()));
+        tv14.setText(StringUtil.isEmpty(info.getMap().getAlarmRating()) ? "—" : info.getMap().getAlarmRating());
+        tv15.setText(StringUtil.isEmpty(info.getMap().getAlarmRating2()) ? "—" : info.getMap().getAlarmRating2());
+        tv16.setText(StringUtil.isEmpty(info.getMap().getAlarmRating3()) ? "—" : info.getMap().getAlarmRating3());
+        tv17.setText(StringUtil.isEmpty(info.getMap().getAlarmRating4()) ? "—" : info.getMap().getAlarmRating4());
 
     }
 

@@ -23,7 +23,7 @@ public class WorkOrderEvaluationAdapter extends BaseQuickAdapter<WorkOrderEvalua
     @Override
     protected void convert(BaseViewHolder helper, WorkOrderEvaluationInfo item) {
         helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getMap().getHandlePersionName()) ? "" : item.getMap().getHandlePersionName())
-                .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getAssetName()) ? "" : item.getMap().getAssetName())
+                .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
                 .setText(R.id.tv_number, String.valueOf(item.getMap().getTotalScore()));
     }
 }

@@ -312,16 +312,33 @@
 
                     </RelativeLayout>
 
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10sp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="发生时间"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="发生时间"
+                            android:textColor="#333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_reset_time"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="wrap_content"
+                            android:text="重置"
+                            android:textColor="#2196F3"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -361,6 +378,7 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -383,6 +401,7 @@
                             android:overScrollMode="never" />
 
                     </RelativeLayout>
+
                     <LinearLayout
                         android:id="@+id/ll_btn"
                         android:layout_width="wrap_content"

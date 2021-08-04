@@ -6,6 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -50,6 +51,7 @@
         <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
     </style>
+
     <style name="dialog_scale_animstyle">
         <item name="android:windowEnterAnimation">@anim/scale_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/scale_dialog_out_anim</item>
@@ -85,5 +87,12 @@
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/shape_progressbar_red</item>
     </style>
+
+    <style name="welcome" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/welcome</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
 </resources>

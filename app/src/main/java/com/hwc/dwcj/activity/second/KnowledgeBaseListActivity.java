@@ -136,6 +136,7 @@ public class KnowledgeBaseListActivity extends BaseActivity {
     }
 
     private void initSelect1() {
+        stringOptions1.add("全部");
         for (KnowledgeType t : typeList) {
             stringOptions1.add(t.getDataName());
         }
@@ -239,10 +240,16 @@ public class KnowledgeBaseListActivity extends BaseActivity {
             @Override
             public void getOptionsResult(int options1, int options2, int options3) {
                 tvSjfldy.setText(stringOptions1.get(options1));
-                tvGzlx.setText("");
                 select2 = "";
-                select1 = typeList.get(options1).getDataValue();
-                getSelectData2();
+                tvGzlx.setText("");
+                stringOptions2.clear();
+                if (options1 == 0) {
+                    select1 = "";
+                    classList.clear();
+                } else {
+                    select1 = typeList.get(options1-1).getDataValue();
+                    getSelectData2();
+                }
                 getData(false);
             }
         });

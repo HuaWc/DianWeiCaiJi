@@ -335,9 +335,45 @@ public class AlertMapInfo {
 
     public static class Map {
         private String assetNature;
+        private String assetNatureName;
         private String assetClass;
+        private String assetClassName;
         private String deviceName;
+        private String alarmPersion;
         private String assetType;
+        private String assetTypeName;
+
+        public String getAssetNatureName() {
+            return assetNatureName;
+        }
+
+        public void setAssetNatureName(String assetNatureName) {
+            this.assetNatureName = assetNatureName;
+        }
+
+        public String getAssetClassName() {
+            return assetClassName;
+        }
+
+        public void setAssetClassName(String assetClassName) {
+            this.assetClassName = assetClassName;
+        }
+
+        public String getAssetTypeName() {
+            return assetTypeName;
+        }
+
+        public void setAssetTypeName(String assetTypeName) {
+            this.assetTypeName = assetTypeName;
+        }
+
+        public String getAlarmPersion() {
+            return alarmPersion;
+        }
+
+        public void setAlarmPersion(String alarmPersion) {
+            this.alarmPersion = alarmPersion;
+        }
 
         public String getAssetNature() {
             return assetNature;

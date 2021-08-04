@@ -2,7 +2,9 @@ package com.hwc.dwcj.activity.second;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,7 @@ import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.AddCameraActivity;
 import com.hwc.dwcj.adapter.second.AlertMenuAdapter;
 import com.hwc.dwcj.adapter.second.SelectOptionsChildAdapter;
 import com.hwc.dwcj.base.BaseActivity;
@@ -116,6 +120,8 @@ public class AlertManagementActivity extends BaseActivity {
     LinearLayout llSelect;
     @BindView(R.id.all)
     LinearLayout all;
+    @BindView(R.id.tv_reset_time)
+    TextView tvResetTime;
     private List<AlertMenuInfo> mList;
     private AlertMenuAdapter adapter;
 
@@ -233,6 +239,13 @@ public class AlertManagementActivity extends BaseActivity {
     }
 
     private void initClick() {
+        tvResetTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvTimeStart.setText("");
+                tvTimeEnd.setText("");
+            }
+        });
         tvFj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -284,9 +297,7 @@ public class AlertManagementActivity extends BaseActivity {
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toTheActivity(AddAlertActivity.class);
-
-                // showDialog();
+                showDialog();
             }
         });
         tvMore.setOnClickListener(new View.OnClickListener() {
@@ -804,7 +815,7 @@ public class AlertManagementActivity extends BaseActivity {
     }
 
 
-    private static final int REQUEST_CODE_SCAN = 0X01;
+    private static final int REQUEST_CODE_SCAN = 0X021;
 
 
     /**
@@ -823,6 +834,40 @@ public class AlertManagementActivity extends BaseActivity {
                 ToastUtil.toast("拒绝权限将无法使用扫一扫功能");
             }
         }, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //receive result after your activity finished scanning
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK || data == null) {
+            return;
+        }
+        // Obtain the return value of HmsScan from the value returned by the onActivityResult method by using ScanUtil.RESULT as the key value.
+        if (requestCode == REQUEST_CODE_SCAN) {
+            Object obj = data.getParcelableExtra(ScanUtil.RESULT);
+            if (obj instanceof HmsScan) {
+                if (!TextUtils.isEmpty(((HmsScan) obj).getOriginalValue())) {
+                    String info = ((HmsScan) obj).getOriginalValue();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("positionCode", info);
+                    toTheActivity(SelectAlertCameraActivity.class, bundle);
+//                    String uuid = FastJsonUtil.getString(info, "uuid");
+//                    String ip = FastJsonUtil.getString(info, "ip");
+//                    if (StringUtil.isEmpty(uuid) || StringUtil.isEmpty(ip)) {
+//                        MyToastUtils.refreshToast("无效的二维码，请重试");
+//                        return;
+//                    }
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("uuid", uuid);
+//                    bundle.putString("ip", ip);
+//                    bundle.putInt("from", 2);
+//                    toTheActivity(ScanConfirmLoginActivity.class, bundle);
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -859,7 +904,7 @@ public class AlertManagementActivity extends BaseActivity {
                     @Override
                     public void onClick(View view, Dialog dialog) {
                         dialog.dismiss();
-                        toTheActivity(AddAlertActivity.class);
+                        scanCode();
                     }
                 })
                 .setOnClickListener(tv_hand, new BaseDialog.OnClickListener() {

@@ -21,7 +21,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
+import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,16 +77,11 @@ public class MessageListActivity extends BaseActivity {
                 finish();
             }
         });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-
-            }
-        });
+        refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-
+                getData();
             }
         });
     }
@@ -98,32 +95,27 @@ public class MessageListActivity extends BaseActivity {
                 //先调用已读，再进入详情
                 read(position);
                 Bundle bundle = new Bundle();
-                bundle.putString("id",mList.get(position).getFaultId());
+                bundle.putString("id", mList.get(position).getFaultId());
                 toTheActivity(WorkOrderDetailActivity.class, bundle);
             }
         });
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
-        getData();
+        //getData();
     }
 
     private void read(int position) {
         Map<String, Object> hashMap = new HashMap();
         hashMap.put("msgId", mList.get(position).getMsgId());
-        hashMap.put("msgReceId", mList.get(position).getReceiverId());
+        hashMap.put("msgReceId", mList.get(position).getId());
         ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverChange, "", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<MessageInfo> list = new ArrayList<>();
-                if (list != null) {
-                    mList.addAll(list);
-                }
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onFailure(String msg) {
-
             }
         });
     }
@@ -135,16 +127,18 @@ public class MessageListActivity extends BaseActivity {
         ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverMsgList, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<MessageInfo> list = new ArrayList<>();
+                List<MessageInfo> list = FastJsonUtil.getList(json, MessageInfo.class);
                 if (list != null) {
                     mList.addAll(list);
                 }
                 adapter.notifyDataSetChanged();
+                refreshLayout.finishRefresh();
             }
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
+                refreshLayout.finishRefresh();
             }
         });
 

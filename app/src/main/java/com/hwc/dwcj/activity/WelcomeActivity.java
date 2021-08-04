@@ -63,7 +63,7 @@ public class WelcomeActivity extends BaseActivity {
                 finish();
 
             }
-        }, 3000);
+        }, 1500);
     }
 
     @Override

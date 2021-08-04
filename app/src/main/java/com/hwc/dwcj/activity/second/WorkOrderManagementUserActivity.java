@@ -111,7 +111,8 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     LinearLayout all;
     @BindView(R.id.tv_title_main)
     TextView tvTitleMain;
-
+    @BindView(R.id.tv_reset_time)
+    TextView tvResetTime;
 
     private int page = 1;
     private int pageSize = 10;
@@ -492,6 +493,13 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     }
 
     private void initClick() {
+        tvResetTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvTimeStart.setText("");
+                tvTimeEnd.setText("");
+            }
+        });
         tvFj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

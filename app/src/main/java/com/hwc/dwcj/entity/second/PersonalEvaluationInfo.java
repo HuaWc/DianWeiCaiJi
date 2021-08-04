@@ -367,6 +367,33 @@ public class PersonalEvaluationInfo {
         private Object alarmRating4;
         private String assetName;
         private String handlePersionName;
+        private String assetClassName;
+        private String assetNatureName;
+        private String assetTypeName;
+
+        public String getAssetClassName() {
+            return assetClassName;
+        }
+
+        public void setAssetClassName(String assetClassName) {
+            this.assetClassName = assetClassName;
+        }
+
+        public String getAssetNatureName() {
+            return assetNatureName;
+        }
+
+        public void setAssetNatureName(String assetNatureName) {
+            this.assetNatureName = assetNatureName;
+        }
+
+        public String getAssetTypeName() {
+            return assetTypeName;
+        }
+
+        public void setAssetTypeName(String assetTypeName) {
+            this.assetTypeName = assetTypeName;
+        }
 
         public String getAssetNature() {
             return assetNature;

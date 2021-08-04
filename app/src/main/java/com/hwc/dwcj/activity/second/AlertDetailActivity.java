@@ -3,6 +3,7 @@ package com.hwc.dwcj.activity.second;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,10 @@ public class AlertDetailActivity extends BaseActivity {
     TextView tv14;
     @BindView(R.id.rv_photo)
     RecyclerView rvPhoto;
+    @BindView(R.id.tv15)
+    TextView tv15;
+    @BindView(R.id.ll_people)
+    LinearLayout llPeople;
 
     private String alarmId;
     private AlertMapInfo info;
@@ -113,9 +118,9 @@ public class AlertDetailActivity extends BaseActivity {
         }
         tv1.setText(StringUtil.isEmpty(info.getAlarmName()) ? "" : info.getAlarmName());
         tv2.setText(StringUtil.isEmpty(info.getAlarmCode()) ? "" : info.getAlarmCode());
-        tv3.setText(StringUtil.isEmpty(info.getMap().getAssetNature()) ? "" : info.getMap().getAssetNature());
-        tv4.setText(StringUtil.isEmpty(info.getMap().getAssetType()) ? "" : info.getMap().getAssetType());
-        tv5.setText(StringUtil.isEmpty(info.getMap().getAssetClass()) ? "" : info.getMap().getAssetClass());
+        tv3.setText(StringUtil.isEmpty(info.getMap().getAssetNatureName()) ? "" : info.getMap().getAssetNatureName());
+        tv4.setText(StringUtil.isEmpty(info.getMap().getAssetTypeName()) ? "" : info.getMap().getAssetTypeName());
+        tv5.setText(StringUtil.isEmpty(info.getMap().getAssetClassName()) ? "" : info.getMap().getAssetClassName());
         tv6.setText(StringUtil.isEmpty(info.getAlarmSource()) ? "" : info.getAlarmSource());
         tv7.setText(StringUtil.isEmpty(info.getAlarmLevel()) ? "" : info.getAlarmLevel());
         tv8.setText(StringUtil.isEmpty(info.getOrgName()) ? "" : info.getOrgName());
@@ -125,6 +130,12 @@ public class AlertDetailActivity extends BaseActivity {
         tv12.setText(StringUtil.isEmpty(info.getIp()) ? "" : info.getIp());
         //tv13.setText(StringUtil.isEmpty(info.getAlarmName()) ? "" : info.getAlarmName());
         tv14.setText(StringUtil.isEmpty(info.getAlarmReason()) ? "" : info.getAlarmReason());
+        if (StringUtil.isEmpty(info.getMap().getAlarmPersion())) {
+            llPeople.setVisibility(View.GONE);
+        } else{
+            tv15.setText(info.getMap().getAlarmPersion());
+            llPeople.setVisibility(View.VISIBLE);
+        }
 
     }
 

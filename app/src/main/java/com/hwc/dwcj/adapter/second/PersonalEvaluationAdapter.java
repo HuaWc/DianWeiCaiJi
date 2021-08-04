@@ -25,7 +25,7 @@ public class PersonalEvaluationAdapter extends BaseQuickAdapter<PersonalEvaluati
         helper.setText(R.id.tv_name, StringUtil.isEmpty(item.getAlarmName()) ? "" : item.getAlarmName())
                 .setText(R.id.tv_number, String.valueOf(item.getMap().getTotalScore()))
                 .setText(R.id.tv_pname, StringUtil.isEmpty(item.getMap().getHandlePersionName()) ? "" : item.getMap().getHandlePersionName())
-                .setText(R.id.tv_jg, ">>")
+                .setText(R.id.tv_jg, item.getMap().getAssetNatureName() + ">" + item.getMap().getAssetTypeName() + ">" + item.getMap().getAssetClassName())
                 .setText(R.id.tv_g, StringUtil.isEmpty(item.getMap().getOrgName()) ? "" : item.getMap().getOrgName())
                 .setText(R.id.tv_time, StringUtil.isEmpty(item.getMap().getAlarmTime()) ? "" : StringUtil.dealDateFormat(item.getMap().getAlarmTime()))
                 .addOnClickListener(R.id.tv_look);

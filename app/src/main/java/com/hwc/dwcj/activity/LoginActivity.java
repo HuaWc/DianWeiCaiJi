@@ -104,11 +104,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void newLogin() {
-        if(StringUtil.isEmpty(etAccount.getText().toString().trim())){
+        if (StringUtil.isEmpty(etAccount.getText().toString().trim())) {
             ToastUtil.toast("请输入正确的账号和密码！");
             return;
         }
-        if(StringUtil.isEmpty(etPassword.getText().toString().trim())){
+        if (StringUtil.isEmpty(etPassword.getText().toString().trim())) {
             ToastUtil.toast("请输入正确的账号和密码！");
             return;
         }
@@ -135,22 +135,13 @@ public class LoginActivity extends BaseActivity {
                     toTheActivity(MainActivity.class);
                     finish();
                 } else {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                           ToastUtil.toast(msg);
-
-                        }
-                    });
+                    ToastUtil.toast(msg);
                 }
             }
 
             @Override
             public void onFailure(String msg) {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        ToastUtil.toast(msg);
-                    }
-                });
+                ToastUtil.toast(msg);
             }
         });
     }
