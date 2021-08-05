@@ -249,6 +249,8 @@ public class AlertManagementActivity extends BaseActivity {
         tvFj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (fjList == null || fjList.size() == 0) {
                     ToastUtil.toast("暂无分局数据，请稍后再试！");
                     return;
@@ -274,6 +276,8 @@ public class AlertManagementActivity extends BaseActivity {
         tvPcs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (pcsList == null || pcsList.size() == 0) {
                     ToastUtil.toast("暂无派出所数据！");
                     return;
@@ -380,6 +384,8 @@ public class AlertManagementActivity extends BaseActivity {
         tvTimeStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //开始时间
                 Calendar nowDate = Calendar.getInstance();
                 //时间选择器
@@ -414,6 +420,8 @@ public class AlertManagementActivity extends BaseActivity {
         tvTimeEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //结束时间
                 Calendar nowDate = Calendar.getInstance();
                 //时间选择器

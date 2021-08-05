@@ -139,6 +139,8 @@ public class StartInspectionDetailActivity extends BaseActivity {
                         myViewHolder.tv_chose.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                hideSoftKeyboard();
+                                hideSoftKeyboard3();
                                 PickerViewUtils.selectOptions(StartInspectionDetailActivity.this, itemListDTO.itemName, Arrays.asList(split), null, null, new PickerViewSelectOptionsResult() {
                                     @Override
                                     public void getOptionsResult(int options1, int options2, int options3) {
@@ -231,6 +233,8 @@ public class StartInspectionDetailActivity extends BaseActivity {
                 }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
                 break;
             case R.id.tv_chose_alarm_level:
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 List<String> levelOptions = new ArrayList<>();
                 Map<String,Object> paramsAlarmLevel = new HashMap<>();
                 paramsAlarmLevel.put("dataTypeCode","OP_ALARM_LEVEL");

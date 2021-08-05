@@ -186,6 +186,8 @@ public class PersonalEvaluationActivity extends BaseActivity {
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (options == null || options.size() == 0) {
                     ToastUtil.toast("选项为空，请稍后再试！");
                     return;

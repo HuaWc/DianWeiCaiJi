@@ -145,6 +145,8 @@ public class InspectionFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //巡检状态
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (statusStrOptions == null || statusStrOptions.size() == 0) {
                     ToastUtil.toast("选项为空，请稍等重试");
                     return;
@@ -166,6 +168,8 @@ public class InspectionFragment extends BaseFragment {
         tvJjcd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //紧急程度
                 if (urgentStrOptions == null || urgentStrOptions.size() == 0) {
                     ToastUtil.toast("选项为空，请稍等重试");
@@ -188,6 +192,8 @@ public class InspectionFragment extends BaseFragment {
         tvCszt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //超时状态
                 if (overtimeStrOptions == null || overtimeStrOptions.size() == 0) {
                     ToastUtil.toast("选项为空，请稍等重试");
@@ -211,6 +217,8 @@ public class InspectionFragment extends BaseFragment {
         tvKssj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //开始时间
                 Calendar nowDate = Calendar.getInstance();
                 //时间选择器
@@ -246,6 +254,8 @@ public class InspectionFragment extends BaseFragment {
         tvJssj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //结束时间
                 Calendar nowDate = Calendar.getInstance();
                 //时间选择器

@@ -110,6 +110,8 @@ public class StartCheckActivity extends BaseActivity {
         tvStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (options == null || options.size() == 0) {
                     ToastUtil.toast("请重试！");
                     return;

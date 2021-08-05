@@ -232,6 +232,8 @@ public class KnowledgeBaseListActivity extends BaseActivity {
     }
 
     private void showSelect1() {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         if (stringOptions1 == null || stringOptions1.size() == 0) {
             ToastUtil.toast("条件为空或获取失败，请稍后再试！");
             return;
@@ -256,6 +258,8 @@ public class KnowledgeBaseListActivity extends BaseActivity {
     }
 
     private void showSelect2() {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         if (StringUtil.isEmpty(tvSjfldy.getText().toString().trim())) {
             ToastUtil.toast("请先选择事件分类，再选择类型！");
             return;

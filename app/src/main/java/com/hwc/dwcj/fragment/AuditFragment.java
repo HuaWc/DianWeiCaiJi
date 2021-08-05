@@ -434,6 +434,8 @@ public class AuditFragment extends BaseFragment {
      * @param type 1 起始  2 结束
      */
     private void showTimePickerView(int type) {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         Date d = new Date();
         //注：（1）年份可以随便设置 (2)月份是从0开始的（0代表1月 11月代表12月），即设置0代表起始时间从1月开始
         //(3)日期必须从1开始，因为2月没有30天，设置其他日期时，2月份会从设置日期开始显示导致出现问题

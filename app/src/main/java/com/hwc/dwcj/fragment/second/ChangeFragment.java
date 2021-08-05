@@ -128,6 +128,8 @@ public class ChangeFragment extends BaseFragment {
         tvBgzt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //变更状态
                 if (statusOptions == null || statusOptions.size() == 0) {
                     ToastUtil.toast("数据为空，请稍后重试！");
@@ -151,6 +153,8 @@ public class ChangeFragment extends BaseFragment {
         tcYxj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //优先级
                 if (priorityOptions == null || priorityOptions.size() == 0) {
                     ToastUtil.toast("数据为空，请稍后重试！");
@@ -173,6 +177,8 @@ public class ChangeFragment extends BaseFragment {
         tvCszt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 //超时状态
                 if (overTimeOptions == null || overTimeOptions.size() == 0) {
                     ToastUtil.toast("数据为空，请稍后重试！");

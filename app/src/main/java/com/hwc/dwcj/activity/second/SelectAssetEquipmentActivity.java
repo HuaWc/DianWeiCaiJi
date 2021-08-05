@@ -211,6 +211,8 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
         tvSbzt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (optionsList4 == null || optionsList4.size() == 0) {
                     ToastUtil.toast("选项为空，请稍等重试");
                     return;

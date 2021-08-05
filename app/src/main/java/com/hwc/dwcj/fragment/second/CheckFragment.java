@@ -127,6 +127,8 @@ public class CheckFragment extends BaseFragment {
         tvHczt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if (selectOptions == null || selectOptions.size() == 0) {
                     ToastUtil.toast("条件加载中！");
                     return;

@@ -134,6 +134,8 @@ public class ChangeResultDetailActivity extends BaseActivity {
         tvNewStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
                 if(statusOptions == null || statusOptions.size() ==0){
                     ToastUtil.toast("选项数据获取失败！");
                     return;

@@ -383,6 +383,8 @@ public class DossierFragment extends BaseFragment {
     }
 
     private void showPickerView() {
+        hideSoftKeyboard();
+        hideSoftKeyboard3();
         if (pcsString.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
