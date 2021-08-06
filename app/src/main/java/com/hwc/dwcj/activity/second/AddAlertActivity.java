@@ -195,6 +195,7 @@ public class AddAlertActivity extends BaseActivity {
                         tvTime.setText(formatter.format(date));
                     }
                 }).setDate(nowDate)//设置系统时间为当前时间
+                        .setRangDate(null,nowDate)
                         .setType(new boolean[]{true, true, true, true, true, true})//设置年月日时分秒是否显示 true:显示 false:隐藏
                         //.setLabel("年", "月", "日", "时", "分", "秒")
                         .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
