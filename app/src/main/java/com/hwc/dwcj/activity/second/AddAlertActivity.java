@@ -245,10 +245,10 @@ public class AddAlertActivity extends BaseActivity {
             ToastUtil.toast("请选择发生时间");
             return;
         }
-/*        if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
+        if (StringUtil.isEmpty(etReason.getText().toString().trim())) {
             ToastUtil.toast("请输入发生原因");
             return;
-        }*/
+        }
         //提交
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("alarmName", etName.getText().toString().trim());

@@ -500,7 +500,11 @@ public class WorkOrderHandleActivity extends BaseActivity {
             ToastUtil.toast("请填写说明");
             return;
         }
-
+        if (type != 3) {
+            if (StringUtil.isEmpty(etPzrz.getText().toString().trim())) {
+                ToastUtil.toast("请填写排障日志");
+            }
+        }
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", id);
         hashMap.put("handleMethod", methodList.get(type).getDataValue());
@@ -510,12 +514,12 @@ public class WorkOrderHandleActivity extends BaseActivity {
             hashMap.put("oldDeviceStatus", statusStr);
             hashMap.put("newAssetId", newAssetId);
         }
-
-        if (type != 3) {
+        hashMap.put("remarkLog", etPzrz.getText().toString().trim());//排障日志
+/*        if (type != 3) {
             if (!StringUtil.isEmpty(etPzrz.getText().toString().trim())) {
                 hashMap.put("remarkLog", etPzrz.getText().toString().trim());//排障日志
             }
-        }
+        }*/
         if (images1 != null && images1.size() != 0) {
             hashMap.put("ptAttachments", FastJsonUtil.toJSONString(images1));
         }
