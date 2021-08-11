@@ -741,7 +741,7 @@ public class AlertManagementActivity extends BaseActivity {
                 bundle.putString("str1", mList.get(position).getMap().getAssetName());
                 bundle.putString("str2", mList.get(position).getMap().getOrgName());
                 bundle.putString("str3", mList.get(position).getMap().getAlarmTime());
-                bundle.putString("str4", "");
+                bundle.putString("str4", mList.get(position).getMap().getRecoveryTime());
 
                 switch (view.getId()) {
                     case R.id.tv_look:

@@ -503,6 +503,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
         if (type != 3) {
             if (StringUtil.isEmpty(etPzrz.getText().toString().trim())) {
                 ToastUtil.toast("请填写排障日志");
+                return;
             }
         }
         Map<String, Object> hashMap = new HashMap<>();

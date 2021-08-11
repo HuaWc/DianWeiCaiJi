@@ -21,6 +21,7 @@ import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.FullyLinearLayoutManager;
+import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.util.StringUtil;
 
@@ -87,7 +88,7 @@ public class InspectionDetailActivity extends BaseActivity {
         bar.setBackgroundColor(getResources().getColor(R.color.main_bar_color));
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             id = extras.getString("id");
         }
 
@@ -111,9 +112,9 @@ public class InspectionDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    public void getData(){
-        Map<String,Object> params = new HashMap<>();
-        params.put("id",id);
+    public void getData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
         ApiClient.requestNetPost(InspectionDetailActivity.this, AppConfig.inspectionManageDetail, "正在加载", params, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -138,6 +139,8 @@ public class InspectionDetailActivity extends BaseActivity {
                 recyclerView.setLayoutManager(fullyLinearLayoutManager);
                 InspectionDetailAdapter adapter = new InspectionDetailAdapter(inspectionManageDetailDTO.map.opInspectionGroupList);
                 recyclerView.setAdapter(adapter);
+                RecyclerViewHelper.recyclerviewAndScrollView(recyclerView);
+
             }
 
             @Override
@@ -147,16 +150,16 @@ public class InspectionDetailActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_result})
-    public void onClickView(View view){
-        switch (view.getId()){
+    @OnClick({R.id.iv_back, R.id.tv_result})
+    public void onClickView(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.tv_result:
                 Bundle bundle = new Bundle();
-                bundle.putString("id",id);
-                toTheActivity(InspectionResultActivity.class,bundle);
+                bundle.putString("id", id);
+                toTheActivity(InspectionResultActivity.class, bundle);
                 break;
         }
     }

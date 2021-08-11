@@ -192,6 +192,11 @@ public class AddAlertActivity extends BaseActivity {
                 //时间选择器
                 TimePickerView pvTime = new TimePickerBuilder(AddAlertActivity.this, new OnTimeSelectListener() {
                     public void onTimeSelect(final Date date, View v) {
+                        if (nowDate.getTime().getTime() < date.getTime()) {
+                            //当前选择时间晚于当前时间
+                            ToastUtil.toast("选择时间不能晚于当前时间");
+                            return;
+                        }
                         tvTime.setText(formatter.format(date));
                     }
                 }).setDate(nowDate)//设置系统时间为当前时间

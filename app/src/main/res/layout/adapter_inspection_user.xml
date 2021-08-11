@@ -160,10 +160,10 @@
             <TextView
                 android:id="@+id/tv_num_all"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="end"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:text="共100项，剩余100项"
                 android:textColor="#9F9F9F"
                 android:textSize="8sp" />
@@ -180,67 +180,74 @@
 
             <TextView
                 android:id="@+id/tv_g"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:singleLine="true"
                 android:text="外场巡检1，外场巡检2"
                 android:textColor="#9F9F9F"
                 android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/tv_map"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="地图"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_start"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="开始巡检"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_check"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_common_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="确认审核"
-                android:textColor="#FFFFFF"
-                android:textSize="9sp" />
-
-            <TextView
-                android:id="@+id/tv_status3"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:singleLine="true"
-                android:text="审核已通过"
-                android:textColor="@color/inspection_green"
-                android:textSize="12sp"
-                android:gravity="right"/>
+                android:gravity="end"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tv_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_common_btn"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="地图"
+                    android:textColor="#FFFFFF"
+                    android:textSize="9sp" />
 
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bg_common_btn"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="开始巡检"
+                    android:textColor="#FFFFFF"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bg_common_btn"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="确认审核"
+                    android:textColor="#FFFFFF"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_status3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="审核已通过"
+                    android:textColor="@color/inspection_green"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
