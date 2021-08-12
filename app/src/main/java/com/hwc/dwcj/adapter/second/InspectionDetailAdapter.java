@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.InspectionManageDetailDTO;
+import com.hwc.dwcj.util.RecyclerViewHelper;
 
 import java.util.List;
 
@@ -26,5 +27,6 @@ public class InspectionDetailAdapter extends BaseQuickAdapter<InspectionManageDe
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        RecyclerViewHelper.recyclerviewAndScrollView(recyclerView);
     }
 }

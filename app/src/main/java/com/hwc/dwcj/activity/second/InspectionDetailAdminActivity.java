@@ -20,6 +20,7 @@ import com.hwc.dwcj.entity.second.InspectionManageDetailDTO;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.view.dialog.SimpleDialog;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
@@ -150,6 +151,7 @@ public class InspectionDetailAdminActivity extends BaseActivity {
                 recyclerView.setLayoutManager(fullyLinearLayoutManager);
                 InspectionDetailAdapter adapter = new InspectionDetailAdapter(inspectionManageDetailDTO.map.opInspectionGroupList);
                 recyclerView.setAdapter(adapter);
+                RecyclerViewHelper.recyclerviewAndScrollView(recyclerView);
             }
 
             @Override

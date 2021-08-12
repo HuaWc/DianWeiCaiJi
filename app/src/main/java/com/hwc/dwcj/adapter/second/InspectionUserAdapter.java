@@ -84,11 +84,11 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                 } else {
                     tv_start.setVisibility(View.GONE);
                 }
-                tv_start.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
                 tv_status3.setVisibility(View.GONE);
                 break;
             case "2":
+                tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_blue));
                 tv_status2.setText("已巡检-正常");
                 tv_start.setVisibility(View.GONE);
                 switch (item.getCkeckType()) {
@@ -109,20 +109,29 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                         tv_check.setVisibility(View.GONE);
                         break;
                     case "2":
+                        tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_green));
                         tv_status3.setText("审核已通过");
                         tv_status3.setVisibility(View.VISIBLE);
                         tv_check.setVisibility(View.GONE);
                         break;
                     case "3":
+                        tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_red));
                         tv_status3.setText("审核已驳回");
                         tv_status3.setVisibility(View.VISIBLE);
                         tv_check.setVisibility(View.GONE);
+                        if (myId.equals(item.getInspectionId())) {
+                            tv_start.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_start.setVisibility(View.GONE);
+                        }
+
                         break;
                     default:
                         break;
                 }
                 break;
             case "3":
+                tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_blue));
                 tv_status2.setText("已巡检-异常");
                 tv_start.setVisibility(View.GONE);
                 switch (item.getCkeckType()) {
@@ -143,14 +152,21 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                         tv_check.setVisibility(View.GONE);
                         break;
                     case "2":
+                        tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_green));
                         tv_status3.setText("审核已通过");
                         tv_status3.setVisibility(View.VISIBLE);
                         tv_check.setVisibility(View.GONE);
                         break;
                     case "3":
+                        tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_red));
                         tv_status3.setText("审核已驳回");
                         tv_status3.setVisibility(View.VISIBLE);
                         tv_check.setVisibility(View.GONE);
+                        if (myId.equals(item.getInspectionId())) {
+                            tv_start.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_start.setVisibility(View.GONE);
+                        }
                         break;
                     default:
                         break;

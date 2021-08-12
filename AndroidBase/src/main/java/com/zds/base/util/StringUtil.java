@@ -412,4 +412,21 @@ public class StringUtil {
         }
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(locatlDate);
     }
+
+
+    public static String dealDateFormat(Date date) {
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+
+
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date utcDate = null;
+
+        String utcTime = sdf.format(date.getTime());
+
+
+        return utcTime;
+    }
 }

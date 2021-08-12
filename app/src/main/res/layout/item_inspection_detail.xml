@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="云顶之弈"
-        android:textSize="15sp"
-        android:textColor="#2196F3"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp">
-    </TextView>
+        android:paddingBottom="5dp"
+        android:textColor="#2196F3"
+        android:textSize="15sp"
+        tools:text="云顶之弈" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_inspection_detail"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_inspection_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </LinearLayout>

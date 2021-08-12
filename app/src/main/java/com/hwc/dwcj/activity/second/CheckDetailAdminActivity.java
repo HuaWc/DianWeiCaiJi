@@ -122,7 +122,7 @@ public class CheckDetailAdminActivity extends BaseActivity {
         i.setCheckReason(etReason.getText().toString().trim());
         i.setCheckPeopleId(MyApplication.getInstance().getUserInfo().getId());
         i.setCheckPeople(MyApplication.getInstance().getUserInfo().getRealName());
-        i.setCheckTime(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'").format(new Date()));
+        i.setCheckTime(StringUtil.dealDateFormat(new Date()));
         ApiClient.requestNetPost(this, AppConfig.OpVerificationTaskEdit, "提交中", FastJsonUtil.toJSONString(i), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {

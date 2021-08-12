@@ -104,13 +104,13 @@ public class ChangeResultDetailActivity extends BaseActivity {
         tvPeople.setText(MyApplication.getInstance().getUserInfo().getRealName());
     }
 
-    private void getStatusData(){
+    private void getStatusData() {
         GetDictDataHttp.getDictData(this, "OP_ASSET_STATUS", new GetDictDataHttp.GetDictDataResult() {
             @Override
             public void getData(List<DictInfo> list) {
-                if(list != null){
+                if (list != null) {
                     statusList.addAll(list);
-                    for(DictInfo d:list){
+                    for (DictInfo d : list) {
                         statusOptions.add(d.getDataName());
                     }
                 }
@@ -136,7 +136,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
             public void onClick(View view) {
                 hideSoftKeyboard();
                 hideSoftKeyboard3();
-                if(statusOptions == null || statusOptions.size() ==0){
+                if (statusOptions == null || statusOptions.size() == 0) {
                     ToastUtil.toast("选项数据获取失败！");
                     return;
                 }
@@ -151,7 +151,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
     }
 
     private void submit() {
-        if (StringUtil.isEmpty(etNewIp.getText().toString().trim()) && StringUtil.isEmpty(etNewName.getText().toString().trim()) && StringUtil.isEmpty(etNewJg.getText().toString().trim())&& StringUtil.isEmpty(tvNewStatus.getText().toString().trim())) {
+        if (StringUtil.isEmpty(etNewIp.getText().toString().trim()) && StringUtil.isEmpty(etNewName.getText().toString().trim()) && StringUtil.isEmpty(etNewJg.getText().toString().trim()) && StringUtil.isEmpty(tvNewStatus.getText().toString().trim())) {
             ToastUtil.toast("请至少填写一项变更值！");
             return;
         }
@@ -165,7 +165,7 @@ public class ChangeResultDetailActivity extends BaseActivity {
         c.setCheckStatus(1);
         c.setChangeReport(etReport.getText().toString().trim());
         c.setChangePeopleId(MyApplication.getInstance().getUserInfo().getId());
-        c.setChangTime(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'").format(new Date()));
+        c.setChangTime(StringUtil.dealDateFormat(new Date()));
         if (!StringUtil.isEmpty(etNewName.getText().toString().trim())) {
             c.setAssetNameChanged(etNewName.getText().toString().trim());
         }

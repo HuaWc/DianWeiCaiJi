@@ -190,7 +190,7 @@ public class ChangeDetailActivity extends BaseActivity {
         }
 
         tvTimeStart.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
-        //tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
+       tvTimeEnd.setText(StringUtil.isEmpty(info.getChangTime()) ? "" : StringUtil.dealDateFormat(info.getChangTime()));
         tvRemark.setText(StringUtil.isEmpty(info.getChangeReport()) ? "" : info.getChangeReport());
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
 

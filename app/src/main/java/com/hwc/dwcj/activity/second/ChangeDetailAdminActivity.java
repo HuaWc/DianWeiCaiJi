@@ -143,7 +143,7 @@ public class ChangeDetailAdminActivity extends BaseActivity {
         c.setCheckReason(etReason.getText().toString().trim());
         c.setCheckPeopleId(MyApplication.getInstance().getUserInfo().getId());
         c.setCheckPeople(MyApplication.getInstance().getUserInfo().getRealName());
-        c.setCheckTime(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'").format(new Date()));
+        c.setCheckTime(StringUtil.dealDateFormat(new Date()));
         ApiClient.requestNetPost(this, AppConfig.OpChangeTaskEdit, "提交中", FastJsonUtil.toJSONString(c), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -242,7 +242,7 @@ public class ChangeDetailAdminActivity extends BaseActivity {
         }
 
         tvTimeStart.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
-        //tvTimeEnd.setText(StringUtil.isEmpty(info.getEffectiveEndTime()) ? "" : StringUtil.dealDateFormat(info.getEffectiveEndTime()));
+        tvTimeEnd.setText(StringUtil.isEmpty(info.getChangTime()) ? "" : StringUtil.dealDateFormat(info.getChangTime()));
         tvRemark.setText(StringUtil.isEmpty(info.getChangeReport()) ? "" : info.getChangeReport());
 
 
