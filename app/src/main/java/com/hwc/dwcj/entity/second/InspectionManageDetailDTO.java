@@ -18,7 +18,7 @@ public class InspectionManageDetailDTO {
     public String taskName;
     public String inspectionName;
     public String ckeckType;
-    public Object approvalOpinion;
+    public String approvalOpinion;
     public MapDTO map;
 
     public static class MapDTO {

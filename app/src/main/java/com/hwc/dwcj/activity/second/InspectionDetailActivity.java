@@ -12,28 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.second.InspectionDetailAdapter;
-import com.hwc.dwcj.adapter.second.InspectionResultAdapter;
 import com.hwc.dwcj.base.BaseActivity;
-import com.hwc.dwcj.entity.second.InspectionDetailDTO;
 import com.hwc.dwcj.entity.second.InspectionManageDetailDTO;
-import com.hwc.dwcj.entity.second.InspectionResult;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
-import com.hwc.dwcj.util.FullyLinearLayoutManager;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.entity.EventCenter;
 import com.zds.base.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.InstrumentedActivity;
 
 public class InspectionDetailActivity extends BaseActivity {
     @BindView(R.id.bar)
@@ -74,6 +67,10 @@ public class InspectionDetailActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_reason)
+    TextView tvReason;
+    @BindView(R.id.ll_reason)
+    LinearLayout llReason;
 
     private String id = "";
 
@@ -133,7 +130,12 @@ public class InspectionDetailActivity extends BaseActivity {
                 tv_inspection_already.setText(inspectionManageDetailDTO.map.inspectionSumNow);
                 tv_inspection_never.setText(inspectionManageDetailDTO.map.inspectionOver);
                 tv_task_start_progress.setText(inspectionManageDetailDTO.map.inspectionProgress);
-
+                if (!StringUtil.isEmpty(inspectionManageDetailDTO.approvalOpinion)) {
+                    tvReason.setText(inspectionManageDetailDTO.approvalOpinion);
+                    llReason.setVisibility(View.VISIBLE);
+                } else {
+                    llReason.setVisibility(View.GONE);
+                }
 //                FullyLinearLayoutManager fullyLinearLayoutManager = new FullyLinearLayoutManager(InspectionDetailActivity.this);
                 LinearLayoutManager fullyLinearLayoutManager = new LinearLayoutManager(InspectionDetailActivity.this);
                 recyclerView.setLayoutManager(fullyLinearLayoutManager);

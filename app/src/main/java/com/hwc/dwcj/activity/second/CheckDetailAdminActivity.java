@@ -22,6 +22,8 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -159,11 +161,26 @@ public class CheckDetailAdminActivity extends BaseActivity {
         if (info == null) {
             return;
         }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date d = new Date();
+            if (df.parse(StringUtil.dealDateFormat(info.getTaskEndTime())).getTime() > d.getTime()) {
+                tv8.setText("正常");
+                //完成
+            } else {
+                //未完成
+                tv8.setText("超时");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            tv8.setText("未知");
+        }
         tv1.setText(StringUtil.isEmpty(info.getTaskName()) ? "" : info.getTaskName());
         tv2.setText(StringUtil.isEmpty(info.getVerPeopleNames()) ? "" : info.getVerPeopleNames());
         tv4.setText(StringUtil.isEmpty(info.getVerContent()) ? "" : info.getVerContent());
         tv5.setText(StringUtil.isEmpty(info.getTaskrequires()) ? "" : info.getTaskrequires());
-        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
+        tv6.setText(StringUtil.dealDateFormat(info.getTaskStartTime()) + "~" + StringUtil.dealDateFormat(info.getTaskEndTime()));
+        tv7.setText(StringUtil.isEmpty(info.getCheckPeople()) ? "" : info.getCheckPeople());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         if (info.getVerFeedback() != null) {
             switch (info.getVerFeedback()) {
