@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.fragment.FirstHomeFragment;
 import com.hwc.dwcj.fragment.FirstPersonalFragment;
 import com.hwc.dwcj.http.ApiClient;
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initLogic() {
         initTab();
+        MyApplication.getInstance().checkVersion(this);
         getRole();
     }
 

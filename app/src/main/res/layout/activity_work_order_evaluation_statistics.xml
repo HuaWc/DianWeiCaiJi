@@ -60,7 +60,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_search"
-                android:hint="名称、关键字"
+                android:hint="运维人员、关键字"
                 android:paddingHorizontal="14dp"
                 android:singleLine="true"
                 android:textColor="#333333"

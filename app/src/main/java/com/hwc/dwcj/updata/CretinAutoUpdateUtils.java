@@ -725,7 +725,7 @@ public class CretinAutoUpdateUtils {
         Intent intent1 = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent1.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
             intent1.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             intent1.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");

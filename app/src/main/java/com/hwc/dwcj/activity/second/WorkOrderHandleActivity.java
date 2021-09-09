@@ -152,7 +152,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
     private List<DictInfo> methodList;
 
     private CommonImageAdapter adapter1;
-    private List<String> img1;//用于展示
+    private List<String> img1;//用于展示,和adapter绑定
     private List<Object> images1;//用于接口
     private List<String> imagesPath1;//用于删除
 
@@ -552,6 +552,12 @@ public class WorkOrderHandleActivity extends BaseActivity {
                 newAssetId = a.getId();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new EventCenter(EventUtil.REFRESH_FAULT_LIST));
     }
 
     @Override

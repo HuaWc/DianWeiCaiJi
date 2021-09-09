@@ -1,7 +1,9 @@
 package com.hwc.dwcj.activity;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,9 +21,11 @@ import com.hwc.dwcj.entity.AuditUserEntity;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.util.BitmapUtil;
 import com.hwc.dwcj.util.EventUtil;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.hwc.dwcj.util.RegularCheckUtil;
+import com.hwc.dwcj.view.dialog.BaseDialog;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.code.encoding.EncodingHandler;
 import com.zds.base.entity.EventCenter;
@@ -82,6 +86,7 @@ public class AuditDetailUserActivity extends BaseActivity {
     private AdapterAuditUser adapterAuditUser;
     private AuditUserEntity auditUserEntity;
 
+    Bitmap bitmap;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -184,13 +189,21 @@ public class AuditDetailUserActivity extends BaseActivity {
                     return;
                 }
                 Toast.makeText(AuditDetailUserActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
-                Bitmap bitmap = EncodingHandler.createQRCode(auditUserEntity.getCamera().getPositionCode(), 143, 143, null);
+                bitmap = EncodingHandler.createQRCode(auditUserEntity.getCamera().getPositionCode(), 143, 143, null);
                 if (bitmap != null) {
                     AuditDetailUserActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             ivCode.setImageBitmap(bitmap);
+                            ivCode.setVisibility(View.VISIBLE);
                             tvCode.setVisibility(View.GONE);
+                        }
+                    });
+                    ivCode.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //点击显示弹窗，弹窗可以保存二维码到本地
+                            showDialog();
                         }
                     });
                 }
@@ -208,6 +221,31 @@ public class AuditDetailUserActivity extends BaseActivity {
                 cb();
             }
         });
+    }
+
+    private void showDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_save_code, null);
+        View tv_save = view.findViewById(R.id.tv_save);
+        View tv_cancel = view.findViewById(R.id.tv_cancel);
+        BaseDialog.getInstance()
+                .setLayoutView(view, this)
+                .dissmissDialog()
+                .setWindow(1, 0.5)
+                .isCancelable(true)
+                .setOnClickListener(tv_save, new BaseDialog.OnClickListener() {
+                    @Override
+                    public void onClick(View view, Dialog dialog) {
+                        dialog.dismiss();
+                        BitmapUtil.saveBitmapInFile(AuditDetailUserActivity.this, bitmap, "BarCode");
+                    }
+                })
+                .setOnClickListener(tv_cancel, new BaseDialog.OnClickListener() {
+                    @Override
+                    public void onClick(View view, Dialog dialog) {
+                        //取消
+                        dialog.dismiss();
+                    }
+                }).bottomShow();
     }
 
     private void cb() {

@@ -124,7 +124,7 @@ public class AlertDetailActivity extends BaseActivity {
         tv6.setText(StringUtil.isEmpty(info.getAlarmSource()) ? "" : info.getAlarmSource());
         tv7.setText(StringUtil.isEmpty(info.getAlarmLevel()) ? "" : info.getAlarmLevel());
         tv8.setText(StringUtil.isEmpty(info.getOrgName()) ? "" : info.getOrgName());
-        tv9.setText(StringUtil.isEmpty(info.getDeviceName()) ? "" : info.getDeviceName());
+        tv9.setText(StringUtil.isEmpty(info.getMap().getDeviceName()) ? "" : info.getMap().getDeviceName());
         tv10.setText(StringUtil.isEmpty(info.getAlarmStatus()) ? "" : info.getAlarmStatus());
         tv11.setText(StringUtil.isEmpty(info.getAlarmTime()) ? "" : StringUtil.dealDateFormat(info.getAlarmTime()));
         tv12.setText(StringUtil.isEmpty(info.getIp()) ? "" : info.getIp());

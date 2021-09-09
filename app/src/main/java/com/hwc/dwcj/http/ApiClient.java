@@ -1131,7 +1131,7 @@ public class ApiClient {
 
     }
 
-    private static Map<String, String> getFormatMap(Map<String, Object> mapP) {
+    public static Map<String, String> getFormatMap(Map<String, Object> mapP) {
         Map<String, String> map = new HashMap<>();
         if (null != mapP && mapP.size() > 0) {
             for (String key : mapP.keySet()) {

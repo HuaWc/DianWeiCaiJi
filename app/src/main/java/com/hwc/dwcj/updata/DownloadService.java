@@ -266,7 +266,7 @@ public class DownloadService extends Service {
         //兼容7.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");

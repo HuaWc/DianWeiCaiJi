@@ -100,10 +100,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activity.ForgetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -315,6 +311,11 @@
 
         <activity
             android:name=".activity.second.SelectAlertCameraActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".activity.second.TestActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 

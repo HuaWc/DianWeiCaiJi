@@ -671,6 +671,7 @@
                     android:id="@+id/yv_code"
                     android:layout_width="143dp"
                     android:layout_height="143dp"
+                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="22dp" />
 

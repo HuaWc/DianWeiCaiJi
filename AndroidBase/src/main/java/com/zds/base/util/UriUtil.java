@@ -18,7 +18,7 @@ public class UriUtil {
     public static Uri getUri(Context context, String path) {
         Uri uri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", new File(path));
+            uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", new File(path));
         } else {
             uri = Uri.fromFile(new File(path));
         }
@@ -28,7 +28,7 @@ public class UriUtil {
     public static Uri getUri(Context context, File file) {
         Uri uri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+            uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
         } else {
             uri = Uri.fromFile(file);
         }

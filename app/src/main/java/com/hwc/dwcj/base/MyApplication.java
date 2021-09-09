@@ -13,32 +13,65 @@
  */
 package com.hwc.dwcj.base;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.multidex.MultiDex;
 import androidx.core.content.ContextCompat;
 
+import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.dfqin.grantor.PermissionListener;
+import com.github.dfqin.grantor.PermissionsUtil;
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.AddCameraDetailActivity;
 import com.hwc.dwcj.activity.LoginActivity;
+import com.hwc.dwcj.activity.second.AlertManagementActivity;
+import com.hwc.dwcj.entity.CheckVersionInfo;
 import com.hwc.dwcj.entity.UserInfo;
 import com.hwc.dwcj.entity.VersionInfo;
+import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.updata.CretinAutoUpdateUtils;
 import com.hwc.dwcj.util.GDLocationUtil;
 import com.hwc.dwcj.view.dialog.CommonDialog;
+import com.hwc.dwcj.view.dialog.CommonTipDialog;
 import com.hwc.dwcj.wxapi.WeChatConstans;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Progress;
+import com.lzy.okgo.model.Response;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -56,12 +89,21 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.base.SelfAppContext;
+import com.zds.base.json.FastJsonUtil;
+import com.zds.base.log.XLog;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileCallback;
 
+import java.io.File;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.jpush.android.api.JPushInterface;
+
+import static com.hwc.dwcj.http.ApiClient.getFormatMap;
 
 
 /**
@@ -80,7 +122,7 @@ public class MyApplication extends SelfAppContext {
         applicationContext = this;
         instance = this;
         init();
-        JPushInterface.init(this);
+        //sddJPushInterface.init(this);
         GDLocationUtil.init(this);
 
     }
@@ -102,13 +144,13 @@ public class MyApplication extends SelfAppContext {
         // 下拉刷新上拉加载
         setRefush();
         // 版本更新
-        setUpDataApp();
+        //setUpDataApp();
         // util
         Utils.init(this);
         //七牛
-        uploadManager = new UploadManager(new Configuration.Builder().build());
+        //uploadManager = new UploadManager(new Configuration.Builder().build());
         //bugly bug
-        CrashReport.initCrashReport(getApplicationContext(), "42a24f434c", false);
+        //CrashReport.initCrashReport(getApplicationContext(), "42a24f434c", false);
     }
 
 
@@ -411,4 +453,199 @@ public class MyApplication extends SelfAppContext {
     public void upVideo(final String path, final String key, final String token, final UpCompletionHandler upCompletionHandler) {
         getUpM().put(path, key, token, upCompletionHandler, null);
     }
+
+
+    public void checkVersion(Activity mContext) {
+        Map<String, Object> hashMap = new HashMap<>();
+        ApiClient.requestNetPost(mContext, AppConfig.checkVersion, "加载中", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                //对比版本号决定是否更新
+                CheckVersionInfo codeAndroid = FastJsonUtil.getObject(json, CheckVersionInfo.class);
+                if (!MyApplication.getInstance().getVersionName().equals(codeAndroid.getVerCodeAndroid().replace("v-", ""))) {
+                    //不是最新版本，需要更新，弹窗提示更新
+                    showUpdateDialog(mContext, codeAndroid);
+                }
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    private void showUpdateDialog(Activity mContext, CheckVersionInfo codeAndroid) {
+        CommonTipDialog.getInstance()
+                .addTipData(mContext, "更新提示", "退出", "更新")
+                .addBtnColor("#FF191F25", "#FF0000FF")
+                .addTipContent(codeAndroid.getVerDesc())
+                .setCancelable(false)
+                .addOnClickListener(new CommonTipDialog.OnClickListener() {
+                    @Override
+                    public void onLeft(View v, Dialog dialog) {
+                        ActivityStackManager.getInstance().killAllActivity();
+                    }
+
+                    @Override
+                    public void onRight(View v, Dialog dialog) {
+                        dialog.dismiss();
+                        //申请读写权限
+                        PermissionsUtil.requestPermission(mContext, new PermissionListener() {
+                            @Override
+                            public void permissionGranted(@NonNull String[] permission) {
+
+                                //调用接口获得流
+                                getUpdateFileStream(mContext, codeAndroid);
+                            }
+
+                            @Override
+                            public void permissionDenied(@NonNull String[] permission) {
+                                ToastUtil.toast("拒绝权限将更新");
+                                ActivityStackManager.getInstance().killAllActivity();
+                            }
+                        }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+                    }
+                })
+                .show();
+    }
+
+    private void getUpdateFileStream(Activity mContext, CheckVersionInfo codeAndroid) {
+        String apkName = "YunWeiGuanLi" + "." + codeAndroid.getVerCodeAndroid() + ".apk";
+        String llsApkFilePath = Environment.getExternalStorageDirectory() + File.separator + apkName;
+        File file = new File(llsApkFilePath);
+        if (file.exists()) { // 判断文件是否存在
+            file.delete();
+        } else {
+            Log.i("FileManageUtils", "文件不存在:" + file.toString());
+        }
+
+        showDownloadDialog(mContext);
+
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("filePath", codeAndroid.getVerUrl());
+        hashMap.put("fileName", apkName);
+        if (!MyApplication.getInstance().isNetworkConnected()) {
+            //没网络
+            ToastUtil.toast("网络连接异常,请检查您的网络设置");
+            return;
+        }
+        try {
+            OkGo.<File>get(AppConfig.getDownloadAccessory)
+                    .tag(mContext)
+                    .params(getFormatMap(hashMap))
+                    .execute(new com.lzy.okgo.callback.FileCallback() {
+                        @Override
+                        public void onSuccess(Response<File> response) {
+                            //下载完成
+                            dialog1.dismiss();
+
+                            String path = response.body().getPath();
+                            File file = new File(path);
+                            try {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                Uri uri;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // 适配Android 7系统版本
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                                    uri = FileProvider.getUriForFile(MyApplication.this, MyApplication.getInstance().getPackageName() + ".fileProvider", file);//通过FileProvider创建一个content类型的Uri
+                                } else {
+                                    uri = Uri.fromFile(file);
+                                }
+                                intent.setDataAndType(uri, "application/vnd.android.package-archive"); // 对应apk类型
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                MyApplication.getInstance().startActivity(intent);
+                                //杀死原来的进程哦
+                                ActivityStackManager.getInstance().killAllActivity();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+            @Override
+            public void onError (Response < File > response) {
+                super.onError(response);
+                ToastUtil.toast("下载错误,请检查您的网络设置");
+                ActivityStackManager.getInstance().killAllActivity();
+
+            }
+
+            @Override
+            public void downloadProgress (Progress progress){
+                super.downloadProgress(progress);
+                float small = progress.currentSize/1024;
+                float total = progress.totalSize/1024;
+                float bytes = progress.speed/1024;
+                float pro = small / total * 100;
+                DecimalFormat decimalFormat = new DecimalFormat("##0.0");
+                mTvTitle.setText("正在下载...");
+                mTvProgress.setText("下载中……" + decimalFormat.format(pro) + "%");
+                mTvSpeed.setText(formatSpeed(bytes));
+                bar1.setProgress((int) (small / total));
+            }
+        });
+    } catch(
+    Exception e)
+
+    {
+        ToastUtil.toast(e.getMessage());
+    }
+
+}
+
+    private Dialog dialog1;
+    ProgressBar bar1;
+    TextView mTvTitle;
+    TextView mTvProgress;
+    TextView mTvSpeed;
+
+    private void showDownloadDialog(Activity mContext) {
+        View view = View.inflate(mContext, R.layout.dialog_progressbar, null);
+        dialog1 = new Dialog(mContext, R.style.SimpleDialogLight);
+        dialog1.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        bar1 = view.findViewById(R.id.pb_bar);
+        mTvTitle = view.findViewById(R.id.tv_title);
+        mTvProgress = view.findViewById(R.id.tv_progress);
+        mTvSpeed = view.findViewById(R.id.tv_speed);
+
+        Window dialogWindow = dialog1.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        DisplayMetrics d = mContext.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        lp.width = (int) (d.widthPixels * 0.7); // 高度设置为屏幕的0.6
+        dialogWindow.setAttributes(lp);
+        dialog1.setCancelable(false);
+        dialog1.show();
+    }
+
+    public static boolean isWifiOpen() {
+        ConnectivityManager cm = (ConnectivityManager) MyApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        if (info == null) return false;
+        if (!info.isAvailable() || !info.isConnected()) return false;
+        if (info.getType() != ConnectivityManager.TYPE_WIFI) return false;
+        return true;
+    }
+
+    /**
+     * 网速格式化
+     *
+     * @param downSpeed
+     * @return
+     */
+    private String formatSpeed(float downSpeed) {
+        DecimalFormat decimalFormat = new DecimalFormat("##0.0");
+        if (downSpeed < 1024) {
+            return decimalFormat.format(downSpeed) + "KB/s";
+        } else if (downSpeed > 1024 && downSpeed < (1024 * 1024)) {
+            return decimalFormat.format((downSpeed / (1024))) + "M/s";
+        } else if (downSpeed > (1024 * 1024) && downSpeed < (1024 * 1024 * 1024)) {
+            return decimalFormat.format((downSpeed / (1024 * 1024))) + "G/s";
+        } else {
+            return decimalFormat.format((downSpeed / (1024 * 1024 * 1024))) + "T/s";
+        }
+    }
+
+
 }

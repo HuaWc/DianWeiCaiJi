@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.activity.second.TestActivity;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.UserInfo;
@@ -28,8 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 听说匹诺曹总说着慌
- * 侏儒怪拥有宝石满箱
+ * 登录
  */
 
 public class LoginActivity extends BaseActivity {
@@ -49,6 +49,8 @@ public class LoginActivity extends BaseActivity {
     RelativeLayout rlLogin;
     @BindView(R.id.tv_forget)
     TextView tvForget;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
 
     private boolean isRemember = true;
 
@@ -67,6 +69,7 @@ public class LoginActivity extends BaseActivity {
                 ivRemember.setSelected(true);
             }
         });
+        MyApplication.getInstance().checkVersion(this);
     }
 
     @Override
@@ -99,6 +102,13 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 isRemember = !isRemember;
                 ivRemember.setSelected(isRemember);
+            }
+        });
+
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //toTheActivity(TestActivity.class);
             }
         });
     }
