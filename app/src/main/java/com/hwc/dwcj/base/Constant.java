@@ -26,7 +26,10 @@ public class Constant {
      * 请求失败 错误
      */
     public static final int CODEERROR = 0;
-
+    /**
+     * 需要登陆
+     */
+    public static final int NEEDLOGIN = 401;
     /**
      * token  Preference 字典
      */
@@ -39,5 +42,10 @@ public class Constant {
      * 缓存用户手机号  Preference 字典
      */
     public static final String LOGIN_NAME = "login_name";
+
+    /**
+     * 生成二维码的前缀的域名
+     */
+    public static final String URL_PREFIX = "http://192.168.1.109:8080/?positionCode=";
 
 }

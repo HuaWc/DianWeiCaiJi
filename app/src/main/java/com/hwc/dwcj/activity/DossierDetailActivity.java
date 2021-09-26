@@ -17,6 +17,7 @@ import com.hwc.dwcj.activity.second.WorkOrderManagementAdminActivity;
 import com.hwc.dwcj.activity.second.WorkOrderManagementUserActivity;
 import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.Constant;
 import com.hwc.dwcj.entity.PtCameraInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
@@ -179,7 +180,7 @@ public class DossierDetailActivity extends BaseActivity {
                     return;
                 }
                 Toast.makeText(DossierDetailActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
-                bitmap = EncodingHandler.createQRCode(entityInfo.getPositionCode(), 143, 143, null);
+                bitmap = EncodingHandler.createQRCode(Constant.URL_PREFIX + entityInfo.getPositionCode(), 143, 143, null);
                 if (bitmap != null) {
                     DossierDetailActivity.this.runOnUiThread(new Runnable() {
                         @Override

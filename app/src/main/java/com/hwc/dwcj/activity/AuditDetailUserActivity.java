@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterAuditUser;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.Constant;
 import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.AuditUserEntity;
 import com.hwc.dwcj.http.ApiClient;
@@ -189,7 +190,7 @@ public class AuditDetailUserActivity extends BaseActivity {
                     return;
                 }
                 Toast.makeText(AuditDetailUserActivity.this, "二维码生成中，请稍后", Toast.LENGTH_SHORT).show();
-                bitmap = EncodingHandler.createQRCode(auditUserEntity.getCamera().getPositionCode(), 143, 143, null);
+                bitmap = EncodingHandler.createQRCode(Constant.URL_PREFIX + auditUserEntity.getCamera().getPositionCode(), 143, 143, null);
                 if (bitmap != null) {
                     AuditDetailUserActivity.this.runOnUiThread(new Runnable() {
                         @Override

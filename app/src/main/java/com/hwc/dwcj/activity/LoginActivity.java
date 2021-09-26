@@ -63,13 +63,8 @@ public class LoginActivity extends BaseActivity {
     protected void initLogic() {
         initBar();
         initClick();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ivRemember.setSelected(true);
-            }
-        });
-        MyApplication.getInstance().checkVersion(this);
+        ivRemember.setSelected(true);
+        //MyApplication.getInstance().checkVersion(this);
     }
 
     @Override

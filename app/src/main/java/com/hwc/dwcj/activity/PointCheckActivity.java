@@ -267,6 +267,7 @@ public class PointCheckActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //接收扫一扫的回调
         //receive result after your activity finished scanning
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK || data == null) {
@@ -277,9 +278,10 @@ public class PointCheckActivity extends BaseActivity {
             Object obj = data.getParcelableExtra(ScanUtil.RESULT);
             if (obj instanceof HmsScan) {
                 if (!TextUtils.isEmpty(((HmsScan) obj).getOriginalValue())) {
-                    String info = ((HmsScan) obj).getOriginalValue();
+                    String info = ((HmsScan) obj).getOriginalValue();//http://192.168.1.109:8080/?positionCode=XLJA-QLZ-0024
+                    String code = info.substring((info.indexOf("positionCode=")+1));
                     Bundle bundle = new Bundle();
-                    bundle.putString("positionCode", info);
+                    bundle.putString("positionCode", code);
                     toTheActivity(AddCameraActivity.class, bundle);
 //                    String uuid = FastJsonUtil.getString(info, "uuid");
 //                    String ip = FastJsonUtil.getString(info, "ip");

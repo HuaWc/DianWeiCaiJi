@@ -161,7 +161,7 @@
                 <TextView
                     android:id="@+id/tv_look"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="15dp"
                     android:background="@drawable/bg_common_btn"
@@ -169,12 +169,12 @@
                     android:paddingHorizontal="10dp"
                     android:text="开始核查"
                     android:textColor="#FFFFFF"
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tv_check"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="15dp"
                     android:background="@drawable/bg_common_btn"
@@ -182,7 +182,7 @@
                     android:paddingHorizontal="10dp"
                     android:text="审核确认"
                     android:textColor="#FFFFFF"
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

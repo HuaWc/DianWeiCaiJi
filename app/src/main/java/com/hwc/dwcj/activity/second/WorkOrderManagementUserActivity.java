@@ -378,7 +378,10 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(position).getId());
+                WorkOrderUser item = mList.get(position);
+                toTheActivity(WorkOrderDetailActivity.class, bundle);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

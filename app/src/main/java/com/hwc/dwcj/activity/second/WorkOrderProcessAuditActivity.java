@@ -171,8 +171,8 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     private FaultMapInfo info;
     private FaultAssetInfo asset;
 
-    private int maxScore = 5;
-    private int minScore = 1;
+    private int maxScore = 10;
+    private int minScore = 2;
     private int type = 0;
 
 
@@ -464,13 +464,13 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
                 ToastUtil.toast("已经达到最高分，不能再高了！");
                 return;
             }
-            v.setText(String.valueOf(scoreGet + 1));
+            v.setText(String.valueOf(scoreGet + 2));
         } else {
             if (scoreGet == minScore) {
                 ToastUtil.toast("已经达到最低分，不能再低了！");
                 return;
             }
-            v.setText(String.valueOf(scoreGet - 1));
+            v.setText(String.valueOf(scoreGet - 2));
         }
     }
 }

@@ -1207,13 +1207,18 @@ public class ApiClient {
      */
     private static void formatData(Response<String> response, ResultListener listener, Context context) {
         try {
+            if (response.code() == Constant.NEEDLOGIN) {
+                //token失效了哦,退出登录,去到登录页
+                MyApplication.getInstance().toLogin(context);
+                return;
+            }
             ServerData serverData = FastJsonUtil.getObject(response.body().toString(), ServerData.class);
             if (null != serverData) {
-                if ((serverData.getMessage() != null && serverData.getMessage().contains("请先登录")) || (serverData.getData() != null && serverData.getData().toString().contains("请先登录"))) {
+/*                if ((serverData.getMessage() != null && serverData.getMessage().contains("请先登录")) || (serverData.getData() != null && serverData.getData().toString().contains("请先登录"))) {
                     //token失效了哦,退出登录,去到登录页
                     MyApplication.getInstance().toLogin(context);
                     return;
-                }
+                }*/
                 if (serverData.getCode() == Constant.CODESUCCESS) {
                     listener.onSuccess(FastJsonUtil.toJSONString(serverData.getData()), serverData.getMessage() == null ? "" : serverData.getMessage());
                 } else {
