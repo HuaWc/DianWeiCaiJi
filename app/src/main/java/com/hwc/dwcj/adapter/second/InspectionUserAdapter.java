@@ -118,7 +118,11 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                         tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_red));
                         tv_status3.setText("审核已驳回");
                         tv_status3.setVisibility(View.VISIBLE);
-                        tv_check.setVisibility(View.GONE);
+                        if (myId.equals(item.getMap().getAddId())) {
+                            tv_check.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_check.setVisibility(View.GONE);
+                        }
                         if (myId.equals(item.getInspectionId())) {
                             tv_start.setVisibility(View.VISIBLE);
                         } else {
@@ -161,7 +165,11 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                         tv_status3.setTextColor(mContext.getResources().getColor(R.color.inspection_red));
                         tv_status3.setText("审核已驳回");
                         tv_status3.setVisibility(View.VISIBLE);
-                        tv_check.setVisibility(View.GONE);
+                        if (myId.equals(item.getMap().getAddId())) {
+                            tv_check.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_check.setVisibility(View.GONE);
+                        }
                         if (myId.equals(item.getInspectionId())) {
                             tv_start.setVisibility(View.VISIBLE);
                         } else {
@@ -172,6 +180,16 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                         break;
                 }
                 break;
+/*            case "4":
+                tv_status2.setText("待巡检（已驳回）");
+                if (myId.equals(item.getInspectionId())) {
+                    tv_start.setVisibility(View.VISIBLE);
+                } else {
+                    tv_start.setVisibility(View.GONE);
+                }
+                tv_check.setVisibility(View.GONE);
+                tv_status3.setVisibility(View.GONE);
+                break;*/
         }
 
         //两个状态  一个是右上角是否巡检  进度条的颜色
