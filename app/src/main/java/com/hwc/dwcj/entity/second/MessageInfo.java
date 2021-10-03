@@ -8,7 +8,7 @@ package com.hwc.dwcj.entity.second;
 public class MessageInfo {
 
     private String id;
-    private int msgId;
+    private long msgId;
     private String receiverId;
     private int msgState;
     private int isDel;
@@ -37,11 +37,11 @@ public class MessageInfo {
         this.id = id;
     }
 
-    public int getMsgId() {
+    public long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(int msgId) {
+    public void setMsgId(long msgId) {
         this.msgId = msgId;
     }
 

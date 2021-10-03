@@ -75,7 +75,14 @@ public class InspectionUserAdapter extends BaseQuickAdapter<InspectionUser, Base
                     tv_start.setVisibility(View.GONE);
                 }
                 tv_check.setVisibility(View.GONE);
-                tv_status3.setVisibility(View.GONE);
+                switch (item.getCkeckType()) {
+                    case "3":
+                        tv_status3.setText("审核已驳回");
+                        tv_status3.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        tv_status3.setVisibility(View.GONE);
+                }
                 break;
             case "1":
                 tv_status2.setText("巡检中");

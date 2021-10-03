@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity {
         initBar();
         initClick();
         ivRemember.setSelected(true);
-        //MyApplication.getInstance().checkVersion(this);
+        MyApplication.getInstance().checkVersion(this);
     }
 
     @Override

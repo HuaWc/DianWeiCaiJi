@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -510,14 +511,36 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                 }
             }
         });
+        ll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ll1.setVisibility(View.VISIBLE);
+                ll2.setVisibility(View.GONE);
+                ll3.setVisibility(View.GONE);
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
+            }
+        });
+        ll3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ll1.setVisibility(View.VISIBLE);
+                ll2.setVisibility(View.GONE);
+                ll3.setVisibility(View.GONE);
+                hideSoftKeyboard();
+                hideSoftKeyboard3();
+            }
+        });
+
+
     }
 
     private void search() {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("mapKeywords", etSearch3.getText().toString().trim());
         hashMap.put("pageNum", 1);
-        hashMap.put("pageSize", 20);
-        ApiClient.requestNetPost(getContext(), AppConfig.mapKeywords, "", hashMap, new ResultListener() {
+        hashMap.put("pageSize", 10);
+        ApiClient.requestNetPost(getContext(), AppConfig.mapKeywords, "查询中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<MapSearchItem> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), MapSearchItem.class);

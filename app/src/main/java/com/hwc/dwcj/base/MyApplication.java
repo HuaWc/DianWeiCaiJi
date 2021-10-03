@@ -462,9 +462,11 @@ public class MyApplication extends SelfAppContext {
             public void onSuccess(String json, String msg) {
                 //对比版本号决定是否更新
                 CheckVersionInfo codeAndroid = FastJsonUtil.getObject(json, CheckVersionInfo.class);
-                if (!MyApplication.getInstance().getVersionName().equals(codeAndroid.getVerCodeAndroid().replace("v-", ""))) {
-                    //不是最新版本，需要更新，弹窗提示更新
-                    showUpdateDialog(mContext, codeAndroid);
+                if(codeAndroid!=null){
+                    if (!MyApplication.getInstance().getVersionName().equals(codeAndroid.getVerCodeAndroid().replace("v-", ""))) {
+                        //不是最新版本，需要更新，弹窗提示更新
+                        showUpdateDialog(mContext, codeAndroid);
+                    }
                 }
 
             }

@@ -170,7 +170,7 @@ public class WorkOrderManagementUserActivity extends BaseActivity {
     @Override
     protected void initLogic() {
         if (isUpcoming) {
-            tvTitleMain.setText("待办事件");
+            tvTitleMain.setText("待办工单");
             tvDbsj.setVisibility(View.GONE);
         }
         initBar();

@@ -859,7 +859,7 @@ public class AlertManagementActivity extends BaseActivity {
             if (obj instanceof HmsScan) {
                 if (!TextUtils.isEmpty(((HmsScan) obj).getOriginalValue())) {
                     String info = ((HmsScan) obj).getOriginalValue();//http://192.168.1.109:8080/?positionCode=XLJA-QLZ-0024
-                    String code = info.substring((info.indexOf("positionCode=")+1));
+                    String code = info.substring((info.indexOf("positionCode=")+13));
                     Bundle bundle = new Bundle();
                     bundle.putString("positionCode", code);
                     toTheActivity(SelectAlertCameraActivity.class, bundle);

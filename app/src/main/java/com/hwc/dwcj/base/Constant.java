@@ -46,6 +46,6 @@ public class Constant {
     /**
      * 生成二维码的前缀的域名
      */
-    public static final String URL_PREFIX = "http://192.168.1.109:8080/?positionCode=";
+    public static final String URL_PREFIX = "http://qrcode.iluan.com.cn/?positionCode=";
 
 }

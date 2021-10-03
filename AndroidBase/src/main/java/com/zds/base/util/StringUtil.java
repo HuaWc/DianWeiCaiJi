@@ -413,6 +413,17 @@ public class StringUtil {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(locatlDate);
     }
 
+    public static String dealTimeStrFromOracle(String data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return sdf1.format(sdf.parse(data));
+        } catch (Exception e) {
+            return "";
+        }
+
+    }
+
 
     public static String dealDateFormat(Date date) {
 

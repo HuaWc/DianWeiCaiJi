@@ -21,7 +21,7 @@ public class StartInspectionAdapter extends BaseQuickAdapter<StartInspection.Ins
 
     @Override
     protected void convert(BaseViewHolder helper, StartInspection.InspectionItemDTO item) {
-        helper.setText(R.id.tv_num,helper.getLayoutPosition()+"");
+        helper.setText(R.id.tv_num,(helper.getLayoutPosition()+1)+"");
         helper.setText(R.id.tv_name,item.map.devName);
         helper.setText(R.id.tv1,item.map.ip);
         helper.setText(R.id.tv3,item.map.memberbarCode);
