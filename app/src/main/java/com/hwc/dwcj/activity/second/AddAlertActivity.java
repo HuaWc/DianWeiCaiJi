@@ -208,7 +208,7 @@ public class AddAlertActivity extends BaseActivity {
                         .isCyclic(false)//是否循环显示日期 例如滑动到31日自动转到1日 有个问题：不能实现日期和月份联动
                         .setSubmitColor(0xFFF79D1F)//确定按钮文字颜色
                         .setCancelColor(0xFFA3A5A8)//取消按钮文字颜色
-                        .setTitleText("安装时间")//标题文字
+                        .setTitleText("发生时间")//标题文字
                         .setTitleColor(0xFF191F25)//标题文字颜色
                         .setLineSpacingMultiplier(lineSpace)
                         .build();

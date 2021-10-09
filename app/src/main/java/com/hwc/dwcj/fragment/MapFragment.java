@@ -540,7 +540,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         hashMap.put("mapKeywords", etSearch3.getText().toString().trim());
         hashMap.put("pageNum", 1);
         hashMap.put("pageSize", 10);
-        ApiClient.requestNetPost(getContext(), AppConfig.mapKeywords, "查询中", hashMap, new ResultListener() {
+        ApiClient.requestNetPost(getContext(), AppConfig.mapKeywords, "", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 List<MapSearchItem> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), MapSearchItem.class);
