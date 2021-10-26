@@ -53,6 +53,7 @@ import com.hwc.dwcj.activity.DossierDetailActivity;
 import com.hwc.dwcj.adapter.AdapterMapSearchItem;
 import com.hwc.dwcj.adapter.NewTreeAdapter;
 import com.hwc.dwcj.base.BaseFragment;
+import com.hwc.dwcj.base.Constant;
 import com.hwc.dwcj.entity.MapSearchItem;
 import com.hwc.dwcj.entity.NewTreeItem;
 import com.hwc.dwcj.entity.TreeCamera;
@@ -141,11 +142,10 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
     private ClusterOverlay mClusterOverlay;
     private Marker centerMarker;
     private MarkerOptions markerOption;
-    private LatLng centerLatLng;
     private List<Marker> markerList = new ArrayList<Marker>();
     private BitmapDescriptor ICON_YELLOW = BitmapDescriptorFactory
             .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-
+    private double nowLongitude, nowLatitude;
 
     private List<MapSearchItem> searchItems;
     private AdapterMapSearchItem adapterMapSearchItem;
@@ -574,7 +574,16 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
                         @Override
                         public void result(AMapLocation location) {
-
+                            nowLongitude = location.getLongitude();
+                            nowLatitude = location.getLatitude();
+                            if(nowLatitude == 0 && nowLongitude == 0){
+                                ToastUtil.toast("请打开手机的位置信息（或GPS）并重启应用！");
+                                //移动到六安市中心
+                                CameraPosition cameraPosition = new CameraPosition(new LatLng(Constant.LUAN_CENTER_LATITUDE,Constant.LUAN_CENTER_LONGITUDE), 15, 0, 0);
+                                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                                mAMap.moveCamera(cameraUpdate);
+                                return;
+                            }
                             //显示定位蓝点
                             MyLocationStyle myLocationStyle;
                             myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
@@ -597,6 +606,10 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                 @Override
                 public void permissionDenied(@NonNull String[] permission) {
                     ToastUtil.toast("未开启定位权限");
+                    //移动到六安市中心
+                    CameraPosition cameraPosition = new CameraPosition(new LatLng(Constant.LUAN_CENTER_LATITUDE,Constant.LUAN_CENTER_LONGITUDE), 15, 0, 0);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                    mAMap.moveCamera(cameraUpdate);
                 }
             }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
             // 绑定 Marker 被点击事件
@@ -626,19 +639,52 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         PermissionsUtil.requestPermission(getContext(), new PermissionListener() {
             @Override
             public void permissionGranted(@NonNull String[] permission) {
-                GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
-                    @Override
-                    public void result(AMapLocation location) {
-                        CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 0);
-                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                        mAMap.moveCamera(cameraUpdate);
-                    }
-                });
+                if(nowLatitude == 0 && nowLongitude == 0){
+                    GDLocationUtil.getLocation(new GDLocationUtil.MyLocationListener() {
+                        @Override
+                        public void result(AMapLocation location) {
+                            nowLongitude = location.getLongitude();
+                            nowLatitude = location.getLatitude();
+                            if(nowLatitude == 0 && nowLongitude == 0){
+                                ToastUtil.toast("请打开手机的位置信息（或GPS）并重启应用！");
+                                //移动到六安市中心
+                                CameraPosition cameraPosition = new CameraPosition(new LatLng(Constant.LUAN_CENTER_LATITUDE,Constant.LUAN_CENTER_LONGITUDE), 15, 0, 0);
+                                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                                mAMap.moveCamera(cameraUpdate);
+                                return;
+                            }
+                            //显示定位蓝点
+                            MyLocationStyle myLocationStyle;
+                            myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+                            myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，并且蓝点会跟随设备移动。
+                            myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+                            myLocationStyle.showMyLocation(true);
+                            myLocationStyle.strokeColor(getResources().getColor(R.color.transparent));
+                            myLocationStyle.radiusFillColor(getResources().getColor(R.color.transparent));
+                            myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.dw));
+                            mAMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+                            mAMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+                            //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
+                            CameraPosition cameraPosition = new CameraPosition(new LatLng(location.getLatitude(), location.getLongitude()), 15, 0, 0);
+                            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                            mAMap.moveCamera(cameraUpdate);
+                        }
+                    });
+                } else{
+                    CameraPosition cameraPosition = new CameraPosition(new LatLng(nowLatitude,nowLongitude), 15, 0, 0);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                    mAMap.moveCamera(cameraUpdate);
+                }
+
             }
 
             @Override
             public void permissionDenied(@NonNull String[] permission) {
                 ToastUtil.toast("未开启定位权限");
+                //移动到六安市中心
+                CameraPosition cameraPosition = new CameraPosition(new LatLng(Constant.LUAN_CENTER_LATITUDE,Constant.LUAN_CENTER_LONGITUDE), 15, 0, 0);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                mAMap.moveCamera(cameraUpdate);
             }
         }, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
     }

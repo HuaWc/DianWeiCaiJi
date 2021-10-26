@@ -15,7 +15,7 @@ public class AlertMenuInfo {
     private String alarmReason;
     private String alarmStatus;
     private String alarmTime;
-    private Object alarmPersonId;
+    private String alarmPersonId;
     private Object handlePersonId;
     private Object handleTime;
     private Object taskId;
@@ -34,10 +34,10 @@ public class AlertMenuInfo {
     private String assetNature;
     private String assetType;
     private String faultType;
-    private Object serviceRating;
-    private Object serviceRating2;
-    private Object serviceRating3;
-    private Object serviceRating4;
+    private String serviceRating;
+    private String serviceRating2;
+    private String serviceRating3;
+    private String serviceRating4;
     private Map map;
 
     public String getId() {
@@ -136,11 +136,11 @@ public class AlertMenuInfo {
         this.alarmTime = alarmTime;
     }
 
-    public Object getAlarmPersonId() {
+    public String getAlarmPersonId() {
         return alarmPersonId;
     }
 
-    public void setAlarmPersonId(Object alarmPersonId) {
+    public void setAlarmPersonId(String alarmPersonId) {
         this.alarmPersonId = alarmPersonId;
     }
 
@@ -288,35 +288,35 @@ public class AlertMenuInfo {
         this.faultType = faultType;
     }
 
-    public Object getServiceRating() {
+    public String getServiceRating() {
         return serviceRating;
     }
 
-    public void setServiceRating(Object serviceRating) {
+    public void setServiceRating(String serviceRating) {
         this.serviceRating = serviceRating;
     }
 
-    public Object getServiceRating2() {
+    public String getServiceRating2() {
         return serviceRating2;
     }
 
-    public void setServiceRating2(Object serviceRating2) {
+    public void setServiceRating2(String serviceRating2) {
         this.serviceRating2 = serviceRating2;
     }
 
-    public Object getServiceRating3() {
+    public String getServiceRating3() {
         return serviceRating3;
     }
 
-    public void setServiceRating3(Object serviceRating3) {
+    public void setServiceRating3(String serviceRating3) {
         this.serviceRating3 = serviceRating3;
     }
 
-    public Object getServiceRating4() {
+    public String getServiceRating4() {
         return serviceRating4;
     }
 
-    public void setServiceRating4(Object serviceRating4) {
+    public void setServiceRating4(String serviceRating4) {
         this.serviceRating4 = serviceRating4;
     }
 

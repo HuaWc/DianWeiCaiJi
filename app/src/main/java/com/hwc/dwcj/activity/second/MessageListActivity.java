@@ -55,6 +55,10 @@ public class MessageListActivity extends BaseActivity {
     private List<MessageInfo> mList;
     private MessageInfoAdapter adapter;
 
+    private  int page = 1;
+    private  int pageSize = 15;
+
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_message_list);
@@ -77,11 +81,16 @@ public class MessageListActivity extends BaseActivity {
                 finish();
             }
         });
-        refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                getData();
+                getData(false);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                getData(true);
             }
         });
     }
@@ -121,23 +130,40 @@ public class MessageListActivity extends BaseActivity {
     }
 
 
-    private void getData() {
-        mList.clear();
+    private void getData(boolean more) {
+        if (more) {
+            page++;
+        } else {
+            page = 1;
+            mList.clear();
+        }
         Map<String, Object> hashMap = new HashMap();
+        hashMap.put("pageNum",page);
+        hashMap.put("pageSize",pageSize);
         ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverMsgList, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<MessageInfo> list = FastJsonUtil.getList(json, MessageInfo.class);
-                if (list != null) {
+                List<MessageInfo> list = FastJsonUtil.getList(FastJsonUtil.getString(json,"list"), MessageInfo.class);
+                if (list != null && list.size() != 0) {
                     mList.addAll(list);
+                } else {
+                    if (page > 1) {
+                        page--;
+                    }
                 }
                 adapter.notifyDataSetChanged();
+                refreshLayout.finishLoadmore();
                 refreshLayout.finishRefresh();
+
             }
 
             @Override
             public void onFailure(String msg) {
+                if (page > 1) {
+                    page--;
+                }
                 ToastUtil.toast(msg);
+                refreshLayout.finishLoadmore();
                 refreshLayout.finishRefresh();
             }
         });
@@ -147,7 +173,7 @@ public class MessageListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
+        getData(false);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class MessageInfoAdapter extends BaseQuickAdapter<MessageInfo, BaseViewHo
     protected void convert(BaseViewHolder helper, MessageInfo item) {
         TextView tv_name = helper.getView(R.id.tv_name);
         helper.setText(R.id.tv_name, "【" + item.getMsgTitle() + "】" + item.getMsgContent());
-        if (item.getIsDel() == 0) {
+        if (item.getMsgState() == 0) {
             tv_name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
             tv_name.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));

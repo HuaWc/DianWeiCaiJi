@@ -48,4 +48,7 @@ public class Constant {
      */
     public static final String URL_PREFIX = "http://qrcode.iluan.com.cn/?positionCode=";
 
+    public static final Double LUAN_CENTER_LATITUDE = 31.738113080451768;//六安市中心纬度-Wgs84坐标系
+    public static final Double LUAN_CENTER_LONGITUDE = 116.53343900386244;//六安市中心经度
+
 }

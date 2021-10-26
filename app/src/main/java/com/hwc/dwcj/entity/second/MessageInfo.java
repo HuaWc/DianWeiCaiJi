@@ -7,6 +7,7 @@ package com.hwc.dwcj.entity.second;
  */
 public class MessageInfo {
 
+
     private String id;
     private long msgId;
     private String receiverId;
@@ -19,15 +20,8 @@ public class MessageInfo {
     private String subsysName;
     private String sendTime;
     private String faultId;
+    private int isSync;
     private Map map;
-
-    public String getFaultId() {
-        return faultId;
-    }
-
-    public void setFaultId(String faultId) {
-        this.faultId = faultId;
-    }
 
     public String getId() {
         return id;
@@ -115,6 +109,22 @@ public class MessageInfo {
 
     public void setSendTime(String sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public String getFaultId() {
+        return faultId;
+    }
+
+    public void setFaultId(String faultId) {
+        this.faultId = faultId;
+    }
+
+    public int getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(int isSync) {
+        this.isSync = isSync;
     }
 
     public Map getMap() {

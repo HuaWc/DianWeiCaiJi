@@ -110,12 +110,8 @@ public class AlertManagementActivity extends BaseActivity {
     TextView tvTimeEnd;
     @BindView(R.id.rv5)
     RecyclerView rv5;
-    @BindView(R.id.tv_cancel)
-    TextView tvCancel;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    @BindView(R.id.ll_btn)
-    LinearLayout llBtn;
     @BindView(R.id.ll_select)
     LinearLayout llSelect;
     @BindView(R.id.all)
@@ -334,22 +330,7 @@ public class AlertManagementActivity extends BaseActivity {
                         }
                     });
                 }
-            }
-        });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (llSelect.getVisibility() == View.VISIBLE) {
-                    llSelect.setVisibility(View.GONE);
-                    hide(llSelect);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvMoreBlue.setVisibility(View.GONE);
-                            tvMore.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
+                getData(false);
             }
         });
         tvSubmit.setOnClickListener(new View.OnClickListener() {

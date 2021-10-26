@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toTheActivity(TestActivity.class);
+//                toTheActivity(TestActivity.class);
             }
         });
     }

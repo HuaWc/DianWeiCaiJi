@@ -78,12 +78,8 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
     RecyclerView rv2;
     @BindView(R.id.rv3)
     RecyclerView rv3;
-    @BindView(R.id.tv_cancel)
-    TextView tvCancel;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    @BindView(R.id.ll_btn)
-    LinearLayout llBtn;
     @BindView(R.id.ll_select)
     LinearLayout llSelect;
 
@@ -123,22 +119,6 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
     }
 
     private void initClick() {
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (llSelect.getVisibility() == View.VISIBLE) {
-                    llSelect.setVisibility(View.GONE);
-                    hide(llSelect);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvMoreBlue.setVisibility(View.GONE);
-                            tvMore.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }
-        });
         tvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,6 +166,7 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
                         }
                     });
                 }
+                getData(false);
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {

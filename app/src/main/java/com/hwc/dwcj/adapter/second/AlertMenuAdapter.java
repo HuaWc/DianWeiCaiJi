@@ -8,7 +8,9 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.AlertMenuInfo;
+import com.zds.base.util.StringUtil;
 
 import java.util.List;
 
@@ -28,7 +30,11 @@ public class AlertMenuAdapter extends BaseQuickAdapter<AlertMenuInfo, BaseViewHo
                 .setText(R.id.tv_ip, item.getIp())
                 .setText(R.id.tv_jg, item.getAssetNature() + ">" + item.getAssetType() + ">" + item.getMap().getAssetClass());
         helper.addOnClickListener(R.id.tv_look).addOnClickListener(R.id.tv_evaluate);
-        if ("闭环".equals(item.getAlarmStatus())) {
+
+        String myId = MyApplication.getInstance().getUserInfo().getId();
+        if((!StringUtil.isEmpty(item.getAlarmPersonId()) && item.getAlarmPersonId().equals(myId)) && "闭环".equals(item.getAlarmStatus())
+                && StringUtil.isEmpty(item.getServiceRating()) && StringUtil.isEmpty(item.getServiceRating2())
+                && StringUtil.isEmpty(item.getServiceRating3()) && StringUtil.isEmpty(item.getServiceRating4())){
             tv_evaluate.setVisibility(View.VISIBLE);
         } else {
             tv_evaluate.setVisibility(View.GONE);

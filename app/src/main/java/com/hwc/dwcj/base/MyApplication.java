@@ -337,6 +337,7 @@ public class MyApplication extends SelfAppContext {
     }
 
     public void toLogin(Context context) {
+        cleanUserInfo();
         ActivityStackManager.getInstance().killAllActivity();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

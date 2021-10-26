@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity {
     protected void initLogic() {
         initTab();
         MyApplication.getInstance().checkVersion(this);
-        getRole();
+        //getRole();
     }
 
     /**

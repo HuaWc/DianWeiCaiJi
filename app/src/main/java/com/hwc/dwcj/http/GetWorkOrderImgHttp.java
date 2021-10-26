@@ -30,6 +30,24 @@ public class GetWorkOrderImgHttp {
         });
     }
 
+
+    public static void getImgByFtpAddress(String ftpAddress, Context mContext,ImgDataListener imgDataListener) {
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("ftp", ftpAddress);
+        ApiClient.requestNetPost(mContext, AppConfig.getCameraImgCommon, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                imgDataListener.result(json);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+                //ToastUtil.toast("获取相关图片数据失败");
+            }
+        });
+    }
+
     public interface ImgDataListener {
         void result(String json);
     }
