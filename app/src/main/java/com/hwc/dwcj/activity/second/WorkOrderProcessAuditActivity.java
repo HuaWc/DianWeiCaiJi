@@ -181,6 +181,9 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     private List<String> photo2;
     private AdapterCameraPhoto adapter2;
 
+    private List<String> ftPhotos;//工单附图
+    private AdapterCameraPhoto ftAdapter;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_work_order_process_audit);
@@ -288,7 +291,27 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         tv30.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());
         tv31.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());
 
+        getPhotoData();
+    }
 
+    private void getPhotoData() {
+        if (StringUtil.isEmpty(info.getMap().getPicture())) {
+            return;
+        }
+        ftPhotos = new ArrayList<>();
+        ftAdapter = new AdapterCameraPhoto(ftPhotos);
+        rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rv1.setAdapter(ftAdapter);
+        GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if (!StringUtil.isEmpty(str)) {
+                    ftPhotos.addAll(Arrays.asList(str.split("!")));
+                    ftAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void getStatus() {

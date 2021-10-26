@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.adapter.second.WorkOrderTrackAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.entity.second.WorkOrderTrackInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetWorkOrderImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.util.RecyclerViewHelper;
 import com.zds.base.Toast.ToastUtil;
@@ -23,6 +25,7 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,11 +91,16 @@ public class WorkOrderTrackActivity extends BaseActivity {
     TextView tv23;
     @BindView(R.id.tv_pd_remark)
     TextView tvPdRemark;
+    @BindView(R.id.rv1)
+    RecyclerView rv1;
 
     private String id;
     private FaultMapInfo info;
     private List<WorkOrderTrackInfo> mList;
     private WorkOrderTrackAdapter adapter;
+
+    private List<String> ftPhotos;//工单附图
+    private AdapterCameraPhoto ftAdapter;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -157,7 +165,7 @@ public class WorkOrderTrackActivity extends BaseActivity {
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
         tv16.setText(info.getMap().getFaultTime() + "");//故障时长
-        if(info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")){
+        if (info.getHandleStatus() != null && info.getHandleStatus().equals("DEAL_DONE")) {
             tv17.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());//实际处理人
             tv18.setText(StringUtil.isEmpty(info.getHandleTel()) ? "" : info.getHandleTel());//联系电话
         }
@@ -170,7 +178,27 @@ public class WorkOrderTrackActivity extends BaseActivity {
         tv22.setText(StringUtil.isEmpty(info.getMap().getTimeoutTime()) ? "" : info.getMap().getTimeoutTime());//超时闭环时间
         tv23.setText(StringUtil.isEmpty(info.getAlarmRemark()) ? "" : info.getAlarmRemark());//告警发生原因
 
+        getPhotoData();
+    }
 
+    private void getPhotoData() {
+        if (StringUtil.isEmpty(info.getMap().getPicture())) {
+            return;
+        }
+        ftPhotos = new ArrayList<>();
+        ftAdapter = new AdapterCameraPhoto(ftPhotos);
+        rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rv1.setAdapter(ftAdapter);
+        GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if (!StringUtil.isEmpty(str)) {
+                    ftPhotos.addAll(Arrays.asList(str.split("!")));
+                    ftAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void getTrackData() {

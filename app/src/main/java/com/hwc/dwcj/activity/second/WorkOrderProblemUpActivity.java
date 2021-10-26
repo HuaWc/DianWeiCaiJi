@@ -9,15 +9,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.hwc.dwcj.R;
+import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.entity.second.WorkOrderClr;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
+import com.hwc.dwcj.http.GetWorkOrderImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
 import com.hwc.dwcj.util.EventUtil;
@@ -31,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -137,6 +143,8 @@ public class WorkOrderProblemUpActivity extends BaseActivity {
     EditText etSm1;
     @BindView(R.id.tv24)
     TextView tv24;
+    @BindView(R.id.rv1)
+    RecyclerView rv1;
     private String id;
     private FaultMapInfo info;
     private int type = 0;//1 协助 2 新增
@@ -155,6 +163,8 @@ public class WorkOrderProblemUpActivity extends BaseActivity {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    private List<String> ftPhotos;//工单附图
+    private AdapterCameraPhoto ftAdapter;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -233,7 +243,27 @@ public class WorkOrderProblemUpActivity extends BaseActivity {
         tv23.setText(StringUtil.isEmpty(info.getAlarmRemark()) ? "" : info.getAlarmRemark());//告警发生原因
         tv24.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());//说明
 
+        getPhotoData();
+    }
 
+    private void getPhotoData() {
+        if (StringUtil.isEmpty(info.getMap().getPicture())) {
+            return;
+        }
+        ftPhotos = new ArrayList<>();
+        ftAdapter = new AdapterCameraPhoto(ftPhotos);
+        rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rv1.setAdapter(ftAdapter);
+        GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if (!StringUtil.isEmpty(str)) {
+                    ftPhotos.addAll(Arrays.asList(str.split("!")));
+                    ftAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void initClick() {

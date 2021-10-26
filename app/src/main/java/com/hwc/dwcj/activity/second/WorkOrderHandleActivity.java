@@ -16,16 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
-import com.hwc.dwcj.activity.AddCameraDetailActivity;
+import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.adapter.CommonImageAdapter;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.AssetEquipment;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
-import com.hwc.dwcj.entity.second.PtAttachment;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.GetDictDataHttp;
+import com.hwc.dwcj.http.GetWorkOrderImgHttp;
 import com.hwc.dwcj.http.ResultListener;
 import com.hwc.dwcj.http.UploadWorkOrderImgHttp;
 import com.hwc.dwcj.interfaces.PickerViewSelectOptionsResult;
@@ -46,6 +46,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,6 +146,8 @@ public class WorkOrderHandleActivity extends BaseActivity {
     EditText etPzrz;
     @BindView(R.id.tv_pd_remark)
     TextView tvPdRemark;
+    @BindView(R.id.rv1)
+    RecyclerView rv1;
 
     private String id;
     private FaultMapInfo info;
@@ -165,6 +168,9 @@ public class WorkOrderHandleActivity extends BaseActivity {
     private List<String> optionList;
 
     private String newAssetId = "";
+
+    private List<String> ftPhotos;//工单附图
+    private AdapterCameraPhoto ftAdapter;
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -312,7 +318,8 @@ public class WorkOrderHandleActivity extends BaseActivity {
                                 if (img1.size() < num && !img1.contains("")) {
                                     img1.add("");
                                 }
-                                adapter1.notifyDataSetChanged();dialog.dismiss();
+                                adapter1.notifyDataSetChanged();
+                                dialog.dismiss();
                             }
                         });
                     }
@@ -386,7 +393,27 @@ public class WorkOrderHandleActivity extends BaseActivity {
         tv24.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());//设备名称
         tv25.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());//设备编号
 
+        getPhotoData();
+    }
 
+    private void getPhotoData() {
+        if (StringUtil.isEmpty(info.getMap().getPicture())) {
+            return;
+        }
+        ftPhotos = new ArrayList<>();
+        ftAdapter = new AdapterCameraPhoto(ftPhotos);
+        rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        rv1.setAdapter(ftAdapter);
+        GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if (!StringUtil.isEmpty(str)) {
+                    ftPhotos.addAll(Arrays.asList(str.split("!")));
+                    ftAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void initClick() {

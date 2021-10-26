@@ -372,6 +372,7 @@ public class FaultMapInfo {
         private String alarmGradeName;
         private String alarmTime;
         private String verifyPersonName;
+        private String picture;
         private String assetType;
         private String verifyStatusName;
         private String closedLoopStatusName;
@@ -380,6 +381,14 @@ public class FaultMapInfo {
         @SerializedName("FaultTime")
         private double faultTime;
         private String assetName;
+
+        public String getPicture() {
+            return picture;
+        }
+
+        public void setPicture(String picture) {
+            this.picture = picture;
+        }
 
         public String getHandleStatusName() {
             return handleStatusName;

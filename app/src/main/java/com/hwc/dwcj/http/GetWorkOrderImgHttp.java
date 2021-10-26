@@ -33,7 +33,7 @@ public class GetWorkOrderImgHttp {
 
     public static void getImgByFtpAddress(String ftpAddress, Context mContext,ImgDataListener imgDataListener) {
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("ftp", ftpAddress);
+        hashMap.put("ftpURL", ftpAddress);
         ApiClient.requestNetPost(mContext, AppConfig.getCameraImgCommon, "", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
