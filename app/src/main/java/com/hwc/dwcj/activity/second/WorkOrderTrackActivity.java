@@ -193,6 +193,10 @@ public class WorkOrderTrackActivity extends BaseActivity {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
+                if("null".equals(str)){
+                    ToastUtil.toast("服务器中没有对应图片，获取失败！");
+                    return;
+                }
                 if (!StringUtil.isEmpty(str)) {
                     ftPhotos.addAll(Arrays.asList(str.split("!")));
                     ftAdapter.notifyDataSetChanged();
