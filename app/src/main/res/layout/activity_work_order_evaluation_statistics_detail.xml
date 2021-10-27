@@ -394,7 +394,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:text="处理态度:"
+                    android:text="服务态度:"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -582,7 +582,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:text="后续保障:"
+                    android:text="服务态度:"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -619,7 +619,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:text="解决方案:"
+                    android:text="后续保障:"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 

@@ -198,13 +198,40 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
         adapterMapSearchItem = new AdapterMapSearchItem(searchItems);
         rvSearchRelative.setLayoutManager(new LinearLayoutManager(mContext));
         rvSearchRelative.setAdapter(adapterMapSearchItem);
-        adapterMapSearchItem.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapterMapSearchItem.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                //搜索结果 直接进入相机详情
-                Bundle bundle = new Bundle();
-                bundle.putString("cameraId", searchItems.get(position).getId());
-                toTheActivity(DossierDetailActivity.class, bundle);
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.ll_text:
+                        //搜索结果 直接进入相机详情
+                        Bundle bundle = new Bundle();
+                        bundle.putString("cameraId", searchItems.get(position).getId());
+                        toTheActivity(DossierDetailActivity.class, bundle);
+                        break;
+                    case R.id.iv_locate:
+                        //移动点位，显示相机，隐藏搜索结果框
+                        MapSearchItem camera = searchItems.get(position);
+
+                        if (StringUtil.isEmpty(camera.getLatitude()) || StringUtil.isEmpty(camera.getLongitude())) {
+                            ToastUtil.toast("该相机的坐标信息有误，无法显示！");
+                            return;
+                        }
+                        cvSearchRelative.setVisibility(View.GONE);
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(Double.parseDouble(camera.getLatitude()), Double.parseDouble(camera.getLongitude())), 15, 0, 0));
+                        mAMap.moveCamera(cameraUpdate);//地图移向指定区域
+                        markerOption = new MarkerOptions();
+                        LatLng l = new LatLng(Double.parseDouble(camera.getLatitude()), Double.parseDouble(camera.getLongitude()));
+                        markerOption.position(l);
+                        markerOption.title("相机名称：").snippet(camera.getCameraName());
+                        markerOption.draggable(false);
+                        markerOption.setFlat(true);//设置marker平贴地图效果
+                        markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.camera_point_icon));
+                        markerOption.period(positionChild);
+                        Marker marker = mAMap.addMarker(markerOption);
+                        marker.showInfoWindow();
+                        markers.add(marker);
+                        break;
+                }
             }
         });
 
@@ -549,7 +576,7 @@ public class MapFragment extends BaseFragment implements ClusterRender, AMap.OnM
                     searchItems.addAll(list);
                 }
                 adapterMapSearchItem.notifyDataSetChanged();
-
+                cvSearchRelative.setVisibility(View.VISIBLE);
             }
 
             @Override

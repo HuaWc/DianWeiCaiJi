@@ -814,7 +814,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="处理态度"
+                            android:text="服务态度"
                             android:textColor="#333333"
                             android:textSize="15sp" />
 

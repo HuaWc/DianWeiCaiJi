@@ -6,26 +6,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="18dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <View
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bg_da_circle" />
+        <LinearLayout
+            android:id="@+id/ll_text"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingStart="18dp">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:text="清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南"
-            android:textColor="#ff5279e1"
-            android:textSize="14sp" />
+            <View
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_da_circle" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:text="清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南清溪路与西一环路交口东南"
+                android:textColor="#ff5279e1"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_locate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:src="@mipmap/add_locate" />
     </LinearLayout>
 
     <View

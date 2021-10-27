@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="处理态度:"
+                    android:text="服务态度:"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 

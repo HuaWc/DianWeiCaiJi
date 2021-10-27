@@ -16,6 +16,7 @@ public class AdapterMapSearchItem extends BaseQuickAdapter<MapSearchItem, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, MapSearchItem item) {
-        helper.setText(R.id.tv_name, item.getCameraName());
+        helper.setText(R.id.tv_name, item.getCameraName())
+                .addOnClickListener(R.id.ll_text).addOnClickListener(R.id.iv_locate);
     }
 }

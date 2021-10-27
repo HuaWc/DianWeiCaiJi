@@ -190,6 +190,10 @@ public class WorkOrderDetailActivity extends BaseActivity {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
+                if("null".equals(str)){
+                    ToastUtil.toast("服务器中没有对应图片，获取工单处理附图失败！");
+                    return;
+                }
                 if (!StringUtil.isEmpty(str)) {
                     photo2.addAll(Arrays.asList(str.split("!")));
                     adapter2.notifyDataSetChanged();
