@@ -194,7 +194,7 @@ public class AlertManagementActivity extends BaseActivity {
     private void getFjData() {
         mList6.clear();
         fjList.clear();
-        GetDictDataHttp.getDictData(this, "PT_FEN_JU", new GetDictDataHttp.GetDictDataResult() {
+        GetDictDataHttp.getDictData(this, "PT_ADMINISTRATIVE_EREA", new GetDictDataHttp.GetDictDataResult() {
             @Override
             public void getData(List<DictInfo> list) {
                 if (list != null) {

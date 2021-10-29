@@ -406,7 +406,7 @@ public class SelectAssetEquipmentActivity extends BaseActivity {
         params.put("pageNum", String.valueOf(page));
         params.put("pageSize", String.valueOf(pageSize));
         if (!StringUtil.isEmpty(etSearch.getText().toString().trim())) {
-            params.put("assetName", etSearch.getText().toString().trim());
+            params.put("keyWords", etSearch.getText().toString().trim());
         }
         if (!StringUtil.isEmpty(value1)) {
             params.put("assetNature", value1);
