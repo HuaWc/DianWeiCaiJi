@@ -176,8 +176,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     private int type = 0;
 
 
-    private List<String> photo1;
-    private AdapterCameraPhoto adapter1;
+
     private List<String> photo2;
     private AdapterCameraPhoto adapter2;
 
@@ -199,11 +198,6 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     }
 
     private void initAdapter() {
-        photo1 = new ArrayList<>();
-        adapter1 = new AdapterCameraPhoto(photo1);
-        rv1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rv1.setAdapter(adapter1);
-        RecyclerViewHelper.recyclerviewAndScrollView(rv1);
 
         photo2 = new ArrayList<>();
         adapter2 = new AdapterCameraPhoto(photo2);
