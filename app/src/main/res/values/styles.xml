@@ -94,5 +94,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="AllScreenImage" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
 </resources>

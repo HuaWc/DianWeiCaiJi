@@ -8,10 +8,12 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.adapter.second.WorkOrderTrackAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.entity.second.WorkOrderTrackInfo;
 import com.hwc.dwcj.http.ApiClient;
@@ -189,6 +191,12 @@ public class WorkOrderTrackActivity extends BaseActivity {
         ftAdapter = new AdapterCameraPhoto(ftPhotos);
         rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         rv1.setAdapter(ftAdapter);
+        ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderTrackActivity.this,ftPhotos.get(position));
+            }
+        });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {

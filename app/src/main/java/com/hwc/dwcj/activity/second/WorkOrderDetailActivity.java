@@ -1,17 +1,28 @@
 package com.hwc.dwcj.activity.second;
 
+import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
+import com.hwc.dwcj.entity.Base64ImgEntity;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.FaultAssetInfo;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
@@ -174,7 +185,12 @@ public class WorkOrderDetailActivity extends BaseActivity {
         rv2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rv2.setAdapter(adapter2);
         RecyclerViewHelper.recyclerviewAndScrollView(rv2);
-
+        adapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this,photo2.get(position));
+            }
+        });
         getData();
         getImgData();
     }
@@ -296,6 +312,12 @@ public class WorkOrderDetailActivity extends BaseActivity {
         ftAdapter = new AdapterCameraPhoto(ftPhotos);
         rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         rv1.setAdapter(ftAdapter);
+        ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this,ftPhotos.get(position));
+            }
+        });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {

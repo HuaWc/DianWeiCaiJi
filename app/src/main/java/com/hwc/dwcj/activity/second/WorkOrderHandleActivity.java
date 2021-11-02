@@ -19,6 +19,7 @@ import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.adapter.CommonImageAdapter;
 import com.hwc.dwcj.base.BaseActivity;
+import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.AssetEquipment;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
@@ -404,6 +405,12 @@ public class WorkOrderHandleActivity extends BaseActivity {
         ftAdapter = new AdapterCameraPhoto(ftPhotos);
         rv1.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         rv1.setAdapter(ftAdapter);
+        ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderHandleActivity.this,ftPhotos.get(position));
+            }
+        });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {
