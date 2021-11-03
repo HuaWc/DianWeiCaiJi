@@ -126,7 +126,6 @@
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:singleLine="true"
                             android:text=""
                             android:textColor="#999999"
                             android:textSize="15sp" />
@@ -478,7 +477,6 @@
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:singleLine="true"
                             android:text=""
                             android:textColor="#999999"
                             android:textSize="15sp" />
@@ -987,7 +985,6 @@
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:singleLine="true"
                             android:text=""
                             android:textColor="#999999"
                             android:textSize="15sp" />
