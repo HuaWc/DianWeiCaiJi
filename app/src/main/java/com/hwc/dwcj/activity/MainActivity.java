@@ -19,6 +19,8 @@ import com.hwc.dwcj.fragment.FirstPersonalFragment;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
 import com.hwc.dwcj.http.ResultListener;
+import com.hwc.dwcj.poll.PollingService;
+import com.hwc.dwcj.poll.PollingUtils;
 import com.hwc.dwcj.updata.CretinAutoUpdateUtils;
 import com.hwc.dwcj.util.EventUtil;
 import com.zds.base.Toast.ToastUtil;
@@ -80,6 +82,7 @@ public class MainActivity extends BaseActivity {
         initTab();
         MyApplication.getInstance().checkVersion(this);
         //getRole();
+        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
     }
 
     /**
@@ -185,6 +188,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         CretinAutoUpdateUtils.getInstance(mContext).destroy();
+        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
     }
 
     @Override
@@ -236,5 +240,7 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
+
 
 }

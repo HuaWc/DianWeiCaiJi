@@ -114,6 +114,7 @@
         <activity
             android:name=".activity.second.TaskManageActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.second.AlertManagementActivity"
@@ -356,6 +357,18 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
+
+        <!-- Polling Service -->
+        <service android:name=".poll.PollingService">
+            <intent-filter>
+                <action android:name="com.hwc.dwcj.poll.PollingService"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".receiver.NotificationClickReceiver">
+        </receiver>
+
     </application>
 
 </manifest>

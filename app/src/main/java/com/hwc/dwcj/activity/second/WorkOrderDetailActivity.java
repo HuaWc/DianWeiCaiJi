@@ -192,7 +192,6 @@ public class WorkOrderDetailActivity extends BaseActivity {
             }
         });
         getData();
-        getImgData();
     }
 
     private void getImgData() {
@@ -219,10 +218,16 @@ public class WorkOrderDetailActivity extends BaseActivity {
         ApiClient.requestNetGet(this, AppConfig.OpFaultInfoInfo, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+                if(StringUtil.isEmpty(json)){
+                    ToastUtil.toast("暂无数据！");
+                    return;
+                }
                 info = FastJsonUtil.getObject(FastJsonUtil.getString(json, "OpFaultInfoModel"), FaultMapInfo.class);
                 asset = FastJsonUtil.getObject(FastJsonUtil.getString(json, "ofia"), FaultAssetInfo.class);
 
                 initData();
+                getImgData();
+
             }
 
             @Override

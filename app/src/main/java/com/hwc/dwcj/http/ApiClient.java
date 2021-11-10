@@ -1214,23 +1214,16 @@ public class ApiClient {
             }
             ServerData serverData = FastJsonUtil.getObject(response.body().toString(), ServerData.class);
             if (null != serverData) {
-/*                if ((serverData.getMessage() != null && serverData.getMessage().contains("请先登录")) || (serverData.getData() != null && serverData.getData().toString().contains("请先登录"))) {
-                    //token失效了哦,退出登录,去到登录页
-                    MyApplication.getInstance().toLogin(context);
-                    return;
-                }*/
                 if (serverData.getCode() == Constant.CODESUCCESS) {
-                    listener.onSuccess(FastJsonUtil.toJSONString(serverData.getData()), serverData.getMessage() == null ? "" : serverData.getMessage());
+                    String data = serverData.getData() == null ? "" : FastJsonUtil.toJSONString(serverData.getData());
+                    String msg = serverData.getMessage() == null ? "" : serverData.getMessage();
+                    listener.onSuccess(data, msg);
                 } else {
-                    try {
-                        listener.onFailure(FastJsonUtil.getString(serverData.getMessage(), "msg"));
-                    } catch (Exception e) {
-                        e.getStackTrace();
-                        listener.onFailure(serverData.getMessage());
-                    }
+                    String msg = serverData.getMessage() == null ? "" : serverData.getMessage();
+                    listener.onFailure(msg);
                 }
-
-
+            } else {
+                listener.onFailure("数据解析异常");
             }
         } catch (Exception e) {
             e.getStackTrace();

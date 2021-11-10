@@ -1,5 +1,6 @@
 package com.hwc.dwcj.activity.second;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,9 +56,10 @@ public class MessageListActivity extends BaseActivity {
     private List<MessageInfo> mList;
     private MessageInfoAdapter adapter;
 
-    private  int page = 1;
-    private  int pageSize = 15;
+    private int page = 1;
+    private int pageSize = 15;
 
+    boolean needRefresh = false;//点击消息的时候，如果消息是未读状态，设置为true,onResume的时候刷新数据，如果是已读消息设置为false,onResume的时候不刷新数据
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -102,15 +104,85 @@ public class MessageListActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //先调用已读，再进入详情
-                read(position);
+                MessageInfo message = mList.get(position);
+                if(message.getMsgState() == 0){
+                    //未读
+                    read(position);
+                    needRefresh = true;
+                } else{
+                    needRefresh = false;
+                }
                 Bundle bundle = new Bundle();
-                bundle.putString("id", mList.get(position).getFaultId());
-                toTheActivity(WorkOrderDetailActivity.class, bundle);
+                Intent newIntent;
+                if (message.getMsgType() == null) {
+                    ToastUtil.toast("该消息通知类型未知！无法进入相关页面");
+                    return;
+                }
+                switch (message.getMsgType()) {
+                    case "1":
+                        //新增处理
+                        bundle.putString("id", message.getFaultId());
+                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "2":
+                        //协同处理
+                        bundle.putString("id", message.getFaultId());
+                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "3":
+                        //工单派发
+                        bundle.putString("id", message.getFaultId());
+                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "4":
+                        //工单催办
+                        bundle.putString("id", message.getFaultId());
+                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "5":
+                        //变更下发
+                        bundle.putInt("enterPage", 1);
+                        newIntent = new Intent(MessageListActivity.this, TaskManageActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "6":
+                        //巡检下发
+                        bundle.putInt("enterPage", 0);
+                        newIntent = new Intent(MessageListActivity.this, TaskManageActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "7":
+                        //核查下发
+                        bundle.putInt("enterPage", 2);
+                        newIntent = new Intent(MessageListActivity.this, TaskManageActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    case "8":
+                        //保障下发
+                        bundle.putInt("enterPage", 3);
+                        newIntent = new Intent(MessageListActivity.this, TaskManageActivity.class);
+                        newIntent.putExtras(bundle);
+                        startActivity(newIntent);
+                        break;
+                    default:
+                        ToastUtil.toast("该消息通知类型未知！无法进入相关页面");
+                }
             }
         });
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
-        //getData();
+        getData(false);
     }
 
     private void read(int position) {
@@ -138,12 +210,12 @@ public class MessageListActivity extends BaseActivity {
             mList.clear();
         }
         Map<String, Object> hashMap = new HashMap();
-        hashMap.put("pageNum",page);
-        hashMap.put("pageSize",pageSize);
+        hashMap.put("pageNum", page);
+        hashMap.put("pageSize", pageSize);
         ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverMsgList, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                List<MessageInfo> list = FastJsonUtil.getList(FastJsonUtil.getString(json,"list"), MessageInfo.class);
+                List<MessageInfo> list = FastJsonUtil.getList(FastJsonUtil.getString(json, "list"), MessageInfo.class);
                 if (list != null && list.size() != 0) {
                     mList.addAll(list);
                 } else {
@@ -173,7 +245,9 @@ public class MessageListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData(false);
+        if(needRefresh){
+            getData(false);
+        }
     }
 
     @Override

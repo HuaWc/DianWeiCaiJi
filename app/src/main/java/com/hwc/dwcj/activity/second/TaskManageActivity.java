@@ -1,5 +1,6 @@
 package com.hwc.dwcj.activity.second;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,6 +67,8 @@ public class TaskManageActivity extends BaseActivity {
     private int index;
     private int currentTabIndex;
 
+    private int enterPage;
+
     @Override
     protected void initContentView(Bundle bundle) {
         setContentView(R.layout.activity_event_management);
@@ -80,18 +83,53 @@ public class TaskManageActivity extends BaseActivity {
      * 初始化tab
      */
     private void initTab() {
-        currentTabIndex = 0;
-        index = 0;
-        ivTab1.setImageResource(R.mipmap.dts);
-        tvTab1.setTextColor(getResources().getColor(R.color.homeblue));
+        currentTabIndex = enterPage;
+        index = enterPage;
+        setStartPage();
         inspectionFragment = new InspectionFragment();
         changeFragment = new ChangeFragment();
         checkFragment = new CheckFragment();
         guaranteeFragment = new GuaranteeFragment();
         fragments = new Fragment[]{inspectionFragment, changeFragment, checkFragment, guaranteeFragment};
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inspectionFragment)
-                .add(R.id.fragment_container, changeFragment).add(R.id.fragment_container, checkFragment).add(R.id.fragment_container, guaranteeFragment).hide(changeFragment).hide(checkFragment).hide(guaranteeFragment).show(inspectionFragment)
-                .commit();
+        switch (enterPage){
+            case 1:
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, inspectionFragment)
+                        .add(R.id.fragment_container, changeFragment)
+                        .add(R.id.fragment_container, checkFragment)
+                        .add(R.id.fragment_container, guaranteeFragment)
+                        .hide(inspectionFragment).hide(checkFragment).hide(guaranteeFragment).show(changeFragment)
+                        .commit();
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, inspectionFragment)
+                        .add(R.id.fragment_container, changeFragment)
+                        .add(R.id.fragment_container, checkFragment)
+                        .add(R.id.fragment_container, guaranteeFragment)
+                        .hide(inspectionFragment).hide(changeFragment).hide(guaranteeFragment).show(checkFragment)
+                        .commit();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, inspectionFragment)
+                        .add(R.id.fragment_container, changeFragment)
+                        .add(R.id.fragment_container, checkFragment)
+                        .add(R.id.fragment_container, guaranteeFragment)
+                        .hide(inspectionFragment).hide(changeFragment).hide(checkFragment).show(guaranteeFragment)
+                        .commit();
+
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, inspectionFragment)
+                        .add(R.id.fragment_container, changeFragment)
+                        .add(R.id.fragment_container, checkFragment)
+                        .add(R.id.fragment_container, guaranteeFragment)
+                        .hide(changeFragment).hide(checkFragment).hide(guaranteeFragment).show(inspectionFragment)
+                        .commit();
+
+        }
     }
 
     @OnClick({R.id.rl_tab1, R.id.rl_tab2, R.id.rl_tab3, R.id.rl_tab4})
@@ -115,6 +153,56 @@ public class TaskManageActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void setStartPage(){
+        switch (currentTabIndex) {
+            case 0:
+                ivTab1.setImageResource(R.mipmap.new_xjs);
+                ivTab2.setImageResource(R.mipmap.new_bg);
+                ivTab3.setImageResource(R.mipmap.new_hc);
+                ivTab4.setImageResource(R.mipmap.new_bz);
+
+                tvTab1.setTextColor(getResources().getColor(R.color.homeblue));
+                tvTab2.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab3.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab4.setTextColor(getResources().getColor(R.color.homegray));
+                break;
+            case 1:
+                ivTab1.setImageResource(R.mipmap.new_xj);
+                ivTab2.setImageResource(R.mipmap.new_bgs);
+                ivTab3.setImageResource(R.mipmap.new_hc);
+                ivTab4.setImageResource(R.mipmap.new_bz);
+
+                tvTab1.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab2.setTextColor(getResources().getColor(R.color.homeblue));
+                tvTab3.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab4.setTextColor(getResources().getColor(R.color.homegray));
+                break;
+            case 2:
+                ivTab1.setImageResource(R.mipmap.new_xj);
+                ivTab2.setImageResource(R.mipmap.new_bg);
+                ivTab3.setImageResource(R.mipmap.new_hcs);
+                ivTab4.setImageResource(R.mipmap.new_bz);
+
+                tvTab1.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab2.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab3.setTextColor(getResources().getColor(R.color.homeblue));
+                tvTab4.setTextColor(getResources().getColor(R.color.homegray));
+                break;
+            case 3:
+                ivTab1.setImageResource(R.mipmap.new_xj);
+                ivTab2.setImageResource(R.mipmap.new_bg);
+                ivTab3.setImageResource(R.mipmap.new_hc);
+                ivTab4.setImageResource(R.mipmap.new_bzs);
+
+                tvTab1.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab2.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab3.setTextColor(getResources().getColor(R.color.homegray));
+                tvTab4.setTextColor(getResources().getColor(R.color.homeblue));
+                break;
+        }
+    }
+
 
     private void setTabPosition() {
         if (currentTabIndex != index) {
@@ -185,7 +273,7 @@ public class TaskManageActivity extends BaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+          enterPage = extras.getInt("enterPage");
     }
 
     @Override
@@ -193,5 +281,14 @@ public class TaskManageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Bundle extras = getIntent().getExtras();
+        enterPage = extras.getInt("enterPage");
+        index = enterPage;
+        setTabPosition();
     }
 }
