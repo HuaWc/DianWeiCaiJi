@@ -61,12 +61,12 @@ public class CheckUserAdapter extends BaseQuickAdapter<CheckUser, BaseViewHolder
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
 
-        if (item.getVerFeedback() == null || item.getVerFeedback() == 0) {
-            tv_status3.setText("待核查");
-            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-        } else{
+        if (item.getVerFeedback() != null && item.getVerFeedback() == 1) {
             tv_status3.setText("已核查");
             tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+        } else{
+            tv_status3.setText("待核查");
+            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
 
         switch (item.getCheckStatus()) {

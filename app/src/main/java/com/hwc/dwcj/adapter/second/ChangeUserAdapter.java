@@ -62,12 +62,12 @@ public class ChangeUserAdapter extends BaseQuickAdapter<ChangeUser, BaseViewHold
             tv_status.setText("未知");
             tv_status.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
-        if (item.getChangeStatus() == null || item.getChangeStatus() == 0) {
-            tv_status3.setText("待变更");
-            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
-        } else {
+        if (item.getChangeStatus() != null && item.getChangeStatus() == 1) {
             tv_status3.setText("已变更");
             tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+        } else {
+            tv_status3.setText("待变更");
+            tv_status3.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
         }
 
         switch (item.getCheckStatus()) {

@@ -126,7 +126,7 @@ public class CheckDetailActivity extends BaseActivity {
         tv4.setText(StringUtil.isEmpty(info.getVerContent()) ? "" : info.getVerContent());
         tv5.setText(StringUtil.isEmpty(info.getTaskrequires()) ? "" : info.getTaskrequires());
         tv6.setText(StringUtil.dealDateFormat(info.getTaskStartTime()) + "~" + StringUtil.dealDateFormat(info.getTaskEndTime()));
-        tv7.setText(StringUtil.isEmpty(info.getCheckPeople()) ? "" : info.getCheckPeople());
+        tv7.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv9.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
         if (info.getVerFeedback() != null) {

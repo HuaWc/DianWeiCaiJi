@@ -160,7 +160,7 @@ public class GuaranteeDetailAdminActivity extends BaseActivity {
         tv3.setText(StringUtil.isEmpty(info.getTaskContent()) ? "" : info.getTaskContent());
         tv4.setText(StringUtil.isEmpty(info.getTaskRequires()) ? "" : info.getTaskRequires());
 
-        tv5.setText(StringUtil.isEmpty(info.getCheckPeople()) ? "" : info.getCheckPeople());
+        tv5.setText(StringUtil.isEmpty(info.getMap().getAddName()) ? "" : info.getMap().getAddName());
         tv6.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         //tv7.setText(StringUtil.isEmpty(info.getPeopleNames()) ? "" : info.getPeopleNames());
         if (info.getSryFeedback() != null) {
