@@ -70,7 +70,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_da_search"
-                android:hint="名称、IP"
+                android:hint="名称、IP、故障描述"
                 android:paddingHorizontal="14dp"
                 android:singleLine="true"
                 android:textColor="#333333"
@@ -94,6 +94,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +196,6 @@
             <TextView
                 android:id="@+id/tv_more_blue"
                 android:layout_width="0dp"
-                android:visibility="gone"
                 android:layout_height="25dp"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
@@ -208,11 +208,11 @@
                 android:singleLine="true"
                 android:textColor="#999999"
                 android:textColorHint="@color/text_bar_blue"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:visibility="gone" />
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
@@ -325,6 +325,28 @@
 
                     </RelativeLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="10dp"
+                        android:text="告警来源"
+                        android:textColor="#333333"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:overScrollMode="never" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -345,8 +367,8 @@
                         <TextView
                             android:id="@+id/tv_reset_time"
                             android:layout_width="wrap_content"
-                            android:layout_alignParentEnd="true"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
                             android:text="重置"
                             android:textColor="#2196F3"
                             android:textSize="15sp"

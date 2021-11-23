@@ -104,7 +104,10 @@ public class EventUtil {
      */
     public static final int REFRESH_MESSAGE_NUMBER = 21;
 
-
+    /**
+     * 阅读通知消息
+     */
+    public static final int REED_NOTIFICATION_MESSAGE = 22;
 
 
 
