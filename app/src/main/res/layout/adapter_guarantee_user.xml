@@ -62,6 +62,40 @@
             android:textColor="#999999"
             android:textSize="12sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="9dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/pb_blue"
+                    style="@style/BlueProgressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_jd"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="6dp"
+                android:gravity="right"
+                android:text="100%"
+                android:textColor="@color/inspection_blue"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

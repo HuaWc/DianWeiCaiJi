@@ -27,9 +27,6 @@ public class MessageInfo implements Parcelable {
     private int pushState;
     private Map map;
 
-    public MessageInfo() {
-    }
-
     protected MessageInfo(Parcel in) {
         id = in.readString();
         msgId = in.readLong();
@@ -59,12 +56,7 @@ public class MessageInfo implements Parcelable {
         }
     };
 
-    public int getPushState() {
-        return pushState;
-    }
-
-    public void setPushState(int pushState) {
-        this.pushState = pushState;
+    public MessageInfo() {
     }
 
     public String getId() {
@@ -171,6 +163,14 @@ public class MessageInfo implements Parcelable {
         this.isSync = isSync;
     }
 
+    public int getPushState() {
+        return pushState;
+    }
+
+    public void setPushState(int pushState) {
+        this.pushState = pushState;
+    }
+
     public Map getMap() {
         return map;
     }
@@ -202,6 +202,32 @@ public class MessageInfo implements Parcelable {
         parcel.writeInt(pushState);
     }
 
-    public static class Map {
+    public static class Map implements Parcelable{
+        protected Map(Parcel in) {
+        }
+
+        public Map() {
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<Map> CREATOR = new Creator<Map>() {
+            @Override
+            public Map createFromParcel(Parcel in) {
+                return new Map(in);
+            }
+
+            @Override
+            public Map[] newArray(int size) {
+                return new Map[size];
+            }
+        };
     }
 }

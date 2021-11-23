@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
+import com.hwc.dwcj.entity.second.MessageInfo;
 import com.hwc.dwcj.fragment.FirstHomeFragment;
 import com.hwc.dwcj.fragment.FirstPersonalFragment;
 import com.hwc.dwcj.http.ApiClient;
@@ -23,9 +24,7 @@ import com.hwc.dwcj.poll.PollingService;
 import com.hwc.dwcj.poll.PollingUtils;
 import com.hwc.dwcj.updata.CretinAutoUpdateUtils;
 import com.hwc.dwcj.util.EventUtil;
-import com.zds.base.Toast.ToastUtil;
 import com.zds.base.entity.EventCenter;
-import com.zds.base.json.FastJsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -181,7 +180,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onEventComing(EventCenter center) {
-
+        switch (center.getEventCode()){
+            case EventUtil.REED_NOTIFICATION_MESSAGE:
+                MessageInfo info = (MessageInfo)center.getData();
+                read(info);
+                break;
+        }
     }
 
     @Override
@@ -241,6 +245,20 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    private void read( MessageInfo messageInfo) {
+        Map<String, Object> hashMap = new HashMap();
+        hashMap.put("msgId", messageInfo.getMsgId());
+        hashMap.put("msgReceId", messageInfo.getId());
+        ApiClient.requestNetGet(this, AppConfig.PtMsgReceiverChange, "", hashMap, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
 
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+        });
+    }
 
 }

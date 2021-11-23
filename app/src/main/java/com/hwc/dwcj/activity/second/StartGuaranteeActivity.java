@@ -66,6 +66,8 @@ public class StartGuaranteeActivity extends BaseActivity {
     EditText etBz;
     @BindView(R.id.tv_reason)
     TextView tvReason;
+    @BindView(R.id.ll_check_part)
+    LinearLayout llCheckPart;
 
     private String id;
     private GuaranteeUser info;
@@ -190,6 +192,13 @@ public class StartGuaranteeActivity extends BaseActivity {
         tv6.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));
         //tv7.setText(StringUtil.isEmpty(info.getPeopleNames()) ? "" : info.getPeopleNames());
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
+
+        //如果曾被审批拒绝过，再次反馈显示之前的审批理由，其他则不显示
+        if (info.getCheckStatus() == 3) {
+            llCheckPart.setVisibility(View.VISIBLE);
+        } else {
+            llCheckPart.setVisibility(View.GONE);
+        }
     }
 
 

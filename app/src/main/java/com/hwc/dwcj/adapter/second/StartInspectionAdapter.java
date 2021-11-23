@@ -24,7 +24,8 @@ public class StartInspectionAdapter extends BaseQuickAdapter<StartInspection.Ins
         helper.setText(R.id.tv_num,(helper.getLayoutPosition()+1)+"");
         helper.setText(R.id.tv_name,item.map.devName);
         helper.setText(R.id.tv1,item.map.ip);
-        helper.setText(R.id.tv3,item.map.memberbarCode);
+        helper.setText(R.id.tv2, item.map.positionCode);
+        //helper.setText(R.id.tv3,item.map.memberbarCode);
         helper.setText(R.id.tv4,item.map.inspectionStatus);
     }
 }

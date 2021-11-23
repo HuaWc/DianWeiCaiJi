@@ -37,7 +37,6 @@
                 android:tint="@color/white" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_result"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -47,7 +46,8 @@
                 android:text="结果"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                android:tint="@color/white" />
+                android:tint="@color/white"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -130,10 +130,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -912,10 +912,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -951,10 +951,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -990,10 +990,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1056,16 +1056,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/app_edit"
                         android:ellipsize="end"
                         android:gravity="top|start"
-                        android:lines="7"
                         android:padding="5dp"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="10dp"
+                        android:background="#999999" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1094,15 +1099,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/app_edit"
                         android:ellipsize="end"
                         android:gravity="top|start"
-                        android:lines="7"
                         android:padding="5dp"
                         android:text=""
                         android:textColor="#333333"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="10dp"
+                        android:background="#999999" />
                 </LinearLayout>
             </LinearLayout>
 

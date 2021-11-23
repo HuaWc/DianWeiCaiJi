@@ -26,7 +26,6 @@ import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,6 +79,8 @@ public class ChangeResultDetailActivity extends BaseActivity {
     TextView tvOldStatus;
     @BindView(R.id.tv_new_status)
     TextView tvNewStatus;
+    @BindView(R.id.ll_check_part)
+    LinearLayout llCheckPart;
 
     private String id;
     private ChangeUser info;
@@ -226,6 +227,12 @@ public class ChangeResultDetailActivity extends BaseActivity {
 
         tvReason.setText(StringUtil.isEmpty(info.getCheckReason()) ? "" : info.getCheckReason());
 
+        //如果曾被审批拒绝过，再次反馈显示之前的审批理由，其他则不显示
+        if(info.getCheckStatus() == 3){
+            llCheckPart.setVisibility(View.VISIBLE);
+        } else{
+            llCheckPart.setVisibility(View.GONE);
+        }
     }
 
     @Override

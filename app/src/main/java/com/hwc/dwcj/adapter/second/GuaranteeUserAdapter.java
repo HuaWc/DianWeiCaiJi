@@ -1,6 +1,7 @@
 package com.hwc.dwcj.adapter.second;
 
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,9 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, GuaranteeUser item) {
+        ProgressBar pb_blue = helper.getView(R.id.pb_blue);
+        TextView tv_jd = helper.getView(R.id.tv_jd);
+
         TextView tv_status = helper.getView(R.id.tv_status);
         TextView tv_status2 = helper.getView(R.id.tv_status2);
         TextView tv_look = helper.getView(R.id.tv_look);
@@ -52,11 +56,15 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
                 tv_look.setVisibility(View.VISIBLE);
                 tv_check.setVisibility(View.GONE);
                 tv_status2.setVisibility(View.GONE);
+                pb_blue.setProgress(0);
+                tv_jd.setText("0%");
                 break;
             case 1:
                 tv_look.setVisibility(View.GONE);
                 tv_check.setVisibility(View.VISIBLE);
                 tv_status2.setVisibility(View.GONE);
+                pb_blue.setProgress(50);
+                tv_jd.setText("50%");
                 break;
             case 2:
                 tv_look.setVisibility(View.GONE);
@@ -64,6 +72,8 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
                 tv_status2.setVisibility(View.VISIBLE);
                 tv_status2.setText("审核已通过");
                 tv_status2.setTextColor(mContext.getResources().getColor(R.color.sp_status_green));
+                pb_blue.setProgress(100);
+                tv_jd.setText("100%");
                 break;
             case 3:
                 tv_look.setVisibility(View.VISIBLE);
@@ -71,6 +81,8 @@ public class GuaranteeUserAdapter extends BaseQuickAdapter<GuaranteeUser, BaseVi
                 tv_status2.setVisibility(View.VISIBLE);
                 tv_status2.setText("审核已驳回");
                 tv_status2.setTextColor(mContext.getResources().getColor(R.color.sp_status_red));
+                pb_blue.setProgress(0);
+                tv_jd.setText("0%");
                 break;
             default:
                 tv_look.setVisibility(View.GONE);

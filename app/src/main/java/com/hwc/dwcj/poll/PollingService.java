@@ -8,11 +8,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.entity.second.MessageInfo;
@@ -66,69 +66,46 @@ public class PollingService extends Service {
 
     //弹出Notification
     private void showNotification(MessageInfo message) {
-        Notification.Builder builder = new Notification.Builder(this);
-        NotificationChannel channel = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        count++;
+
+        Intent intent = new Intent(this, NotificationClickReceiver.class);
+        intent.putExtra("json",FastJsonUtil.toJSONString(message));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, count, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String channelId = createNotificationChannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.notification_small) //设置图标
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_notification))//大图标
+                .setContentTitle(StringUtil.isEmpty(message.getMsgTitle()) ? "暂无标题" : message.getMsgTitle())//设置标题
+                .setContentText(StringUtil.isEmpty(message.getMsgContent()) ? "暂无内容" : message.getMsgContent())//消息内容
+                .setWhen(System.currentTimeMillis())//发送时间
+                .setDefaults(Notification.DEFAULT_ALL)//设置默认的提示音，振动方式，灯光
+                .setAutoCancel(true)//打开程序后图标消失
+                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        Log.i("Notification—Polling", message.getId() == null ? " " : message.getId());
+
+        notificationManager.notify(count, builder.build()); // 通过通知管理器发送通知
+
+    }
+
+
+    private String createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             //创建 通知通道  channelid和channelname是必须的（自己命名就好）
-            channel = new NotificationChannel(CHANNEL_ID, CHANEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.enableLights(true);//是否在桌面icon右上角展示小红点
             channel.setLightColor(Color.RED);//小红点颜色
             channel.setShowBadge(false); //是否在久按桌面图标时显示此渠道的通知
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            builder.setChannelId(CHANNEL_ID);
-        }
-
-        builder.setSmallIcon(R.mipmap.notification_small); //设置图标
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_notification));//大图标
-        builder.setContentTitle(StringUtil.isEmpty(message.getMsgTitle())?"暂无标题":message.getMsgTitle()); //设置标题
-        builder.setContentText(StringUtil.isEmpty(message.getMsgContent())?"暂无内容":message.getMsgContent()); //消息内容
-        builder.setWhen(System.currentTimeMillis()); //发送时间
-        builder.setDefaults(Notification.DEFAULT_ALL); //设置默认的提示音，振动方式，灯光
-        builder.setAutoCancel(true);//打开程序后图标消失
-        Intent intent = new Intent(this, NotificationClickReceiver.class);
-        intent.putExtra("data",message);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        builder.setContentIntent(pendingIntent);
-        Notification notification1 = builder.build();
-        count++;
-        Log.i("Notification—Polling", message.getId()==null?" ":message.getId());
-        mManager.notify(count, notification1); // 通过通知管理器发送通知
-
-
-/*        Notification notification;
-        //获取Notification实例   获取Notification实例有很多方法处理    在此我只展示通用的方法（虽然这种方式是属于api16以上，但是已经可以了，毕竟16以下的Android机很少了，如果非要全面兼容可以用）
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //向上兼容 用Notification.Builder构造notification对象
-            notification = new Notification.Builder(this, CHANNEL_ID)
-                    .setContentTitle("新通知" + count)
-                    .setContentText("测试消息内容" + count)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.mipmap.notification_small)
-                    .setColor(Color.parseColor("#FEDA26"))
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_notification))
-                    .setTicker("您有新通知")
-                    .build();
-        } else {
-            //向下兼容 用NotificationCompat.Builder构造notification对象
-            notification = new NotificationCompat.Builder(this)
-                    .setContentTitle("新通知" + count)
-                    .setContentText("测试消息内容" + count)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.mipmap.notification_small)
-                    .setColor(Color.parseColor("#FEDA26"))
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_notification))
-                    .setTicker("您有新通知")
-                    .build();
-        }
-
-        //发送通知
-        int notifiId = count;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mManager.createNotificationChannel(channel);
+            return CHANNEL_ID;
+        } else {
+            return null;
         }
-        mManager.notify(notifiId, notification);*/
-
-
     }
 
     /**

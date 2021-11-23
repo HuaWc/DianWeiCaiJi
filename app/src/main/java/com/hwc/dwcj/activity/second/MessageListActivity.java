@@ -112,34 +112,19 @@ public class MessageListActivity extends BaseActivity {
                 } else{
                     needRefresh = false;
                 }
-                Bundle bundle = new Bundle();
-                Intent newIntent;
                 if (message.getMsgType() == null) {
                     ToastUtil.toast("该消息通知类型未知！无法进入相关页面");
                     return;
                 }
+                Bundle bundle = new Bundle();
+                Intent newIntent;
                 switch (message.getMsgType()) {
                     case "1":
                         //新增处理
-                        bundle.putString("id", message.getFaultId());
-                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
-                        newIntent.putExtras(bundle);
-                        startActivity(newIntent);
-                        break;
                     case "2":
                         //协同处理
-                        bundle.putString("id", message.getFaultId());
-                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
-                        newIntent.putExtras(bundle);
-                        startActivity(newIntent);
-                        break;
                     case "3":
                         //工单派发
-                        bundle.putString("id", message.getFaultId());
-                        newIntent = new Intent(MessageListActivity.this, WorkOrderDetailActivity.class);
-                        newIntent.putExtras(bundle);
-                        startActivity(newIntent);
-                        break;
                     case "4":
                         //工单催办
                         bundle.putString("id", message.getFaultId());
