@@ -149,7 +149,12 @@ public class WorkOrderHandleActivity extends BaseActivity {
     TextView tvPdRemark;
     @BindView(R.id.rv1)
     RecyclerView rv1;
-
+    @BindView(R.id.tv_run_environment)
+    TextView tvRunEnvironment;
+    @BindView(R.id.tv_time_limit)
+    TextView tvTimeLimit;
+    @BindView(R.id.tv_check_similar)
+    TextView tvCheckSimilar;
     private String id;
     private FaultMapInfo info;
     private int type = 0;
@@ -373,7 +378,7 @@ public class WorkOrderHandleActivity extends BaseActivity {
         tv9.setText(StringUtil.isEmpty(info.getMap().getOrgName()) ? "" : info.getMap().getOrgName());
         tv10.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
         tv11.setText(StringUtil.isEmpty(info.getMap().getPositionCode()) ? "" : info.getMap().getPositionCode());
-        tv12.setText(StringUtil.isEmpty(info.getMap().getManageIp()) ? "" : info.getMap().getManageIp());
+        tv12.setText(StringUtil.isEmpty(info.getMap().getOperationIP()) ? "" : info.getMap().getOperationIP());
         tv13.setText(StringUtil.isEmpty(info.getAlarmTime()) ? "" : StringUtil.dealDateFormat(info.getAlarmTime()));//发生时间
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
@@ -393,7 +398,23 @@ public class WorkOrderHandleActivity extends BaseActivity {
 
         tv24.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());//设备名称
         tv25.setText(StringUtil.isEmpty(info.getMap().getAssetCode()) ? "" : info.getMap().getAssetCode());//设备编号
-
+        if (String.valueOf(info.getMap().getIsSync()).endsWith("0")) {
+            tvRunEnvironment.setText("视频网");
+        } else if (String.valueOf(info.getMap().getIsSync()).endsWith("1")) {
+            tvRunEnvironment.setText("公安网");
+        } else {
+            tvRunEnvironment.setText("未知");
+        }
+        tvTimeLimit.setText(StringUtil.isEmpty(info.getDeadlineTime()) ? "" : StringUtil.dealDateFormat(info.getDeadlineTime()));
+        tvCheckSimilar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("assetId",info.getAssetId());
+                bundle.putString("alarmName",info.getAlarmName());
+                toTheActivity(SimilarWorkOrderActivity.class,bundle);
+            }
+        });
         getPhotoData();
     }
 
@@ -408,14 +429,14 @@ public class WorkOrderHandleActivity extends BaseActivity {
         ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderHandleActivity.this,ftPhotos.get(position));
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderHandleActivity.this, ftPhotos.get(position));
             }
         });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
-                if("null".equals(str)){
+                if ("null".equals(str)) {
                     ToastUtil.toast("服务器中没有对应图片，获取失败！");
                     return;
                 }

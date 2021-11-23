@@ -52,6 +52,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps.MapsInitializer;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
@@ -134,16 +135,32 @@ public class MyApplication extends SelfAppContext {
          * @param  context: 上下文
          * @param  isContains: 隐私权政策是否包含高德开平隐私权政策  true是包含
          * @param  isShow: 隐私权政策是否弹窗展示告知用户 true是展示
-         * @since  8.1.0
+         * @since 8.1.0
          */
-        MapsInitializer.updatePrivacyShow(this,true,true);
+        MapsInitializer.updatePrivacyShow(this, true, true);
         /**
          * 更新同意隐私状态,需要在初始化地图之前完成
          * @param context: 上下文
          * @param isAgree: 隐私权政策是否取得用户同意  true是用户同意
          * @since 8.1.0
          */
-        MapsInitializer.updatePrivacyAgree(this,true);
+        MapsInitializer.updatePrivacyAgree(this, true);
+        /** 设置包含隐私政策，并展示用户授权弹窗 <b>必须在AmapLocationClient实例化之前调用</b>
+         *
+         * @param context
+         * @param isContains: 是隐私权政策是否包含高德开平隐私权政策  true是包含
+         * @param isShow: 隐私权政策是否弹窗展示告知用户 true是展示
+         * @since 5.6.0
+         */
+        AMapLocationClient.updatePrivacyShow(this, true, true);
+        /**
+         * 设置是否同意用户授权政策 <b>必须在AmapLocationClient实例化之前调用</b>
+         * @param context
+         * @param isAgree:隐私权政策是否取得用户同意  true是用户同意
+         *
+         * @since 5.6.0
+         */
+        AMapLocationClient.updatePrivacyAgree(this, true);
         GDLocationUtil.init(this);
 
     }
@@ -484,7 +501,7 @@ public class MyApplication extends SelfAppContext {
             public void onSuccess(String json, String msg) {
                 //对比版本号决定是否更新
                 CheckVersionInfo codeAndroid = FastJsonUtil.getObject(json, CheckVersionInfo.class);
-                if(codeAndroid!=null){
+                if (codeAndroid != null) {
                     if (!MyApplication.getInstance().getVersionName().equals(codeAndroid.getVerCodeAndroid().replace("v-", ""))) {
                         //不是最新版本，需要更新，弹窗提示更新
                         showUpdateDialog(mContext, codeAndroid);
@@ -588,36 +605,34 @@ public class MyApplication extends SelfAppContext {
 
                         }
 
-            @Override
-            public void onError (Response < File > response) {
-                super.onError(response);
-                ToastUtil.toast("下载错误,请检查您的网络设置");
-                ActivityStackManager.getInstance().killAllActivity();
+                        @Override
+                        public void onError(Response<File> response) {
+                            super.onError(response);
+                            ToastUtil.toast("下载错误,请检查您的网络设置");
+                            ActivityStackManager.getInstance().killAllActivity();
 
-            }
+                        }
 
-            @Override
-            public void downloadProgress (Progress progress){
-                super.downloadProgress(progress);
-                float small = progress.currentSize/1024;
-                float total = progress.totalSize/1024;
-                float bytes = progress.speed/1024;
-                float pro = small / total * 100;
-                DecimalFormat decimalFormat = new DecimalFormat("##0.0");
-                mTvTitle.setText("正在下载...");
-                mTvProgress.setText("下载中……" + decimalFormat.format(pro) + "%");
-                mTvSpeed.setText(formatSpeed(bytes));
-                bar1.setProgress((int) (small / total));
-            }
-        });
-    } catch(
-    Exception e)
+                        @Override
+                        public void downloadProgress(Progress progress) {
+                            super.downloadProgress(progress);
+                            float small = progress.currentSize / 1024;
+                            float total = progress.totalSize / 1024;
+                            float bytes = progress.speed / 1024;
+                            float pro = small / total * 100;
+                            DecimalFormat decimalFormat = new DecimalFormat("##0.0");
+                            mTvTitle.setText("正在下载...");
+                            mTvProgress.setText("下载中……" + decimalFormat.format(pro) + "%");
+                            mTvSpeed.setText(formatSpeed(bytes));
+                            bar1.setProgress((int) (small / total));
+                        }
+                    });
+        } catch (
+                Exception e) {
+            ToastUtil.toast(e.getMessage());
+        }
 
-    {
-        ToastUtil.toast(e.getMessage());
     }
-
-}
 
     private Dialog dialog1;
     ProgressBar bar1;
@@ -672,9 +687,9 @@ public class MyApplication extends SelfAppContext {
     }
 
 
-    public void showAllScreenBase64ImageDialog(Activity activity, String base64){
+    public void showAllScreenBase64ImageDialog(Activity activity, String base64) {
         //展示在dialog上面的大图
-        Dialog dialog = new Dialog(activity,R.style.AllScreenImage);
+        Dialog dialog = new Dialog(activity, R.style.AllScreenImage);
 
         WindowManager.LayoutParams attributes = activity.getWindow().getAttributes();
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT;

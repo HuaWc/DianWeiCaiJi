@@ -12,8 +12,6 @@ import com.hwc.dwcj.base.MyApplication;
 import com.hwc.dwcj.entity.second.WorkOrderUser;
 import com.zds.base.util.StringUtil;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -122,8 +120,8 @@ public class WorkOrderUserAdapter extends BaseQuickAdapter<WorkOrderUser, BaseVi
         }
 
         StringBuilder nameBuilder = new StringBuilder(item.getAlarmName());
-        if (!StringUtil.isEmpty(item.getMap().getManageIp())) {
-            nameBuilder.append("（").append(item.getMap().getManageIp()).append("）");
+        if (!StringUtil.isEmpty(item.getMap().getOperationIP())) {
+            nameBuilder.append("（").append(item.getMap().getOperationIP()).append("）");
         }
 
 

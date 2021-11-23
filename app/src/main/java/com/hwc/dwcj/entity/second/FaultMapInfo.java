@@ -360,10 +360,12 @@ public class FaultMapInfo {
         private String assetTypeName;
         private String positionCode;
         private String assetClass;
+        private int isSync;
         private String deviceStatus;
         private String selectAssetType;
         private String orgType;
         private String alarmSourceName;
+        private int repeat;
         private String deviceStatusName;
         private String assetClassName;
         private String handlePersionName;
@@ -372,15 +374,49 @@ public class FaultMapInfo {
         private String alarmGradeName;
         private String alarmTime;
         private String verifyPersonName;
+        private String alarmName;
+        private String deviceCode;
         private String picture;
         private String assetType;
         private String verifyStatusName;
         private String closedLoopStatusName;
         private String timeoutTime;
-        private String manageIp;
+        private String operationIP;
         @SerializedName("FaultTime")
         private double faultTime;
         private String assetName;
+
+        public String getDeviceCode() {
+            return deviceCode;
+        }
+
+        public void setDeviceCode(String deviceCode) {
+            this.deviceCode = deviceCode;
+        }
+
+        public String getAlarmName() {
+            return alarmName;
+        }
+
+        public void setAlarmName(String alarmName) {
+            this.alarmName = alarmName;
+        }
+
+        public int getRepeat() {
+            return repeat;
+        }
+
+        public void setRepeat(int repeat) {
+            this.repeat = repeat;
+        }
+
+        public int getIsSync() {
+            return isSync;
+        }
+
+        public void setIsSync(int isSync) {
+            this.isSync = isSync;
+        }
 
         public String getPicture() {
             return picture;
@@ -566,12 +602,12 @@ public class FaultMapInfo {
             this.timeoutTime = timeoutTime;
         }
 
-        public String getManageIp() {
-            return manageIp;
+        public String getOperationIP() {
+            return operationIP;
         }
 
-        public void setManageIp(String manageIp) {
-            this.manageIp = manageIp;
+        public void setOperationIP(String operationIP) {
+            this.operationIP = operationIP;
         }
 
         public double getFaultTime() {

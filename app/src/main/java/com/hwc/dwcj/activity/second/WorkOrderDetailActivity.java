@@ -1,28 +1,19 @@
 package com.hwc.dwcj.activity.second;
 
-import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
 import com.hwc.dwcj.R;
 import com.hwc.dwcj.adapter.AdapterCameraPhoto;
 import com.hwc.dwcj.base.BaseActivity;
 import com.hwc.dwcj.base.MyApplication;
-import com.hwc.dwcj.entity.Base64ImgEntity;
 import com.hwc.dwcj.entity.DictInfo;
 import com.hwc.dwcj.entity.second.FaultAssetInfo;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
@@ -152,11 +143,22 @@ public class WorkOrderDetailActivity extends BaseActivity {
     RecyclerView rv2;
     @BindView(R.id.rv1)
     RecyclerView rv1;
+    @BindView(R.id.tv_run_environment)
+    TextView tvRunEnvironment;
+    @BindView(R.id.tv_repeat_times)
+    TextView tvRepeatTimes;
+    @BindView(R.id.ll_repeat)
+    LinearLayout llRepeat;
+    @BindView(R.id.tv_time_limit)
+    TextView tvTimeLimit;
+    @BindView(R.id.tv_check_similar)
+    TextView tvCheckSimilar;
+    @BindView(R.id.ll_similar_part)
+    LinearLayout llSimilarPart;
 
     private String id;
     private FaultMapInfo info;
     private FaultAssetInfo asset;
-
 
 
     private List<String> photo2;
@@ -164,6 +166,8 @@ public class WorkOrderDetailActivity extends BaseActivity {
 
     private List<String> ftPhotos;//工单附图
     private AdapterCameraPhoto ftAdapter;
+
+    private boolean isRepeat;//是否从类似的进来
 
     @Override
     protected void initContentView(Bundle bundle) {
@@ -188,7 +192,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
         adapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this,photo2.get(position));
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this, photo2.get(position));
             }
         });
         getData();
@@ -199,7 +203,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
-                if("null".equals(str)){
+                if ("null".equals(str)) {
                     ToastUtil.toast("服务器中没有对应图片，获取工单处理附图失败！");
                     return;
                 }
@@ -218,7 +222,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
         ApiClient.requestNetGet(this, AppConfig.OpFaultInfoInfo, "加载中", hashMap, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                if(StringUtil.isEmpty(json)){
+                if (StringUtil.isEmpty(json)) {
                     ToastUtil.toast("暂无数据！");
                     return;
                 }
@@ -254,7 +258,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
         tv9.setText(StringUtil.isEmpty(info.getMap().getOrgName()) ? "" : info.getMap().getOrgName());
         tv10.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
         tv11.setText(StringUtil.isEmpty(info.getMap().getPositionCode()) ? "" : info.getMap().getPositionCode());
-        tv12.setText(StringUtil.isEmpty(info.getMap().getManageIp()) ? "" : info.getMap().getManageIp());
+        tv12.setText(StringUtil.isEmpty(info.getMap().getOperationIP()) ? "" : info.getMap().getOperationIP());
         tv13.setText(StringUtil.isEmpty(info.getAlarmTime()) ? "" : StringUtil.dealDateFormat(info.getAlarmTime()));//发生时间
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
@@ -287,6 +291,24 @@ public class WorkOrderDetailActivity extends BaseActivity {
         tv40.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());
         tv35.setText(StringUtil.isEmpty(info.getMap().getVerifyStatusName()) ? "" : info.getMap().getVerifyStatusName());
 
+        if (String.valueOf(info.getMap().getIsSync()).endsWith("0")) {
+            tvRunEnvironment.setText("视频网");
+        } else if (String.valueOf(info.getMap().getIsSync()).endsWith("1")) {
+            tvRunEnvironment.setText("公安网");
+        } else {
+            tvRunEnvironment.setText("未知");
+        }
+
+        tvRepeatTimes.setText(String.valueOf(info.getMap().getRepeat()));
+        llRepeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("deviceCode", info.getMap().getDeviceCode());
+                bundle.putString("alarmName", info.getMap().getAlarmName());
+                toTheActivity(RepeatAlertListActivity.class, bundle);
+            }
+        });
         if (!StringUtil.isEmpty(info.getMap().getVerifyStatusName())) {
             if (info.getMap().getVerifyStatusName().equals("审核通过")) {
                 //通过 有分数
@@ -305,7 +327,17 @@ public class WorkOrderDetailActivity extends BaseActivity {
             tv36.setText(StringUtil.isEmpty(info.getMap().getVerifyPersonName()) ? "" : info.getMap().getVerifyPersonName());//审核人
             tv37.setText(StringUtil.isEmpty(info.getVerifyTime()) ? "" : StringUtil.dealDateFormat(info.getVerifyTime()));//审核时间
         }
-
+        llSimilarPart.setVisibility(isRepeat?View.GONE:View.VISIBLE);
+        tvTimeLimit.setText(StringUtil.isEmpty(info.getDeadlineTime()) ? "" : StringUtil.dealDateFormat(info.getDeadlineTime()));
+        tvCheckSimilar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("assetId", info.getAssetId());
+                bundle.putString("alarmName", info.getAlarmName());
+                toTheActivity(SimilarWorkOrderActivity.class, bundle);
+            }
+        });
         getPhotoData();
     }
 
@@ -320,14 +352,14 @@ public class WorkOrderDetailActivity extends BaseActivity {
         ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this,ftPhotos.get(position));
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderDetailActivity.this, ftPhotos.get(position));
             }
         });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
-                if("null".equals(str)){
+                if ("null".equals(str)) {
                     ToastUtil.toast("服务器中没有对应图片，获取失败！");
                     return;
                 }
@@ -386,6 +418,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
     @Override
     protected void getBundleExtras(Bundle extras) {
         id = extras.getString("id");
+        isRepeat = extras.getBoolean("isRepeat", false);
 
     }
 

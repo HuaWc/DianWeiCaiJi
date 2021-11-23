@@ -363,7 +363,7 @@ public class WorkOrderUser {
         private String assetType;
         private String deviceStatus;
         private String orgType;
-        private String manageIp;
+        private String operationIP;
         private String handle_person_id_zb;
         private String assetName;
         private String assetClassName;
@@ -483,12 +483,12 @@ public class WorkOrderUser {
             this.orgType = orgType;
         }
 
-        public String getManageIp() {
-            return manageIp;
+        public String getOperationIP() {
+            return operationIP;
         }
 
-        public void setManageIp(String manageIp) {
-            this.manageIp = manageIp;
+        public void setOperationIP(String operationIP) {
+            this.operationIP = operationIP;
         }
 
         public String getHandle_person_id_zb() {

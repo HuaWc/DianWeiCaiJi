@@ -22,7 +22,6 @@ import com.hwc.dwcj.entity.second.FaultAssetInfo;
 import com.hwc.dwcj.entity.second.FaultMapInfo;
 import com.hwc.dwcj.http.ApiClient;
 import com.hwc.dwcj.http.AppConfig;
-import com.hwc.dwcj.http.GetCameraImgHttp;
 import com.hwc.dwcj.http.GetDictDataHttp;
 import com.hwc.dwcj.http.GetWorkOrderImgHttp;
 import com.hwc.dwcj.http.ResultListener;
@@ -168,7 +167,12 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     RecyclerView rv2;
     @BindView(R.id.rv1)
     RecyclerView rv1;
-
+    @BindView(R.id.tv_run_environment)
+    TextView tvRunEnvironment;
+    @BindView(R.id.tv_time_limit)
+    TextView tvTimeLimit;
+    @BindView(R.id.tv_check_similar)
+    TextView tvCheckSimilar;
     private String id;
     private FaultMapInfo info;
     private FaultAssetInfo asset;
@@ -176,7 +180,6 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     private int maxScore = 10;
     private int minScore = 1;
     private int type = 0;
-
 
 
     private List<String> photo2;
@@ -209,7 +212,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         adapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderProcessAuditActivity.this,photo2.get(position));
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderProcessAuditActivity.this, photo2.get(position));
             }
         });
         getData();
@@ -217,21 +220,21 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
     }
 
     private void getImgData() {
-            GetWorkOrderImgHttp.getImg(id, this, new GetWorkOrderImgHttp.ImgDataListener() {
-                @Override
-                public void result(String json) {
-                    String str = FastJsonUtil.getString(json, "imgPath");
-                    if("null".equals(str)){
-                        ToastUtil.toast("服务器中没有对应图片，获取工单处理附图失败！");
-                        return;
-                    }
-                    if (!StringUtil.isEmpty(str)) {
-                        photo2.addAll(Arrays.asList(str.split("!")));
-                        adapter2.notifyDataSetChanged();
-                    }
-
+        GetWorkOrderImgHttp.getImg(id, this, new GetWorkOrderImgHttp.ImgDataListener() {
+            @Override
+            public void result(String json) {
+                String str = FastJsonUtil.getString(json, "imgPath");
+                if ("null".equals(str)) {
+                    ToastUtil.toast("服务器中没有对应图片，获取工单处理附图失败！");
+                    return;
                 }
-            });
+                if (!StringUtil.isEmpty(str)) {
+                    photo2.addAll(Arrays.asList(str.split("!")));
+                    adapter2.notifyDataSetChanged();
+                }
+
+            }
+        });
     }
 
 
@@ -270,7 +273,7 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         tv9.setText(StringUtil.isEmpty(info.getMap().getOrgName()) ? "" : info.getMap().getOrgName());
         tv10.setText(StringUtil.isEmpty(info.getMap().getAssetName()) ? "" : info.getMap().getAssetName());
         tv11.setText(StringUtil.isEmpty(info.getMap().getPositionCode()) ? "" : info.getMap().getPositionCode());
-        tv12.setText(StringUtil.isEmpty(info.getMap().getManageIp()) ? "" : info.getMap().getManageIp());
+        tv12.setText(StringUtil.isEmpty(info.getMap().getOperationIP()) ? "" : info.getMap().getOperationIP());
         tv13.setText(StringUtil.isEmpty(info.getAlarmTime()) ? "" : StringUtil.dealDateFormat(info.getAlarmTime()));//发生时间
         tv14.setText(StringUtil.isEmpty(info.getAddTime()) ? "" : StringUtil.dealDateFormat(info.getAddTime()));//派单时间
         tv15.setText(StringUtil.isEmpty(info.getRecoverTime()) ? "" : StringUtil.dealDateFormat(info.getRecoverTime()));//恢复时间
@@ -295,7 +298,23 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         }
         tv30.setText(StringUtil.isEmpty(info.getMap().getHandlePersionName()) ? "" : info.getMap().getHandlePersionName());
         tv31.setText(StringUtil.isEmpty(info.getRemark()) ? "" : info.getRemark());
-
+        if (String.valueOf(info.getMap().getIsSync()).endsWith("0")) {
+            tvRunEnvironment.setText("视频网");
+        } else if (String.valueOf(info.getMap().getIsSync()).endsWith("1")) {
+            tvRunEnvironment.setText("公安网");
+        } else {
+            tvRunEnvironment.setText("未知");
+        }
+        tvTimeLimit.setText(StringUtil.isEmpty(info.getDeadlineTime()) ? "" : StringUtil.dealDateFormat(info.getDeadlineTime()));
+        tvCheckSimilar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("assetId",info.getAssetId());
+                bundle.putString("alarmName",info.getAlarmName());
+                toTheActivity(SimilarWorkOrderActivity.class,bundle);
+            }
+        });
         getPhotoData();
     }
 
@@ -310,14 +329,14 @@ public class WorkOrderProcessAuditActivity extends BaseActivity {
         ftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderProcessAuditActivity.this,ftPhotos.get(position));
+                MyApplication.getInstance().showAllScreenBase64ImageDialog(WorkOrderProcessAuditActivity.this, ftPhotos.get(position));
             }
         });
         GetWorkOrderImgHttp.getImgByFtpAddress(info.getMap().getPicture(), this, new GetWorkOrderImgHttp.ImgDataListener() {
             @Override
             public void result(String json) {
                 String str = FastJsonUtil.getString(json, "imgPath");
-                if("null".equals(str)){
+                if ("null".equals(str)) {
                     ToastUtil.toast("服务器中没有对应图片，获取失败！");
                     return;
                 }
